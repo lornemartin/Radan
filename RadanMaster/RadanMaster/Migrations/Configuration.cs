@@ -1,0 +1,40 @@
+namespace RadanMaster.Migrations
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+    using RadanMaster.Models;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<RadanMaster.DAL.RadanMasterContext>
+    {
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = true;
+        }
+
+        protected override void Seed(RadanMaster.DAL.RadanMasterContext context)
+        {
+            //  This method will be called after migrating to the latest version.
+
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data.
+
+            var parts = new List<Part>
+            {
+                new Part { FileName = "205SP-13(Front Axle Channel)", Description = "Front Axle Channel", Material = "Steel, Mild", Thickness = 0.25 },
+                new Part { FileName = "205SP-09(Rubber Spring Mount)", Description = "Rubber Spring Mount", Material = "Steel, Mild", Thickness = 0.25 },
+                new Part { FileName = "205SP-10(Rubber Spring Spacer)", Description = "Rubber Spring Spacer", Material = "Steel, Mild", Thickness = 0.25 },
+                new Part { FileName = "205SP-33(Rear Axle Channel)", Description = "Rear Axle Channel", Material = "Steel, Mild", Thickness = 0.25 },
+                new Part { FileName = "205SP-38", Description = "Steering Arm Reinforcing", Material = "Steel, Mild", Thickness = 0.25 }
+            };
+
+            parts.ForEach(p => context.Parts.AddOrUpdate(p2 => new { p2.FileName }, p));
+            context.SaveChanges();
+
+
+        }
+    }
+}

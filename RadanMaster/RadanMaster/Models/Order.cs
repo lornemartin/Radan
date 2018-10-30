@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 
 namespace RadanMaster.Models
 {
-    public class Part
+    public class Order
     {
         public int ID { get; set; }
         [Required]
-        public string FileName { get; set; }
-        public string Description { get; set; }
-        public string Material { get; set; }
-        public double Thickness { get; set; }
+        public string OrderNumber { get; set; }
+        public DateTime OrderEntryDate { get; set; }
+        public DateTime OrderDueDate { get; set; }
+        public bool IsComplete { get; set; }
+
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }
