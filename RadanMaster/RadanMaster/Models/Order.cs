@@ -10,12 +10,13 @@ namespace RadanMaster.Models
 {
     public class Order
     {
+        [Key]
         public int ID { get; set; }
-        [Required]
         public string OrderNumber { get; set; }
         public DateTime OrderEntryDate { get; set; }
         public DateTime OrderDueDate { get; set; }
         public bool IsComplete { get; set; }
+        public bool IsBatch { get; set; }
 
         public virtual ICollection<OrderItem> OrderItems { get; set; }
     }

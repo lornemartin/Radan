@@ -30,45 +30,121 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.orderItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colQty = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.partNameCol = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.PartDescCol = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.thicknessCol = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.materialCol = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOrderNum = new DevExpress.XtraGrid.Columns.GridColumn();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.skinRibbonGalleryBarItem1 = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgSkins = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.partsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFileName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDescription = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colMaterial = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colThickness = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.partsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // gridControl1
             // 
-            this.gridControl1.DataSource = this.partsBindingSource;
+            this.gridControl1.DataSource = this.orderItemsBindingSource;
             this.gridControl1.Location = new System.Drawing.Point(0, 166);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(821, 384);
+            this.gridControl1.Size = new System.Drawing.Size(1269, 384);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
+            // 
+            // orderItemsBindingSource
+            // 
+            this.orderItemsBindingSource.DataSource = typeof(RadanMaster.Models.OrderItem);
             // 
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colID,
-            this.colFileName,
-            this.colDescription,
-            this.colMaterial,
-            this.colThickness});
+            this.colQty,
+            this.partNameCol,
+            this.PartDescCol,
+            this.thicknessCol,
+            this.materialCol,
+            this.colIsComplete,
+            this.colOrderNum});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            // 
+            // colID
+            // 
+            this.colID.FieldName = "ID";
+            this.colID.Name = "colID";
+            // 
+            // colQty
+            // 
+            this.colQty.FieldName = "Qty";
+            this.colQty.Name = "colQty";
+            this.colQty.Visible = true;
+            this.colQty.VisibleIndex = 0;
+            this.colQty.Width = 61;
+            // 
+            // partNameCol
+            // 
+            this.partNameCol.Caption = "Part Name";
+            this.partNameCol.FieldName = "Part.FileName";
+            this.partNameCol.Name = "partNameCol";
+            this.partNameCol.Visible = true;
+            this.partNameCol.VisibleIndex = 1;
+            this.partNameCol.Width = 289;
+            // 
+            // PartDescCol
+            // 
+            this.PartDescCol.Caption = "Description";
+            this.PartDescCol.FieldName = "Part.Description";
+            this.PartDescCol.Name = "PartDescCol";
+            this.PartDescCol.Visible = true;
+            this.PartDescCol.VisibleIndex = 3;
+            this.PartDescCol.Width = 103;
+            // 
+            // thicknessCol
+            // 
+            this.thicknessCol.Caption = "Thickness";
+            this.thicknessCol.FieldName = "Part.Thickness";
+            this.thicknessCol.Name = "thicknessCol";
+            this.thicknessCol.Visible = true;
+            this.thicknessCol.VisibleIndex = 2;
+            this.thicknessCol.Width = 103;
+            // 
+            // materialCol
+            // 
+            this.materialCol.Caption = "Material";
+            this.materialCol.FieldName = "Part.Material";
+            this.materialCol.Name = "materialCol";
+            this.materialCol.Visible = true;
+            this.materialCol.VisibleIndex = 4;
+            this.materialCol.Width = 103;
+            // 
+            // colIsComplete
+            // 
+            this.colIsComplete.FieldName = "IsComplete";
+            this.colIsComplete.Name = "colIsComplete";
+            this.colIsComplete.Visible = true;
+            this.colIsComplete.VisibleIndex = 5;
+            this.colIsComplete.Width = 74;
+            // 
+            // colOrderNum
+            // 
+            this.colOrderNum.Caption = "Order Number";
+            this.colOrderNum.FieldName = "Order.OrderNumber";
+            this.colOrderNum.Name = "colOrderNum";
+            this.colOrderNum.Visible = true;
+            this.colOrderNum.VisibleIndex = 6;
+            this.colOrderNum.Width = 518;
             // 
             // ribbonControl1
             // 
@@ -81,7 +157,7 @@
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-            this.ribbonControl1.Size = new System.Drawing.Size(913, 143);
+            this.ribbonControl1.Size = new System.Drawing.Size(1329, 143);
             // 
             // skinRibbonGalleryBarItem1
             // 
@@ -102,59 +178,20 @@
             this.rpgSkins.Name = "rpgSkins";
             this.rpgSkins.Text = "Skins";
             // 
-            // partsBindingSource
-            // 
-            this.partsBindingSource.DataSource = typeof(RadanMaster.Models.Part);
-            // 
-            // colID
-            // 
-            this.colID.FieldName = "ID";
-            this.colID.Name = "colID";
-            this.colID.Visible = true;
-            this.colID.VisibleIndex = 0;
-            // 
-            // colFileName
-            // 
-            this.colFileName.FieldName = "FileName";
-            this.colFileName.Name = "colFileName";
-            this.colFileName.Visible = true;
-            this.colFileName.VisibleIndex = 1;
-            // 
-            // colDescription
-            // 
-            this.colDescription.FieldName = "Description";
-            this.colDescription.Name = "colDescription";
-            this.colDescription.Visible = true;
-            this.colDescription.VisibleIndex = 2;
-            // 
-            // colMaterial
-            // 
-            this.colMaterial.FieldName = "Material";
-            this.colMaterial.Name = "colMaterial";
-            this.colMaterial.Visible = true;
-            this.colMaterial.VisibleIndex = 3;
-            // 
-            // colThickness
-            // 
-            this.colThickness.FieldName = "Thickness";
-            this.colThickness.Name = "colThickness";
-            this.colThickness.Visible = true;
-            this.colThickness.VisibleIndex = 4;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(913, 650);
+            this.ClientSize = new System.Drawing.Size(1329, 559);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.ribbonControl1);
             this.Name = "Form1";
             this.Ribbon = this.ribbonControl1;
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.partsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,11 +206,14 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup rpgSkins;
         private DevExpress.XtraBars.SkinRibbonGalleryBarItem skinRibbonGalleryBarItem1;
-        private System.Windows.Forms.BindingSource partsBindingSource;
+        private DevExpress.XtraGrid.Columns.GridColumn colIsComplete;
+        private DevExpress.XtraGrid.Columns.GridColumn colQty;
+        private DevExpress.XtraGrid.Columns.GridColumn colOrderNum;
         private DevExpress.XtraGrid.Columns.GridColumn colID;
-        private DevExpress.XtraGrid.Columns.GridColumn colFileName;
-        private DevExpress.XtraGrid.Columns.GridColumn colDescription;
-        private DevExpress.XtraGrid.Columns.GridColumn colMaterial;
-        private DevExpress.XtraGrid.Columns.GridColumn colThickness;
+        private System.Windows.Forms.BindingSource orderItemsBindingSource;
+        private DevExpress.XtraGrid.Columns.GridColumn partNameCol;
+        private DevExpress.XtraGrid.Columns.GridColumn thicknessCol;
+        private DevExpress.XtraGrid.Columns.GridColumn PartDescCol;
+        private DevExpress.XtraGrid.Columns.GridColumn materialCol;
     }
 }

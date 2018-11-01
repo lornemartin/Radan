@@ -70,13 +70,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201810301813545_InitialCreate.cs" />
-    <Compile Include="Migrations\201810301813545_InitialCreate.Designer.cs">
-      <DependentUpon>201810301813545_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810301815195_InitialCreate1.cs" />
-    <Compile Include="Migrations\201810301815195_InitialCreate1.Designer.cs">
-      <DependentUpon>201810301815195_InitialCreate1.cs</DependentUpon>
+    <Compile Include="Migrations\201811011904570_InitialCreate.cs" />
+    <Compile Include="Migrations\201811011904570_InitialCreate.Designer.cs">
+      <DependentUpon>201811011904570_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Batch.cs" />
@@ -89,11 +85,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810301813545_InitialCreate.resx">
-      <DependentUpon>201810301813545_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810301815195_InitialCreate1.resx">
-      <DependentUpon>201810301815195_InitialCreate1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811011904570_InitialCreate.resx">
+      <DependentUpon>201811011904570_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

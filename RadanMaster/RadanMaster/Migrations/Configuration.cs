@@ -34,6 +34,26 @@ namespace RadanMaster.Migrations
             parts.ForEach(p => context.Parts.AddOrUpdate(p2 => new { p2.FileName }, p));
             context.SaveChanges();
 
+            var orders = new List<Order>
+            {
+                new Order { OrderNumber = "A123456", OrderEntryDate = DateTime.Now, OrderDueDate = DateTime.Now, IsComplete = false, IsBatch = false }
+            };
+
+            orders.ForEach(o => context.Orders.AddOrUpdate(o2 => new { o2.OrderNumber }, o));
+            context.SaveChanges();
+
+            var orderItems = new List<OrderItem>
+            {
+                new OrderItem { Order = orders[0], IsComplete = false, Qty = 1, Part = parts[0] },
+                new OrderItem { Order = orders[0], IsComplete = false, Qty = 1, Part = parts[1] },
+                new OrderItem { Order = orders[0], IsComplete = false, Qty = 1, Part = parts[2] },
+                new OrderItem { Order = orders[0], IsComplete = false, Qty = 1, Part = parts[3] },
+                new OrderItem { Order = orders[0], IsComplete = false, Qty = 1, Part = parts[4] },
+            };
+
+            orderItems.ForEach(oi => context.OrderItems.AddOrUpdate(oi2 => new { oi2.ID }, oi));
+            context.SaveChanges();
+
 
         }
     }

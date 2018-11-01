@@ -10,8 +10,8 @@ namespace RadanMaster.Models
 {
     public class Batch
     {
+        [Key]
         public int ID { get; set; }
-        [Required]
         public DateTime ReleaseDate { get; set; }
         public bool IsComplete { get; set; }
 
