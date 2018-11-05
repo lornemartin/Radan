@@ -41,6 +41,7 @@
             this.materialCol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOrderNum = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.IsBatch = new DevExpress.XtraGrid.Columns.GridColumn();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.skinRibbonGalleryBarItem1 = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
@@ -50,10 +51,18 @@
             this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
             this.btnAddItem = new System.Windows.Forms.Button();
             this.openFileDialogAddItem = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialogProject = new System.Windows.Forms.OpenFileDialog();
+            this.grpBoxRadanProject = new System.Windows.Forms.GroupBox();
+            this.btnSyncProject = new System.Windows.Forms.Button();
+            this.btnSendSelectionToProject = new System.Windows.Forms.Button();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtBoxRadanProject = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
+            this.grpBoxRadanProject.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridControl1
@@ -82,9 +91,11 @@
             this.thicknessCol,
             this.materialCol,
             this.colIsComplete,
-            this.colOrderNum});
+            this.colOrderNum,
+            this.IsBatch});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsSelection.MultiSelect = true;
             // 
             // colID
             // 
@@ -161,6 +172,14 @@
             this.colOrderNum.VisibleIndex = 7;
             this.colOrderNum.Width = 500;
             // 
+            // IsBatch
+            // 
+            this.IsBatch.Caption = "Is Batch";
+            this.IsBatch.FieldName = "Order.IsBatch";
+            this.IsBatch.Name = "IsBatch";
+            this.IsBatch.Visible = true;
+            this.IsBatch.VisibleIndex = 8;
+            // 
             // ribbonControl1
             // 
             this.ribbonControl1.ExpandCollapseItem.Id = 0;
@@ -172,7 +191,7 @@
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-            this.ribbonControl1.Size = new System.Drawing.Size(1329, 143);
+            this.ribbonControl1.Size = new System.Drawing.Size(1337, 143);
             // 
             // skinRibbonGalleryBarItem1
             // 
@@ -205,7 +224,7 @@
             // 
             // btnAddItem
             // 
-            this.btnAddItem.Location = new System.Drawing.Point(148, 565);
+            this.btnAddItem.Location = new System.Drawing.Point(33, 613);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(75, 23);
             this.btnAddItem.TabIndex = 4;
@@ -213,11 +232,73 @@
             this.btnAddItem.UseVisualStyleBackColor = true;
             this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
             // 
+            // grpBoxRadanProject
+            // 
+            this.grpBoxRadanProject.Controls.Add(this.btnSyncProject);
+            this.grpBoxRadanProject.Controls.Add(this.btnSendSelectionToProject);
+            this.grpBoxRadanProject.Controls.Add(this.btnBrowse);
+            this.grpBoxRadanProject.Controls.Add(this.label1);
+            this.grpBoxRadanProject.Controls.Add(this.txtBoxRadanProject);
+            this.grpBoxRadanProject.Location = new System.Drawing.Point(292, 565);
+            this.grpBoxRadanProject.Name = "grpBoxRadanProject";
+            this.grpBoxRadanProject.Size = new System.Drawing.Size(546, 162);
+            this.grpBoxRadanProject.TabIndex = 6;
+            this.grpBoxRadanProject.TabStop = false;
+            this.grpBoxRadanProject.Text = "Radan Project";
+            // 
+            // btnSyncProject
+            // 
+            this.btnSyncProject.Enabled = false;
+            this.btnSyncProject.Location = new System.Drawing.Point(108, 63);
+            this.btnSyncProject.Name = "btnSyncProject";
+            this.btnSyncProject.Size = new System.Drawing.Size(75, 49);
+            this.btnSyncProject.TabIndex = 3;
+            this.btnSyncProject.Text = "Sync Project";
+            this.btnSyncProject.UseVisualStyleBackColor = true;
+            this.btnSyncProject.Click += new System.EventHandler(this.btnSyncProject_Click);
+            // 
+            // btnSendSelectionToProject
+            // 
+            this.btnSendSelectionToProject.Enabled = false;
+            this.btnSendSelectionToProject.Location = new System.Drawing.Point(10, 63);
+            this.btnSendSelectionToProject.Name = "btnSendSelectionToProject";
+            this.btnSendSelectionToProject.Size = new System.Drawing.Size(75, 49);
+            this.btnSendSelectionToProject.TabIndex = 3;
+            this.btnSendSelectionToProject.Text = "Send Selection To Project";
+            this.btnSendSelectionToProject.UseVisualStyleBackColor = true;
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Location = new System.Drawing.Point(410, 19);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowse.TabIndex = 2;
+            this.btnBrowse.Text = "Browse...";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(94, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Radan Project File";
+            // 
+            // txtBoxRadanProject
+            // 
+            this.txtBoxRadanProject.Location = new System.Drawing.Point(118, 21);
+            this.txtBoxRadanProject.Name = "txtBoxRadanProject";
+            this.txtBoxRadanProject.Size = new System.Drawing.Size(270, 21);
+            this.txtBoxRadanProject.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1329, 685);
+            this.ClientSize = new System.Drawing.Size(1337, 739);
+            this.Controls.Add(this.grpBoxRadanProject);
             this.Controls.Add(this.btnAddItem);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.gridControl1);
@@ -229,6 +310,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
+            this.grpBoxRadanProject.ResumeLayout(false);
+            this.grpBoxRadanProject.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -257,5 +340,13 @@
         private System.Windows.Forms.OpenFileDialog openFileDialogImport;
         private System.Windows.Forms.Button btnAddItem;
         private System.Windows.Forms.OpenFileDialog openFileDialogAddItem;
+        private DevExpress.XtraGrid.Columns.GridColumn IsBatch;
+        private System.Windows.Forms.OpenFileDialog openFileDialogProject;
+        private System.Windows.Forms.GroupBox grpBoxRadanProject;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtBoxRadanProject;
+        private System.Windows.Forms.Button btnSyncProject;
+        private System.Windows.Forms.Button btnSendSelectionToProject;
     }
 }

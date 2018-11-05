@@ -17,6 +17,7 @@ namespace RadanMaster.Models
         public bool IsComplete { get; set; }
         public int QtyRequired { get; set; }
         public int QtyNested { get; set; }
+        public bool IsInProject { get; set; }
 
         public Part Part { get; set; }
         public int PartID { get; set; }
