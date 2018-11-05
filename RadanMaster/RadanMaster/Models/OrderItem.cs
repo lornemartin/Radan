@@ -15,9 +15,12 @@ namespace RadanMaster.Models
         public Order Order { get; set; }
         public int OrderID { get; set; }
         public bool IsComplete { get; set; }
-        public int Qty { get; set; }
+        public int QtyRequired { get; set; }
+        public int QtyNested { get; set; }
 
         public Part Part { get; set; }
         public int PartID { get; set; }
+
+        public virtual ICollection<Nest> AssociatedNests { get; set; }
     }
 }

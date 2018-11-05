@@ -35,19 +35,37 @@
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v17.2" />
     <Reference Include="DevExpress.Data.v17.2" />
+    <Reference Include="DevExpress.Dialogs.v17.2.Core, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v17.2" />
     <Reference Include="DevExpress.Sparkline.v17.2.Core" />
+    <Reference Include="DevExpress.XtraDialogs.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v17.2" />
     <Reference Include="DevExpress.XtraBars.v17.2" />
     <Reference Include="DevExpress.XtraGrid.v17.2" />
     <Reference Include="DevExpress.XtraLayout.v17.2" />
     <Reference Include="DevExpress.XtraPrinting.v17.2" />
     <Reference Include="DevExpress.Printing.v17.2.Core" />
+    <Reference Include="DevExpress.XtraTreeList.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.DocumentObjectModel">
+      <HintPath>..\..\..\Vault Interface Projects\VaultItemProcessor\packages\PDFsharp-MigraDoc.1.50.4589-beta4\lib\net20\MigraDoc.DocumentObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.Rendering">
+      <HintPath>..\..\..\Vault Interface Projects\VaultItemProcessor\packages\PDFsharp-MigraDoc.1.50.4589-beta4\lib\net20\MigraDoc.Rendering.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.RtfRendering">
+      <HintPath>..\..\..\Vault Interface Projects\VaultItemProcessor\packages\PDFsharp-MigraDoc.1.50.4589-beta4\lib\net20\MigraDoc.RtfRendering.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp">
+      <HintPath>..\..\..\Vault Interface Projects\VaultItemProcessor\packages\PDFsharp-MigraDoc.1.50.4589-beta4\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting">
+      <HintPath>..\..\..\Vault Interface Projects\VaultItemProcessor\packages\PDFsharp-MigraDoc.1.50.4589-beta4\lib\net20\PdfSharp.Charting.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -62,6 +80,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DailySchedule\AggregateLineItem.cs" />
+    <Compile Include="DailySchedule\AppSettings.cs" />
+    <Compile Include="DailySchedule\DailyScheduleAggregate.cs" />
+    <Compile Include="DailySchedule\ExportLineItem.cs" />
+    <Compile Include="DailySchedule\ProcessPDF.cs" />
     <Compile Include="DAL\ObserveableListSource.cs" />
     <Compile Include="DAL\RadanMasterContext.cs" />
     <Compile Include="Form1.cs">
@@ -70,13 +93,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811011904570_InitialCreate.cs" />
-    <Compile Include="Migrations\201811011904570_InitialCreate.Designer.cs">
-      <DependentUpon>201811011904570_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201811051658198_InitialCreate.cs" />
+    <Compile Include="Migrations\201811051658198_InitialCreate.Designer.cs">
+      <DependentUpon>201811051658198_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Batch.cs" />
-    <Compile Include="Models\BatchItem.cs" />
+    <Compile Include="Models\Nest.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Part.cs" />
@@ -85,8 +107,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811011904570_InitialCreate.resx">
-      <DependentUpon>201811011904570_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811051658198_InitialCreate.resx">
+      <DependentUpon>201811051658198_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -98,7 +120,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -109,6 +133,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\RadanInterface2\RadanInterface2.csproj">
+      <Project>{33aab76e-ffab-4b0c-b6a4-f66d4726195a}</Project>
+      <Name>RadanInterface2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RadanProject\RadanProject.csproj">
+      <Project>{2ee4097d-e0fe-4a4b-b913-dd38fee62fce}</Project>
+      <Name>RadanProject</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

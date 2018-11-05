@@ -484,5 +484,40 @@ namespace RadanInterface2
             }
             return "Error, No Material Specified.";
         }
+
+        public string GetDescriptionFromSym(string fileName)
+        {
+            XmlDocument doc = new XmlDocument();
+
+            if (System.IO.File.Exists(fileName))
+            {
+                doc.Load(fileName);
+            }
+            else
+            {
+                return "";
+            }
+
+            // cycle through each child node
+            foreach (XmlNode node in doc.DocumentElement.FirstChild)
+            {
+                if (node.InnerXml.Contains("Part Description"))
+                {
+                    foreach (XmlNode subNode in node)
+                    {
+                        if (subNode.OuterXml.Contains("Part Description"))
+                        {
+                            if (subNode.Value != null)
+                            {
+                                string attr = subNode.Attributes["value"].Value;
+                                return attr;
+                            }
+                        }
+                    }
+                }
+
+            }
+            return "";
+        }
     }
 }

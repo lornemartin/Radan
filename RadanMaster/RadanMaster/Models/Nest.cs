@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace RadanMaster.Models
 {
-    public class Batch
+    public class Nest
     {
         [Key]
         public int ID { get; set; }
-        public DateTime ReleaseDate { get; set; }
-        public bool IsComplete { get; set; }
+        public string nestName { get; set; }
+        public string nestPath { get; set; }
 
-        public virtual ICollection<BatchItem> BatchItems { get; set; }
+        public virtual ICollection<OrderItem> nestedItems { get; set; }
     }
 }

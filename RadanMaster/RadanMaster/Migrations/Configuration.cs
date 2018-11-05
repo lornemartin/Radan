@@ -44,11 +44,10 @@ namespace RadanMaster.Migrations
 
             var orderItems = new List<OrderItem>
             {
-                new OrderItem { Order = orders[0], IsComplete = false, Qty = 1, Part = parts[0] },
-                new OrderItem { Order = orders[0], IsComplete = false, Qty = 1, Part = parts[1] },
-                new OrderItem { Order = orders[0], IsComplete = false, Qty = 1, Part = parts[2] },
-                new OrderItem { Order = orders[0], IsComplete = false, Qty = 1, Part = parts[3] },
-                new OrderItem { Order = orders[0], IsComplete = false, Qty = 1, Part = parts[4] },
+                new OrderItem { Order = orders[0], IsComplete = false, QtyRequired = 1,QtyNested = 0, Part = parts[0] },
+                new OrderItem { Order = orders[0], IsComplete = false, QtyRequired = 3,QtyNested = 0, Part = parts[1] },
+                new OrderItem { Order = orders[0], IsComplete = false, QtyRequired = 10,QtyNested = 0, Part = parts[3] },
+                new OrderItem { Order = orders[0], IsComplete = false, QtyRequired = 199,QtyNested = 0, Part = parts[4] }
             };
 
             orderItems.ForEach(oi => context.OrderItems.AddOrUpdate(oi2 => new { oi2.ID }, oi));

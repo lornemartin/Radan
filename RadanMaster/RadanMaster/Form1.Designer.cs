@@ -33,7 +33,8 @@
             this.orderItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colQty = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colQtyRequired = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colQtyNested = new DevExpress.XtraGrid.Columns.GridColumn();
             this.partNameCol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.PartDescCol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.thicknessCol = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -45,6 +46,10 @@
             this.skinRibbonGalleryBarItem1 = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgSkins = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
+            this.btnAddItem = new System.Windows.Forms.Button();
+            this.openFileDialogAddItem = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -54,7 +59,7 @@
             // gridControl1
             // 
             this.gridControl1.DataSource = this.orderItemsBindingSource;
-            this.gridControl1.Location = new System.Drawing.Point(0, 166);
+            this.gridControl1.Location = new System.Drawing.Point(0, 149);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.Size = new System.Drawing.Size(1269, 384);
@@ -70,7 +75,8 @@
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colID,
-            this.colQty,
+            this.colQtyRequired,
+            this.colQtyNested,
             this.partNameCol,
             this.PartDescCol,
             this.thicknessCol,
@@ -85,13 +91,22 @@
             this.colID.FieldName = "ID";
             this.colID.Name = "colID";
             // 
-            // colQty
+            // colQtyRequired
             // 
-            this.colQty.FieldName = "Qty";
-            this.colQty.Name = "colQty";
-            this.colQty.Visible = true;
-            this.colQty.VisibleIndex = 0;
-            this.colQty.Width = 61;
+            this.colQtyRequired.FieldName = "QtyRequired";
+            this.colQtyRequired.Name = "colQtyRequired";
+            this.colQtyRequired.Visible = true;
+            this.colQtyRequired.VisibleIndex = 0;
+            this.colQtyRequired.Width = 57;
+            // 
+            // colQtyNested
+            // 
+            this.colQtyNested.Caption = "Qty Nested";
+            this.colQtyNested.FieldName = "QtyNested";
+            this.colQtyNested.Name = "colQtyNested";
+            this.colQtyNested.Visible = true;
+            this.colQtyNested.VisibleIndex = 1;
+            this.colQtyNested.Width = 56;
             // 
             // partNameCol
             // 
@@ -99,8 +114,8 @@
             this.partNameCol.FieldName = "Part.FileName";
             this.partNameCol.Name = "partNameCol";
             this.partNameCol.Visible = true;
-            this.partNameCol.VisibleIndex = 1;
-            this.partNameCol.Width = 289;
+            this.partNameCol.VisibleIndex = 2;
+            this.partNameCol.Width = 275;
             // 
             // PartDescCol
             // 
@@ -108,8 +123,8 @@
             this.PartDescCol.FieldName = "Part.Description";
             this.PartDescCol.Name = "PartDescCol";
             this.PartDescCol.Visible = true;
-            this.PartDescCol.VisibleIndex = 3;
-            this.PartDescCol.Width = 103;
+            this.PartDescCol.VisibleIndex = 4;
+            this.PartDescCol.Width = 98;
             // 
             // thicknessCol
             // 
@@ -117,8 +132,8 @@
             this.thicknessCol.FieldName = "Part.Thickness";
             this.thicknessCol.Name = "thicknessCol";
             this.thicknessCol.Visible = true;
-            this.thicknessCol.VisibleIndex = 2;
-            this.thicknessCol.Width = 103;
+            this.thicknessCol.VisibleIndex = 3;
+            this.thicknessCol.Width = 98;
             // 
             // materialCol
             // 
@@ -126,16 +141,16 @@
             this.materialCol.FieldName = "Part.Material";
             this.materialCol.Name = "materialCol";
             this.materialCol.Visible = true;
-            this.materialCol.VisibleIndex = 4;
-            this.materialCol.Width = 103;
+            this.materialCol.VisibleIndex = 5;
+            this.materialCol.Width = 98;
             // 
             // colIsComplete
             // 
             this.colIsComplete.FieldName = "IsComplete";
             this.colIsComplete.Name = "colIsComplete";
             this.colIsComplete.Visible = true;
-            this.colIsComplete.VisibleIndex = 5;
-            this.colIsComplete.Width = 74;
+            this.colIsComplete.VisibleIndex = 6;
+            this.colIsComplete.Width = 69;
             // 
             // colOrderNum
             // 
@@ -143,8 +158,8 @@
             this.colOrderNum.FieldName = "Order.OrderNumber";
             this.colOrderNum.Name = "colOrderNum";
             this.colOrderNum.Visible = true;
-            this.colOrderNum.VisibleIndex = 6;
-            this.colOrderNum.Width = 518;
+            this.colOrderNum.VisibleIndex = 7;
+            this.colOrderNum.Width = 500;
             // 
             // ribbonControl1
             // 
@@ -178,16 +193,38 @@
             this.rpgSkins.Name = "rpgSkins";
             this.rpgSkins.Text = "Skins";
             // 
+            // btnImport
+            // 
+            this.btnImport.Location = new System.Drawing.Point(33, 565);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(75, 23);
+            this.btnImport.TabIndex = 2;
+            this.btnImport.Text = "Import...";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // btnAddItem
+            // 
+            this.btnAddItem.Location = new System.Drawing.Point(148, 565);
+            this.btnAddItem.Name = "btnAddItem";
+            this.btnAddItem.Size = new System.Drawing.Size(75, 23);
+            this.btnAddItem.TabIndex = 4;
+            this.btnAddItem.Text = "Add  Item";
+            this.btnAddItem.UseVisualStyleBackColor = true;
+            this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1329, 559);
+            this.ClientSize = new System.Drawing.Size(1329, 685);
+            this.Controls.Add(this.btnAddItem);
+            this.Controls.Add(this.btnImport);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.ribbonControl1);
             this.Name = "Form1";
             this.Ribbon = this.ribbonControl1;
-            this.Text = "Form1";
+            this.Text = "RadanMaster";
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
@@ -207,7 +244,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup rpgSkins;
         private DevExpress.XtraBars.SkinRibbonGalleryBarItem skinRibbonGalleryBarItem1;
         private DevExpress.XtraGrid.Columns.GridColumn colIsComplete;
-        private DevExpress.XtraGrid.Columns.GridColumn colQty;
+        private DevExpress.XtraGrid.Columns.GridColumn colQtyRequired;
         private DevExpress.XtraGrid.Columns.GridColumn colOrderNum;
         private DevExpress.XtraGrid.Columns.GridColumn colID;
         private System.Windows.Forms.BindingSource orderItemsBindingSource;
@@ -215,5 +252,10 @@
         private DevExpress.XtraGrid.Columns.GridColumn thicknessCol;
         private DevExpress.XtraGrid.Columns.GridColumn PartDescCol;
         private DevExpress.XtraGrid.Columns.GridColumn materialCol;
+        private DevExpress.XtraGrid.Columns.GridColumn colQtyNested;
+        private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.OpenFileDialog openFileDialogImport;
+        private System.Windows.Forms.Button btnAddItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialogAddItem;
     }
 }
