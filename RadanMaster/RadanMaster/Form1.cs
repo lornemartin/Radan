@@ -206,6 +206,7 @@ namespace RadanMaster
 
         private void btnSyncProject_Click(object sender, EventArgs e)
         {
+
         }
     }
 }
