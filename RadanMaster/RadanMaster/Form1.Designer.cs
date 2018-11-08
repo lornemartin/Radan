@@ -76,10 +76,6 @@
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
-            // orderItemsBindingSource
-            // 
-            this.orderItemsBindingSource.DataSource = typeof(RadanMaster.Models.OrderItem);
-            // 
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
@@ -266,6 +262,7 @@
             this.btnSendSelectionToProject.TabIndex = 3;
             this.btnSendSelectionToProject.Text = "Send Selection To Project";
             this.btnSendSelectionToProject.UseVisualStyleBackColor = true;
+            this.btnSendSelectionToProject.Click += new System.EventHandler(this.btnSendSelectionToProject_Click);
             // 
             // btnBrowse
             // 

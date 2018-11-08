@@ -99,13 +99,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811051913273_InitialCreate.cs" />
-    <Compile Include="Migrations\201811051913273_InitialCreate.Designer.cs">
-      <DependentUpon>201811051913273_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811052003559_added IsInProject field to Orderitem Table.cs" />
-    <Compile Include="Migrations\201811052003559_added IsInProject field to Orderitem Table.Designer.cs">
-      <DependentUpon>201811052003559_added IsInProject field to Orderitem Table.cs</DependentUpon>
+    <Compile Include="Migrations\201811081455026_InitialCreate.cs" />
+    <Compile Include="Migrations\201811081455026_InitialCreate.Designer.cs">
+      <DependentUpon>201811081455026_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Nest.cs" />
@@ -120,11 +116,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811051913273_InitialCreate.resx">
-      <DependentUpon>201811051913273_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811052003559_added IsInProject field to Orderitem Table.resx">
-      <DependentUpon>201811052003559_added IsInProject field to Orderitem Table.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811081455026_InitialCreate.resx">
+      <DependentUpon>201811081455026_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
