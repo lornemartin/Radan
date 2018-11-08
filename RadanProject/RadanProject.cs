@@ -485,7 +485,7 @@ namespace RadProject
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.radan.com/ns/project")]
-    public partial class RadanParts : IEnumerable<RadanPart>
+    public partial class RadanParts
     {
         public long NextID { get; set; }
 
@@ -510,23 +510,6 @@ namespace RadProject
             Part.Add(rPrt);
             return true;
         }
-
-        public IEnumerator<RadanPart> GetEnumerator()
-        { 
-            foreach(RadanPart p in partField)
-            {
-                yield return p;
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-
-
-
     }
 
     /// <remarks/>
@@ -574,7 +557,7 @@ namespace RadProject
 
         // default constructor needed because class is serializeable 
         // and because I added a constructor with parameters.
-        private RadanPart()
+        public RadanPart()
         {
             this.Bin = "";
             this.CCut = "";

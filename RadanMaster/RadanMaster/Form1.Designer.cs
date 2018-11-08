@@ -78,7 +78,7 @@
             // 
             // orderItemsBindingSource
             // 
-            this.orderItemsBindingSource.DataSource = typeof(RadanMaster.Models.OrderItem);
+            //this.orderItemsBindingSource.DataSource = typeof(RadanMaster.Models.OrderItem);
             // 
             // gridView1
             // 
