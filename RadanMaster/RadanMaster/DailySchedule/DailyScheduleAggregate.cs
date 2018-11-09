@@ -39,6 +39,14 @@ namespace VaultItemProcessor
             Finalized = false;
         }
 
+        public DailyScheduleAggregate(string xmlFilePath)
+        {
+            XmlFileName = xmlFilePath;
+            PdfInputPath = "";
+            AggregateLineItemList = new List<AggregateLineItem>();
+            Finalized = false;
+        }
+
         public bool AddLineItem(ExportLineItem item, string orderNumber, int orderQty, string batchItemName, string currentProduct)
         {
             try

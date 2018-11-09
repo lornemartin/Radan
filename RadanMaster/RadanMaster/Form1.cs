@@ -45,21 +45,13 @@ namespace RadanMaster
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            string importFileName = "";
-            // Show the dialog and get result.
-            openFileDialogImport.Filter = "xml files (*.xml) | *.xml";
-            DialogResult result = openFileDialogImport.ShowDialog();
-            if (result == DialogResult.OK) // Test result.
-            {
-                importFileName = (openFileDialogImport.FileName);
-                importXmlFile(importFileName);
-            }
+            
 
         }
 
         private void importXmlFile (string fileName)
         {
-            DailyScheduleAggregate dSchedule = new DailyScheduleAggregate(fileName, "M:\\PDF Files");
+            DailyScheduleAggregate dSchedule = new DailyScheduleAggregate(fileName);
             dSchedule.LoadFromFile();
             
             foreach(AggregateLineItem lineItem in dSchedule.AggregateLineItemList)
@@ -101,97 +93,14 @@ namespace RadanMaster
 
         private void btnAddItem_Click(object sender, EventArgs e)
         {
-            string addItemFileName = "";
-            // Show the dialog and get result.
-            openFileDialogImport.Filter = "sym files (*.sym) | *.sym";
-            DialogResult result = openFileDialogAddItem.ShowDialog();
-            if (result == DialogResult.OK) // Test result.
-            {
-                AddItemDialog.AddItem addItemDialog = new AddItemDialog.AddItem();
-                DialogResult addItemResult = addItemDialog.ShowDialog();
-                
-
-                if (addItemResult == DialogResult.OK)
-                {
-                    addItemFileName = (openFileDialogAddItem.FileName);
-                    RadanInterface radanInterface = new RadanInterface();
-                    //radanInterface.Initialize();
-
-                    string name = System.IO.Path.GetFileNameWithoutExtension(addItemFileName);
-                    string description = radanInterface.GetDescriptionFromSym(addItemFileName);
-                    string thicknessStr = radanInterface.GetThicknessFromSym(addItemFileName);
-                    double thickness = double.Parse(thicknessStr);
-                    string material = radanInterface.GetMaterialTypeFromSym(addItemFileName);
-
-
-                    Part newPart = dbContext.Parts.Where(p => p.FileName == name).FirstOrDefault();
-                    if (newPart == null)
-                    {
-                        newPart = new Part();
-                        newPart.FileName = name;
-                        newPart.Description = description;
-                        newPart.Thickness = thickness;
-                        newPart.Material = material;
-
-                        dbContext.Parts.Add(newPart);
-                        dbContext.SaveChanges();
-
-                        
-                    }
-
-                    Order newOrder = dbContext.Orders.Where(o => o.OrderNumber == AddItemDialog.AddItem.lastOrderNumber).FirstOrDefault();
-                    if(newOrder == null)
-                    {
-                        newOrder = new Order();
-                        newOrder.IsBatch = false;
-                        newOrder.IsComplete = false;
-                        newOrder.OrderDueDate = DateTime.Now;
-                        newOrder.OrderEntryDate = DateTime.Now;
-                        newOrder.OrderItems = new List<OrderItem>();
-                        newOrder.OrderNumber = AddItemDialog.AddItem.lastOrderNumber;
-                        newOrder.IsBatch = AddItemDialog.AddItem.isBatch;
-
-                    }
-
-                    OrderItem newItem = dbContext.OrderItems.Where(oitem => oitem.Order.OrderNumber == AddItemDialog.AddItem.lastOrderNumber).Where(oitem => oitem.Part.FileName == name).FirstOrDefault();
-                    if (newItem == null)
-                    {
-                        newItem = new OrderItem();
-                        newItem.IsComplete = false;
-                        newItem.Order = newOrder;
-                        newItem.Part = newPart;
-                        newItem.QtyRequired = int.Parse(AddItemDialog.AddItem.qty);
-                        newItem.QtyNested = 0;
-
-                        dbContext.OrderItems.Add(newItem);
-                        dbContext.SaveChanges();
-                    }
-                    else
-                    {
-                        MessageBox.Show("This Order Item has already been entered. It will not be entered again");
-                    }
-                }
-            }
+            
 
             
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
-            openFileDialogProject.Filter = "rpd files (*.rpd) | *.rpd";
-            DialogResult result = openFileDialogProject.ShowDialog();
-            if (result == DialogResult.OK) // Test result.
-            {
-                string path = openFileDialogProject.FileName;
-
-                RadanProjectFile = openFileDialogProject.FileName;
-                txtBoxRadanProject.Text = RadanProjectFile;
-
-                rPrj = rPrj.LoadData(path);
-            }
-
-            btnSendSelectionToProject.Enabled = true;
-            btnSyncProject.Enabled = true;
+            
         }
 
         private void btnSyncProject_Click(object sender, EventArgs e)
@@ -233,6 +142,7 @@ namespace RadanMaster
                         rPart.ThickUnits = "in";
                         rPart.Thickness = oItem.Part.Thickness;
                         rPart.Material = oItem.Part.Material;
+                        
 
                         rPrj.AddPart(rPart);
                         
@@ -267,7 +177,7 @@ namespace RadanMaster
                 }
             }
 
-            string path = txtBoxRadanProject.Text;
+            string path = barEditRadanProject.EditValue.ToString();
             rPrj.SaveData(path);
 
             //foreach (OrderItem oItem in dbContext.OrderItems)
@@ -275,6 +185,114 @@ namespace RadanMaster
 
             //    masterItemToRadanPart(oItem);
             //}
+        }
+
+        private void barButtonItemAdd_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            string addItemFileName = "";
+            // Show the dialog and get result.
+            openFileDialogImport.Filter = "sym files (*.sym) | *.sym";
+            DialogResult result = openFileDialogAddItem.ShowDialog();
+            if (result == DialogResult.OK) // Test result.
+            {
+                AddItemDialog.AddItem addItemDialog = new AddItemDialog.AddItem();
+                DialogResult addItemResult = addItemDialog.ShowDialog();
+
+
+                if (addItemResult == DialogResult.OK)
+                {
+                    addItemFileName = (openFileDialogAddItem.FileName);
+                    RadanInterface radanInterface = new RadanInterface();
+                    //radanInterface.Initialize();
+
+                    string name = System.IO.Path.GetFileNameWithoutExtension(addItemFileName);
+                    string description = radanInterface.GetDescriptionFromSym(addItemFileName);
+                    string thicknessStr = radanInterface.GetThicknessFromSym(addItemFileName);
+                    double thickness = double.Parse(thicknessStr);
+                    string material = radanInterface.GetMaterialTypeFromSym(addItemFileName);
+
+
+                    Part newPart = dbContext.Parts.Where(p => p.FileName == name).FirstOrDefault();
+                    if (newPart == null)
+                    {
+                        newPart = new Part();
+                        newPart.FileName = name;
+                        newPart.Description = description;
+                        newPart.Thickness = thickness;
+                        newPart.Material = material;
+
+                        dbContext.Parts.Add(newPart);
+                        dbContext.SaveChanges();
+
+
+                    }
+
+                    Order newOrder = dbContext.Orders.Where(o => o.OrderNumber == AddItemDialog.AddItem.lastOrderNumber).FirstOrDefault();
+                    if (newOrder == null)
+                    {
+                        newOrder = new Order();
+                        newOrder.IsBatch = false;
+                        newOrder.IsComplete = false;
+                        newOrder.OrderDueDate = DateTime.Now;
+                        newOrder.OrderEntryDate = DateTime.Now;
+                        newOrder.OrderItems = new List<OrderItem>();
+                        newOrder.OrderNumber = AddItemDialog.AddItem.lastOrderNumber;
+                        newOrder.IsBatch = AddItemDialog.AddItem.isBatch;
+
+                    }
+
+                    OrderItem newItem = dbContext.OrderItems.Where(oitem => oitem.Order.OrderNumber == AddItemDialog.AddItem.lastOrderNumber).Where(oitem => oitem.Part.FileName == name).FirstOrDefault();
+                    if (newItem == null)
+                    {
+                        newItem = new OrderItem();
+                        newItem.IsComplete = false;
+                        newItem.Order = newOrder;
+                        newItem.Part = newPart;
+                        newItem.QtyRequired = int.Parse(AddItemDialog.AddItem.qty);
+                        newItem.QtyNested = 0;
+
+                        dbContext.OrderItems.Add(newItem);
+                        dbContext.SaveChanges();
+                    }
+                    else
+                    {
+                        MessageBox.Show("This Order Item has already been entered. It will not be entered again");
+                    }
+                }
+            }
+        }
+
+        private void barButtonItemImport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            string importFileName = "";
+            // Show the dialog and get result.
+            openFileDialogImport.Filter = "xml files (*.xml) | *.xml";
+            DialogResult result = openFileDialogImport.ShowDialog();
+            if (result == DialogResult.OK) // Test result.
+            {
+                importFileName = (openFileDialogImport.FileName);
+                importXmlFile(importFileName);
+            }
+        }
+
+        private void barEditItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+
+        }
+
+        private void barButtonBrowseRadanProject_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            openFileDialogProject.Filter = "rpd files (*.rpd) | *.rpd";
+            DialogResult result = openFileDialogProject.ShowDialog();
+            if (result == DialogResult.OK) // Test result.
+            {
+                string path = openFileDialogProject.FileName;
+
+                RadanProjectFile = openFileDialogProject.FileName;
+                barEditRadanProject.EditValue = RadanProjectFile;
+
+                rPrj = rPrj.LoadData(path);
+            }
         }
 
         //private bool RadanPartToMasterItem(RadanPart radPart)
