@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>radanmaster_OWs_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v17.2" />
     <Reference Include="DevExpress.Data.v17.2" />
@@ -99,9 +102,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811081455026_InitialCreate.cs" />
-    <Compile Include="Migrations\201811081455026_InitialCreate.Designer.cs">
-      <DependentUpon>201811081455026_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201811091819492_InitialCreate.cs" />
+    <Compile Include="Migrations\201811091819492_InitialCreate.Designer.cs">
+      <DependentUpon>201811091819492_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Nest.cs" />
@@ -116,8 +119,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811081455026_InitialCreate.resx">
-      <DependentUpon>201811081455026_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811091819492_InitialCreate.resx">
+      <DependentUpon>201811091819492_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -128,6 +131,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config">
       <SubType>Designer</SubType>
@@ -152,6 +156,24 @@
       <Project>{2ee4097d-e0fe-4a4b-b913-dd38fee62fce}</Project>
       <Name>RadanProject</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RadanMaster.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RadanMaster.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RadanMasterIcon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\radanmaster_OWs_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="radanmaster_OWs_icon.ico" />
+    <None Include="Resources\refreshallpivottable_16x16.png" />
+    <None Include="Resources\refreshallpivottable_32x321.png" />
+    <None Include="Resources\refreshallpivottable_32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

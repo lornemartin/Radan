@@ -17,6 +17,7 @@ using RadanInterface2;
 using RadProject;
 using System.IO;
 using System.Xml.Serialization;
+using System.Text.RegularExpressions;
 
 namespace RadanMaster
 {
@@ -43,69 +44,94 @@ namespace RadanMaster
             orderItemsBindingSource.DataSource = dbContext.OrderItems.Local.ToBindingList();
         }
 
-        private void btnImport_Click(object sender, EventArgs e)
-        {
-            
-
-        }
-
         private void importXmlFile (string fileName)
         {
             DailyScheduleAggregate dSchedule = new DailyScheduleAggregate(fileName);
             dSchedule.LoadFromFile();
-            
-            foreach(AggregateLineItem lineItem in dSchedule.AggregateLineItemList)
+
+            DirectoryInfo di = new DirectoryInfo(fileName);
+            string batchName = di.Parent.Name;
+
+           
+
+            foreach (AggregateLineItem lineItem in dSchedule.AggregateLineItemList)
             {
+                bool isBatch = batchName.ToUpper().Contains("BATCH");
+
                 if (lineItem.MaterialThickness != "")
                 {
                     Part newPart = new Part();
-                    newPart.FileName = lineItem.Number;
-                    newPart.Description = lineItem.ItemDescription;
-                    string modifiedThickness = lineItem.MaterialThickness.Substring(0, lineItem.MaterialThickness.LastIndexOf(" "));
-                    newPart.Thickness = double.Parse(modifiedThickness);
-                    newPart.Material = lineItem.Material;
 
-                    dbContext.Parts.Add(newPart);
-                    dbContext.SaveChanges();
+                    newPart = dbContext.Parts.Where(p => p.FileName == lineItem.Number).FirstOrDefault();
+                    if (newPart == null)    // create a new part if we don't have it in the list
+                    {
+                        newPart = new Part();
+                        newPart.FileName = lineItem.Number;
+                        newPart.Description = lineItem.ItemDescription;
+                        string modifiedThickness = lineItem.MaterialThickness.Substring(0, lineItem.MaterialThickness.LastIndexOf(" "));
+                        newPart.Thickness = double.Parse(modifiedThickness);
+                        newPart.Material = lineItem.Material;
+
+                        dbContext.Parts.Add(newPart);
+                        dbContext.SaveChanges();
+                    }
 
                     foreach (OrderData oData in lineItem.AssociatedOrders)
                     {
-                        Order o = new Order();
-                        o.OrderNumber = oData.OrderNumber;
-                        o.IsComplete = false;
-                        o.OrderDueDate = DateTime.Now;
-                        o.OrderEntryDate = DateTime.Now;
-                        dbContext.Orders.Add(o);
-                        dbContext.SaveChanges();
+                        Order searchOrder = new Order();
+                        if(isBatch)
+                            searchOrder = dbContext.Orders.Where(o => o.OrderNumber == batchName).FirstOrDefault();
+                        else
+                            searchOrder = dbContext.Orders.Where(o => o.OrderNumber == oData.OrderNumber).FirstOrDefault();
+                        if (searchOrder == null)    // create new order if it doesn't already exist
+                        {
+                            searchOrder = new Order();
+                            if (isBatch)
+                            {
+                                searchOrder.OrderNumber = batchName;
+                            }
+                            else
+                            {
+                                searchOrder.OrderNumber = oData.OrderNumber;
+                            }
+                            searchOrder.IsComplete = false;
+                            searchOrder.OrderDueDate = DateTime.Now;
+                            searchOrder.OrderEntryDate = DateTime.Now;
+                            searchOrder.IsBatch = isBatch;
+                            dbContext.Orders.Add(searchOrder);
+                            dbContext.SaveChanges();
+                        }
 
-                        OrderItem oItem = new OrderItem();
-                        oItem.Order = o;
-                        oItem.Part = newPart;
-                        oItem.QtyRequired = oData.OrderQty;
-                        oItem.QtyNested = 0;
-                        oItem.IsComplete = false;
-                        dbContext.OrderItems.Add(oItem);
-                        dbContext.SaveChanges();
+                        OrderItem searchOrderItem = new OrderItem();
+                        if (isBatch)
+                            searchOrderItem = dbContext.OrderItems.Where(o => o.Order.OrderNumber == batchName).Where(o => o.Part.FileName == lineItem.Number).FirstOrDefault();
+                        else
+                            searchOrderItem = dbContext.OrderItems.Where(o => o.Order.OrderNumber == oData.OrderNumber).Where(o => o.Part.FileName == lineItem.Number).FirstOrDefault();
+                        if (searchOrderItem == null)   // create a new order item if no match is found with this part number and order number
+                        {
+                            searchOrderItem = new OrderItem();
+                            searchOrderItem.Order = searchOrder;
+                            searchOrderItem.Part = newPart;
+                            searchOrderItem.QtyRequired = oData.OrderQty*oData.UnitQty;
+                            searchOrderItem.QtyNested = 0;
+                            searchOrderItem.IsComplete = false;
+
+                            dbContext.OrderItems.Add(searchOrderItem);
+                            dbContext.SaveChanges();
+
+                        }
+                        else       // adjust existing order item with new quantities if it already exists
+                        {
+                            searchOrderItem.QtyRequired += oData.OrderQty * oData.UnitQty;
+                            dbContext.SaveChanges();
+                        }
+
+                        
+                        
                     }
                 }
             }
-        }
-
-        private void btnAddItem_Click(object sender, EventArgs e)
-        {
-            
-
-            
-        }
-
-        private void btnBrowse_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnSyncProject_Click(object sender, EventArgs e)
-        {
-            
+            dbContext.SaveChanges();
         }
 
         private bool masterItemToRadanPart(OrderItem oItem)
@@ -179,12 +205,6 @@ namespace RadanMaster
 
             string path = barEditRadanProject.EditValue.ToString();
             rPrj.SaveData(path);
-
-            //foreach (OrderItem oItem in dbContext.OrderItems)
-            //{
-
-            //    masterItemToRadanPart(oItem);
-            //}
         }
 
         private void barButtonItemAdd_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -275,11 +295,6 @@ namespace RadanMaster
             }
         }
 
-        private void barEditItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-
-        }
-
         private void barButtonBrowseRadanProject_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             openFileDialogProject.Filter = "rpd files (*.rpd) | *.rpd";
@@ -289,39 +304,72 @@ namespace RadanMaster
                 string path = openFileDialogProject.FileName;
 
                 RadanProjectFile = openFileDialogProject.FileName;
-                barEditRadanProject.EditValue = RadanProjectFile;
+                barEditRadanProjectBrowse.EditValue = RadanProjectFile;
 
                 rPrj = rPrj.LoadData(path);
             }
         }
 
-        //private bool RadanPartToMasterItem(RadanPart radPart)
-        //{
-        //    // not at all tested yet
-        //    try
-        //    {
-        //        List<OrderItem> masterItemList = dbContext.OrderItems.Where(i => i.Part.FileName == radPart.Symbol).ToList();
+        private void barButtonUpdateFromRadan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            List<RadanNest> nestList = rPrj.Nests.ToList();
+            int nestsImported = 0;
+            int nestsAlreadyInProject = 0;
 
-        //        if (masterItemList != null)
-        //        {
-        //            if (radPart.Made > 0)
-        //            {
-        //                masterItemList[0].QtyRequired -= radPart.Made;
-        //                masterItemList[0].QtyNested += radPart.Made;
-        //                radPart.Number -= radPart.Made;
-        //                radPart.Made = 0;
-        //            }
-        //            masterItemList[0].QtyRequired = radPart.Number;
-        //            masterItemList[0].QtyNested = radPart.Made;
-        //        }
+            foreach(RadanNest nst in rPrj.Nests.ToList())
+            {
+                Nest searchNest = dbContext.Nests.Where(n => n.nestName == nst.FileName).FirstOrDefault();
+                if (searchNest == null)
+                {
+                    Nest newNest = new Nest();
+                    newNest.nestName = nst.FileName;
+                    newNest.nestPath = System.IO.Path.GetDirectoryName(barEditRadanProject.EditValue.ToString());
+                    dbContext.Nests.Add(newNest);
+                    nestsImported++;
+                }
+                else
+                {
+                    nestsAlreadyInProject++;
+                }
+            }
+
+            RadanPart rPart = new RadanPart();
+
+            for (int i = 0; i < rPrj.Parts.Count(); i++)
+            {
+                rPart = rPrj.Parts.Part[i];
+                RadanPartToMasterItem(rPart);
+            }
+        }
+
+        private bool RadanPartToMasterItem(RadanPart radPart)
+        {
+            // not at all tested yet
+            try
+            {
+                
+                List<OrderItem> masterItemList = dbContext.OrderItems.Where(i => i.Part.FileName == radPart.Symbol).ToList();
+
+                if (masterItemList != null)
+                {
+                    if (radPart.Made > 0)
+                    {
+                        masterItemList[0].QtyRequired -= radPart.Made;
+                        masterItemList[0].QtyNested += radPart.Made;
+                        radPart.Number -= radPart.Made;
+                        radPart.Made = 0;
+                    }
+                    masterItemList[0].QtyRequired = radPart.Number;
+                    masterItemList[0].QtyNested = radPart.Made;
+                }
 
 
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return false;
-        //    }
-        //}
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
