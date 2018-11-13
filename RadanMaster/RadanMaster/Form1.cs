@@ -44,7 +44,7 @@ namespace RadanMaster
             orderItemsBindingSource.DataSource = dbContext.OrderItems.Local.ToBindingList();
         }
 
-        private void importXmlFile (string fileName)
+        private void importXmlFile(string fileName)
         {
             DailyScheduleAggregate dSchedule = new DailyScheduleAggregate(fileName);
             dSchedule.LoadFromFile();
@@ -52,82 +52,80 @@ namespace RadanMaster
             DirectoryInfo di = new DirectoryInfo(fileName);
             string batchName = di.Parent.Name;
 
-           
-
             foreach (AggregateLineItem lineItem in dSchedule.AggregateLineItemList)
             {
                 bool isBatch = batchName.ToUpper().Contains("BATCH");
 
-                if (lineItem.MaterialThickness != "")
+                if (lineItem.Operations == "Laser")
                 {
-                    Part newPart = new Part();
-
-                    newPart = dbContext.Parts.Where(p => p.FileName == lineItem.Number).FirstOrDefault();
-                    if (newPart == null)    // create a new part if we don't have it in the list
+                    if ((isBatch && lineItem.IsStock == true) || (!isBatch && lineItem.IsStock == false))
                     {
-                        newPart = new Part();
-                        newPart.FileName = lineItem.Number;
-                        newPart.Description = lineItem.ItemDescription;
-                        string modifiedThickness = lineItem.MaterialThickness.Substring(0, lineItem.MaterialThickness.LastIndexOf(" "));
-                        newPart.Thickness = double.Parse(modifiedThickness);
-                        newPart.Material = lineItem.Material;
+                        Part newPart = new Part();
 
-                        dbContext.Parts.Add(newPart);
-                        dbContext.SaveChanges();
-                    }
-
-                    foreach (OrderData oData in lineItem.AssociatedOrders)
-                    {
-                        Order searchOrder = new Order();
-                        if(isBatch)
-                            searchOrder = dbContext.Orders.Where(o => o.OrderNumber == batchName).FirstOrDefault();
-                        else
-                            searchOrder = dbContext.Orders.Where(o => o.OrderNumber == oData.OrderNumber).FirstOrDefault();
-                        if (searchOrder == null)    // create new order if it doesn't already exist
+                        newPart = dbContext.Parts.Where(p => p.FileName == lineItem.Number).FirstOrDefault();
+                        if (newPart == null)    // create a new part if we don't have it in the list
                         {
-                            searchOrder = new Order();
+                            newPart = new Part();
+                            newPart.FileName = lineItem.Number;
+                            newPart.Description = lineItem.ItemDescription;
+                            string modifiedThickness = lineItem.MaterialThickness.Substring(0, lineItem.MaterialThickness.LastIndexOf(" "));
+                            newPart.Thickness = double.Parse(modifiedThickness);
+                            newPart.Material = lineItem.Material;
+
+                            dbContext.Parts.Add(newPart);
+                            dbContext.SaveChanges();
+                        }
+
+                        foreach (OrderData oData in lineItem.AssociatedOrders)
+                        {
+                            Order searchOrder = new Order();
                             if (isBatch)
-                            {
-                                searchOrder.OrderNumber = batchName;
-                            }
+                                searchOrder = dbContext.Orders.Where(o => o.OrderNumber == batchName).FirstOrDefault();
                             else
+                                searchOrder = dbContext.Orders.Where(o => o.OrderNumber == oData.OrderNumber).FirstOrDefault();
+                            if (searchOrder == null)    // create new order if it doesn't already exist
                             {
-                                searchOrder.OrderNumber = oData.OrderNumber;
+                                searchOrder = new Order();
+                                if (isBatch)
+                                {
+                                    searchOrder.OrderNumber = batchName;
+                                }
+                                else
+                                {
+                                    searchOrder.OrderNumber = oData.OrderNumber;
+                                }
+                                searchOrder.IsComplete = false;
+                                searchOrder.OrderDueDate = DateTime.Now;
+                                searchOrder.OrderEntryDate = DateTime.Now;
+                                searchOrder.IsBatch = isBatch;
+                                dbContext.Orders.Add(searchOrder);
+                                dbContext.SaveChanges();
                             }
-                            searchOrder.IsComplete = false;
-                            searchOrder.OrderDueDate = DateTime.Now;
-                            searchOrder.OrderEntryDate = DateTime.Now;
-                            searchOrder.IsBatch = isBatch;
-                            dbContext.Orders.Add(searchOrder);
-                            dbContext.SaveChanges();
+
+                            OrderItem searchOrderItem = new OrderItem();
+                            if (isBatch)
+                                searchOrderItem = dbContext.OrderItems.Where(o => o.Order.OrderNumber == batchName).Where(o => o.Part.FileName == lineItem.Number).FirstOrDefault();
+                            else
+                                searchOrderItem = dbContext.OrderItems.Where(o => o.Order.OrderNumber == oData.OrderNumber).Where(o => o.Part.FileName == lineItem.Number).FirstOrDefault();
+                            if (searchOrderItem == null)   // create a new order item if no match is found with this part number and order number
+                            {
+                                searchOrderItem = new OrderItem();
+                                searchOrderItem.Order = searchOrder;
+                                searchOrderItem.Part = newPart;
+                                searchOrderItem.QtyRequired = oData.OrderQty * oData.UnitQty;
+                                searchOrderItem.QtyNested = 0;
+                                searchOrderItem.IsComplete = false;
+
+                                dbContext.OrderItems.Add(searchOrderItem);
+                                dbContext.SaveChanges();
+
+                            }
+                            else       // adjust existing order item with new quantities if it already exists
+                            {
+                                searchOrderItem.QtyRequired += oData.OrderQty * oData.UnitQty;
+                                dbContext.SaveChanges();
+                            }
                         }
-
-                        OrderItem searchOrderItem = new OrderItem();
-                        if (isBatch)
-                            searchOrderItem = dbContext.OrderItems.Where(o => o.Order.OrderNumber == batchName).Where(o => o.Part.FileName == lineItem.Number).FirstOrDefault();
-                        else
-                            searchOrderItem = dbContext.OrderItems.Where(o => o.Order.OrderNumber == oData.OrderNumber).Where(o => o.Part.FileName == lineItem.Number).FirstOrDefault();
-                        if (searchOrderItem == null)   // create a new order item if no match is found with this part number and order number
-                        {
-                            searchOrderItem = new OrderItem();
-                            searchOrderItem.Order = searchOrder;
-                            searchOrderItem.Part = newPart;
-                            searchOrderItem.QtyRequired = oData.OrderQty*oData.UnitQty;
-                            searchOrderItem.QtyNested = 0;
-                            searchOrderItem.IsComplete = false;
-
-                            dbContext.OrderItems.Add(searchOrderItem);
-                            dbContext.SaveChanges();
-
-                        }
-                        else       // adjust existing order item with new quantities if it already exists
-                        {
-                            searchOrderItem.QtyRequired += oData.OrderQty * oData.UnitQty;
-                            dbContext.SaveChanges();
-                        }
-
-                        
-                        
                     }
                 }
             }
@@ -230,6 +228,8 @@ namespace RadanMaster
                     string thicknessStr = radanInterface.GetThicknessFromSym(addItemFileName);
                     double thickness = double.Parse(thicknessStr);
                     string material = radanInterface.GetMaterialTypeFromSym(addItemFileName);
+                    char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(addItemFileName);
+                    byte[] thumbnailByteArray = Encoding.GetEncoding("UTF-8").GetBytes(thumbnailCharArray);
 
 
                     Part newPart = dbContext.Parts.Where(p => p.FileName == name).FirstOrDefault();
@@ -240,6 +240,7 @@ namespace RadanMaster
                         newPart.Description = description;
                         newPart.Thickness = thickness;
                         newPart.Material = material;
+                        newPart.Thumbnail = thumbnailByteArray;
 
                         dbContext.Parts.Add(newPart);
                         dbContext.SaveChanges();
@@ -332,6 +333,7 @@ namespace RadanMaster
                     nestsAlreadyInProject++;
                 }
             }
+            dbContext.SaveChanges();
 
             RadanPart rPart = new RadanPart();
 
@@ -340,6 +342,9 @@ namespace RadanMaster
                 rPart = rPrj.Parts.Part[i];
                 RadanPartToMasterItem(rPart);
             }
+
+            rPrj.SaveData(barEditRadanProjectBrowse.EditValue.ToString());
+            dbContext.SaveChanges();
         }
 
         private bool RadanPartToMasterItem(RadanPart radPart)

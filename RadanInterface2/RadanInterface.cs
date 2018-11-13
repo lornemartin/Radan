@@ -519,5 +519,32 @@ namespace RadanInterface2
             }
             return "";
         }
+
+        public char [] GetThumbnailDataFromSym(string fileName)
+        {
+            XmlDocument doc = new XmlDocument();
+
+            if (System.IO.File.Exists(fileName))
+            {
+                doc.Load(fileName);
+            }
+            else
+            {
+                return null;
+            }
+
+            string thumbNailString = "";
+
+            // cycle through each child node
+            foreach (XmlNode node in doc.DocumentElement)
+            {
+                if (node.OuterXml.Contains("Thumbnail"))
+                {
+                    thumbNailString = node.InnerText;
+
+                }
+            }
+            return thumbNailString.ToCharArray();
+        }
     }
 }

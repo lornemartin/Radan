@@ -57,6 +57,7 @@ namespace RadanMaster.Migrations
                         Description = c.String(),
                         Material = c.String(),
                         Thickness = c.Double(nullable: false),
+                        Thumbnail = c.Binary(),
                     })
                 .PrimaryKey(t => t.ID);
             
