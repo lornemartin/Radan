@@ -41,8 +41,10 @@ namespace RadanMaster.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         OrderNumber = c.String(),
-                        OrderEntryDate = c.DateTime(nullable: false),
-                        OrderDueDate = c.DateTime(nullable: false),
+                        ScheduleName = c.String(),
+                        BatchName = c.String(),
+                        EntryDate = c.DateTime(nullable: false),
+                        DueDate = c.DateTime(nullable: false),
                         IsComplete = c.Boolean(nullable: false),
                         IsBatch = c.Boolean(nullable: false),
                     })

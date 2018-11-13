@@ -11,6 +11,8 @@ using System.Data.Entity;
 using RadanMaster.Models;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Columns;
+
 using VaultItemProcessor;
 
 using RadanInterface2;
@@ -51,6 +53,10 @@ namespace RadanMaster
 
             DirectoryInfo di = new DirectoryInfo(fileName);
             string batchName = di.Parent.Name;
+            string schedName = di.Parent.Name;
+            byte[] thumbnailByteArray = null;
+
+            RadanInterface radanInterface = new RadanInterface();
 
             foreach (AggregateLineItem lineItem in dSchedule.AggregateLineItemList)
             {
@@ -60,6 +66,14 @@ namespace RadanMaster
                 {
                     if ((isBatch && lineItem.IsStock == true) || (!isBatch && lineItem.IsStock == false))
                     {
+                        
+                        string symName = symFolder + lineItem.Number + ".sym";
+                        if (System.IO.File.Exists(symName))
+                        {
+                            char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(symName);
+                            thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
+                        }
+
                         Part newPart = new Part();
 
                         newPart = dbContext.Parts.Where(p => p.FileName == lineItem.Number).FirstOrDefault();
@@ -71,6 +85,8 @@ namespace RadanMaster
                             string modifiedThickness = lineItem.MaterialThickness.Substring(0, lineItem.MaterialThickness.LastIndexOf(" "));
                             newPart.Thickness = double.Parse(modifiedThickness);
                             newPart.Material = lineItem.Material;
+                            newPart.Thumbnail = thumbnailByteArray;
+
 
                             dbContext.Parts.Add(newPart);
                             dbContext.SaveChanges();
@@ -80,7 +96,7 @@ namespace RadanMaster
                         {
                             Order searchOrder = new Order();
                             if (isBatch)
-                                searchOrder = dbContext.Orders.Where(o => o.OrderNumber == batchName).FirstOrDefault();
+                                searchOrder = dbContext.Orders.Where(o => o.BatchName == batchName).FirstOrDefault();
                             else
                                 searchOrder = dbContext.Orders.Where(o => o.OrderNumber == oData.OrderNumber).FirstOrDefault();
                             if (searchOrder == null)    // create new order if it doesn't already exist
@@ -88,15 +104,16 @@ namespace RadanMaster
                                 searchOrder = new Order();
                                 if (isBatch)
                                 {
-                                    searchOrder.OrderNumber = batchName;
+                                    searchOrder.BatchName = batchName;
                                 }
                                 else
                                 {
                                     searchOrder.OrderNumber = oData.OrderNumber;
+                                    searchOrder.ScheduleName = schedName;
                                 }
                                 searchOrder.IsComplete = false;
-                                searchOrder.OrderDueDate = DateTime.Now;
-                                searchOrder.OrderEntryDate = DateTime.Now;
+                                searchOrder.DueDate = DateTime.Now;
+                                searchOrder.EntryDate = DateTime.Now;
                                 searchOrder.IsBatch = isBatch;
                                 dbContext.Orders.Add(searchOrder);
                                 dbContext.SaveChanges();
@@ -104,7 +121,7 @@ namespace RadanMaster
 
                             OrderItem searchOrderItem = new OrderItem();
                             if (isBatch)
-                                searchOrderItem = dbContext.OrderItems.Where(o => o.Order.OrderNumber == batchName).Where(o => o.Part.FileName == lineItem.Number).FirstOrDefault();
+                                searchOrderItem = dbContext.OrderItems.Where(o => o.Order.BatchName == batchName).Where(o => o.Part.FileName == lineItem.Number).FirstOrDefault();
                             else
                                 searchOrderItem = dbContext.OrderItems.Where(o => o.Order.OrderNumber == oData.OrderNumber).Where(o => o.Part.FileName == lineItem.Number).FirstOrDefault();
                             if (searchOrderItem == null)   // create a new order item if no match is found with this part number and order number
@@ -229,7 +246,7 @@ namespace RadanMaster
                     double thickness = double.Parse(thicknessStr);
                     string material = radanInterface.GetMaterialTypeFromSym(addItemFileName);
                     char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(addItemFileName);
-                    byte[] thumbnailByteArray = Encoding.GetEncoding("UTF-8").GetBytes(thumbnailCharArray);
+                    byte[] thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
 
 
                     Part newPart = dbContext.Parts.Where(p => p.FileName == name).FirstOrDefault();
@@ -252,12 +269,13 @@ namespace RadanMaster
                     if (newOrder == null)
                     {
                         newOrder = new Order();
-                        newOrder.IsBatch = false;
                         newOrder.IsComplete = false;
-                        newOrder.OrderDueDate = DateTime.Now;
-                        newOrder.OrderEntryDate = DateTime.Now;
+                        newOrder.DueDate = DateTime.Now;
+                        newOrder.EntryDate = DateTime.Now;
                         newOrder.OrderItems = new List<OrderItem>();
                         newOrder.OrderNumber = AddItemDialog.AddItem.lastOrderNumber;
+                        newOrder.ScheduleName = AddItemDialog.AddItem.lastSchedName;
+                        newOrder.BatchName = AddItemDialog.AddItem.lastBatchName;
                         newOrder.IsBatch = AddItemDialog.AddItem.isBatch;
 
                     }

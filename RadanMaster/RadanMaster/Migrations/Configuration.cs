@@ -36,7 +36,7 @@ namespace RadanMaster.Migrations
 
             var orders = new List<Order>
             {
-                new Order { OrderNumber = "A123456", OrderEntryDate = DateTime.Now, OrderDueDate = DateTime.Now, IsComplete = false, IsBatch = false }
+                new Order { OrderNumber = "A123456", EntryDate = DateTime.Now, DueDate = DateTime.Now, IsComplete = false, IsBatch = false }
             };
 
             orders.ForEach(o => context.Orders.AddOrUpdate(o2 => new { o2.OrderNumber }, o));

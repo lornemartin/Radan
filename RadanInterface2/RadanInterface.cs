@@ -534,6 +534,7 @@ namespace RadanInterface2
             }
 
             string thumbNailString = "";
+            string s2 = "";
 
             // cycle through each child node
             foreach (XmlNode node in doc.DocumentElement)
@@ -544,6 +545,7 @@ namespace RadanInterface2
 
                 }
             }
+
             return thumbNailString.ToCharArray();
         }
     }

@@ -13,8 +13,10 @@ namespace RadanMaster.Models
         [Key]
         public int ID { get; set; }
         public string OrderNumber { get; set; }
-        public DateTime OrderEntryDate { get; set; }
-        public DateTime OrderDueDate { get; set; }
+        public string ScheduleName { get; set; }
+        public string BatchName { get; set; }
+        public DateTime EntryDate { get; set; }
+        public DateTime DueDate { get; set; }
         public bool IsComplete { get; set; }
         public bool IsBatch { get; set; }
 
