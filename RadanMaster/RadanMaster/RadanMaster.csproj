@@ -89,6 +89,7 @@
     <Compile Include="AddItemDialog\AddItem.Designer.cs">
       <DependentUpon>AddItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppSettings\AppSettings.cs" />
     <Compile Include="DailySchedule\AggregateLineItem.cs" />
     <Compile Include="DailySchedule\AppSettings.cs" />
     <Compile Include="DailySchedule\DailyScheduleAggregate.cs" />

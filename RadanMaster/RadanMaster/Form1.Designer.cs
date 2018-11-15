@@ -400,6 +400,7 @@
             this.barEditRadanProjectBrowse.EditWidth = 300;
             this.barEditRadanProjectBrowse.Id = 11;
             this.barEditRadanProjectBrowse.Name = "barEditRadanProjectBrowse";
+            this.barEditRadanProjectBrowse.EditValueChanged += new System.EventHandler(this.barEditRadanProjectBrowse_EditValueChanged);
             // 
             // repositoryItemTextEdit1
             // 
