@@ -35,6 +35,7 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQtyRequired = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemSpinEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.colQtyNested = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnThumb2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemPictureEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
@@ -78,6 +79,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
@@ -97,8 +99,9 @@
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemImageEdit1,
-            this.repositoryItemPictureEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(1337, 596);
+            this.repositoryItemPictureEdit1,
+            this.repositoryItemSpinEdit1});
+            this.gridControl1.Size = new System.Drawing.Size(1600, 596);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -128,6 +131,9 @@
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsSelection.MultiSelect = true;
             this.gridView1.OptionsView.RowAutoHeight = true;
+            this.gridView1.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridView1_RowDeleted);
+            this.gridView1.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gridView1_RowUpdated);
+            this.gridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridView1_KeyDown);
             // 
             // colID
             // 
@@ -136,20 +142,29 @@
             // 
             // colQtyRequired
             // 
+            this.colQtyRequired.ColumnEdit = this.repositoryItemSpinEdit1;
             this.colQtyRequired.FieldName = "QtyRequired";
             this.colQtyRequired.Name = "colQtyRequired";
             this.colQtyRequired.Visible = true;
             this.colQtyRequired.VisibleIndex = 0;
-            this.colQtyRequired.Width = 61;
+            this.colQtyRequired.Width = 55;
+            // 
+            // repositoryItemSpinEdit1
+            // 
+            this.repositoryItemSpinEdit1.AutoHeight = false;
+            this.repositoryItemSpinEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemSpinEdit1.Name = "repositoryItemSpinEdit1";
             // 
             // colQtyNested
             // 
             this.colQtyNested.Caption = "Qty Nested";
             this.colQtyNested.FieldName = "QtyNested";
             this.colQtyNested.Name = "colQtyNested";
+            this.colQtyNested.OptionsColumn.AllowEdit = false;
             this.colQtyNested.Visible = true;
             this.colQtyNested.VisibleIndex = 1;
-            this.colQtyNested.Width = 60;
+            this.colQtyNested.Width = 54;
             // 
             // gridColumnThumb2
             // 
@@ -157,8 +172,10 @@
             this.gridColumnThumb2.ColumnEdit = this.repositoryItemPictureEdit1;
             this.gridColumnThumb2.FieldName = "Part.Thumbnail";
             this.gridColumnThumb2.Name = "gridColumnThumb2";
+            this.gridColumnThumb2.OptionsColumn.AllowEdit = false;
             this.gridColumnThumb2.Visible = true;
             this.gridColumnThumb2.VisibleIndex = 2;
+            this.gridColumnThumb2.Width = 68;
             // 
             // repositoryItemPictureEdit1
             // 
@@ -174,16 +191,17 @@
             this.partNameCol.OptionsColumn.AllowEdit = false;
             this.partNameCol.Visible = true;
             this.partNameCol.VisibleIndex = 3;
-            this.partNameCol.Width = 295;
+            this.partNameCol.Width = 269;
             // 
             // PartDescCol
             // 
             this.PartDescCol.Caption = "Description";
             this.PartDescCol.FieldName = "Part.Description";
             this.PartDescCol.Name = "PartDescCol";
+            this.PartDescCol.OptionsColumn.AllowEdit = false;
             this.PartDescCol.Visible = true;
             this.PartDescCol.VisibleIndex = 5;
-            this.PartDescCol.Width = 105;
+            this.PartDescCol.Width = 95;
             // 
             // thicknessCol
             // 
@@ -192,7 +210,7 @@
             this.thicknessCol.Name = "thicknessCol";
             this.thicknessCol.Visible = true;
             this.thicknessCol.VisibleIndex = 4;
-            this.thicknessCol.Width = 105;
+            this.thicknessCol.Width = 95;
             // 
             // materialCol
             // 
@@ -201,7 +219,7 @@
             this.materialCol.Name = "materialCol";
             this.materialCol.Visible = true;
             this.materialCol.VisibleIndex = 6;
-            this.materialCol.Width = 105;
+            this.materialCol.Width = 95;
             // 
             // colIsComplete
             // 
@@ -209,52 +227,58 @@
             this.colIsComplete.Name = "colIsComplete";
             this.colIsComplete.Visible = true;
             this.colIsComplete.VisibleIndex = 7;
-            this.colIsComplete.Width = 74;
+            this.colIsComplete.Width = 67;
             // 
             // colOrderNum
             // 
             this.colOrderNum.Caption = "Order Number";
             this.colOrderNum.FieldName = "Order.OrderNumber";
             this.colOrderNum.Name = "colOrderNum";
+            this.colOrderNum.OptionsColumn.AllowEdit = false;
             this.colOrderNum.Visible = true;
             this.colOrderNum.VisibleIndex = 8;
-            this.colOrderNum.Width = 220;
+            this.colOrderNum.Width = 134;
             // 
             // gridColSchedName
             // 
             this.gridColSchedName.Caption = "Schedule";
             this.gridColSchedName.FieldName = "Order.ScheduleName";
             this.gridColSchedName.Name = "gridColSchedName";
+            this.gridColSchedName.OptionsColumn.AllowEdit = false;
             this.gridColSchedName.Visible = true;
             this.gridColSchedName.VisibleIndex = 10;
+            this.gridColSchedName.Width = 179;
             // 
             // gridColBatchName
             // 
             this.gridColBatchName.Caption = "Batch Name";
             this.gridColBatchName.FieldName = "Order.BatchName";
             this.gridColBatchName.Name = "gridColBatchName";
+            this.gridColBatchName.OptionsColumn.AllowEdit = false;
             this.gridColBatchName.Visible = true;
             this.gridColBatchName.VisibleIndex = 11;
+            this.gridColBatchName.Width = 173;
             // 
             // IsBatch
             // 
             this.IsBatch.Caption = "Is Batch";
             this.IsBatch.FieldName = "Order.IsBatch";
             this.IsBatch.Name = "IsBatch";
+            this.IsBatch.OptionsColumn.AllowEdit = false;
             this.IsBatch.Visible = true;
             this.IsBatch.VisibleIndex = 9;
-            this.IsBatch.Width = 83;
+            this.IsBatch.Width = 52;
             // 
             // colDateEntered
             // 
             this.colDateEntered.Caption = "Date Entered";
             this.colDateEntered.DisplayFormat.FormatString = "g";
             this.colDateEntered.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.colDateEntered.FieldName = "Order.OrderEntryDate";
+            this.colDateEntered.FieldName = "Order.EntryDate";
             this.colDateEntered.Name = "colDateEntered";
             this.colDateEntered.Visible = true;
             this.colDateEntered.VisibleIndex = 12;
-            this.colDateEntered.Width = 399;
+            this.colDateEntered.Width = 246;
             // 
             // repositoryItemImageEdit1
             // 
@@ -288,7 +312,7 @@
             this.repositoryItemTextEdit1,
             this.repositoryItemTextEdit2,
             this.repositoryItemTextEdit3});
-            this.ribbonControl1.Size = new System.Drawing.Size(1337, 143);
+            this.ribbonControl1.Size = new System.Drawing.Size(1600, 143);
             // 
             // skinRibbonGalleryBarItem1
             // 
@@ -335,6 +359,7 @@
             this.barButtonSendSelectionToRadan.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSendSelectionToRadan.ImageOptions.Image")));
             this.barButtonSendSelectionToRadan.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonSendSelectionToRadan.ImageOptions.LargeImage")));
             this.barButtonSendSelectionToRadan.Name = "barButtonSendSelectionToRadan";
+            this.barButtonSendSelectionToRadan.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonSendSelectionToRadan_ItemClick);
             // 
             // barButtonGroup1
             // 
@@ -439,7 +464,7 @@
             this.toolStripStatusLabelMain});
             this.statusStrip1.Location = new System.Drawing.Point(0, 717);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1337, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1600, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -452,7 +477,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1337, 739);
+            this.ClientSize = new System.Drawing.Size(1600, 739);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.ribbonControl1);
@@ -463,6 +488,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
@@ -524,5 +550,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColBatchName;
         private DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit repositoryItemPictureEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnThumb2;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit1;
     }
 }
