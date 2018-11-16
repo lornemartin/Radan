@@ -186,7 +186,7 @@ namespace RadanMaster
                         //create new part in project
                         rPart = new RadanPart();
                         rPart.Symbol = symName;
-                        rPart.Number = oItem.QtyRequired;
+                        rPart.Number = oItem.QtyRequired - oItem.QtyNested;
                         rPart.Made = 0;
                         rPart.ThickUnits = "in";
                         rPart.Thickness = oItem.Part.Thickness;
@@ -213,7 +213,7 @@ namespace RadanMaster
 
         }
 
-        private bool RadanPartToMasterItem(RadanPart radPart)
+        private bool SyncRadanPartToMasterItem(RadanPart radPart)
         {
             try
             {
@@ -224,8 +224,11 @@ namespace RadanMaster
 
                 if (masterItemList.Count > 0)
                 {
-                    masterItemList[0].QtyRequired = radPart.Number;
-                    masterItemList[0].QtyNested = radPart.Made;
+
+                    if (masterItemList[0].QtyRequired == radPart.Number)
+                        masterItemList[0].QtyNested = radPart.Made;
+                    if(masterItemList[0].QtyRequired == radPart.Number + radPart.Made)
+                        masterItemList[0].QtyNested -= (radPart.Number + radPart.Made);
                 }
 
 
@@ -253,7 +256,7 @@ namespace RadanMaster
                     if (rPart != null)
                     {
                         //item.QtyRequired -= rPart.Made;
-                        item.QtyNested = rPart.Made;
+                        item.QtyNested += rPart.Made;
                         item.IsInProject = false;
                         rPrj.Parts.Part.Remove(rPart);
                         rPrj.SaveData(radanProjectName);
@@ -329,11 +332,15 @@ namespace RadanMaster
 
             string path = barEditRadanProject.EditValue.ToString();
             rPrj.SaveData(path);
+
+            gridView1.RefreshData();
         }
 
         private void barButtonRetrieveSelectionFromRadan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             RetrieveSelectedRadanPartToMasterList();
+
+            gridView1.RefreshData();
         }
 
         private void barButtonItemAdd_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -476,7 +483,7 @@ namespace RadanMaster
             for (int i = 0; i < rPrj.Parts.Count(); i++)
             {
                 rPart = rPrj.Parts.Part[i];
-                RadanPartToMasterItem(rPart);
+                SyncRadanPartToMasterItem(rPart);
             }
 
             //rPrj.SaveData(barEditRadanProjectBrowse.EditValue.ToString());
