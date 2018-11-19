@@ -275,6 +275,18 @@ namespace RadanMaster
                     RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.ID);
                     if (rPart != null)
                     {
+                        foreach(SheetUsedInNest sh in rPart.UsedInNests)
+                        {
+                            long ID = sh.ID;
+                            int qty = sh.Made;
+
+                            string pathName = Path.GetDirectoryName(radanProjectName) + "\\";
+                            Nest nst = dbContext.Nests.Where(n => n.ID == ID).Where(n => n.nestPath == pathName).FirstOrDefault();
+                            if(nst!=null)
+                            {
+                                item.AssociatedNests.Add(nst);
+                            }
+                        }
                         //item.QtyRequired -= rPart.Made;
                         item.QtyNested += rPart.Made;
                         item.IsInProject = false;
@@ -302,11 +314,39 @@ namespace RadanMaster
             for (int i = 0; i < prj.Parts.Count(); i++)
             {
                 rPart = prj.Parts.Part[i];
-                if ((rPart.Symbol == (symFolder + partName + ".sym")) && (rPart.Bin == ID.ToString()))
+                string radanName = Path.GetFileNameWithoutExtension(rPart.Symbol);
+                if ((radanName == (partName)) && (rPart.Bin == ID.ToString()))
                     return rPart;
             }
 
             return null;
+        }
+
+        private bool RefreshItemsGridFromActiveProject()
+        {
+            try
+            {
+                rPrj = rPrj.LoadData(radanProjectName);
+
+                foreach (OrderItem item in dbContext.OrderItems)
+                {
+                    RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.ID);
+                    if (rPart != null)
+                        item.IsInProject = true;
+                    else
+                        item.IsInProject = false;
+                }
+
+                dbContext.SaveChanges();
+                gridViewItems.RefreshData();
+
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         #region gridView1 Event Handlers
@@ -515,14 +555,18 @@ namespace RadanMaster
         private void barEditRadanProjectBrowse_EditValueChanged(object sender, EventArgs e)
         {
             AppSettings.AppSettings.Set("RadanProjectPathAndFile", barEditRadanProjectBrowse.EditValue);
+            RefreshItemsGridFromActiveProject();
         }
 
         private void gridViewItems_RowClick(object sender, RowClickEventArgs e)
         {
             //List<Nest> associatedNests = new List<Nest>();
 
+            List<Nest> filteredNests = new List<Nest>();
+            List<Nest> filteredNestsSubList = new List<Nest>();
+            string nestPath = Path.GetDirectoryName(radanProjectName) + "\\";
+
             int[] rows = gridViewItems.GetSelectedRows();
-            string filterExpression = "nestName = ";
 
             if (rows.Count() == 1)
             {
@@ -532,18 +576,14 @@ namespace RadanMaster
                 {
                     foreach (Nest n in selectedItem.AssociatedNests)
                     {
-                        filterExpression += " '" + n.nestName + "'";
+                        filteredNestsSubList = dbContext.Nests.Where(nst => nst.nestPath == nestPath).Where(nst => nst.nestName == n.nestName).ToList();
+                        filteredNests.AddRange(filteredNestsSubList);
                     }
                 }
-                else
-                {
-                    filterExpression += "'null'";
-                }
-
-
             }
-            nestsBindingSource.Filter = filterExpression;
 
+            nestsBindingSource.DataSource = filteredNests;
+            
             gridViewNests.RefreshData();
         }
         #endregion
