@@ -79,7 +79,7 @@
             this.btnAdd.Location = new System.Drawing.Point(210, 309);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 3;
+            this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -90,7 +90,7 @@
             this.btnCancel.Location = new System.Drawing.Point(100, 309);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 4;
+            this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -100,7 +100,7 @@
             this.comboBoxSchedName.Location = new System.Drawing.Point(170, 144);
             this.comboBoxSchedName.Name = "comboBoxSchedName";
             this.comboBoxSchedName.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxSchedName.TabIndex = 1;
+            this.comboBoxSchedName.TabIndex = 2;
             // 
             // label3
             // 
@@ -117,7 +117,7 @@
             this.comboBoxBatchName.Location = new System.Drawing.Point(170, 186);
             this.comboBoxBatchName.Name = "comboBoxBatchName";
             this.comboBoxBatchName.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxBatchName.TabIndex = 1;
+            this.comboBoxBatchName.TabIndex = 3;
             // 
             // label4
             // 

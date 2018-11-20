@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue2 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.colIsInProject = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControlItems = new DevExpress.XtraGrid.GridControl();
@@ -127,7 +127,7 @@
             this.repositoryItemImageEdit1,
             this.repositoryItemPictureEdit1,
             this.repositoryItemSpinEdit1});
-            this.gridControlItems.Size = new System.Drawing.Size(1600, 400);
+            this.gridControlItems.Size = new System.Drawing.Size(1600, 500);
             this.gridControlItems.TabIndex = 0;
             this.gridControlItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewItems});
@@ -154,15 +154,15 @@
             this.IsBatch,
             this.colDateEntered,
             this.colIsInProject});
-            gridFormatRule2.ApplyToRow = true;
-            gridFormatRule2.Column = this.colIsInProject;
-            gridFormatRule2.Name = "frmtIsInProject";
-            formatConditionRuleValue2.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-            formatConditionRuleValue2.Appearance.Options.UseFont = true;
-            formatConditionRuleValue2.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
-            formatConditionRuleValue2.Value1 = true;
-            gridFormatRule2.Rule = formatConditionRuleValue2;
-            this.gridViewItems.FormatRules.Add(gridFormatRule2);
+            gridFormatRule1.ApplyToRow = true;
+            gridFormatRule1.Column = this.colIsInProject;
+            gridFormatRule1.Name = "frmtIsInProject";
+            formatConditionRuleValue1.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            formatConditionRuleValue1.Appearance.Options.UseFont = true;
+            formatConditionRuleValue1.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
+            formatConditionRuleValue1.Value1 = true;
+            gridFormatRule1.Rule = formatConditionRuleValue1;
+            this.gridViewItems.FormatRules.Add(gridFormatRule1);
             this.gridViewItems.GridControl = this.gridControlItems;
             this.gridViewItems.Name = "gridViewItems";
             this.gridViewItems.OptionsSelection.MultiSelect = true;
@@ -531,7 +531,7 @@
             this.gridControlNests.MainView = this.gridViewNests;
             this.gridControlNests.MenuManager = this.ribbonControl1;
             this.gridControlNests.Name = "gridControlNests";
-            this.gridControlNests.Size = new System.Drawing.Size(1600, 191);
+            this.gridControlNests.Size = new System.Drawing.Size(1600, 91);
             this.gridControlNests.TabIndex = 4;
             this.gridControlNests.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewNests});
@@ -589,7 +589,7 @@
             this.splitContainerControl1.Panel2.Controls.Add(this.gridControlNests);
             this.splitContainerControl1.Panel2.Text = "Panel2";
             this.splitContainerControl1.Size = new System.Drawing.Size(1600, 596);
-            this.splitContainerControl1.SplitterPosition = 400;
+            this.splitContainerControl1.SplitterPosition = 500;
             this.splitContainerControl1.TabIndex = 5;
             // 
             // Form1
