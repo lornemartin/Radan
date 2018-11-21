@@ -79,6 +79,7 @@
             this.openFileDialogProject = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelMain = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
             this.gridControlNests = new DevExpress.XtraGrid.GridControl();
             this.nestsBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -114,7 +115,7 @@
             this.colIsInProject.Name = "colIsInProject";
             this.colIsInProject.OptionsColumn.AllowEdit = false;
             this.colIsInProject.Visible = true;
-            this.colIsInProject.VisibleIndex = 12;
+            this.colIsInProject.VisibleIndex = 13;
             // 
             // gridControlItems
             // 
@@ -131,6 +132,7 @@
             this.gridControlItems.TabIndex = 0;
             this.gridControlItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewItems});
+            this.gridControlItems.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gridControlItems_MouseDoubleClick);
             // 
             // gridViewItems
             // 
@@ -165,9 +167,11 @@
             this.gridViewItems.FormatRules.Add(gridFormatRule1);
             this.gridViewItems.GridControl = this.gridControlItems;
             this.gridViewItems.Name = "gridViewItems";
+            this.gridViewItems.OptionsEditForm.ShowOnF2Key = DevExpress.Utils.DefaultBoolean.True;
             this.gridViewItems.OptionsSelection.MultiSelect = true;
             this.gridViewItems.OptionsView.RowAutoHeight = true;
             this.gridViewItems.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridViewItems_RowClick);
+            this.gridViewItems.HiddenEditor += new System.EventHandler(this.gridViewItems_HiddenEditor);
             this.gridViewItems.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridView1_RowDeleted);
             this.gridViewItems.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gridView1_RowUpdated);
             this.gridViewItems.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridView1_KeyDown);
@@ -272,6 +276,8 @@
             this.colOrderNum.FieldName = "Order.OrderNumber";
             this.colOrderNum.Name = "colOrderNum";
             this.colOrderNum.OptionsColumn.AllowEdit = false;
+            this.colOrderNum.Visible = true;
+            this.colOrderNum.VisibleIndex = 11;
             this.colOrderNum.Width = 134;
             // 
             // gridColSchedName
@@ -312,7 +318,7 @@
             this.colDateEntered.FieldName = "Order.EntryDate";
             this.colDateEntered.Name = "colDateEntered";
             this.colDateEntered.Visible = true;
-            this.colDateEntered.VisibleIndex = 11;
+            this.colDateEntered.VisibleIndex = 12;
             this.colDateEntered.Width = 246;
             // 
             // repositoryItemImageEdit1
@@ -511,7 +517,8 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabelMain});
+            this.toolStripStatusLabelMain,
+            this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 717);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1600, 22);
@@ -522,6 +529,12 @@
             // 
             this.toolStripStatusLabelMain.Name = "toolStripStatusLabelMain";
             this.toolStripStatusLabelMain.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // gridControlNests
             // 
@@ -686,5 +699,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colnestName;
         private DevExpress.XtraGrid.Columns.GridColumn colnestPath;
         private DevExpress.XtraGrid.Columns.GridColumn colnestedItems;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }

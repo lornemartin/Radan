@@ -41,6 +41,14 @@ namespace RadanInterface2
 
         }
 
+        public Boolean IsActive()
+        {
+            if (rApp != null)
+                return true;
+            else
+                return false;
+        }
+
         public bool Open3DFileInRadan(string FilePath, string MaterialName, ref string ErrorMessage)
         {
             double ModelScale = 1;
