@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace RadanMaster.Models
 {
-    public class Nest
+    public class NestedParts
     {
         [Key]
         public int ID { get; set; }
-        public string nestName { get; set; }
-        public string nestPath { get; set; }
-
-        public virtual ICollection<NestedParts> NestedParts { get; set; }
+        public int Qty { get; set; }
+        public Part Part { get; set; }
     }
 }

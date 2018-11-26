@@ -174,6 +174,7 @@
             this.gridViewItems.HiddenEditor += new System.EventHandler(this.gridViewItems_HiddenEditor);
             this.gridViewItems.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridView1_RowDeleted);
             this.gridViewItems.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gridView1_RowUpdated);
+            this.gridViewItems.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.gridViewItems_CustomUnboundColumnData);
             this.gridViewItems.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridView1_KeyDown);
             // 
             // colID
@@ -200,9 +201,11 @@
             // colQtyNested
             // 
             this.colQtyNested.Caption = "Qty Nested";
-            this.colQtyNested.FieldName = "QtyNested";
+            this.colQtyNested.FieldName = "calcQtyNested";
             this.colQtyNested.Name = "colQtyNested";
             this.colQtyNested.OptionsColumn.AllowEdit = false;
+            this.colQtyNested.OptionsColumn.ReadOnly = true;
+            this.colQtyNested.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
             this.colQtyNested.Visible = true;
             this.colQtyNested.VisibleIndex = 1;
             this.colQtyNested.Width = 54;
