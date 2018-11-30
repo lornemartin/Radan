@@ -871,7 +871,8 @@ namespace RadanMaster
             {
                 OrderItem selectedItem = (OrderItem)gridViewItems.GetRow(rows[0]);
 
-                nestsBindingSource.DataSource = selectedItem.AssociatedNests;
+                if(selectedItem.AssociatedNests!=null)
+                    nestsBindingSource.DataSource = selectedItem.AssociatedNests.ToList();
 
                 //if (selectedItem.AssociatedNests != null)
                 //{
@@ -949,8 +950,22 @@ namespace RadanMaster
             }
         }
 
+
         #endregion
 
+        private void gridViewNests_CustomUnboundColumnData(object sender, CustomColumnDataEventArgs e)
+        {
+            if (e.Column.FieldName == "QtyOnNest")
+            {
+                Nest associatedNest = (Nest)e.Row;
+                int[] rows = gridViewItems.GetSelectedRows();
+                OrderItem selectedItem = (OrderItem)gridViewItems.GetRow(rows[0]);
 
+                NestedParts part = associatedNest.NestedParts.Where(n => n.Part.FileName == selectedItem.Part.FileName).FirstOrDefault();
+
+                if(part!=null)
+                    e.Value = part.Qty;
+            }
+        }
     }
 }

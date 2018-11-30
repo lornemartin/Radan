@@ -87,8 +87,8 @@
             this.colID1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colnestName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colnestPath = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colnestedItems = new DevExpress.XtraGrid.Columns.GridColumn();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
+            this.colQtyOnNest = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
@@ -128,7 +128,7 @@
             this.repositoryItemImageEdit1,
             this.repositoryItemPictureEdit1,
             this.repositoryItemSpinEdit1});
-            this.gridControlItems.Size = new System.Drawing.Size(1600, 500);
+            this.gridControlItems.Size = new System.Drawing.Size(1600, 522);
             this.gridControlItems.TabIndex = 0;
             this.gridControlItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewItems});
@@ -547,7 +547,7 @@
             this.gridControlNests.MainView = this.gridViewNests;
             this.gridControlNests.MenuManager = this.ribbonControl1;
             this.gridControlNests.Name = "gridControlNests";
-            this.gridControlNests.Size = new System.Drawing.Size(1600, 91);
+            this.gridControlNests.Size = new System.Drawing.Size(1600, 69);
             this.gridControlNests.TabIndex = 4;
             this.gridControlNests.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewNests});
@@ -562,37 +562,31 @@
             this.colID1,
             this.colnestName,
             this.colnestPath,
-            this.colnestedItems});
+            this.colQtyOnNest});
             this.gridViewNests.GridControl = this.gridControlNests;
             this.gridViewNests.Name = "gridViewNests";
+            this.gridViewNests.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colQtyOnNest, DevExpress.Data.ColumnSortOrder.Ascending)});
+            this.gridViewNests.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.gridViewNests_CustomUnboundColumnData);
             // 
             // colID1
             // 
             this.colID1.FieldName = "ID";
             this.colID1.Name = "colID1";
-            this.colID1.Visible = true;
-            this.colID1.VisibleIndex = 0;
             // 
             // colnestName
             // 
             this.colnestName.FieldName = "nestName";
             this.colnestName.Name = "colnestName";
             this.colnestName.Visible = true;
-            this.colnestName.VisibleIndex = 1;
+            this.colnestName.VisibleIndex = 0;
             // 
             // colnestPath
             // 
             this.colnestPath.FieldName = "nestPath";
             this.colnestPath.Name = "colnestPath";
             this.colnestPath.Visible = true;
-            this.colnestPath.VisibleIndex = 2;
-            // 
-            // colnestedItems
-            // 
-            this.colnestedItems.FieldName = "nestedItems";
-            this.colnestedItems.Name = "colnestedItems";
-            this.colnestedItems.Visible = true;
-            this.colnestedItems.VisibleIndex = 3;
+            this.colnestPath.VisibleIndex = 1;
             // 
             // splitContainerControl1
             // 
@@ -605,8 +599,20 @@
             this.splitContainerControl1.Panel2.Controls.Add(this.gridControlNests);
             this.splitContainerControl1.Panel2.Text = "Panel2";
             this.splitContainerControl1.Size = new System.Drawing.Size(1600, 596);
-            this.splitContainerControl1.SplitterPosition = 500;
+            this.splitContainerControl1.SplitterPosition = 522;
             this.splitContainerControl1.TabIndex = 5;
+            // 
+            // colQtyOnNest
+            // 
+            this.colQtyOnNest.AppearanceCell.Options.UseTextOptions = true;
+            this.colQtyOnNest.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colQtyOnNest.Caption = "Qty On Nest";
+            this.colQtyOnNest.FieldName = "QtyOnNest";
+            this.colQtyOnNest.Name = "colQtyOnNest";
+            this.colQtyOnNest.OptionsColumn.AllowEdit = false;
+            this.colQtyOnNest.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            this.colQtyOnNest.Visible = true;
+            this.colQtyOnNest.VisibleIndex = 2;
             // 
             // Form1
             // 
@@ -701,7 +707,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colID1;
         private DevExpress.XtraGrid.Columns.GridColumn colnestName;
         private DevExpress.XtraGrid.Columns.GridColumn colnestPath;
-        private DevExpress.XtraGrid.Columns.GridColumn colnestedItems;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private DevExpress.XtraGrid.Columns.GridColumn colQtyOnNest;
     }
 }
