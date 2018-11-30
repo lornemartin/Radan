@@ -294,10 +294,59 @@ namespace RadanMaster
                     rPrj = rPrj.LoadData(radanProjectName);
                     List<RadanNest> nestList = rPrj.Nests.ToList();
                     string nestPath = Path.GetDirectoryName(radanProjectName) + "\\";
+                    string fileName = "";
                     int nestsImported = 0;
                     int nestsAlreadyInProject = 0;
 
-                    // first make sure no nests got deleted from Radan project since last sync
+                    foreach(RadanPart radanPart in rPrj.Parts.Part)     // loop through all the radan parts in this radan project
+                    {
+                        OrderItem masterItem = dbContext.OrderItems.Where(o => o.ID.ToString() == radanPart.Bin).FirstOrDefault();      // this item will exist
+                        Nest masterNest = new Nest();
+                        NestedParts masterNestedPart = new NestedParts();
+
+
+                        foreach(SheetUsedInNest nestedRadanPart in radanPart.UsedInNests)   //loop through all the nested Parts in this Part
+                        {
+                            RadanNest radanNest = rPrj.Nests.Where(n => n.ID == nestedRadanPart.ID.ToString()).FirstOrDefault();        
+                            masterNest = dbContext.Nests.Where(n => n.nestName == radanNest.FileName).Where(n => n.nestPath == nestPath).FirstOrDefault();    // this nest may or may not exist
+
+                            if (masterNest==null)       // if master nest does not exist, create it
+                            {
+                                masterNest = new Nest();
+                                masterNest.nestName = radanNest.FileName;
+                                masterNest.nestPath = nestPath;
+                                masterNest.NestedParts = new List<NestedParts>();
+                            }
+
+                            // search this nest for nested parts and create if they don't exist...
+                            string symName = Path.GetFileNameWithoutExtension(radanPart.Symbol);
+                            masterNestedPart = masterNest.NestedParts.Where(np => np.Part.FileName == symName).FirstOrDefault();
+                            if (masterNestedPart == null)
+                            {
+                                // create new
+                                masterNestedPart = new NestedParts();
+                                masterNestedPart.Qty = nestedRadanPart.Made;
+                                masterNestedPart.Part = masterItem.Part;
+                                masterNest.NestedParts.Add(masterNestedPart);
+                            }
+                            else
+                            {
+                                // update existing
+                                masterNestedPart.Qty = nestedRadanPart.Made;
+                            }
+
+                            if (masterItem.AssociatedNests == null)
+                                masterItem.AssociatedNests = new List<Nest>();
+
+                            if (!masterItem.AssociatedNests.Contains(masterNest))
+                                masterItem.AssociatedNests.Add(masterNest);
+
+                            dbContext.SaveChanges();
+                        }
+
+                    }
+
+                    // make sure no nests got deleted from Radan project since last sync
                     foreach (Nest masterNest in dbContext.Nests.ToList().Where(n => n.nestPath == nestPath))
                     {
                         RadanNest radanNest = rPrj.Nests.Where(r => r.FileName == masterNest.nestName).FirstOrDefault();
@@ -307,77 +356,110 @@ namespace RadanMaster
                         }
                     }
 
-                    // now update master list with new nests in radan project.
-                    foreach (RadanNest radanNest in rPrj.Nests.ToList())
-                    {
-                        Nest masterNest = dbContext.Nests.Where(n => n.nestName == radanNest.FileName).Where(n => n.nestPath == nestPath).FirstOrDefault();
-                        if (masterNest == null)     // add the radan nest to the master if it doesn't already exist
-                        {                   
-                            Nest newMasterNest = new Nest();
-                            newMasterNest.NestedParts = new List<NestedParts>();
-                            newMasterNest.nestName = radanNest.FileName;
-                            newMasterNest.nestPath = nestPath;
+                    #region oldcode
+                    //// first make sure no nests got deleted from Radan project since last sync
+                    //foreach (Nest masterNest in dbContext.Nests.ToList().Where(n => n.nestPath == nestPath))
+                    //{
+                    //    RadanNest radanNest = rPrj.Nests.Where(r => r.FileName == masterNest.nestName).FirstOrDefault();
+                    //    if (radanNest == null)     // remove master nest if it no longer exists in radan project.
+                    //    {
+                    //        dbContext.Nests.Remove(masterNest);
+                    //    }
+                    //}
 
-                            foreach (NestsPartsMade radanPartsMade in radanNest.PartsMade)
-                            {
-                                NestPartsMadeListItem radanPartMade = radanPartsMade.PartsListItems[0];
-                                RadanPart nestedRadanPrt = rPrj.Parts.Part.Where(p => p.ID == radanPartMade.ID).FirstOrDefault();
-                                string fileName = Path.GetFileNameWithoutExtension(radanPartsMade.File);
-                                Part nestedMasterPart = dbContext.Parts.Where(p => p.FileName == fileName).FirstOrDefault();
-                                NestedParts nestedRadanItem = new NestedParts();
-                                nestedRadanItem.Part = nestedMasterPart;
-                                nestedRadanItem.Qty = radanPartMade.Made;
-                                newMasterNest.NestedParts.Add(nestedRadanItem);
-                            }
-                            dbContext.Nests.Add(newMasterNest);
-                            nestsImported++;
-                        }
-                        else
-                        {       
-                            // we already have a matching master nest, we need to double check the associated quantities in the master nest to make sure the radan Nest didn't change
-                            //  after it was originally synced to the master.
+                    //// now update master list with new nests in radan project.
+                    //foreach (RadanNest radanNest in rPrj.Nests.ToList())
+                    //{
 
-                            // TODO ************************make sure there is no records left over if a radan item should be deleted....**************
-                            nestsAlreadyInProject++;
-                            foreach (NestsPartsMade radanPartsMade in radanNest.PartsMade)
-                            {
-                                NestPartsMadeListItem partMade = radanPartsMade.PartsListItems[0];
-                                RadanPart radanPart = rPrj.Parts.Part.Where(p => p.ID == partMade.ID).FirstOrDefault();
-                                string fileName = Path.GetFileNameWithoutExtension(radanPartsMade.File);
-                                Part masterNestedPart = dbContext.Parts.Where(p => p.FileName == fileName).FirstOrDefault();
-                                NestedParts masterNestedItem = new NestedParts();
-                                masterNestedItem.Part = masterNestedPart;
-                                masterNestedItem.Qty = partMade.Made;
+                    //    Nest masterNest = dbContext.Nests.Where(n => n.nestName == radanNest.FileName).Where(n => n.nestPath == nestPath).FirstOrDefault();
+                    //    if (masterNest == null)     // add the radan nest to the master if it doesn't already exist
+                    //    {                   
+                    //        Nest newMasterNest = new Nest();
+                    //        newMasterNest.NestedParts = new List<NestedParts>();
+                    //        newMasterNest.nestName = radanNest.FileName;
+                    //        newMasterNest.nestPath = nestPath;
 
-                                NestedParts searchPart = masterNest.NestedParts.Where(p => p.Part.FileName == fileName).FirstOrDefault();
-                                if (searchPart != null)
-                                {
-                                    // only update the quantities if the item already exists
-                                    masterNest.NestedParts.Remove(searchPart);
-                                    masterNest.NestedParts.Add(masterNestedItem);
-                                }
-                                else
-                                {
-                                    // add a new part to the list
-                                    masterNest.NestedParts.Add(masterNestedItem);
-                                }
-                            }
-                        }
-                    }
+                    //        foreach (NestsPartsMade n in radanNest.PartsMade)
+                    //        {
+                    //            foreach (NestPartsMadeListItem nestPartsMadeListItem in n.PartsListItems)
+                    //            {
+                    //                RadanPart nestedRadanPrt = rPrj.Parts.Part.Where(p => p.ID == nestPartsMadeListItem.ID).FirstOrDefault();
+                    //                fileName = Path.GetFileNameWithoutExtension(nestedRadanPrt.Symbol);
+                    //                Part nestedMasterPart = dbContext.Parts.Where(p => p.FileName == fileName).FirstOrDefault();
+                    //                NestedParts nestedRadanItem = new NestedParts();
+                    //                nestedRadanItem.Part = nestedMasterPart;
+                    //                nestedRadanItem.Qty = nestPartsMadeListItem.Made;
+                    //                newMasterNest.NestedParts.Add(nestedRadanItem);
+                    //            }
+                    //        }
+                    //        dbContext.Nests.Add(newMasterNest);
+                    //        nestsImported++;
+                    //    }
+                    //    else
+                    //    {       
+                    //        // we already have a matching master nest, we need to double check the associated quantities in the master nest to make sure the radan Nest didn't change
+                    //        //  after it was originally synced to the master.
 
-                    
+                    //        // TODO ************************make sure there is no records left over if a radan item should be deleted....**************
+                    //        nestsAlreadyInProject++;
 
-                    dbContext.SaveChanges();
 
-                    RadanPart rPart = new RadanPart();
 
-                    for (int i = 0; i < rPrj.Parts.Count(); i++)
-                    {
-                        rPart = rPrj.Parts.Part[i];
-                        SyncRadanPartToMasterItem(rPart);
-                    }
+
+
+                    //        foreach (NestsPartsMade radanPartsMade in radanNest.PartsMade)
+                    //        {
+                    //            foreach (NestsPartsMade n in radanNest.PartsMade)
+                    //            {
+                    //                foreach (NestPartsMadeListItem nestPartsMadeListItem in n.PartsListItems)
+                    //                {
+                    //                    RadanPart nestedRadanPrt = rPrj.Parts.Part.Where(p => p.ID == nestPartsMadeListItem.ID).FirstOrDefault();
+                    //                    fileName = Path.GetFileNameWithoutExtension(nestedRadanPrt.Symbol);
+                    //                    Part nestedMasterPart = dbContext.Parts.Where(p => p.FileName == fileName).FirstOrDefault();
+                    //                    NestedParts nestedRadanItem = new NestedParts();
+                    //                    nestedRadanItem.Part = nestedMasterPart;
+                    //                    nestedRadanItem.Qty = nestPartsMadeListItem.Made;
+
+                    //                    NestPartsMadeListItem partMade = radanPartsMade.PartsListItems[0];
+                    //                    RadanPart radanPart = rPrj.Parts.Part.Where(p => p.ID == partMade.ID).FirstOrDefault();
+                    //                    fileName = Path.GetFileNameWithoutExtension(radanPartsMade.File);
+                    //                    Part masterNestedPart = dbContext.Parts.Where(p => p.FileName == fileName).FirstOrDefault();
+                    //                    NestedParts masterNestedItem = new NestedParts();
+                    //                    masterNestedItem.Part = masterNestedPart;
+                    //                    masterNestedItem.Qty = partMade.Made;
+
+                    //                    NestedParts searchPart = masterNest.NestedParts.Where(p => p.Part.FileName == fileName).FirstOrDefault();
+                    //                    if (searchPart != null)
+                    //                    {
+                    //                        // only update the quantities if the item already exists
+                    //                        masterNest.NestedParts.Remove(searchPart);
+                    //                        masterNest.NestedParts.Add(masterNestedItem);
+                    //                    }
+                    //                    else
+                    //                    {
+                    //                        // add a new part to the list
+                    //                        masterNest.NestedParts.Add(masterNestedItem);
+                    //                    }
+                    //                }
+                    //            }
+                    //        }
+                    //    }
+                    //}
+
+
+
+                    //dbContext.SaveChanges();
+
+                    //RadanPart rPart = new RadanPart();
+
+                    //for (int i = 0; i < rPrj.Parts.Count(); i++)
+                    //{
+                    //    rPart = rPrj.Parts.Part[i];
+                    //    SyncRadanPartToMasterItem(rPart);
+                    //}
 
                     //rPrj.SaveData(barEditRadanProjectBrowse.EditValue.ToString());
+                    #endregion
                     dbContext.SaveChanges();
                     gridViewItems.RefreshData();
                 }
@@ -789,20 +871,24 @@ namespace RadanMaster
             {
                 OrderItem selectedItem = (OrderItem)gridViewItems.GetRow(rows[0]);
 
-                if (selectedItem.AssociatedNests != null)
-                {
-                    if (selectedItem.AssociatedNests.Count > 0)
-                    {
-                        foreach (Nest n in selectedItem.AssociatedNests)
-                        {
-                            filteredNestsSubList = dbContext.Nests.Where(nst => nst.nestName == n.nestName).Where(nst => nst.nestPath == n.nestPath).ToList();
-                            filteredNests.AddRange(filteredNestsSubList);
-                        }
-                    }
-                }
+                nestsBindingSource.DataSource = selectedItem.AssociatedNests;
+
+                //if (selectedItem.AssociatedNests != null)
+                //{
+                //    if (selectedItem.AssociatedNests.Count > 0)
+                //    {
+                //        foreach (Nest n in selectedItem.AssociatedNests)
+                //        {
+                //            filteredNestsSubList = dbContext.Nests.Where(nst => nst.nestName == n.nestName).Where(nst => nst.nestPath == n.nestPath).ToList();
+                //            filteredNests.AddRange(filteredNestsSubList);
+                //        }
+                //    }
+                //}
             }
 
-            nestsBindingSource.DataSource = filteredNests;
+            //nestsBindingSource.DataSource = filteredNests;
+
+           
             
             gridViewNests.RefreshData();
         }
