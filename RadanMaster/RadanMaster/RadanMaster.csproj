@@ -104,9 +104,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811301844064_InitialCreate.cs" />
-    <Compile Include="Migrations\201811301844064_InitialCreate.Designer.cs">
-      <DependentUpon>201811301844064_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201812011124120_InitialCreate.cs" />
+    <Compile Include="Migrations\201812011124120_InitialCreate.Designer.cs">
+      <DependentUpon>201812011124120_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Nest.cs" />
@@ -122,8 +122,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811301844064_InitialCreate.resx">
-      <DependentUpon>201811301844064_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812011124120_InitialCreate.resx">
+      <DependentUpon>201812011124120_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
