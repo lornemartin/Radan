@@ -236,57 +236,6 @@ namespace RadanMaster
 
         }
 
-        //private bool SyncRadanPartToMasterItem(RadanPart radPart)
-        //{
-        //    try
-        //    {
-        //        string symName = Path.GetFileNameWithoutExtension(radPart.Symbol);
-        //        int binNumber = int.Parse(radPart.Bin);
-
-        //        OrderItem masterItem = dbContext.OrderItems.Where(i => i.Part.FileName == symName).Where(i => i.ID == binNumber).FirstOrDefault();
-
-        //        if (masterItem != null)
-        //        {
-        //            for (int i =0; i < radPart.UsedInNests.Count; i++)
-        //            {
-        //                int nestID = (int) radPart.UsedInNests[i].ID;
-        //                string nestName = "";
-
-        //                foreach(RadanNest nst in rPrj.Nests)
-        //                {
-        //                    if (nst.ID == nestID.ToString())
-        //                        nestName = nst.FileName;
-        //                }
-
-        //                string pathName = Path.GetDirectoryName(radanProjectName) + "\\";
-        //                Nest matchingNest = dbContext.Nests.Where(n => n.nestName == nestName).Where(n => n.nestPath == pathName).FirstOrDefault();
-
-        //                if (matchingNest != null)
-        //                {
-        //                    if (!masterItem.AssociatedNests.Contains(matchingNest))
-        //                    {
-        //                        // if these were not associated with a nest previously, add them to the parts nested quantity
-        //                        masterItem.AssociatedNests.Add(matchingNest);
-        //                        //masterItem.QtyNested += radPart.UsedInNests[i].Made;
-        //                    }
-        //                    else
-        //                    {   
-        //                        // need to add a check here to make sure partial nests have not been synced before....
-        //                    }
-
-        //                }
-        //            }
-        //        }
-
-
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return false;
-        //    }
-        //}
-
         private bool SyncRadanToMaster()
         {
             try
@@ -490,6 +439,120 @@ namespace RadanMaster
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        private bool CreateNewRadanProject()
+        {
+            try
+            {
+                FileInfo oldProjFile = new FileInfo(radanProjectName);
+                DirectoryInfo prjRootDir = oldProjFile.Directory.Parent;
+
+                string newFolderName = string.Format("{0:yyy/MM/dd}", DateTime.Now);
+
+                string newPrjDirName = prjRootDir.FullName + "\\" + newFolderName;
+
+                DirectoryInfo uniqueNewPrjFolder = MakeUnique(newPrjDirName);
+
+                uniqueNewPrjFolder.Create();
+
+                // copy the old folder structure to a new folder
+                CopyFolder(oldProjFile.DirectoryName, uniqueNewPrjFolder.FullName);
+
+                // remove all nests from newly created project
+                DirectoryInfo newNestFolder = new DirectoryInfo(uniqueNewPrjFolder + "\\" + "nests");
+                foreach (FileInfo file in newNestFolder.GetFiles())
+                {
+                    file.Delete();
+                }
+
+                // rename the project file
+                string oldPrjFileName = uniqueNewPrjFolder.FullName + "\\" + oldProjFile.Name;
+                string newPrjFileName = uniqueNewPrjFolder.FullName + "\\" + uniqueNewPrjFolder.Name + ".rpd";
+                System.IO.File.Move(oldPrjFileName, newPrjFileName);
+
+                //update the nested quantites from the old radan project.  Up till now they have always been calculated rather than stored in DB.
+                foreach (OrderItem item in dbContext.OrderItems.Where(i => i.IsInProject == true).ToList())
+                {
+                    int totalNested = 0;
+
+                    if (item.AssociatedNests != null)
+                    {
+                        foreach (Nest associatedNest in item.AssociatedNests)
+                        {
+                            if (associatedNest.NestedParts != null)
+                            {
+                                foreach (NestedParts p in associatedNest.NestedParts)
+                                {
+                                    if (p.Part == item.Part && Path.GetDirectoryName(associatedNest.nestPath) == Path.GetDirectoryName(radanProjectName))
+                                        totalNested += p.Qty;
+                                }
+                            }
+                        }
+                    }
+
+                    item.QtyNested = totalNested;
+                    item.IsInProject = false;
+                }
+
+                dbContext.SaveChanges();
+
+                radanProjectName = newPrjFileName;
+                barEditRadanProjectBrowse.EditValue = newPrjFileName;
+
+                rPrj = new RadanProject();
+                rPrj = rPrj.LoadData(newPrjFileName);
+
+                rPrj.Nests = new List<RadanNest>();
+                rPrj.Parts.Part = new List<RadanPart>();
+                rPrj.RadanSchedule.JobDetails.nestFolder = uniqueNewPrjFolder.FullName + "\\" + "nests";
+                rPrj.RadanSchedule.JobDetails.remnantSaveFolder = uniqueNewPrjFolder.FullName + "\\" + "remnants";
+
+                rPrj.SaveData(newPrjFileName);
+
+                radInterface.SaveProject();
+
+                radInterface.LoadProject(newPrjFileName);
+                
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+
+        static public void CopyFolder(string sourceFolder, string destFolder)
+        {
+            if (!Directory.Exists(destFolder))
+                Directory.CreateDirectory(destFolder);
+            string[] files = Directory.GetFiles(sourceFolder);
+            foreach (string file in files)
+            {
+                string name = Path.GetFileName(file);
+                string dest = Path.Combine(destFolder, name);
+                File.Copy(file, dest);
+            }
+            string[] folders = Directory.GetDirectories(sourceFolder);
+            foreach (string folder in folders)
+            {
+                string name = Path.GetFileName(folder);
+                string dest = Path.Combine(destFolder, name);
+                CopyFolder(folder, dest);
+            }
+        }
+
+        public DirectoryInfo MakeUnique(string path)
+        {
+            string pathWithoutIncrement = path.Split('(')[0];
+            for (int i = 1; ; i++)
+            {
+                if (!Directory.Exists(path))
+                    return new DirectoryInfo(path);
+
+                path = pathWithoutIncrement + "(" + i + ")";
             }
         }
 
@@ -738,6 +801,11 @@ namespace RadanMaster
             
         }
 
+        private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            CreateNewRadanProject();
+        }
+
         private void barEditRadanProjectBrowse_EditValueChanged(object sender, EventArgs e)
         {
             AppSettings.AppSettings.Set("RadanProjectPathAndFile", barEditRadanProjectBrowse.EditValue);
@@ -856,5 +924,7 @@ namespace RadanMaster
                     e.Value = part.Qty;
             }
         }
+
+        
     }
 }

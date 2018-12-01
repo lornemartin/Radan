@@ -87,8 +87,9 @@
             this.colID1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colnestName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colnestPath = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.colQtyOnNest = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
+            this.barButtonNewRadanProject = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
@@ -347,9 +348,10 @@
             this.barEditItem1,
             this.barEditRadanProjectBrowse,
             this.barButtonUpdateFromRadan,
-            this.barButtonRetrieveSelectionFromRadan});
+            this.barButtonRetrieveSelectionFromRadan,
+            this.barButtonNewRadanProject});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 14;
+            this.ribbonControl1.MaxItemId = 15;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -508,6 +510,7 @@
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonGroup1);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonRetrieveSelectionFromRadan);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonUpdateFromRadan);
+            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonNewRadanProject);
             this.ribbonPageGroup2.ItemsLayout = DevExpress.XtraBars.Ribbon.RibbonPageGroupItemsLayout.OneRow;
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "Radan";
@@ -588,6 +591,18 @@
             this.colnestPath.Visible = true;
             this.colnestPath.VisibleIndex = 1;
             // 
+            // colQtyOnNest
+            // 
+            this.colQtyOnNest.AppearanceCell.Options.UseTextOptions = true;
+            this.colQtyOnNest.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.colQtyOnNest.Caption = "Qty On Nest";
+            this.colQtyOnNest.FieldName = "QtyOnNest";
+            this.colQtyOnNest.Name = "colQtyOnNest";
+            this.colQtyOnNest.OptionsColumn.AllowEdit = false;
+            this.colQtyOnNest.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            this.colQtyOnNest.Visible = true;
+            this.colQtyOnNest.VisibleIndex = 2;
+            // 
             // splitContainerControl1
             // 
             this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -602,17 +617,15 @@
             this.splitContainerControl1.SplitterPosition = 522;
             this.splitContainerControl1.TabIndex = 5;
             // 
-            // colQtyOnNest
+            // barButtonNewRadanProject
             // 
-            this.colQtyOnNest.AppearanceCell.Options.UseTextOptions = true;
-            this.colQtyOnNest.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.colQtyOnNest.Caption = "Qty On Nest";
-            this.colQtyOnNest.FieldName = "QtyOnNest";
-            this.colQtyOnNest.Name = "colQtyOnNest";
-            this.colQtyOnNest.OptionsColumn.AllowEdit = false;
-            this.colQtyOnNest.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
-            this.colQtyOnNest.Visible = true;
-            this.colQtyOnNest.VisibleIndex = 2;
+            this.barButtonNewRadanProject.Caption = "New Radan Project";
+            this.barButtonNewRadanProject.Hint = "Create New Radan Project";
+            this.barButtonNewRadanProject.Id = 14;
+            this.barButtonNewRadanProject.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.Image")));
+            this.barButtonNewRadanProject.Name = "barButtonNewRadanProject";
+            this.barButtonNewRadanProject.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonNewRadanProject.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem1_ItemClick);
             // 
             // Form1
             // 
@@ -709,5 +722,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colnestPath;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private DevExpress.XtraGrid.Columns.GridColumn colQtyOnNest;
+        private DevExpress.XtraBars.BarButtonItem barButtonNewRadanProject;
     }
 }
