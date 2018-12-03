@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::RadanMaster.SplashScreen1), true, true);
+            DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::RadanMaster.SplashScreen1), true, true, true);
             DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
@@ -76,6 +76,7 @@
             this.barToggleShowComplete = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.barToggleShowRadan = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.barToggleSwitchGroup1 = new DevExpress.XtraBars.BarToggleSwitchItem();
+            this.barToggleSwitchGroup2 = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgSkins = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -119,6 +120,10 @@
             this.splitContainerControl1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // splashScreenManager1
+            // 
+            splashScreenManager1.ClosingDelay = 500;
+            // 
             // colIsInProject
             // 
             this.colIsInProject.Caption = "In Radan Project?";
@@ -127,10 +132,6 @@
             this.colIsInProject.OptionsColumn.AllowEdit = false;
             this.colIsInProject.Visible = true;
             this.colIsInProject.VisibleIndex = 13;
-            // 
-            // splashScreenManager1
-            // 
-            splashScreenManager1.ClosingDelay = 500;
             // 
             // gridControlItems
             // 
@@ -186,6 +187,7 @@
             this.gridViewItems.OptionsSelection.MultiSelect = true;
             this.gridViewItems.OptionsView.RowAutoHeight = true;
             this.gridViewItems.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridViewItems_RowClick);
+            this.gridViewItems.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridViewItems_RowCellStyle);
             this.gridViewItems.HiddenEditor += new System.EventHandler(this.gridViewItems_HiddenEditor);
             this.gridViewItems.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridView1_RowDeleted);
             this.gridViewItems.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gridView1_RowUpdated);
@@ -368,9 +370,10 @@
             this.barToggleSwitchShowOrders,
             this.barToggleShowComplete,
             this.barToggleShowRadan,
-            this.barToggleSwitchGroup1});
+            this.barToggleSwitchGroup1,
+            this.barToggleSwitchGroup2});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 21;
+            this.ribbonControl1.MaxItemId = 22;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
@@ -547,6 +550,13 @@
             this.barToggleSwitchGroup1.Name = "barToggleSwitchGroup1";
             this.barToggleSwitchGroup1.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barToggleSwitchGroup1_CheckedChanged);
             // 
+            // barToggleSwitchGroup2
+            // 
+            this.barToggleSwitchGroup2.Caption = "Group By Schedule and Thickness";
+            this.barToggleSwitchGroup2.Id = 21;
+            this.barToggleSwitchGroup2.Name = "barToggleSwitchGroup2";
+            this.barToggleSwitchGroup2.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barToggleSwitchGroup2_CheckedChanged);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -607,6 +617,7 @@
             // ribbonPageQuickSorts
             // 
             this.ribbonPageQuickSorts.ItemLinks.Add(this.barToggleSwitchGroup1);
+            this.ribbonPageQuickSorts.ItemLinks.Add(this.barToggleSwitchGroup2);
             this.ribbonPageQuickSorts.Name = "ribbonPageQuickSorts";
             this.ribbonPageQuickSorts.Text = "Quick Groups";
             // 
@@ -829,5 +840,6 @@
         private DevExpress.XtraBars.BarToggleSwitchItem barToggleSwitchGroup1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageQuickSorts;
         private DevExpress.XtraWaitForm.ProgressPanel progressPanel1;
+        private DevExpress.XtraBars.BarToggleSwitchItem barToggleSwitchGroup2;
     }
 }

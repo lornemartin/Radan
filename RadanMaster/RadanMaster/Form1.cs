@@ -647,6 +647,7 @@ namespace RadanMaster
 
         private void barButtonSendSelectionToRadan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
             if (saveRadan())
             {
 
@@ -668,6 +669,7 @@ namespace RadanMaster
                             masterItemToRadanPart(orderItem);
                     }
                 }
+               
             }
             
             // need to open current project here...
@@ -675,24 +677,25 @@ namespace RadanMaster
             string prjName = radInterface.getOpenProjectName(ref errMessage);
             radInterface.LoadProject(prjName);
 
-
             string path = barEditRadanProject.EditValue.ToString();
             rPrj.SaveData(path);
 
             gridViewItems.RefreshData();
+
+            SplashScreenManager.HideImage();
         }
 
         private void barButtonRetrieveSelectionFromRadan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
             if (saveRadan())
             {
-
+                
                 RetrieveSelectedRadanPartToMasterList();
-
-
-
                 gridViewItems.RefreshData();
+                
             }
+            SplashScreenManager.HideImage();
         }
 
         private void barButtonItemAdd_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -1045,6 +1048,28 @@ namespace RadanMaster
             if (barToggleSwitchGroup1.Checked)
             {
                 gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
+                gridViewItems.Columns["Order.BatchName"].GroupIndex = 2;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = 3;
+
+                //gridViewItems.ExpandAllGroups();
+
+
+            }
+            else
+            {
+                gridViewItems.Columns["Order.IsBatch"].GroupIndex = -1;
+                gridViewItems.Columns["Order.BatchName"].GroupIndex = -1;
+                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = -1;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
+            }
+
+        }
+
+        private void barToggleSwitchGroup2_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if(barToggleSwitchGroup2.Checked)
+            {
+                gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
                 gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 2;
                 gridViewItems.Columns["Part.Thickness"].GroupIndex = 3;
 
@@ -1056,9 +1081,29 @@ namespace RadanMaster
             {
                 gridViewItems.Columns["Order.IsBatch"].GroupIndex = -1;
                 gridViewItems.Columns["Order.ScheduleName"].GroupIndex = -1;
+                gridViewItems.Columns["Order.BatchName"].GroupIndex = -1;
                 gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
             }
+        }
 
+        private void gridViewItems_RowCellStyle(object sender, RowCellStyleEventArgs e)
+        {
+            GridView view = sender as GridView;
+            if (e.Column.FieldName == "calcQtyNested")
+            {
+                int qtyRequired = (int)view.GetRowCellValue(e.RowHandle, "QtyRequired");
+                int qtyNested = (int)view.GetRowCellValue(e.RowHandle, "calcQtyNested");
+
+
+                if (qtyNested == qtyRequired)
+                    e.Appearance.BackColor = Color.Green;
+                else if (qtyNested > 0 && qtyNested < qtyRequired)
+                    e.Appearance.BackColor = Color.Yellow;
+                else if (qtyNested > qtyRequired)
+                    e.Appearance.BackColor = Color.Red;
+
+
+            }
         }
     }
 }
