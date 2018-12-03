@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::RadanMaster.SplashScreen1), true, true);
             DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
@@ -69,10 +70,19 @@
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.barButtonUpdateFromRadan = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonRetrieveSelectionFromRadan = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonNewRadanProject = new DevExpress.XtraBars.BarButtonItem();
+            this.barToggleSwitchShowBatches = new DevExpress.XtraBars.BarToggleSwitchItem();
+            this.barToggleSwitchShowOrders = new DevExpress.XtraBars.BarToggleSwitchItem();
+            this.barToggleShowComplete = new DevExpress.XtraBars.BarToggleSwitchItem();
+            this.barToggleShowRadan = new DevExpress.XtraBars.BarToggleSwitchItem();
+            this.barToggleSwitchGroup1 = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgSkins = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.rbnPageFilters = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageQuickFilters = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageQuickSorts = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.repositoryItemTextEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogAddItem = new System.Windows.Forms.OpenFileDialog();
@@ -89,7 +99,7 @@
             this.colnestPath = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQtyOnNest = new DevExpress.XtraGrid.Columns.GridColumn();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
-            this.barButtonNewRadanProject = new DevExpress.XtraBars.BarButtonItem();
+            this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
@@ -117,6 +127,10 @@
             this.colIsInProject.OptionsColumn.AllowEdit = false;
             this.colIsInProject.Visible = true;
             this.colIsInProject.VisibleIndex = 13;
+            // 
+            // splashScreenManager1
+            // 
+            splashScreenManager1.ClosingDelay = 500;
             // 
             // gridControlItems
             // 
@@ -349,12 +363,18 @@
             this.barEditRadanProjectBrowse,
             this.barButtonUpdateFromRadan,
             this.barButtonRetrieveSelectionFromRadan,
-            this.barButtonNewRadanProject});
+            this.barButtonNewRadanProject,
+            this.barToggleSwitchShowBatches,
+            this.barToggleSwitchShowOrders,
+            this.barToggleShowComplete,
+            this.barToggleShowRadan,
+            this.barToggleSwitchGroup1});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 15;
+            this.ribbonControl1.MaxItemId = 21;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
-            this.ribbonPage1});
+            this.ribbonPage1,
+            this.rbnPageFilters});
             this.ribbonControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1,
             this.repositoryItemTextEdit2,
@@ -476,6 +496,57 @@
             this.barButtonRetrieveSelectionFromRadan.Name = "barButtonRetrieveSelectionFromRadan";
             this.barButtonRetrieveSelectionFromRadan.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonRetrieveSelectionFromRadan_ItemClick);
             // 
+            // barButtonNewRadanProject
+            // 
+            this.barButtonNewRadanProject.Caption = "New Radan Project";
+            this.barButtonNewRadanProject.Hint = "Create New Radan Project";
+            this.barButtonNewRadanProject.Id = 14;
+            this.barButtonNewRadanProject.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonNewRadanProject.ImageOptions.Image")));
+            this.barButtonNewRadanProject.Name = "barButtonNewRadanProject";
+            this.barButtonNewRadanProject.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonNewRadanProject.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem1_ItemClick);
+            // 
+            // barToggleSwitchShowBatches
+            // 
+            this.barToggleSwitchShowBatches.BindableChecked = true;
+            this.barToggleSwitchShowBatches.Caption = "Show Batches";
+            this.barToggleSwitchShowBatches.Checked = true;
+            this.barToggleSwitchShowBatches.Id = 15;
+            this.barToggleSwitchShowBatches.Name = "barToggleSwitchShowBatches";
+            this.barToggleSwitchShowBatches.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barToggleSwitchShowBatches_CheckedChanged);
+            // 
+            // barToggleSwitchShowOrders
+            // 
+            this.barToggleSwitchShowOrders.BindableChecked = true;
+            this.barToggleSwitchShowOrders.Caption = "Show Orders";
+            this.barToggleSwitchShowOrders.Checked = true;
+            this.barToggleSwitchShowOrders.Id = 17;
+            this.barToggleSwitchShowOrders.Name = "barToggleSwitchShowOrders";
+            this.barToggleSwitchShowOrders.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barToggleSwitchShowOrders_CheckedChanged);
+            // 
+            // barToggleShowComplete
+            // 
+            this.barToggleShowComplete.BindableChecked = true;
+            this.barToggleShowComplete.Caption = "Show Complete";
+            this.barToggleShowComplete.Checked = true;
+            this.barToggleShowComplete.Id = 18;
+            this.barToggleShowComplete.Name = "barToggleShowComplete";
+            this.barToggleShowComplete.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barToggleShowComplete_CheckedChanged);
+            // 
+            // barToggleShowRadan
+            // 
+            this.barToggleShowRadan.Caption = "Show Only Items In Radan";
+            this.barToggleShowRadan.Id = 19;
+            this.barToggleShowRadan.Name = "barToggleShowRadan";
+            this.barToggleShowRadan.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barToggleShowRadan_CheckedChanged);
+            // 
+            // barToggleSwitchGroup1
+            // 
+            this.barToggleSwitchGroup1.Caption = "Group By Batch and Thickness";
+            this.barToggleSwitchGroup1.Id = 20;
+            this.barToggleSwitchGroup1.Name = "barToggleSwitchGroup1";
+            this.barToggleSwitchGroup1.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barToggleSwitchGroup1_CheckedChanged);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -514,6 +585,30 @@
             this.ribbonPageGroup2.ItemsLayout = DevExpress.XtraBars.Ribbon.RibbonPageGroupItemsLayout.OneRow;
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "Radan";
+            // 
+            // rbnPageFilters
+            // 
+            this.rbnPageFilters.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageQuickFilters,
+            this.ribbonPageQuickSorts});
+            this.rbnPageFilters.Name = "rbnPageFilters";
+            this.rbnPageFilters.Text = "Quick Filters & Groups";
+            // 
+            // ribbonPageQuickFilters
+            // 
+            this.ribbonPageQuickFilters.ItemLinks.Add(this.barToggleSwitchShowBatches);
+            this.ribbonPageQuickFilters.ItemLinks.Add(this.barToggleSwitchShowOrders);
+            this.ribbonPageQuickFilters.ItemLinks.Add(this.barToggleShowComplete);
+            this.ribbonPageQuickFilters.ItemLinks.Add(this.barToggleShowRadan);
+            this.ribbonPageQuickFilters.ItemsLayout = DevExpress.XtraBars.Ribbon.RibbonPageGroupItemsLayout.TwoRows;
+            this.ribbonPageQuickFilters.Name = "ribbonPageQuickFilters";
+            this.ribbonPageQuickFilters.Text = "Quick Filters";
+            // 
+            // ribbonPageQuickSorts
+            // 
+            this.ribbonPageQuickSorts.ItemLinks.Add(this.barToggleSwitchGroup1);
+            this.ribbonPageQuickSorts.Name = "ribbonPageQuickSorts";
+            this.ribbonPageQuickSorts.Text = "Quick Groups";
             // 
             // repositoryItemTextEdit3
             // 
@@ -609,6 +704,7 @@
             this.splitContainerControl1.Horizontal = false;
             this.splitContainerControl1.Location = new System.Drawing.Point(0, 143);
             this.splitContainerControl1.Name = "splitContainerControl1";
+            this.splitContainerControl1.Panel1.Controls.Add(this.progressPanel1);
             this.splitContainerControl1.Panel1.Controls.Add(this.gridControlItems);
             this.splitContainerControl1.Panel1.Text = "Panel1";
             this.splitContainerControl1.Panel2.Controls.Add(this.gridControlNests);
@@ -617,15 +713,16 @@
             this.splitContainerControl1.SplitterPosition = 522;
             this.splitContainerControl1.TabIndex = 5;
             // 
-            // barButtonNewRadanProject
+            // progressPanel1
             // 
-            this.barButtonNewRadanProject.Caption = "New Radan Project";
-            this.barButtonNewRadanProject.Hint = "Create New Radan Project";
-            this.barButtonNewRadanProject.Id = 14;
-            this.barButtonNewRadanProject.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.Image")));
-            this.barButtonNewRadanProject.Name = "barButtonNewRadanProject";
-            this.barButtonNewRadanProject.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.barButtonNewRadanProject.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem1_ItemClick);
+            this.progressPanel1.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.progressPanel1.Appearance.Options.UseBackColor = true;
+            this.progressPanel1.BarAnimationElementThickness = 2;
+            this.progressPanel1.Location = new System.Drawing.Point(945, 383);
+            this.progressPanel1.Name = "progressPanel1";
+            this.progressPanel1.Size = new System.Drawing.Size(246, 66);
+            this.progressPanel1.TabIndex = 1;
+            this.progressPanel1.Text = "progressPanel1";
             // 
             // Form1
             // 
@@ -723,5 +820,14 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private DevExpress.XtraGrid.Columns.GridColumn colQtyOnNest;
         private DevExpress.XtraBars.BarButtonItem barButtonNewRadanProject;
+        private DevExpress.XtraBars.BarToggleSwitchItem barToggleSwitchShowBatches;
+        private DevExpress.XtraBars.Ribbon.RibbonPage rbnPageFilters;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageQuickFilters;
+        private DevExpress.XtraBars.BarToggleSwitchItem barToggleSwitchShowOrders;
+        private DevExpress.XtraBars.BarToggleSwitchItem barToggleShowComplete;
+        private DevExpress.XtraBars.BarToggleSwitchItem barToggleShowRadan;
+        private DevExpress.XtraBars.BarToggleSwitchItem barToggleSwitchGroup1;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageQuickSorts;
+        private DevExpress.XtraWaitForm.ProgressPanel progressPanel1;
     }
 }

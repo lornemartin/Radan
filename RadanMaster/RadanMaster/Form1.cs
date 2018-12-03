@@ -22,6 +22,7 @@ using System.Xml.Serialization;
 using System.Text.RegularExpressions;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using DevExpress.Utils;
+using DevExpress.XtraSplashScreen;
 
 namespace RadanMaster
 {
@@ -64,6 +65,10 @@ namespace RadanMaster
                 // Bind data to control when loading complete
                 nestsBindingSource.DataSource = null;
             }, System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext());
+
+            barToggleSwitchGroup1.PerformClick();
+
+            progressPanel1.Hide();
         }
 
         private void importXmlFile(string fileName)
@@ -350,6 +355,7 @@ namespace RadanMaster
                     dbContext.SaveChanges();
                     gridViewItems.RefreshData();
                 }
+
                 return true;
             }
             catch(Exception ex)
@@ -792,7 +798,10 @@ namespace RadanMaster
             if (result == DialogResult.OK) // Test result.
             {
                 importFileName = (openFileDialogImport.FileName);
+
+                SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
                 importXmlFile(importFileName);
+                SplashScreenManager.HideImage();
             }
         }
 
@@ -813,9 +822,9 @@ namespace RadanMaster
 
         private void barButtonUpdateFromRadan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
             SyncRadanToMaster();
-
-            
+            SplashScreenManager.HideImage();
         }
 
         private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -942,6 +951,114 @@ namespace RadanMaster
             }
         }
 
-        
+        private void barToggleSwitchShowBatches_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (barToggleSwitchShowBatches.Checked && barToggleSwitchShowOrders.Checked)
+            {
+                gridViewItems.Columns["Order.IsBatch"].ClearFilter();
+            }
+            else if(barToggleSwitchShowBatches.Checked && !barToggleSwitchShowOrders.Checked)
+            {
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                    new ColumnFilterInfo("[Order.IsBatch] == 'true'");
+            }
+            else if (!barToggleSwitchShowBatches.Checked && barToggleSwitchShowOrders.Checked)
+            {
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                    new ColumnFilterInfo("[Order.IsBatch] == 'false'");
+            }
+            else
+            {
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                    new ColumnFilterInfo("[Order.IsBatch] == 'bogus'");
+            }
+
+        }
+
+        private void barToggleShowRadan_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (barToggleShowRadan.Checked)
+            {
+                gridViewItems.Columns["IsInProject"].FilterInfo =
+                    new ColumnFilterInfo("[IsInProject] == 'true'");
+            }
+            else
+            {
+                gridViewItems.Columns["IsInProject"].ClearFilter();
+
+            }
+        }
+
+        private void barToggleSwitchShowOrders_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            //if(barToggleSwitchShowOrders.Checked)
+            //{
+            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+            //        new ColumnFilterInfo("[Order.IsBatch] == 'false'");
+            //}
+            //else
+            //{
+            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+            //        new ColumnFilterInfo("[Order.IsBatch] == 'true'");
+            //}
+
+
+            if (barToggleSwitchShowBatches.Checked && barToggleSwitchShowOrders.Checked)
+            {
+                gridViewItems.Columns["Order.IsBatch"].ClearFilter();
+            }
+            else if (barToggleSwitchShowBatches.Checked && !barToggleSwitchShowOrders.Checked)
+            {
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                    new ColumnFilterInfo("[Order.IsBatch] == 'true'");
+            }
+            else if (!barToggleSwitchShowBatches.Checked && barToggleSwitchShowOrders.Checked)
+            {
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                    new ColumnFilterInfo("[Order.IsBatch] == 'false'");
+            }
+            else
+            {
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                    new ColumnFilterInfo("[Order.IsBatch] == 'bogus'");
+            }
+
+
+        }
+
+        private void barToggleShowComplete_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if(!barToggleShowComplete.Checked)
+            {
+                gridViewItems.Columns["IsComplete"].FilterInfo =
+                    new ColumnFilterInfo("[IsComplete] == 'false'");
+            }
+            else
+            {
+                gridViewItems.Columns["IsComplete"].ClearFilter();
+            }
+
+        }
+
+        private void barToggleSwitchGroup1_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (barToggleSwitchGroup1.Checked)
+            {
+                gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
+                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 2;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = 3;
+
+                //gridViewItems.ExpandAllGroups();
+
+
+            }
+            else
+            {
+                gridViewItems.Columns["Order.IsBatch"].GroupIndex = -1;
+                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = -1;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
+            }
+
+        }
     }
 }
