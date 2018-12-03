@@ -313,26 +313,35 @@ namespace RadanMaster
 
                     foreach(OrderItem item in dbContext.OrderItems.Where(i => i.IsInProject == true).ToList())
                     {
+                        RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.ID);
+                        if (rPart != null)
+                            item.IsInProject = true;
+                        else
+                            item.IsInProject = false;
+
                         if (item.AssociatedNests!=null)
                         {
                             RadanPart radanPart = rPrj.Parts.Part.Where(p => p.Bin == item.ID.ToString()).FirstOrDefault();
                             foreach (Nest masterNest in item.AssociatedNests)
                             {
                                 RadanNest radanNest = rPrj.Nests.Where(n => n.FileName == masterNest.nestName).FirstOrDefault();
-                                string radanNestID = radanNest.ID;
+                                if (radanNest != null)
+                                {
+                                    string radanNestID = radanNest.ID;
 
-                                foreach (SheetUsedInNest nestedRadanPart in radanPart.UsedInNests)
-                                {
-                                    if(nestedRadanPart.ID.ToString() == radanNestID)
+                                    foreach (SheetUsedInNest nestedRadanPart in radanPart.UsedInNests)
                                     {
-                                        matchingNestedPartFound = true;
+                                        if (nestedRadanPart.ID.ToString() == radanNestID)
+                                        {
+                                            matchingNestedPartFound = true;
+                                        }
                                     }
-                                }
-                                if(!matchingNestedPartFound)
-                                {
-                                    NestedParts masterNestedPart = masterNest.NestedParts.Where(p => p.Part == item.Part).FirstOrDefault();
-                                    masterNest.NestedParts.Remove(masterNestedPart);
-                                    item.AssociatedNests.Remove(masterNest);
+                                    if (!matchingNestedPartFound)
+                                    {
+                                        NestedParts masterNestedPart = masterNest.NestedParts.Where(p => p.Part == item.Part).FirstOrDefault();
+                                        masterNest.NestedParts.Remove(masterNestedPart);
+                                        item.AssociatedNests.Remove(masterNest);
+                                    }
                                 }
                             }
                         }
@@ -446,6 +455,16 @@ namespace RadanMaster
         {
             try
             {
+                SyncRadanToMaster();    // make sure everything is synched before we begin here....
+
+                // shouldn't be necessary to save this specifically, but job details are not serializing properly, so this is a work around...
+                long maxNestNumber = 0;
+                foreach(RadanNest radanNest in rPrj.Nests)
+                {
+                    if (long.Parse(radanNest.ID) > maxNestNumber)
+                        maxNestNumber = long.Parse(radanNest.ID);
+                }
+
                 FileInfo oldProjFile = new FileInfo(radanProjectName);
                 DirectoryInfo prjRootDir = oldProjFile.Directory.Parent;
 
@@ -473,7 +492,7 @@ namespace RadanMaster
                 System.IO.File.Move(oldPrjFileName, newPrjFileName);
 
                 //update the nested quantites from the old radan project.  Up till now they have always been calculated rather than stored in DB.
-                foreach (OrderItem item in dbContext.OrderItems.Where(i => i.IsInProject == true).ToList())
+                foreach (OrderItem item in dbContext.OrderItems.ToList())
                 {
                     int totalNested = 0;
 
@@ -492,7 +511,7 @@ namespace RadanMaster
                         }
                     }
 
-                    item.QtyNested = totalNested;
+                    item.QtyNested += totalNested;
                     item.IsInProject = false;
                 }
 
@@ -508,10 +527,8 @@ namespace RadanMaster
                 rPrj.Parts.Part = new List<RadanPart>();
                 rPrj.RadanSchedule.JobDetails.nestFolder = uniqueNewPrjFolder.FullName + "\\" + "nests";
                 rPrj.RadanSchedule.JobDetails.remnantSaveFolder = uniqueNewPrjFolder.FullName + "\\" + "remnants";
-
+                rPrj.FirstNestNumber = maxNestNumber;
                 rPrj.SaveData(newPrjFileName);
-
-                radInterface.SaveProject();
 
                 radInterface.LoadProject(newPrjFileName);
                 
