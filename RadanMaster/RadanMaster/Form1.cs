@@ -23,6 +23,9 @@ using System.Text.RegularExpressions;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using DevExpress.Utils;
 using DevExpress.XtraSplashScreen;
+using DevExpress.Utils.Menu;
+using DevExpress.XtraGrid.Views.Layout.Modes;
+using DevExpress.XtraEditors;
 
 namespace RadanMaster
 {
@@ -110,6 +113,7 @@ namespace RadanMaster
 
             foreach (AggregateLineItem lineItem in dSchedule.AggregateLineItemList)
             {
+                thumbnailByteArray = null;
                 bool isBatch = batchName.ToUpper().Contains("BATCH");
 
                 if (lineItem.Operations == "Laser")
@@ -526,7 +530,7 @@ namespace RadanMaster
                 System.IO.File.Move(oldPrjFileName, newPrjFileName);
 
                 // we remove all parts from the radan project, so we clear all the associations from the RadanID table
-                dbContext.RadanIDs = null;
+                dbContext.RadanIDs.RemoveRange(dbContext.RadanIDs);
 
                 //update the nested quantites from the old radan project.  Up till now they have always been calculated rather than stored in DB.
                 foreach (OrderItem item in dbContext.OrderItems.ToList())
@@ -1133,16 +1137,69 @@ namespace RadanMaster
                 if(e.CellValue!=null)
                     qtyNested = (int)view.GetRowCellValue(e.RowHandle, "calcQtyNested");
 
-
                 if (qtyNested == qtyRequired)
                     e.Appearance.BackColor = Color.Green;
                 else if (qtyNested > 0 && qtyNested < qtyRequired)
                     e.Appearance.BackColor = Color.Yellow;
                 else if (qtyNested > qtyRequired)
                     e.Appearance.BackColor = Color.Red;
+            }
+        }
 
+        private void gridViewItems_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
+        {
+            GridView view = sender as GridView;
+            if (e.MenuType == DevExpress.XtraGrid.Views.Grid.GridMenuType.Row)
+            {
+                int rowHandle = e.HitInfo.RowHandle;
+
+                if (rowHandle >= 0)
+                {
+                    OrderItem item = (OrderItem)gridViewItems.GetRow(rowHandle);
+
+                    e.Menu.Items.Clear();
+                    // Add the Rows submenu with the 'Delete Row' command
+                    DXMenuItem updateItem = new DXMenuItem("Update Thumbnail", OnUpdateThumbnailClick);
+                    updateItem.Tag = item;
+                    e.Menu.Items.Add(updateItem);
+                }
 
             }
         }
+
+        void OnUpdateThumbnailClick(object sender, EventArgs e)
+        {
+            DXMenuItem menuItem = sender as DXMenuItem;
+
+            OrderItem item = (OrderItem) menuItem.Tag;
+
+            string fileName = symFolder + "\\" + item.Part.FileName + ".sym";
+
+            RadanInterface radanInterface = new RadanInterface();
+            char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(fileName);
+            if (thumbnailCharArray != null)
+            {
+                byte[] thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
+                item.Part.Thumbnail = thumbnailByteArray;
+            }
+            else
+            {
+                item.Part.Thumbnail = null;
+            }
+        }
+
+        //class RowInfo
+        //{
+        //    public RowInfo(GridView view, int rowHandle)
+        //    {
+        //        this.RowHandle = rowHandle;
+        //        this.View = view;
+        //    }
+        //    public GridView View;
+        //    public int RowHandle;
+        //}
+
+
     }
 }
+
