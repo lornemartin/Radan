@@ -71,6 +71,31 @@ namespace RadanMaster
             progressPanel1.Hide();
         }
 
+        public int CalculateRadanID(OrderItem orderItem)
+        {
+            // loop through RadanID referene table, till we find an id in the range of 0 to 500 that is available
+            for (int i = 0; i <= 500; i++)
+            {
+                RadanID radanIDItem = (dbContext.RadanIDs.Where(r => r.RadanIDNumber == i).FirstOrDefault());
+                if (radanIDItem == null)
+                {
+                    RadanID newRadanID = new RadanID();
+                    newRadanID.OrderItem = orderItem;
+                    newRadanID.OrderItemID = orderItem.ID;
+                    newRadanID.RadanIDNumber = i;
+                    dbContext.RadanIDs.Add(newRadanID);
+                    dbContext.SaveChanges();
+                    orderItem.RadanID = newRadanID;
+                    orderItem.RadanIDID = i;
+                    dbContext.SaveChanges();
+                    return i;
+                }
+            }
+            
+
+            return -1;
+        }
+
         private void importXmlFile(string fileName)
         {
             DailyScheduleAggregate dSchedule = new DailyScheduleAggregate(fileName);
@@ -192,8 +217,9 @@ namespace RadanMaster
                     {
                         rPart = rPrj.Parts.Part[i];
                         string radanName = Path.GetFileNameWithoutExtension(rPart.Symbol);
-                        
-                        if (radanName == symName && rPart.Bin == oItem.ID.ToString())
+
+                        //if (radanName == symName && rPart.Bin == oItem.ID.ToString())
+                        if (radanName == symName && rPart.Bin == oItem.RadanID.RadanIDNumber.ToString())
                         {
                             matchFound = true;
                             rPart.Number = oItem.QtyRequired;  // item still exists in project, just need to update 
@@ -219,9 +245,11 @@ namespace RadanMaster
                         rPart.ThickUnits = "in";
                         rPart.Thickness = oItem.Part.Thickness;
                         rPart.Material = oItem.Part.Material;
-                        rPart.Bin = oItem.ID.ToString();
-
-
+                        int radanID = CalculateRadanID(oItem);
+                        if (radanID != -1) // check to make sure we dont' have more than the max 500 parts in the radan project
+                            rPart.Bin = radanID.ToString();
+                        else
+                            return false;   // 
                         rPrj.AddPart(rPart);
                         rPrj.SaveData(radanProjectName);
 
@@ -250,13 +278,10 @@ namespace RadanMaster
                     rPrj = rPrj.LoadData(radanProjectName);
                     List<RadanNest> nestList = rPrj.Nests.ToList();
                     string nestPath = Path.GetDirectoryName(radanProjectName) + "\\";
-                    string fileName = "";
-                    int nestsImported = 0;
-                    int nestsAlreadyInProject = 0;
 
                     foreach(RadanPart radanPart in rPrj.Parts.Part)     // loop through all the radan parts in this radan project
                     {
-                        OrderItem masterItem = dbContext.OrderItems.Where(o => o.ID.ToString() == radanPart.Bin).FirstOrDefault();      // this item will exist
+                        OrderItem masterItem = dbContext.OrderItems.Where(o => o.RadanID.RadanIDNumber.ToString() == radanPart.Bin).FirstOrDefault();      // this item will exist
                         Nest masterNest = new Nest();
                         NestedParts masterNestedPart = new NestedParts();
 
@@ -318,7 +343,7 @@ namespace RadanMaster
 
                     foreach(OrderItem item in dbContext.OrderItems.Where(i => i.IsInProject == true).ToList())
                     {
-                        RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.ID);
+                        RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.RadanID.RadanIDNumber);
                         if (rPart != null)
                             item.IsInProject = true;
                         else
@@ -381,14 +406,17 @@ namespace RadanMaster
                     //if (item.AssociatedNests == null)
                     //    item.AssociatedNests = new List<Nest>();
 
-                    RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.ID);
+                    RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.RadanIDID);
                     if (rPart != null)
                     {
-                        
-                        
-                        item.IsInProject = false;
-                        if(rPart.Made ==0)
+                        if (rPart.Made == 0)
+                        {
+                            item.IsInProject = false;
+                            RadanID radanIdToRemove = dbContext.RadanIDs.Where(r => r.RadanIDNumber == item.RadanIDID).FirstOrDefault();
+                            dbContext.RadanIDs.Remove(radanIdToRemove);
                             rPrj.Parts.Part.Remove(rPart);
+                        }
+
                         else
                         {
                             rPart.Number = rPart.Made;
@@ -438,7 +466,7 @@ namespace RadanMaster
 
                 foreach (OrderItem item in dbContext.OrderItems)
                 {
-                    RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.ID);
+                    RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.RadanID.RadanIDNumber);
                     if (rPart != null)
                         item.IsInProject = true;
                     else
@@ -496,6 +524,9 @@ namespace RadanMaster
                 string oldPrjFileName = uniqueNewPrjFolder.FullName + "\\" + oldProjFile.Name;
                 string newPrjFileName = uniqueNewPrjFolder.FullName + "\\" + uniqueNewPrjFolder.Name + ".rpd";
                 System.IO.File.Move(oldPrjFileName, newPrjFileName);
+
+                // we remove all parts from the radan project, so we clear all the associations from the RadanID table
+                dbContext.RadanIDs = null;
 
                 //update the nested quantites from the old radan project.  Up till now they have always been calculated rather than stored in DB.
                 foreach (OrderItem item in dbContext.OrderItems.ToList())
@@ -666,7 +697,11 @@ namespace RadanMaster
 
                         OrderItem orderItem = dbContext.OrderItems.Where(oi => oi.Part.FileName == partName).Where(oi => oi.Order.OrderNumber == orderNumber).Where(oi => oi.Order.BatchName == batchName).FirstOrDefault();
                         if (orderItem != null)
-                            masterItemToRadanPart(orderItem);
+                            if(!masterItemToRadanPart(orderItem))
+                            {
+                                MessageBox.Show("There are more than 500 items in the radan project, not all items have been entered into the project");
+                                break;
+                            }
                     }
                 }
                
@@ -1091,8 +1126,12 @@ namespace RadanMaster
             GridView view = sender as GridView;
             if (e.Column.FieldName == "calcQtyNested")
             {
+
                 int qtyRequired = (int)view.GetRowCellValue(e.RowHandle, "QtyRequired");
-                int qtyNested = (int)view.GetRowCellValue(e.RowHandle, "calcQtyNested");
+
+                int qtyNested = 0;
+                if(e.CellValue!=null)
+                    qtyNested = (int)view.GetRowCellValue(e.RowHandle, "calcQtyNested");
 
 
                 if (qtyNested == qtyRequired)

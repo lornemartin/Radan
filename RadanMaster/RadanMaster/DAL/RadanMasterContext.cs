@@ -18,6 +18,7 @@ namespace RadanMaster.DAL
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Nest> Nests { get; set; }
         public DbSet<NestedParts> NestedParts { get; set; }
-
+        public DbSet<RadanID> RadanIDs { get; set; }
     }
+
 }

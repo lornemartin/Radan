@@ -18,9 +18,13 @@ namespace RadanMaster.Models
         public int QtyRequired { get; set; }
         public int QtyNested { get; set; }
         public bool IsInProject { get; set; }
+        public string Notes { get; set; }
 
         public Part Part { get; set; }
         public int PartID { get; set; }
+
+        public RadanID RadanID {get; set; }
+        public int RadanIDID { get; set; }
 
         public virtual ICollection<Nest> AssociatedNests { get; set; }
     }
