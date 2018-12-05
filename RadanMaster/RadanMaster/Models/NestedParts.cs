@@ -13,6 +13,6 @@ namespace RadanMaster.Models
         [Key]
         public int ID { get; set; }
         public int Qty { get; set; }
-        public Part Part { get; set; }
+        public OrderItem OrderItem { get; set; }
     }
 }
