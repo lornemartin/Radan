@@ -80,6 +80,7 @@
             this.barToggleSwitchGroup1 = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.barToggleSwitchGroup2 = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonRetrieveAll = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgSkins = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -104,7 +105,6 @@
             this.colQtyOnNest = new DevExpress.XtraGrid.Columns.GridColumn();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
-            this.barButtonRetrieveAll = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
@@ -449,7 +449,7 @@
             // barButtonSendSelectionToRadan
             // 
             this.barButtonSendSelectionToRadan.Caption = "Send Selection";
-            this.barButtonSendSelectionToRadan.Hint = "Send Selected Items to Radan Project";
+            this.barButtonSendSelectionToRadan.Hint = "Send the selected items to the Radan project";
             this.barButtonSendSelectionToRadan.Id = 5;
             this.barButtonSendSelectionToRadan.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSendSelectionToRadan.ImageOptions.Image")));
             this.barButtonSendSelectionToRadan.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonSendSelectionToRadan.ImageOptions.LargeImage")));
@@ -506,7 +506,7 @@
             // barButtonUpdateFromRadan
             // 
             this.barButtonUpdateFromRadan.Caption = "Update From Radan";
-            this.barButtonUpdateFromRadan.Hint = "Update the Master List from the Radan Project";
+            this.barButtonUpdateFromRadan.Hint = "Update the master list from the Radan project";
             this.barButtonUpdateFromRadan.Id = 12;
             this.barButtonUpdateFromRadan.ImageOptions.Image = global::RadanMaster.Properties.Resources.refreshallpivottable_16x16;
             this.barButtonUpdateFromRadan.ImageOptions.LargeImage = global::RadanMaster.Properties.Resources.refreshallpivottable_32x321;
@@ -517,6 +517,7 @@
             // barButtonRetrieveSelectionFromRadan
             // 
             this.barButtonRetrieveSelectionFromRadan.Caption = "Retrieve Selection";
+            this.barButtonRetrieveSelectionFromRadan.Hint = "Retrieve the selected items From the Radan project";
             this.barButtonRetrieveSelectionFromRadan.Id = 13;
             this.barButtonRetrieveSelectionFromRadan.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonRetrieveSelectionFromRadan.ImageOptions.Image")));
             this.barButtonRetrieveSelectionFromRadan.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonRetrieveSelectionFromRadan.ImageOptions.LargeImage")));
@@ -587,6 +588,16 @@
             this.barButtonItem1.Caption = "Update Symbol";
             this.barButtonItem1.Id = 22;
             this.barButtonItem1.Name = "barButtonItem1";
+            // 
+            // barButtonRetrieveAll
+            // 
+            this.barButtonRetrieveAll.Caption = "Retrieve All";
+            this.barButtonRetrieveAll.Hint = "Retrieve all unNested parts from the Radan project";
+            this.barButtonRetrieveAll.Id = 1;
+            this.barButtonRetrieveAll.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonRetrieveAll.ImageOptions.Image")));
+            this.barButtonRetrieveAll.Name = "barButtonRetrieveAll";
+            this.barButtonRetrieveAll.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonRetrieveAll.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonRetrieveAll_ItemClick);
             // 
             // ribbonPage1
             // 
@@ -765,16 +776,6 @@
             this.progressPanel1.Size = new System.Drawing.Size(246, 66);
             this.progressPanel1.TabIndex = 1;
             this.progressPanel1.Text = "progressPanel1";
-            // 
-            // barButtonRetrieveAll
-            // 
-            this.barButtonRetrieveAll.Caption = "Retrieve All";
-            this.barButtonRetrieveAll.Hint = "Retrieve All UnNested Parts from Current Radan Project";
-            this.barButtonRetrieveAll.Id = 1;
-            this.barButtonRetrieveAll.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem2.ImageOptions.Image")));
-            this.barButtonRetrieveAll.Name = "barButtonRetrieveAll";
-            this.barButtonRetrieveAll.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.barButtonRetrieveAll.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonRetrieveAll_ItemClick);
             // 
             // Form1
             // 
