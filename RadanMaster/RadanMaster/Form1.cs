@@ -228,7 +228,7 @@ namespace RadanMaster
                             if (radanName == symName && rPart.Bin == oItem.RadanIDNumber.ToString())
                             {
                                 matchFound = true;
-                                rPart.Number = oItem.QtyRequired;  // item still exists in project, just need to update 
+                                rPart.Number = oItem.QtyRequired-oItem.QtyNested;  // item still exists in project, just need to update 
                                 rPrj.SaveData(radanProjectName);
 
                                 MessageBox.Show(Path.GetFileName(symName) + " already exists in this radan projecs, only qty required will be updated.");
@@ -294,14 +294,6 @@ namespace RadanMaster
                          OrderItem masterItem = dbContext.OrderItems.Where(o => o.RadanID.RadanIDNumber.ToString() == radanPart.Bin).FirstOrDefault();      // this item will exist
                         Nest masterNest = new Nest();
                         NestedParts masterNestedPart = new NestedParts();
-
-                        // check to make sure master Item doesn't have associated nests that no longer exist
-                        foreach (Nest mNest in masterItem.AssociatedNests.ToList())
-                        {
-                            RadanNest rNest = rPrj.Nests.Where(r => r.FileName == mNest.nestName).FirstOrDefault();
-                            if (rNest == null)
-                                masterItem.AssociatedNests.Remove(mNest);
-                        }
 
                         foreach (SheetUsedInNest nestedRadanPart in radanPart.UsedInNests)   //loop through all the nested Parts in this Part
                         {
@@ -388,20 +380,6 @@ namespace RadanMaster
                                             {
                                                 matchingNestedPartFound = true;
                                             }
-                                            // above code mostly works but I think it's failing when multiple items with same part numbers get modified too badly.
-
-                                            // not sure yet if the following works better or not.
-                                            //if (nestedRadanPart.ID.ToString() == radanNestID)
-                                            //{
-                                            //    matchingNestedPartFound = true;
-                                            //    NestedParts nestedPart = masterNest.NestedParts.Where(np => np.OrderItem == item).FirstOrDefault();
-                                            //    if (nestedPart != null)
-                                            //        nestedPart.Qty = nestedRadanPart.Made;
-                                            //    else
-                                            //    {
-                                            //        masterNest.NestedParts.Remove(nestedPart);
-                                            //    }
-                                            //}
                                         }
                                         if (!matchingNestedPartFound)
                                         {
@@ -484,6 +462,58 @@ namespace RadanMaster
             }
         }
 
+        private bool RetrieveAllRadanPartToMasterList()
+        {
+            try
+            {
+                SyncRadanToMaster();
+
+                rPrj = new RadanProject();
+                rPrj = rPrj.LoadData(radanProjectName);
+
+                int[] rows = gridViewItems.GetSelectedRows();
+
+                foreach(RadanPart rPart in rPrj.Parts.Part.ToList())
+                {
+                    OrderItem orderItem = dbContext.OrderItems.Where(o => o.RadanIDNumber.ToString() == rPart.Bin).FirstOrDefault();
+                    if(orderItem!=null)
+                    {
+                        if (rPart.Made == 0)
+                        {
+                            orderItem.IsInProject = false;
+                            RadanID radanIdToRemove = dbContext.RadanIDs.Where(r => r.RadanIDNumber == orderItem.RadanIDNumber).FirstOrDefault();
+                            if (radanIdToRemove != null)
+                            {
+                                dbContext.RadanIDs.Remove(radanIdToRemove);
+                                rPrj.Parts.Part.Remove(rPart);
+                            }
+                        }
+
+                        else
+                        {
+                            rPart.Number = rPart.Made;
+                        }
+                        
+                    }
+                    
+                }
+
+                rPrj.SaveData(radanProjectName);
+
+                // need to open current project here...
+                string errMessage = "";
+                string prjName = radInterface.getOpenProjectName(ref errMessage);
+                radInterface.LoadProject(prjName);
+
+                dbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         private RadanPart GetPartFromRadanProject(RadanProject prj, string partName, int ID)
         {
             
@@ -532,6 +562,9 @@ namespace RadanMaster
         {
             try
             {
+                rPrj.SaveData(radanProjectName);
+                string oldProjectName = radanProjectName;
+
                 SyncRadanToMaster();    // make sure everything is synched before we begin here....
 
                 // shouldn't be necessary to save this specifically, but job details are not serializing properly, so this is a work around...
@@ -556,17 +589,36 @@ namespace RadanMaster
                 // copy the old folder structure to a new folder
                 CopyFolder(oldProjFile.DirectoryName, uniqueNewPrjFolder.FullName);
 
+                // rename the project file
+                string oldPrjFileName = uniqueNewPrjFolder.FullName + "\\" + oldProjFile.Name;
+                string newPrjFileName = uniqueNewPrjFolder.FullName + "\\" + uniqueNewPrjFolder.Name + ".rpd";
+                System.IO.File.Move(oldPrjFileName, newPrjFileName);
+                
+                radanProjectName = newPrjFileName;
+                barEditRadanProjectBrowse.EditValue = newPrjFileName;
+
+                rPrj = new RadanProject();
+                rPrj = rPrj.LoadData(newPrjFileName);
+
+                rPrj.Nests = new List<RadanNest>();
+                rPrj.Parts.Part = new List<RadanPart>();
+                rPrj.RadanSchedule.JobDetails.nestFolder = uniqueNewPrjFolder.FullName + "\\" + "nests";
+                rPrj.RadanSchedule.JobDetails.remnantSaveFolder = uniqueNewPrjFolder.FullName + "\\" + "remnants";
+                rPrj.FirstNestNumber = maxNestNumber+1;
+
+                // calculate the new number of sheets still available
+                foreach (RadanSheet sheet in rPrj.Sheets.Sheet)
+                {
+                    sheet.NumAvailable -= sheet.Used;
+                    if (sheet.NumAvailable < 0) sheet.NumAvailable = 0;
+                }
+
                 // remove all nests from newly created project
                 DirectoryInfo newNestFolder = new DirectoryInfo(uniqueNewPrjFolder + "\\" + "nests");
                 foreach (FileInfo file in newNestFolder.GetFiles())
                 {
                     file.Delete();
                 }
-
-                // rename the project file
-                string oldPrjFileName = uniqueNewPrjFolder.FullName + "\\" + oldProjFile.Name;
-                string newPrjFileName = uniqueNewPrjFolder.FullName + "\\" + uniqueNewPrjFolder.Name + ".rpd";
-                System.IO.File.Move(oldPrjFileName, newPrjFileName);
 
                 // we remove all parts from the radan project, so we clear all the associations from the RadanID table
                 dbContext.RadanIDs.RemoveRange(dbContext.RadanIDs);
@@ -584,7 +636,7 @@ namespace RadanMaster
                             {
                                 foreach (NestedParts p in associatedNest.NestedParts)
                                 {
-                                    if (p.OrderItem == item && Path.GetDirectoryName(associatedNest.nestPath) == Path.GetDirectoryName(radanProjectName))
+                                    if (p.OrderItem == item && Path.GetDirectoryName(associatedNest.nestPath) == Path.GetDirectoryName(oldProjectName))
                                         totalNested += p.Qty;
                                 }
                             }
@@ -596,22 +648,10 @@ namespace RadanMaster
                 }
 
                 dbContext.SaveChanges();
-
-                radanProjectName = newPrjFileName;
-                barEditRadanProjectBrowse.EditValue = newPrjFileName;
-
-                rPrj = new RadanProject();
-                rPrj = rPrj.LoadData(newPrjFileName);
-
-                rPrj.Nests = new List<RadanNest>();
-                rPrj.Parts.Part = new List<RadanPart>();
-                rPrj.RadanSchedule.JobDetails.nestFolder = uniqueNewPrjFolder.FullName + "\\" + "nests";
-                rPrj.RadanSchedule.JobDetails.remnantSaveFolder = uniqueNewPrjFolder.FullName + "\\" + "remnants";
-                rPrj.FirstNestNumber = maxNestNumber;
+                
                 rPrj.SaveData(newPrjFileName);
 
                 radInterface.LoadProject(newPrjFileName);
-                
 
                 return true;
             }
@@ -774,6 +814,17 @@ namespace RadanMaster
                 
             }
             SplashScreenManager.HideImage();
+        }
+
+        private void barButtonRetrieveAll_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+            if (saveRadan())
+            {
+                RetrieveAllRadanPartToMasterList();
+
+                SplashScreenManager.HideImage();
+            }
         }
 
         private void barButtonItemAdd_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -1034,6 +1085,8 @@ namespace RadanMaster
             }
         }
 
+        
+
 
         #endregion
 
@@ -1248,19 +1301,6 @@ namespace RadanMaster
 
             dbContext.SaveChanges();
         }
-
-        //class RowInfo
-        //{
-        //    public RowInfo(GridView view, int rowHandle)
-        //    {
-        //        this.RowHandle = rowHandle;
-        //        this.View = view;
-        //    }
-        //    public GridView View;
-        //    public int RowHandle;
-        //}
-
-
     }
 }
 

@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::RadanMaster.SplashScreen1), true, true, true);
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue2 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.colIsInProject = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControlItems = new DevExpress.XtraGrid.GridControl();
@@ -104,6 +104,7 @@
             this.colQtyOnNest = new DevExpress.XtraGrid.Columns.GridColumn();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
+            this.barButtonRetrieveAll = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
@@ -179,15 +180,15 @@
             this.colDateEntered,
             this.colIsInProject,
             this.colNotes});
-            gridFormatRule2.ApplyToRow = true;
-            gridFormatRule2.Column = this.colIsInProject;
-            gridFormatRule2.Name = "frmtIsInProject";
-            formatConditionRuleValue2.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-            formatConditionRuleValue2.Appearance.Options.UseFont = true;
-            formatConditionRuleValue2.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
-            formatConditionRuleValue2.Value1 = true;
-            gridFormatRule2.Rule = formatConditionRuleValue2;
-            this.gridViewItems.FormatRules.Add(gridFormatRule2);
+            gridFormatRule1.ApplyToRow = true;
+            gridFormatRule1.Column = this.colIsInProject;
+            gridFormatRule1.Name = "frmtIsInProject";
+            formatConditionRuleValue1.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            formatConditionRuleValue1.Appearance.Options.UseFont = true;
+            formatConditionRuleValue1.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
+            formatConditionRuleValue1.Value1 = true;
+            gridFormatRule1.Rule = formatConditionRuleValue1;
+            this.gridViewItems.FormatRules.Add(gridFormatRule1);
             this.gridViewItems.GridControl = this.gridControlItems;
             this.gridViewItems.Name = "gridViewItems";
             this.gridViewItems.OptionsEditForm.ShowOnF2Key = DevExpress.Utils.DefaultBoolean.True;
@@ -394,9 +395,10 @@
             this.barToggleShowRadan,
             this.barToggleSwitchGroup1,
             this.barToggleSwitchGroup2,
-            this.barButtonItem1});
+            this.barButtonItem1,
+            this.barButtonRetrieveAll});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 1;
+            this.ribbonControl1.MaxItemId = 2;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
@@ -621,6 +623,7 @@
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonRetrieveSelectionFromRadan);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonUpdateFromRadan);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonNewRadanProject);
+            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonRetrieveAll);
             this.ribbonPageGroup2.ItemsLayout = DevExpress.XtraBars.Ribbon.RibbonPageGroupItemsLayout.OneRow;
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "Radan";
@@ -763,6 +766,16 @@
             this.progressPanel1.TabIndex = 1;
             this.progressPanel1.Text = "progressPanel1";
             // 
+            // barButtonRetrieveAll
+            // 
+            this.barButtonRetrieveAll.Caption = "Retrieve All";
+            this.barButtonRetrieveAll.Hint = "Retrieve All UnNested Parts from Current Radan Project";
+            this.barButtonRetrieveAll.Id = 1;
+            this.barButtonRetrieveAll.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem2.ImageOptions.Image")));
+            this.barButtonRetrieveAll.Name = "barButtonRetrieveAll";
+            this.barButtonRetrieveAll.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonRetrieveAll.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonRetrieveAll_ItemClick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -874,5 +887,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colNotes;
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repositoryItemMemoEdit1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
+        private DevExpress.XtraBars.BarButtonItem barButtonRetrieveAll;
     }
 }
