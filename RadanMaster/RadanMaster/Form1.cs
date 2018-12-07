@@ -1153,18 +1153,6 @@ namespace RadanMaster
 
         private void barToggleSwitchShowOrders_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            //if(barToggleSwitchShowOrders.Checked)
-            //{
-            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
-            //        new ColumnFilterInfo("[Order.IsBatch] == 'false'");
-            //}
-            //else
-            //{
-            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
-            //        new ColumnFilterInfo("[Order.IsBatch] == 'true'");
-            //}
-
-
             if (barToggleSwitchShowBatches.Checked && barToggleSwitchShowOrders.Checked)
             {
                 gridViewItems.Columns["Order.IsBatch"].ClearFilter();
@@ -1204,45 +1192,94 @@ namespace RadanMaster
 
         private void barToggleSwitchGroup1_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            // group by batch and thickness
             if (barToggleSwitchGroup1.Checked)
             {
-                gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
+                //gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
                 gridViewItems.Columns["Order.BatchName"].GroupIndex = 2;
                 gridViewItems.Columns["Part.Thickness"].GroupIndex = 3;
 
-                //gridViewItems.ExpandAllGroups();
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                   new ColumnFilterInfo("[Order.IsBatch] == 'true'");
+                barToggleSwitchShowBatches.Checked = true;
+                barToggleSwitchShowOrders.Checked = false;
 
+
+                //gridViewItems.ExpandAllGroups();
+                //barToggleSwitchGroup2.Checked = false;
+
+                //gridViewItems.ExpandGroupRow(0);
 
             }
             else
             {
-                gridViewItems.Columns["Order.IsBatch"].GroupIndex = -1;
+                //gridViewItems.Columns["Order.IsBatch"].GroupIndex = -1;
                 gridViewItems.Columns["Order.BatchName"].GroupIndex = -1;
-                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = -1;
+                //gridViewItems.Columns["Order.ScheduleName"].GroupIndex = -1;
                 gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
+
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                   new ColumnFilterInfo("[Order.IsBatch] == 'false'");
+                barToggleSwitchShowBatches.Checked = false;
+                barToggleSwitchShowOrders.Checked = true;
+
+                //barToggleSwitchGroup2.Checked = true;
             }
+
+            
 
         }
 
         private void barToggleSwitchGroup2_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            // group by schedule and thickness
             if(barToggleSwitchGroup2.Checked)
             {
-                gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
+                //gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
                 gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 2;
                 gridViewItems.Columns["Part.Thickness"].GroupIndex = 3;
 
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                   new ColumnFilterInfo("[Order.IsBatch] == 'false'");
+                barToggleSwitchShowBatches.Checked = false;
+                barToggleSwitchShowOrders.Checked = true;
+
+                //barToggleSwitchGroup1.Checked = false;
+
                 //gridViewItems.ExpandAllGroups();
+
+                //gridViewItems.ExpandGroupRow(0);
 
 
             }
             else
             {
-                gridViewItems.Columns["Order.IsBatch"].GroupIndex = -1;
+                //gridViewItems.Columns["Order.IsBatch"].GroupIndex = -1;
                 gridViewItems.Columns["Order.ScheduleName"].GroupIndex = -1;
-                gridViewItems.Columns["Order.BatchName"].GroupIndex = -1;
+                //gridViewItems.Columns["Order.BatchName"].GroupIndex = -1;
                 gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
+
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                   new ColumnFilterInfo("[Order.IsBatch] == 'true'");
+                barToggleSwitchShowBatches.Checked = true;
+                barToggleSwitchShowOrders.Checked = false;
+
+                //barToggleSwitchGroup1.Checked = true;
             }
+        }
+
+        private void barToggleSwitchShowCompletedOrders_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if(!barToggleSwitchShowCompletedOrders.Checked)
+            {
+                gridViewItems.Columns["Order.IsComplete"].FilterInfo =
+                    new ColumnFilterInfo("[Order.IsComplete] == 'false'");
+            }
+            else
+            {
+                gridViewItems.Columns["Order.IsComplete"].ClearFilter();
+            }
+
         }
 
         private void gridViewItems_RowCellStyle(object sender, RowCellStyleEventArgs e)
@@ -1278,10 +1315,16 @@ namespace RadanMaster
                     OrderItem item = (OrderItem)gridViewItems.GetRow(rowHandle);
 
                     e.Menu.Items.Clear();
-                    // Add the Rows submenu with the 'Delete Row' command
                     DXMenuItem updateItem = new DXMenuItem("Update Thumbnail", OnUpdateThumbnailClick);
                     updateItem.Tag = item;
                     e.Menu.Items.Add(updateItem);
+
+                    Image img = null;
+                    bool showChecked = item.Order.IsComplete;
+                    DXMenuCheckItem finishOrderItem = new DXMenuCheckItem("Mark Order or Schedule as Complete",showChecked, img, OnMarkCompleteClick);
+                    
+                    finishOrderItem.Tag = item;
+                    e.Menu.Items.Add(finishOrderItem);
                 }
 
             }
@@ -1309,6 +1352,47 @@ namespace RadanMaster
 
             dbContext.SaveChanges();
         }
+
+        void OnMarkCompleteClick(object sender, EventArgs e)
+        {
+            DXMenuItem menuItem = sender as DXMenuItem;
+            OrderItem item = (OrderItem)menuItem.Tag;
+
+            bool isComplete = item.Order.IsComplete;
+            bool confirmedOK = true;
+
+            if (!isComplete)
+            {
+                if (XtraMessageBox.Show("Are you sure you want to mark this order or schedule as complete? All order items that are part of this order or schedule will be hidden.", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    confirmedOK = false;
+                }
+            }
+
+            if(confirmedOK)
+            {
+                // if item to mark complete is part of a batch, this is easy
+                Order order = item.Order;
+                order.IsComplete = !order.IsComplete;
+
+                // if it's part of a schedule, we have a bit more work to do.
+                string scheduleName = order.ScheduleName;
+
+                if (scheduleName != null)
+                {
+                    List<Order> completedOrders = dbContext.Orders.Where(o => o.ScheduleName == scheduleName).ToList();
+
+                    foreach(Order o in completedOrders)
+                    {
+                        o.IsComplete = !isComplete;
+                    }
+                }
+
+                dbContext.SaveChanges();
+            }
+        }
+
+        
     }
 }
 

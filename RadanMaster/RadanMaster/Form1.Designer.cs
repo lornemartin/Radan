@@ -55,6 +55,7 @@
             this.colDateEntered = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemMemoEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
+            this.colOrderIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemImageEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemImageEdit();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -81,6 +82,7 @@
             this.barToggleSwitchGroup2 = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonRetrieveAll = new DevExpress.XtraBars.BarButtonItem();
+            this.barToggleSwitchShowCompletedOrders = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgSkins = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -179,7 +181,8 @@
             this.IsBatch,
             this.colDateEntered,
             this.colIsInProject,
-            this.colNotes});
+            this.colNotes,
+            this.colOrderIsComplete});
             gridFormatRule1.ApplyToRow = true;
             gridFormatRule1.Column = this.colIsInProject;
             gridFormatRule1.Name = "frmtIsInProject";
@@ -364,6 +367,14 @@
             // 
             this.repositoryItemMemoEdit1.Name = "repositoryItemMemoEdit1";
             // 
+            // colOrderIsComplete
+            // 
+            this.colOrderIsComplete.Caption = "Order Is Complete";
+            this.colOrderIsComplete.FieldName = "Order.IsComplete";
+            this.colOrderIsComplete.Name = "colOrderIsComplete";
+            this.colOrderIsComplete.Visible = true;
+            this.colOrderIsComplete.VisibleIndex = 15;
+            // 
             // repositoryItemImageEdit1
             // 
             this.repositoryItemImageEdit1.AutoHeight = false;
@@ -396,9 +407,10 @@
             this.barToggleSwitchGroup1,
             this.barToggleSwitchGroup2,
             this.barButtonItem1,
-            this.barButtonRetrieveAll});
+            this.barButtonRetrieveAll,
+            this.barToggleSwitchShowCompletedOrders});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 2;
+            this.ribbonControl1.MaxItemId = 4;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
@@ -599,6 +611,16 @@
             this.barButtonRetrieveAll.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.barButtonRetrieveAll.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonRetrieveAll_ItemClick);
             // 
+            // barToggleSwitchShowCompletedOrders
+            // 
+            this.barToggleSwitchShowCompletedOrders.BindableChecked = true;
+            this.barToggleSwitchShowCompletedOrders.Caption = "Show Completed Orders";
+            this.barToggleSwitchShowCompletedOrders.Checked = true;
+            this.barToggleSwitchShowCompletedOrders.Hint = "Turn this toggle on to show all completed orders and schedules";
+            this.barToggleSwitchShowCompletedOrders.Id = 3;
+            this.barToggleSwitchShowCompletedOrders.Name = "barToggleSwitchShowCompletedOrders";
+            this.barToggleSwitchShowCompletedOrders.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barToggleSwitchShowCompletedOrders_CheckedChanged);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -661,6 +683,7 @@
             // 
             this.ribbonPageQuickSorts.ItemLinks.Add(this.barToggleSwitchGroup1);
             this.ribbonPageQuickSorts.ItemLinks.Add(this.barToggleSwitchGroup2);
+            this.ribbonPageQuickSorts.ItemLinks.Add(this.barToggleSwitchShowCompletedOrders);
             this.ribbonPageQuickSorts.Name = "ribbonPageQuickSorts";
             this.ribbonPageQuickSorts.Text = "Quick Groups";
             // 
@@ -758,6 +781,7 @@
             this.splitContainerControl1.Horizontal = false;
             this.splitContainerControl1.Location = new System.Drawing.Point(0, 143);
             this.splitContainerControl1.Name = "splitContainerControl1";
+            this.splitContainerControl1.Panel1.Controls.Add(this.progressPanel1);
             this.splitContainerControl1.Panel1.Controls.Add(this.gridControlItems);
             this.splitContainerControl1.Panel1.Text = "Panel1";
             this.splitContainerControl1.Panel2.Controls.Add(this.gridControlNests);
@@ -771,7 +795,7 @@
             this.progressPanel1.Appearance.BackColor = System.Drawing.Color.Transparent;
             this.progressPanel1.Appearance.Options.UseBackColor = true;
             this.progressPanel1.BarAnimationElementThickness = 2;
-            this.progressPanel1.Location = new System.Drawing.Point(1077, 71);
+            this.progressPanel1.Location = new System.Drawing.Point(394, 151);
             this.progressPanel1.Name = "progressPanel1";
             this.progressPanel1.Size = new System.Drawing.Size(246, 66);
             this.progressPanel1.TabIndex = 1;
@@ -782,7 +806,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1600, 739);
-            this.Controls.Add(this.progressPanel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainerControl1);
             this.Controls.Add(this.ribbonControl1);
@@ -889,5 +912,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repositoryItemMemoEdit1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarButtonItem barButtonRetrieveAll;
+        private DevExpress.XtraGrid.Columns.GridColumn colOrderIsComplete;
+        private DevExpress.XtraBars.BarToggleSwitchItem barToggleSwitchShowCompletedOrders;
     }
 }
