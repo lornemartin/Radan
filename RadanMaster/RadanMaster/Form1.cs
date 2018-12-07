@@ -269,6 +269,7 @@ namespace RadanMaster
 
                 }
                 
+                
 
                 return true;
             }
@@ -1203,13 +1204,6 @@ namespace RadanMaster
                    new ColumnFilterInfo("[Order.IsBatch] == 'true'");
                 barToggleSwitchShowBatches.Checked = true;
                 barToggleSwitchShowOrders.Checked = false;
-
-
-                //gridViewItems.ExpandAllGroups();
-                //barToggleSwitchGroup2.Checked = false;
-
-                //gridViewItems.ExpandGroupRow(0);
-
             }
             else
             {
@@ -1222,8 +1216,6 @@ namespace RadanMaster
                    new ColumnFilterInfo("[Order.IsBatch] == 'false'");
                 barToggleSwitchShowBatches.Checked = false;
                 barToggleSwitchShowOrders.Checked = true;
-
-                //barToggleSwitchGroup2.Checked = true;
             }
 
             
@@ -1243,14 +1235,6 @@ namespace RadanMaster
                    new ColumnFilterInfo("[Order.IsBatch] == 'false'");
                 barToggleSwitchShowBatches.Checked = false;
                 barToggleSwitchShowOrders.Checked = true;
-
-                //barToggleSwitchGroup1.Checked = false;
-
-                //gridViewItems.ExpandAllGroups();
-
-                //gridViewItems.ExpandGroupRow(0);
-
-
             }
             else
             {
@@ -1263,8 +1247,6 @@ namespace RadanMaster
                    new ColumnFilterInfo("[Order.IsBatch] == 'true'");
                 barToggleSwitchShowBatches.Checked = true;
                 barToggleSwitchShowOrders.Checked = false;
-
-                //barToggleSwitchGroup1.Checked = true;
             }
         }
 
