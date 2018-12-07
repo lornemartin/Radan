@@ -19,6 +19,9 @@ namespace RadanInterface2
         const string THICKNESS_ATT_NUMBER = "120";
         const string UNIT_ATT_NUMBER = "121";
         const string DESCRIPTION_ATT_NUMBER = "200";
+        const string ORDER_NUMBER_ATT_NUMBER = "201";
+        const string SCHEDULE_NAME_ATT_NUMBER = "202";
+        const string BATCH_NAME_ATT_NUMBER = "203";
         const string ATT_ELEMENT = "Attr";
         const string NUM_ATTRIBUTE = "num";
         const string VALUE_ATTRIBUTE = "num";
@@ -224,6 +227,13 @@ namespace RadanInterface2
             }
         }
 
+        public bool SavePart(string symFile, ref string ErrorMessage)
+        {
+            rApp.OpenSymbol(symFile, false, "");
+            rApp.ActiveDocument.Save();
+            return true;
+        }
+
         public bool InsertAttributes(string SymFilePath, string MaterialName, string MaterialThickness, string unitType, string partDesc, ref string ErrorMessage)
         {
             if (!System.IO.File.Exists(SymFilePath))
@@ -319,6 +329,102 @@ namespace RadanInterface2
                     ErrorMessage = "An IO Error occured and material and thickness cannot be inserted\r\n\r\nError Reports\r\n" + x.Message;
                     return false;
                 }
+            }
+            catch (Exception x)
+            {
+                ErrorMessage = "An IO Error occured and material and thickness cannot be inserted\r\n\r\nError Reports\r\n" + x.Message;
+                return false;
+            }
+        }
+
+        public bool InsertAdditionalAttributes(string SymFilePath, string OrderNumber, string ScheduleName, string BatchName,  ref string ErrorMessage)
+        {
+            if (!System.IO.File.Exists(SymFilePath))
+            {
+                ErrorMessage = "The SYM file does not exist and attributes cannot be inserted";
+                return false;
+            }
+            try
+            {
+                int newHandle = rApp.Mac.att_new(SymFilePath);
+                int oldhandle = rApp.Mac.att_load(SymFilePath,false);
+                bool success = rApp.Mac.att_set_value(newHandle, 201, OrderNumber);
+                success = rApp.Mac.att_set_value(newHandle, 202, ScheduleName);
+                success = rApp.Mac.att_set_value(newHandle, 203, BatchName);
+
+                success = rApp.Mac.att_update_file(SymFilePath, newHandle, true);
+
+                return true;
+
+
+
+                //XDocument symDoc = XDocument.Load(SymFilePath);
+
+                //// set order number attribute
+                //XElement temp = symDoc.Descendants(symNameSpace + ATT_ELEMENT)
+                //                                .Where(t => t.Attribute(NUM_ATTRIBUTE).Value == ORDER_NUMBER_ATT_NUMBER).FirstOrDefault();
+                //if (temp == null)
+                //{
+                //    ErrorMessage = "The order number element (" + ORDER_NUMBER_ATT_NUMBER + ") is missing in the SYM file, order number cannot be inserted";
+                //    return false;
+                //}
+                //if (temp.Attribute(VALUE_ATTRIBUTE) == null)
+                //{
+                //    XAttribute value = new XAttribute(VALUE_ATTRIBUTE, OrderNumber);
+                //    temp.Add(value);
+                //}
+                //else
+                //{
+                //    temp.SetAttributeValue("value", OrderNumber);
+                //}
+
+                //// set schedule name attribute
+                //temp = symDoc.Descendants(symNameSpace + ATT_ELEMENT)
+                //            .Where(t => t.Attribute(NUM_ATTRIBUTE).Value == SCHEDULE_NAME_ATT_NUMBER).FirstOrDefault();
+                //if (temp == null)
+                //{
+                //    ErrorMessage = "The schedule name element (" + SCHEDULE_NAME_ATT_NUMBER + ") is missing in the SYM file, schedule name cannot be inserted";
+                //    return false;
+                //}
+                //if (temp.Attribute(VALUE_ATTRIBUTE) == null)
+                //{
+                //    XAttribute value = new XAttribute(VALUE_ATTRIBUTE, ScheduleName);
+                //    temp.Add(value);
+                //}
+                //else
+                //{
+                //    temp.SetAttributeValue("value", ScheduleName);
+                //}
+
+                //// set batch name attribute
+                //temp = symDoc.Descendants(symNameSpace + ATT_ELEMENT)
+                //            .Where(t => t.Attribute(NUM_ATTRIBUTE).Value == BATCH_NAME_ATT_NUMBER).FirstOrDefault();
+                //if (temp == null)
+                //{
+                //    ErrorMessage = "The batch name element (" + BATCH_NAME_ATT_NUMBER + ") is missing in the SYM file, batch name cannot be inserted";
+                //    return false;
+                //}
+                //if (temp.Attribute(VALUE_ATTRIBUTE) == null)
+                //{
+                //    XAttribute value = new XAttribute(VALUE_ATTRIBUTE, BatchName);
+                //    temp.Add(value);
+                //}
+                //else
+                //{
+                //    temp.SetAttributeValue("value", BatchName);
+                //}
+
+                //// save sym file
+                //try
+                //{
+                //    symDoc.Save(SymFilePath);
+                //    return true;
+                //}
+                //catch (Exception x)
+                //{
+                //    ErrorMessage = "An IO Error occured and material and thickness cannot be inserted\r\n\r\nError Reports\r\n" + x.Message;
+                //    return false;
+                //}
             }
             catch (Exception x)
             {
