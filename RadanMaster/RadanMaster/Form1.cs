@@ -222,7 +222,6 @@ namespace RadanMaster
                         rPart = rPrj.Parts.Part[i];
                         string radanName = Path.GetFileNameWithoutExtension(rPart.Symbol);
 
-                        //if (radanName == symName && rPart.Bin == oItem.ID.ToString())
                         if (oItem.RadanIDNumber >= 0)
                         {
                             if (radanName == symName && rPart.Bin == oItem.RadanIDNumber.ToString())
@@ -236,20 +235,32 @@ namespace RadanMaster
                                 dbContext.SaveChanges();
                                 break;
                             }
-                            //else if(radanName == symName && rPart.Bin != oItem.RadanIDNumber.ToString())
-                            //{
-                            //    MessageBox.Show(oItem.Part.FileName + "already exists in this radan project on a different order.  Please finish nesting it before adding this one.");
-                            //    matchFound = true;
-                            //    break;
-                            //}
                         }
                     }
 
                     if (!matchFound)
                     {
                         //create new part in project
+
+                        string calculatedSymPath = "";
+
+                        if (File.Exists(symFolder + "\\" + symName + ".sym"))
+                            {
+                            calculatedSymPath = CalculateFolderPath(oItem);      // copy sym file from main sym folder to current project so that we can set custom attributes
+                            System.IO.Directory.CreateDirectory(calculatedSymPath);     // create new folder if necessary.
+                            File.Copy(symFolder + symName + ".sym", calculatedSymPath + symName + ".sym", true);
+
+                            // save the custom attributes to the newly copied sym file
+                            string orderNumber = oItem.Order.OrderNumber == null ? "" : oItem.Order.OrderNumber;
+                            string scheduleName = oItem.Order.ScheduleName == null ? "" : oItem.Order.ScheduleName;
+                            string batchName = oItem.Order.BatchName == null ? "" : oItem.Order.BatchName;
+
+                            string errMessage = "";
+                            radInterface.InsertAdditionalAttributes(rPart.Symbol, orderNumber, scheduleName, batchName, ref errMessage);
+                        }
+
                         rPart = new RadanPart();
-                        rPart.Symbol = symFolder + symName + ".sym";
+                        rPart.Symbol = calculatedSymPath + symName + ".sym";
                         rPart.Number = oItem.QtyRequired - oItem.QtyNested;
                         rPart.Made = 0;
                         rPart.ThickUnits = "in";
@@ -279,6 +290,24 @@ namespace RadanMaster
             }
 
         }
+
+        private string CalculateFolderPath(OrderItem orderItem)
+        {
+            string path = "";
+
+            if (orderItem.Order.IsBatch == false)
+            {
+                if (orderItem.Order.OrderNumber == null) orderItem.Order.OrderNumber = "";
+                path = Path.GetDirectoryName(radanProjectName) + "\\Symbols" + "\\" + orderItem.Order.OrderNumber + "\\";
+            }
+            else
+            {
+                path = Path.GetDirectoryName(radanProjectName) + "\\Symbols" + "\\" + orderItem.Order.BatchName + "\\";
+            }
+
+            return path;
+        }
+
 
         private bool SyncRadanToMaster()
         {
