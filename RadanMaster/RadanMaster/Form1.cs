@@ -256,7 +256,7 @@ namespace RadanMaster
                             string batchName = oItem.Order.BatchName == null ? "" : oItem.Order.BatchName;
 
                             string errMessage = "";
-                            radInterface.InsertAdditionalAttributes(rPart.Symbol, orderNumber, scheduleName, batchName, ref errMessage);
+                            radInterface.InsertAdditionalAttributes(calculatedSymPath + symName + ".sym", orderNumber, scheduleName, batchName, ref errMessage);
                         }
 
                         rPart = new RadanPart();
