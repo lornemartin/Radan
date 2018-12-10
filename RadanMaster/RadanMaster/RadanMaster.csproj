@@ -109,6 +109,7 @@
       <DependentUpon>201812051936441_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="DisplayModels\DisplayItem.cs" />
     <Compile Include="Models\Nest.cs" />
     <Compile Include="Models\NestedParts.cs" />
     <Compile Include="Models\Order.cs" />
@@ -206,6 +207,7 @@
     <None Include="Resources\refreshallpivottable_32x321.png" />
     <None Include="Resources\refreshallpivottable_32x32.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
