@@ -308,7 +308,6 @@ namespace RadanMaster
             return path;
         }
 
-
         private bool SyncRadanToMaster()
         {
             try
@@ -656,6 +655,10 @@ namespace RadanMaster
                 {
                     file.Delete();
                 }
+
+                // remove all symbol files from newly created project
+                DirectoryInfo newSymbolFolder = new DirectoryInfo(uniqueNewPrjFolder + "\\" + "Symbols");
+                newSymbolFolder.Delete(true);
 
                 // we remove all parts from the radan project, so we clear all the associations from the RadanID table
                 dbContext.RadanIDs.RemoveRange(dbContext.RadanIDs);

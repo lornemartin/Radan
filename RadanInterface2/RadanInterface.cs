@@ -359,7 +359,7 @@ namespace RadanInterface2
                 // merge the new attributes with the old.
                 bool success4 = rApp.Mac.att_update_file(SymFilePath, newHandle, true);
 
-                return success1 || success2 || success3 || success3 || success4;
+                return success1 && success2 && success3 && success3 && success4;
             }
             catch (Exception x)
             {
