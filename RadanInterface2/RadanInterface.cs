@@ -337,7 +337,7 @@ namespace RadanInterface2
             }
         }
 
-        public bool InsertAdditionalAttributes(string SymFilePath, string OrderNumber, string ScheduleName, string BatchName,  ref string ErrorMessage)
+        public bool InsertAdditionalAttributes(string SymFilePath, string OrderNumber, string ScheduleName, string BatchName, ref string ErrorMessage)
         {
             if (!System.IO.File.Exists(SymFilePath))
             {
@@ -350,7 +350,7 @@ namespace RadanInterface2
                 int newHandle = rApp.Mac.att_new(SymFilePath);
 
                 // get a handle to the existing attributes
-                int oldhandle = rApp.Mac.att_load(SymFilePath,false);
+                int oldhandle = rApp.Mac.att_load(SymFilePath, false);
 
                 bool success1 = rApp.Mac.att_set_value(newHandle, 201, OrderNumber);
                 bool success2 = rApp.Mac.att_set_value(newHandle, 202, ScheduleName);
@@ -422,7 +422,7 @@ namespace RadanInterface2
             }
         }
 
-        public bool openNest(string nestName,ref string errMsg)
+        public bool openNest(string nestName, ref string errMsg)
         {
             try
             {
@@ -569,7 +569,7 @@ namespace RadanInterface2
             return "";
         }
 
-        public char [] GetThumbnailDataFromSym(string fileName)
+        public char[] GetThumbnailDataFromSym(string fileName)
         {
             XmlDocument doc = new XmlDocument();
 
@@ -596,6 +596,37 @@ namespace RadanInterface2
             }
 
             return thumbNailString.ToCharArray();
+        }
+
+        public bool GetBendDataFromSym(string fileName)
+        {
+            XmlDocument doc = new XmlDocument();
+
+            if (System.IO.File.Exists(fileName))
+            {
+                doc.Load(fileName);
+            }
+            else
+            {
+                return false;
+            }
+
+            // cycle through each child node
+            if (doc.DocumentElement.ChildNodes.Count > 4)
+            {
+                foreach (XmlNode node in doc.DocumentElement.ChildNodes[4])
+                {
+                    if (node.OuterXml.Contains("Number of Bends"))
+                    {
+                        if (node.Attributes[2].Value != null)
+                            return true;
+                    }
+                }
+            }
+            else
+                return false;
+
+            return false;
         }
     }
 }

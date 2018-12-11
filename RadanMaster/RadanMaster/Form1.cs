@@ -255,6 +255,8 @@ namespace RadanMaster
                             string scheduleName = oItem.Order.ScheduleName == null ? "" : oItem.Order.ScheduleName;
                             string batchName = oItem.Order.BatchName == null ? "" : oItem.Order.BatchName;
 
+                            bool hasBends = radInterface.GetBendDataFromSym(symFolder + "\\" + symName + ".sym");
+
                             string errMessage = "";
                             radInterface.InsertAdditionalAttributes(calculatedSymPath + symName + ".sym", orderNumber, scheduleName, batchName, ref errMessage);
                         }
