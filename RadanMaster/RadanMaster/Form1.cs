@@ -221,88 +221,77 @@ namespace RadanMaster
         {
             try
             {
-                if (radInterface.IsProjectReady())
-                {
-                    rPrj = new RadanProject();
-                    rPrj = rPrj.LoadData(radanProjectName);
-                    string symName = oItem.Part.FileName;
+                rPrj = new RadanProject();
+                rPrj = rPrj.LoadData(radanProjectName);
+                string symName = oItem.Part.FileName;
 
-                    if (rPrj.Parts != null)
+                if (rPrj.Parts != null)
+                {
+                    RadanPart rPart = new RadanPart();
+                    bool matchFound = false;
+                    for (int i = 0; i < rPrj.Parts.Count(); i++)
                     {
-                        RadanPart rPart = new RadanPart();
-                        bool matchFound = false;
-                        for (int i = 0; i < rPrj.Parts.Count(); i++)
+                        rPart = rPrj.Parts.Part[i];
+                        string radanName = Path.GetFileNameWithoutExtension(rPart.Symbol);
+
+                        if (oItem.RadanIDNumber >= 0)
                         {
-                            rPart = rPrj.Parts.Part[i];
-                            string radanName = Path.GetFileNameWithoutExtension(rPart.Symbol);
-
-                            if (oItem.RadanIDNumber >= 0)
+                            if (radanName == symName && rPart.Bin == oItem.RadanIDNumber.ToString())
                             {
-                                if (radanName == symName && rPart.Bin == oItem.RadanIDNumber.ToString())
-                                {
-                                    matchFound = true;
-                                    rPart.Number = oItem.QtyRequired - oItem.QtyNested;  // item still exists in project, just need to update 
-                                    rPrj.SaveData(radanProjectName);
+                                matchFound = true;
+                                rPart.Number = oItem.QtyRequired - oItem.QtyNested;  // item still exists in project, just need to update 
+                                rPrj.SaveData(radanProjectName);
 
-                                    MessageBox.Show(Path.GetFileName(symName) + " already exists in this radan projecs, only qty required will be updated.");
-                                    oItem.IsInProject = true;
-                                    dbContext.SaveChanges();
-                                    break;
-                                }
+                                MessageBox.Show(Path.GetFileName(symName) + " already exists in this radan projecs, only qty required will be updated.");
+                                oItem.IsInProject = true;
+                                dbContext.SaveChanges();
+                                break;
                             }
                         }
-
-                        if (!matchFound)
-                        {
-                            //create new part in project
-
-                            string calculatedSymPath = "";
-
-                            if (File.Exists(symFolder + "\\" + symName + ".sym"))
-                            {
-                                calculatedSymPath = CalculateFolderPath(oItem);      // copy sym file from main sym folder to current project so that we can set custom attributes
-                                System.IO.Directory.CreateDirectory(calculatedSymPath);     // create new folder if necessary.
-                                File.Copy(symFolder + symName + ".sym", calculatedSymPath + symName + ".sym", true);
-
-                                // save the custom attributes to the newly copied sym file
-                                string orderNumber = oItem.Order.OrderNumber == null ? "" : oItem.Order.OrderNumber;
-                                string scheduleName = oItem.Order.ScheduleName == null ? "" : oItem.Order.ScheduleName;
-                                string batchName = oItem.Order.BatchName == null ? "" : oItem.Order.BatchName;
-
-                                string errMessage = "";
-                                radInterface.InsertAdditionalAttributes(calculatedSymPath + symName + ".sym", oItem.Part.Material, oItem.Part.Thickness.ToString(), "in", oItem.Part.Description, orderNumber, scheduleName, batchName, oItem.Part.HasBends, ref errMessage);
-                            }
-
-                            rPart = new RadanPart();
-                            rPart.Symbol = calculatedSymPath + symName + ".sym";
-                            rPart.Number = oItem.QtyRequired - oItem.QtyNested;
-                            rPart.Made = 0;
-                            rPart.ThickUnits = "in";
-                            rPart.Thickness = oItem.Part.Thickness;
-                            rPart.Material = oItem.Part.Material;
-                            int radanID = CalculateRadanID(oItem);
-                            if (radanID != -1) // check to make sure we dont' have more than the max 500 parts in the radan project
-                                rPart.Bin = radanID.ToString();
-                            else
-                                return false;   // 
-                            rPrj.AddPart(rPart);
-                            rPrj.SaveData(radanProjectName);
-
-                            oItem.IsInProject = true;
-                            dbContext.SaveChanges();
-                        }
-
                     }
-                    
 
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show("Radan is not ready.");
-                    return true;
-                }
+                    if (!matchFound)
+                    {
+                        //create new part in project
 
+                        string calculatedSymPath = "";
+
+                        if (File.Exists(symFolder + "\\" + symName + ".sym"))
+                        {
+                            calculatedSymPath = CalculateFolderPath(oItem);      // copy sym file from main sym folder to current project so that we can set custom attributes
+                            System.IO.Directory.CreateDirectory(calculatedSymPath);     // create new folder if necessary.
+                            File.Copy(symFolder + symName + ".sym", calculatedSymPath + symName + ".sym", true);
+
+                            // save the custom attributes to the newly copied sym file
+                            string orderNumber = oItem.Order.OrderNumber == null ? "" : oItem.Order.OrderNumber;
+                            string scheduleName = oItem.Order.ScheduleName == null ? "" : oItem.Order.ScheduleName;
+                            string batchName = oItem.Order.BatchName == null ? "" : oItem.Order.BatchName;
+
+                            string errMessage = "";
+                            radInterface.InsertAdditionalAttributes(calculatedSymPath + symName + ".sym", oItem.Part.Material, oItem.Part.Thickness.ToString(), "in", oItem.Part.Description, orderNumber, scheduleName, batchName, oItem.Part.HasBends, ref errMessage);
+                        }
+
+                        rPart = new RadanPart();
+                        rPart.Symbol = calculatedSymPath + symName + ".sym";
+                        rPart.Number = oItem.QtyRequired - oItem.QtyNested;
+                        rPart.Made = 0;
+                        rPart.ThickUnits = "in";
+                        rPart.Thickness = oItem.Part.Thickness;
+                        rPart.Material = oItem.Part.Material;
+                        int radanID = CalculateRadanID(oItem);
+                        if (radanID != -1) // check to make sure we dont' have more than the max 500 parts in the radan project
+                            rPart.Bin = radanID.ToString();
+                        else
+                            return false;   // 
+                        rPrj.AddPart(rPart);
+                        rPrj.SaveData(radanProjectName);
+
+                        oItem.IsInProject = true;
+                        dbContext.SaveChanges();
+                    }
+
+                }
+                return true;
             }
             catch (Exception ex)
             {
@@ -478,56 +467,50 @@ namespace RadanMaster
         {
             try
             {
-                if (radInterface.IsProjectReady())
+                SyncRadanToMaster();
+
+                rPrj = new RadanProject();
+                rPrj = rPrj.LoadData(radanProjectName);
+
+                int[] rows = gridViewItems.GetSelectedRows();
+
+                foreach (int i in rows)
                 {
-                    SyncRadanToMaster();
+                    OrderItem item = (OrderItem)gridViewItems.GetRow(i);
+                    //if (item.AssociatedNests == null)
+                    //    item.AssociatedNests = new List<Nest>();
 
-                    rPrj = new RadanProject();
-                    rPrj = rPrj.LoadData(radanProjectName);
-
-                    int[] rows = gridViewItems.GetSelectedRows();
-
-                    foreach (int i in rows)
+                    RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.RadanIDNumber);
+                    if (rPart != null)
                     {
-                        OrderItem item = (OrderItem)gridViewItems.GetRow(i);
-                        //if (item.AssociatedNests == null)
-                        //    item.AssociatedNests = new List<Nest>();
-
-                        RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.RadanIDNumber);
-                        if (rPart != null)
+                        if (rPart.Made == 0)
                         {
-                            if (rPart.Made == 0)
-                            {
-                                item.IsInProject = false;
-                                RadanID radanIdToRemove = dbContext.RadanIDs.Where(r => r.RadanIDNumber == item.RadanIDNumber).FirstOrDefault();
-                                dbContext.RadanIDs.Remove(radanIdToRemove);
-                                rPrj.Parts.Part.Remove(rPart);
-                                item.RadanIDNumber = 0;
-                            }
-
-                            else
-                            {
-                                rPart.Number = rPart.Made;
-                            }
-
-
-                            rPrj.SaveData(radanProjectName);
+                            item.IsInProject = false;
+                            RadanID radanIdToRemove = dbContext.RadanIDs.Where(r => r.RadanIDNumber == item.RadanIDNumber).FirstOrDefault();
+                            dbContext.RadanIDs.Remove(radanIdToRemove);
+                            rPrj.Parts.Part.Remove(rPart);
+                            item.RadanIDNumber = 0;
                         }
+
+                        else
+                        {
+                            rPart.Number = rPart.Made;
+                        }
+
+
+                        rPrj.SaveData(radanProjectName);
                     }
-
-                    rPrj.SaveData(radanProjectName);
-
-                    // need to open current project here...
-                    string errMessage = "";
-                    string prjName = radInterface.getOpenProjectName(ref errMessage);
-                    radInterface.LoadProject(prjName);
-
-                    dbContext.SaveChanges();
                 }
-                else
-                {
-                    MessageBox.Show("Radan is not ready.");
-                }
+
+                rPrj.SaveData(radanProjectName);
+
+                // need to open current project here...
+                string errMessage = "";
+                string prjName = radInterface.getOpenProjectName(ref errMessage);
+                radInterface.LoadProject(prjName);
+
+                dbContext.SaveChanges();
+
                 return true;
             }
             catch (Exception ex)
@@ -906,47 +889,55 @@ namespace RadanMaster
         {
             if (radInterface.IsProjectReady())
             {
-                SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
-
-                if (saveRadan())
+                string errMsg = "";
+                if (radInterface.getOpenProjectName(ref errMsg) == radanProjectName)
                 {
+                    SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
 
-                    for (int i = 0; i < gridViewItems.DataRowCount; i++)
+                    if (saveRadan())
                     {
-                        if (gridViewItems.IsRowSelected(i))
+
+                        for (int i = 0; i < gridViewItems.DataRowCount; i++)
                         {
+                            if (gridViewItems.IsRowSelected(i))
+                            {
 
-                            string partName = gridViewItems.GetRowCellValue(i, "Part.FileName").ToString();
-                            string orderNumber = "";
-                            if (gridViewItems.GetRowCellValue(i, "Order.OrderNumber") != null)
-                                orderNumber = gridViewItems.GetRowCellValue(i, "Order.OrderNumber").ToString();
-                            string batchName = "";
-                            if (gridViewItems.GetRowCellValue(i, "Order.BatchName") != null)
-                                batchName = gridViewItems.GetRowCellValue(i, "Order.BatchName").ToString();
+                                string partName = gridViewItems.GetRowCellValue(i, "Part.FileName").ToString();
+                                string orderNumber = "";
+                                if (gridViewItems.GetRowCellValue(i, "Order.OrderNumber") != null)
+                                    orderNumber = gridViewItems.GetRowCellValue(i, "Order.OrderNumber").ToString();
+                                string batchName = "";
+                                if (gridViewItems.GetRowCellValue(i, "Order.BatchName") != null)
+                                    batchName = gridViewItems.GetRowCellValue(i, "Order.BatchName").ToString();
 
-                            OrderItem orderItem = dbContext.OrderItems.Where(oi => oi.Part.FileName == partName).Where(oi => oi.Order.OrderNumber == orderNumber).Where(oi => oi.Order.BatchName == batchName).FirstOrDefault();
-                            if (orderItem != null)
-                                if (!masterItemToRadanPart(orderItem))
-                                {
-                                    MessageBox.Show("There are more than 500 items in the radan project, not all items have been entered into the project");
-                                    break;
-                                }
+                                OrderItem orderItem = dbContext.OrderItems.Where(oi => oi.Part.FileName == partName).Where(oi => oi.Order.OrderNumber == orderNumber).Where(oi => oi.Order.BatchName == batchName).FirstOrDefault();
+                                if (orderItem != null)
+                                    if (!masterItemToRadanPart(orderItem))
+                                    {
+                                        MessageBox.Show("There are more than 500 items in the radan project, not all items have been entered into the project");
+                                        break;
+                                    }
+                            }
                         }
+
                     }
 
+                    // need to open current project here...
+                    string errMessage = "";
+                    string prjName = radInterface.getOpenProjectName(ref errMessage);
+                    radInterface.LoadProject(prjName);
+
+                    string path = barEditRadanProject.EditValue.ToString();
+                    rPrj.SaveData(path);
+
+                    gridViewItems.RefreshData();
+
+                    SplashScreenManager.HideImage();
                 }
-
-                // need to open current project here...
-                string errMessage = "";
-                string prjName = radInterface.getOpenProjectName(ref errMessage);
-                radInterface.LoadProject(prjName);
-
-                string path = barEditRadanProject.EditValue.ToString();
-                rPrj.SaveData(path);
-
-                gridViewItems.RefreshData();
-
-                SplashScreenManager.HideImage();
+                else
+                {
+                    MessageBox.Show("The Radan project that is open does not match the project in RadanMaster.");
+                }
             }
             else
             {
@@ -956,15 +947,32 @@ namespace RadanMaster
 
         private void barButtonRetrieveSelectionFromRadan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
-            if (saveRadan())
+            if (radInterface.IsProjectReady())
             {
-                
-                RetrieveSelectedRadanPartToMasterList();
-                gridViewItems.RefreshData();
-                
+                string errMsg = "";
+                if (radInterface.getOpenProjectName(ref errMsg) == radanProjectName)
+                {
+                    SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+                    if (saveRadan())
+                    {
+
+                        RetrieveSelectedRadanPartToMasterList();
+                        gridViewItems.RefreshData();
+
+                    }
+                    SplashScreenManager.HideImage();
+                }
+
+                else
+                {
+                    MessageBox.Show("The Radan project that is open does not match the project in RadanMaster.");
+                }
             }
-            SplashScreenManager.HideImage();
+            else
+            {
+                MessageBox.Show("Radan Is Not Ready");
+            }
+
         }
 
         private void barButtonRetrieveAll_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
