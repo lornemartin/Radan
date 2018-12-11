@@ -28,14 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::RadanMaster.SplashScreen1), true, true, true);
             DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.colIsInProject = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControlItems = new DevExpress.XtraGrid.GridControl();
-            this.orderItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.orderItemsBindingSource = new System.Windows.Forms.BindingSource();
             this.gridViewItems = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQtyRequired = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -56,8 +55,10 @@
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemMemoEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colOrderIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colHasBends = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemImageEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemImageEdit();
-            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
+            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel();
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.skinRibbonGalleryBarItem1 = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
             this.barButtonItemAdd = new DevExpress.XtraBars.BarButtonItem();
@@ -97,17 +98,17 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelMain = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
+            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager();
             this.gridControlNests = new DevExpress.XtraGrid.GridControl();
             this.gridViewNests = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colnestName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colnestPath = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQtyOnNest = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.nestsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.nestsBindingSource = new System.Windows.Forms.BindingSource();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
-            this.displayItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.displayItemBindingSource = new System.Windows.Forms.BindingSource();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
@@ -115,6 +116,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
@@ -154,7 +156,8 @@
             this.repositoryItemImageEdit1,
             this.repositoryItemPictureEdit1,
             this.repositoryItemSpinEdit1,
-            this.repositoryItemMemoEdit1});
+            this.repositoryItemMemoEdit1,
+            this.repositoryItemCheckEdit1});
             this.gridControlItems.Size = new System.Drawing.Size(1600, 550);
             this.gridControlItems.TabIndex = 0;
             this.gridControlItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -184,7 +187,8 @@
             this.colDateEntered,
             this.colIsInProject,
             this.colNotes,
-            this.colOrderIsComplete});
+            this.colOrderIsComplete,
+            this.colHasBends});
             gridFormatRule1.ApplyToRow = true;
             gridFormatRule1.Column = this.colIsInProject;
             gridFormatRule1.Name = "frmtIsInProject";
@@ -377,12 +381,25 @@
             this.colOrderIsComplete.Visible = true;
             this.colOrderIsComplete.VisibleIndex = 15;
             // 
+            // colHasBends
+            // 
+            this.colHasBends.Caption = "Has Bends";
+            this.colHasBends.FieldName = "Part.HasBends";
+            this.colHasBends.Name = "colHasBends";
+            this.colHasBends.Visible = true;
+            this.colHasBends.VisibleIndex = 16;
+            // 
             // repositoryItemImageEdit1
             // 
             this.repositoryItemImageEdit1.AutoHeight = false;
             this.repositoryItemImageEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemImageEdit1.Name = "repositoryItemImageEdit1";
+            // 
+            // repositoryItemCheckEdit1
+            // 
+            this.repositoryItemCheckEdit1.AutoHeight = false;
+            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
             // 
             // ribbonControl1
             // 
@@ -822,6 +839,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
@@ -917,5 +935,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colOrderIsComplete;
         private DevExpress.XtraBars.BarToggleSwitchItem barToggleSwitchShowCompletedOrders;
         private System.Windows.Forms.BindingSource displayItemBindingSource;
+        private DevExpress.XtraGrid.Columns.GridColumn colHasBends;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
     }
 }

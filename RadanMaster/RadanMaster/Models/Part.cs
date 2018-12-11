@@ -17,5 +17,6 @@ namespace RadanMaster.Models
         public string Material { get; set; }
         public double Thickness { get; set; }
         public byte[] Thumbnail { get; set; }
+        public bool HasBends { get; set; }
     }
 }

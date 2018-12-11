@@ -236,6 +236,7 @@ namespace RadanInterface2
 
         public bool InsertAttributes(string SymFilePath, string MaterialName, string MaterialThickness, string unitType, string partDesc, ref string ErrorMessage)
         {
+            #region oldcode
             //if (!System.IO.File.Exists(SymFilePath))
             //{
             //    ErrorMessage = "The SYM file does not exist and material and thickness cannot be inserted";
@@ -335,7 +336,7 @@ namespace RadanInterface2
             //    ErrorMessage = "An IO Error occured and material and thickness cannot be inserted\r\n\r\nError Reports\r\n" + x.Message;
             //    return false;
             //}
-
+            #endregion
 
             if (!System.IO.File.Exists(SymFilePath))
             {
@@ -368,7 +369,7 @@ namespace RadanInterface2
 
         }
 
-        public bool InsertAdditionalAttributes(string SymFilePath, string OrderNumber, string ScheduleName, string BatchName,  ref string ErrorMessage)
+        public bool InsertAdditionalAttributes(string SymFilePath, string MaterialName, string MaterialThickness, string unitType, string partDesc, string OrderNumber, string ScheduleName, string BatchName, bool HasBends, ref string ErrorMessage)
         {
             if (!System.IO.File.Exists(SymFilePath))
             {
@@ -377,20 +378,26 @@ namespace RadanInterface2
             }
             try
             {
+                // get a handle to the existing attributes
+                int oldhandle = rApp.Mac.att_load(SymFilePath, false);
+
                 // get a handle to a brand new set of attributes
                 int newHandle = rApp.Mac.att_new(SymFilePath);
 
-                // get a handle to the existing attributes
-                int oldhandle = rApp.Mac.att_load(SymFilePath,false);
-
-                bool success1 = rApp.Mac.att_set_value(newHandle, 201, OrderNumber);
-                bool success2 = rApp.Mac.att_set_value(newHandle, 202, ScheduleName);
-                bool success3 = rApp.Mac.att_set_value(newHandle, 203, BatchName);
+                bool success1 = rApp.Mac.att_set_value(newHandle, 119, MaterialName);
+                bool success2 = rApp.Mac.att_set_value(newHandle, 120, MaterialThickness);
+                bool success3 = rApp.Mac.att_set_value(newHandle, 121, unitType);
+                bool success4 = rApp.Mac.att_set_value(newHandle, 200, partDesc);
+                bool success5 = rApp.Mac.att_set_value(newHandle, 201, OrderNumber);
+                bool success6 = rApp.Mac.att_set_value(newHandle, 202, ScheduleName);
+                bool success7 = rApp.Mac.att_set_value(newHandle, 203, BatchName);
+                string hasBendsFlag = (HasBends == true) ? "1" : "0";
+                bool success8 = rApp.Mac.att_set_value(newHandle, 301, hasBendsFlag);
 
                 // merge the new attributes with the old.
-                bool success4 = rApp.Mac.att_update_file(SymFilePath, newHandle, true);
+                bool success9 = rApp.Mac.att_update_file(SymFilePath, newHandle, true);
 
-                return success1 && success2 && success3 && success3 && success4;
+                return success1 && success2 && success3 && success3 && success4 && success5 && success6 && success7 && success8 && success9;
             }
             catch (Exception x)
             {
@@ -499,6 +506,21 @@ namespace RadanInterface2
         public bool SaveProject()
         {
             return rApp.Mac.prj_save();
+        }
+
+        public bool IsProjectReady()
+        {
+            // see if we can query interface, return true if we can, false if we can't
+            try
+            {
+                string version = rApp.Application.SoftwareVersion;
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+                
         }
 
         public string GetThicknessFromSym(string fileName)
