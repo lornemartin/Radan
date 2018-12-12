@@ -104,13 +104,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201812111615173_InitialCreate.cs" />
-    <Compile Include="Migrations\201812111615173_InitialCreate.Designer.cs">
-      <DependentUpon>201812111615173_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812111926424_Added HasBend property.cs" />
-    <Compile Include="Migrations\201812111926424_Added HasBend property.Designer.cs">
-      <DependentUpon>201812111926424_Added HasBend property.cs</DependentUpon>
+    <Compile Include="Migrations\201812121321175_InitialCreate.cs" />
+    <Compile Include="Migrations\201812121321175_InitialCreate.Designer.cs">
+      <DependentUpon>201812121321175_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DisplayModels\DisplayItem.cs" />
@@ -146,11 +142,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812111615173_InitialCreate.resx">
-      <DependentUpon>201812111615173_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812111926424_Added HasBend property.resx">
-      <DependentUpon>201812111926424_Added HasBend property.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812121321175_InitialCreate.resx">
+      <DependentUpon>201812121321175_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
