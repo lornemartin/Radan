@@ -1031,7 +1031,7 @@ namespace RadanMaster
                         newOrder = dbContext.Orders.Where(o => o.BatchName == AddItemDialog.AddItem.lastBatchName).FirstOrDefault();
                     }
 
-                    if (newOrder == null)
+                    if (newOrder == null || newOrder.BatchName == null)
                     {
                         newOrder = new Order();
                         newOrder.IsComplete = false;
@@ -1041,6 +1041,7 @@ namespace RadanMaster
                         newOrder.OrderNumber = AddItemDialog.AddItem.lastOrderNumber;
                         newOrder.ScheduleName = AddItemDialog.AddItem.lastSchedName;
                         newOrder.BatchName = AddItemDialog.AddItem.lastBatchName;
+                        if (newOrder.BatchName == null) newOrder.BatchName = "";
                         newOrder.IsBatch = AddItemDialog.AddItem.isBatch;
 
                         dbContext.Orders.Add(newOrder);
