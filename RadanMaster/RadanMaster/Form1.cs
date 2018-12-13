@@ -1264,7 +1264,7 @@ namespace RadanMaster
                     //    e.Value = calcItem.QtyNested += totalNested;
                     //}
 
-                    if (calcItem.RadanIDNumber != null)
+                    if (calcItem.RadanIDNumber != 0)
                     {
                         int radanID = calcItem.RadanIDNumber;
 
