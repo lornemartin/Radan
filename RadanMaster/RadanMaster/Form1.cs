@@ -1467,13 +1467,13 @@ namespace RadanMaster
         private void gridViewItems_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
             GridView view = sender as GridView;
-            if (e.Column.FieldName == "calcQtyNested")
+            if (e.Column.FieldName == "calcRemaining")
             {
 
                 int qtyRequired = (int)view.GetRowCellValue(e.RowHandle, "QtyRequired");
 
                 int qtyNested = 0;
-                if(e.CellValue!=null&& e.CellValue.ToString() != "??")
+                if (e.CellValue != null && e.CellValue.ToString() != "??")
                     qtyNested = (int)view.GetRowCellValue(e.RowHandle, "calcQtyNested");
 
                 if (qtyNested == qtyRequired)
@@ -1483,6 +1483,23 @@ namespace RadanMaster
                 else if (qtyNested > qtyRequired)
                     e.Appearance.BackColor = Color.Red;
             }
+            //GridView view = sender as GridView;
+            //if (e.Column.FieldName == "calcQtyNested")
+            //{
+
+            //    int qtyRequired = (int)view.GetRowCellValue(e.RowHandle, "QtyRequired");
+
+            //    int qtyNested = 0;
+            //    if (e.CellValue != null && e.CellValue.ToString() != "??")
+            //        qtyNested = (int)view.GetRowCellValue(e.RowHandle, "calcQtyNested");
+
+            //    if (qtyNested == qtyRequired)
+            //        e.Appearance.BackColor = Color.Green;
+            //    else if (qtyNested > 0 && qtyNested < qtyRequired)
+            //        e.Appearance.BackColor = Color.Yellow;
+            //    else if (qtyNested > qtyRequired)
+            //        e.Appearance.BackColor = Color.Red;
+            //}
         }
 
         private void gridViewItems_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
