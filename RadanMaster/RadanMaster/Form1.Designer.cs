@@ -385,6 +385,7 @@
             // 
             // repositoryItemMemoEdit1
             // 
+            this.repositoryItemMemoEdit1.AcceptsReturn = false;
             this.repositoryItemMemoEdit1.Name = "repositoryItemMemoEdit1";
             // 
             // colOrderIsComplete
