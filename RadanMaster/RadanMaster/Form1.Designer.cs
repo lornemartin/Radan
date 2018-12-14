@@ -646,7 +646,9 @@
             // 
             // barToggleSwitchShowCompletedOrders
             // 
+            this.barToggleSwitchShowCompletedOrders.BindableChecked = true;
             this.barToggleSwitchShowCompletedOrders.Caption = "Show Completed Orders";
+            this.barToggleSwitchShowCompletedOrders.Checked = true;
             this.barToggleSwitchShowCompletedOrders.Hint = "Turn this toggle on to show all completed orders and schedules";
             this.barToggleSwitchShowCompletedOrders.Id = 3;
             this.barToggleSwitchShowCompletedOrders.Name = "barToggleSwitchShowCompletedOrders";

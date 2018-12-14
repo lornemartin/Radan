@@ -80,6 +80,7 @@ namespace RadanMaster
             nestsBindingSource.DataSource = null;
 
             barToggleSwitchGroup1.PerformClick();
+            barToggleSwitchShowCompletedOrders.PerformClick();
 
             rPrj.LoadData(radanProjectName);
 
@@ -613,6 +614,8 @@ namespace RadanMaster
 
         private bool CreateNewRadanProject()
         {
+            // should only call dbContext.SaveChanges() after everything else succeeds maybe
+            //  should add error checking and status reporting for sure.....this is function is critical to maintaining data integrity.....
             try
             {
                 rPrj.SaveData(radanProjectName);
@@ -643,7 +646,6 @@ namespace RadanMaster
 
 
                             dbContext.NestedParts.Add(masterNestedPart);
-                            //dbContext.SaveChanges();
 
                             newMasterNest.NestedParts.Add(masterNestedPart);
 
@@ -656,7 +658,6 @@ namespace RadanMaster
                                 orderItem.QtyNested += nestedRadanPart.Made;
                             }
 
-                            //dbContext.SaveChanges();
                         }
                         dbContext.Nests.Add(newMasterNest);
                     }
