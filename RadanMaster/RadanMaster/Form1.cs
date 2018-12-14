@@ -1241,28 +1241,9 @@ namespace RadanMaster
                     e.Value = "??";
                 else
                 {
-
-
                     int totalNested = 0;
                     OrderItem calcItem = (OrderItem)e.Row;
                     origQtyNested = calcItem.QtyNested;
-
-                    //if (calcItem.AssociatedNests != null)
-                    //{
-                    //    foreach (Nest associatedNest in calcItem.AssociatedNests)
-                    //    {
-                    //        if (associatedNest.NestedParts != null)
-                    //        {
-                    //            foreach (NestedParts p in associatedNest.NestedParts)
-                    //            {
-                    //                if (p.OrderItem == calcItem && Path.GetDirectoryName(associatedNest.nestPath) == Path.GetDirectoryName(radanProjectName))
-                    //                    totalNested += p.Qty;
-                    //            }
-                    //        }
-                    //    }
-
-                    //    e.Value = calcItem.QtyNested += totalNested;
-                    //}
 
                     if (calcItem.RadanIDNumber != 0)
                     {
@@ -1288,35 +1269,45 @@ namespace RadanMaster
                         calcItem.IsComplete = true;
                     else
                         calcItem.IsComplete = false;
+                }
+            }
 
+            if (e.Column.FieldName == "calcRemaining")
+            {
+                int origQtyNested = 0;
 
-                    //if (calcItem.AssociatedNests != null)
-                    //{
-                    //    foreach (Nest associatedNest in calcItem.AssociatedNests)
-                    //    {
-                    //        if (associatedNest.NestedParts != null)
-                    //        {
-                    //            foreach (NestedParts p in associatedNest.NestedParts)
-                    //            {
-                    //                if (p.OrderItem == calcItem && Path.GetDirectoryName(associatedNest.nestPath) == Path.GetDirectoryName(radanProjectName))
-                    //                    totalNested += p.Qty;
-                    //            }
-                    //        }
-                    //    }
+                if (rPrj == null)
+                    e.Value = "??";
+                else
+                {
+                    int totalNested = 0;
+                    OrderItem calcItem = (OrderItem)e.Row;
+                    origQtyNested = calcItem.QtyNested;
 
-                    //    e.Value = calcItem.QtyNested += totalNested;
+                    if (calcItem.RadanIDNumber != 0)
+                    {
+                        int radanID = calcItem.RadanIDNumber;
 
-                    //    // for some reason e.Value gets written to calcItem.QtyNested.
-                    //    //    because this event fires multiple times, the quantity nested gets incremented multiple times.
-                    //    //    This is not what we want so the following line is a work around.
-                    //    calcItem.QtyNested = origQtyNested;
+                        foreach (RadanPart radanPart in rPrj.Parts.Part)
+                        {
+                            if (radanPart.Bin == radanID.ToString())
+                            {
+                                totalNested += radanPart.Made;
+                            }
+                        }
+                    }
 
-                    //    if ((int) e.Value >= calcItem.QtyRequired)
-                    //        calcItem.IsComplete = true;
-                    //    else
-                    //        calcItem.IsComplete = false;
+                    e.Value = calcItem.QtyRequired - (calcItem.QtyNested += totalNested);
 
-                    //}
+                    // for some reason e.Value gets written to calcItem.QtyNested.
+                    //    because this event fires multiple times, the quantity nested gets incremented multiple times.
+                    //    This is not what we want so the following line is a work around.
+                    calcItem.QtyNested = origQtyNested;
+
+                    //if ((int)e.Value >= calcItem.QtyRequired)
+                    //    calcItem.IsComplete = true;
+                    //else
+                    //    calcItem.IsComplete = false;
                 }
             }
         }
