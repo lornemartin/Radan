@@ -330,8 +330,8 @@ namespace RadanMaster
                 if (saveRadan())
                 {
                     rPrj = rPrj.LoadData(radanProjectName);
-                    List<RadanNest> nestList = rPrj.Nests.ToList();
-                    string nestPath = Path.GetDirectoryName(radanProjectName) + "\\";
+                    //List<RadanNest> nestList = rPrj.Nests.ToList();
+                    //string nestPath = Path.GetDirectoryName(radanProjectName) + "\\";
 
                     #region oldcode
                     //foreach(RadanPart radanPart in rPrj.Parts.Part)     // loop through all the radan parts in this radan project
@@ -450,6 +450,18 @@ namespace RadanMaster
                     //    }
                     //}
                     #endregion
+
+                    // check for parts in radan project that cannot be synced and warn user accordingly
+                    foreach(RadanPart radanPart in rPrj.Parts.Part)
+                    {
+                        OrderItem masterItem = dbContext.OrderItems.Where(o => o.RadanIDNumber.ToString() == radanPart.Bin).FirstOrDefault();
+                        if(masterItem==null || radanPart.Bin == "0")
+                        {
+                            MessageBox.Show(Path.GetFileName(radanPart.Symbol) + " cannot be synched back to RadanMaster, no matching record found.","Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                        }
+                    }
+
+
                     dbContext.SaveChanges();
                     gridViewItems.RefreshData();
                 }
@@ -769,7 +781,7 @@ namespace RadanMaster
             {
                 MessageBox.Show("New Radan Project has not been properly initialized.  Database has not been modified." + "\n" +
                                 "New Radan project folder should be manually deleted." + "\n" + 
-                                "Please shut down and restart RadanMaster." + "\n\n" + ex.Message,"Warning",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                                "Please shut down and restart RadanMaster." + "\n\n" + ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
 
                 // reset dbContext to original state
                 foreach (DbEntityEntry entry in dbContext.ChangeTracker.Entries())
