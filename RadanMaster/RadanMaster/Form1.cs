@@ -494,6 +494,8 @@ namespace RadanMaster
                         if(radanPart == null)
                         {
                             MessageBox.Show(item.Part.FileName + " no longer exists in Radan project.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            item.RadanID = null;
+                            item.RadanIDNumber = 0;
                             item.IsInProject = false;
                         }
                     }
