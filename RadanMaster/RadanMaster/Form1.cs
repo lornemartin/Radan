@@ -1587,48 +1587,6 @@ namespace RadanMaster
                     DXMenuItem updateItem = new DXMenuItem("Update Thumbnail", OnUpdateThumbnailClick);
                     updateItem.Tag = item;
                     e.Menu.Items.Add(updateItem);
-
-                    Image img = null;
-                    bool batchOrScheduleShowChecked = false;
-                    string scheduleName = item.Order.ScheduleName;
-
-                    if (scheduleName != null)   // this item is part of a schedule, make sure all items on this schedule are marked the same
-                    {
-
-                        List<Order> scheduleOrders = dbContext.Orders.Where(o => o.ScheduleName == scheduleName).ToList();
-                        foreach (Order o in scheduleOrders)
-                        {
-                            if (batchOrScheduleShowChecked != o.IsComplete)
-                            {
-                                batchOrScheduleShowChecked = !item.IsComplete;
-                                break;
-                            }
-                        }
-
-                    }
-
-                    else if(item.Order.BatchName!=null)
-                    {
-                        List<Order> batchOrders = dbContext.Orders.Where(o => o.BatchName == item.Order.BatchName).ToList();
-                        foreach (Order o in batchOrders)
-                        {
-                            if(batchOrScheduleShowChecked != o.IsComplete)
-                            {
-                                batchOrScheduleShowChecked = !item.IsComplete;
-                                break;
-                            }
-                        }
-                    }
-                    DXMenuCheckItem finishBatchOrScheduleItem = new DXMenuCheckItem("Mark Batch or Schedule as Complete",batchOrScheduleShowChecked, img, OnMarkBatchOrScheduleCompleteClick);
-
-                    bool orderShowChecked = item.Order.IsComplete;
-                    DXMenuCheckItem finishOrderItem = new DXMenuCheckItem("Mark Order as Complete", orderShowChecked, img, OnMarkOrderCompleteClick);
-
-                    finishBatchOrScheduleItem.Tag = item;
-                    finishOrderItem.Tag = item;
-
-                    e.Menu.Items.Add(finishBatchOrScheduleItem);
-                    e.Menu.Items.Add(finishOrderItem);
                 }
 
             }
@@ -1656,76 +1614,6 @@ namespace RadanMaster
 
             dbContext.SaveChanges();
         }
-
-        void OnMarkBatchOrScheduleCompleteClick(object sender, EventArgs e)
-        {
-            DXMenuItem menuItem = sender as DXMenuItem;
-            OrderItem item = (OrderItem)menuItem.Tag;
-
-            bool isComplete = item.Order.IsComplete;
-            bool confirmedOK = true;
-
-            if (!isComplete)
-            {
-                if (XtraMessageBox.Show("Are you sure you want to mark this batch or schedule as complete? All order items that are part of this batch or schedule will be hidden.", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No)
-                {
-                    confirmedOK = false;
-                }
-            }
-
-            if(confirmedOK)
-            {
-                // if item to mark complete is part of a batch, this is easy
-                Order order = item.Order;
-                order.IsComplete = !order.IsComplete;
-
-                // if it's part of a schedule, we have a bit more work to do.
-                string scheduleName = order.ScheduleName;
-
-                if (scheduleName != null)
-                {
-                    List<Order> completedOrders = dbContext.Orders.Where(o => o.ScheduleName == scheduleName).ToList();
-
-                    foreach(Order o in completedOrders)
-                    {
-                        o.IsComplete = !isComplete;
-                    }
-                }
-
-                dbContext.SaveChanges();
-            }
-
-            gridViewItems.RefreshData();
-        }
-
-        void OnMarkOrderCompleteClick(object sender, EventArgs e)
-        {
-            DXMenuItem menuItem = sender as DXMenuItem;
-            OrderItem item = (OrderItem)menuItem.Tag;
-
-            bool isComplete = item.Order.IsComplete;
-            bool confirmedOK = true;
-
-            if (!isComplete)
-            {
-                if (XtraMessageBox.Show("Are you sure you want to mark this order as complete? All order items that are part of this order will be hidden.", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No)
-                {
-                    confirmedOK = false;
-                }
-            }
-
-            if (confirmedOK)
-            {
-                // if item to mark complete is part of an order, this is easy
-                Order order = item.Order;
-                order.IsComplete = !order.IsComplete;
-
-                dbContext.SaveChanges();
-            }
-
-            gridViewItems.RefreshData();
-        }
-
 
     }
 }
