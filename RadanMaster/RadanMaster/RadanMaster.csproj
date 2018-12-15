@@ -104,11 +104,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201812051936441_InitialCreate.cs" />
-    <Compile Include="Migrations\201812051936441_InitialCreate.Designer.cs">
-      <DependentUpon>201812051936441_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201812121321175_InitialCreate.cs" />
+    <Compile Include="Migrations\201812121321175_InitialCreate.Designer.cs">
+      <DependentUpon>201812121321175_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="DisplayModels\DisplayItem.cs" />
     <Compile Include="Models\Nest.cs" />
     <Compile Include="Models\NestedParts.cs" />
     <Compile Include="Models\Order.cs" />
@@ -141,8 +142,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812051936441_InitialCreate.resx">
-      <DependentUpon>201812051936441_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812121321175_InitialCreate.resx">
+      <DependentUpon>201812121321175_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -206,6 +207,7 @@
     <None Include="Resources\refreshallpivottable_32x321.png" />
     <None Include="Resources\refreshallpivottable_32x32.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

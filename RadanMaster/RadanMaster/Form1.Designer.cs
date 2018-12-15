@@ -41,6 +41,7 @@
             this.colQtyRequired = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemSpinEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.colQtyNested = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colQtyRemaining = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnThumb2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemPictureEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
             this.partNameCol = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -56,7 +57,9 @@
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemMemoEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colOrderIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colHasBends = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemImageEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemImageEdit();
+            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.skinRibbonGalleryBarItem1 = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
@@ -99,14 +102,15 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
             this.gridControlNests = new DevExpress.XtraGrid.GridControl();
-            this.nestsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridViewNests = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colnestName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colnestPath = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQtyOnNest = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.nestsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
+            this.displayItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
@@ -114,6 +118,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
@@ -121,10 +126,11 @@
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlNests)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nestsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewNests)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nestsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.displayItemBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // splashScreenManager1
@@ -138,7 +144,7 @@
             this.colIsInProject.Name = "colIsInProject";
             this.colIsInProject.OptionsColumn.AllowEdit = false;
             this.colIsInProject.Visible = true;
-            this.colIsInProject.VisibleIndex = 14;
+            this.colIsInProject.VisibleIndex = 15;
             this.colIsInProject.Width = 33;
             // 
             // gridControlItems
@@ -152,8 +158,9 @@
             this.repositoryItemImageEdit1,
             this.repositoryItemPictureEdit1,
             this.repositoryItemSpinEdit1,
-            this.repositoryItemMemoEdit1});
-            this.gridControlItems.Size = new System.Drawing.Size(1600, 522);
+            this.repositoryItemMemoEdit1,
+            this.repositoryItemCheckEdit1});
+            this.gridControlItems.Size = new System.Drawing.Size(1600, 550);
             this.gridControlItems.TabIndex = 0;
             this.gridControlItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewItems});
@@ -169,6 +176,7 @@
             this.colID,
             this.colQtyRequired,
             this.colQtyNested,
+            this.colQtyRemaining,
             this.gridColumnThumb2,
             this.partNameCol,
             this.PartDescCol,
@@ -182,7 +190,8 @@
             this.colDateEntered,
             this.colIsInProject,
             this.colNotes,
-            this.colOrderIsComplete});
+            this.colOrderIsComplete,
+            this.colHasBends});
             gridFormatRule1.ApplyToRow = true;
             gridFormatRule1.Column = this.colIsInProject;
             gridFormatRule1.Name = "frmtIsInProject";
@@ -239,6 +248,17 @@
             this.colQtyNested.VisibleIndex = 1;
             this.colQtyNested.Width = 49;
             // 
+            // colQtyRemaining
+            // 
+            this.colQtyRemaining.Caption = "Qty Remaining";
+            this.colQtyRemaining.FieldName = "calcRemaining";
+            this.colQtyRemaining.Name = "colQtyRemaining";
+            this.colQtyRemaining.OptionsColumn.AllowEdit = false;
+            this.colQtyRemaining.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.colQtyRemaining.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            this.colQtyRemaining.Visible = true;
+            this.colQtyRemaining.VisibleIndex = 2;
+            // 
             // gridColumnThumb2
             // 
             this.gridColumnThumb2.Caption = "Thumbnail";
@@ -247,7 +267,7 @@
             this.gridColumnThumb2.Name = "gridColumnThumb2";
             this.gridColumnThumb2.OptionsColumn.AllowEdit = false;
             this.gridColumnThumb2.Visible = true;
-            this.gridColumnThumb2.VisibleIndex = 2;
+            this.gridColumnThumb2.VisibleIndex = 3;
             this.gridColumnThumb2.Width = 62;
             // 
             // repositoryItemPictureEdit1
@@ -263,7 +283,7 @@
             this.partNameCol.Name = "partNameCol";
             this.partNameCol.OptionsColumn.AllowEdit = false;
             this.partNameCol.Visible = true;
-            this.partNameCol.VisibleIndex = 3;
+            this.partNameCol.VisibleIndex = 4;
             this.partNameCol.Width = 245;
             // 
             // PartDescCol
@@ -273,7 +293,7 @@
             this.PartDescCol.Name = "PartDescCol";
             this.PartDescCol.OptionsColumn.AllowEdit = false;
             this.PartDescCol.Visible = true;
-            this.PartDescCol.VisibleIndex = 5;
+            this.PartDescCol.VisibleIndex = 6;
             this.PartDescCol.Width = 86;
             // 
             // thicknessCol
@@ -282,7 +302,7 @@
             this.thicknessCol.FieldName = "Part.Thickness";
             this.thicknessCol.Name = "thicknessCol";
             this.thicknessCol.Visible = true;
-            this.thicknessCol.VisibleIndex = 4;
+            this.thicknessCol.VisibleIndex = 5;
             this.thicknessCol.Width = 86;
             // 
             // materialCol
@@ -291,7 +311,7 @@
             this.materialCol.FieldName = "Part.Material";
             this.materialCol.Name = "materialCol";
             this.materialCol.Visible = true;
-            this.materialCol.VisibleIndex = 6;
+            this.materialCol.VisibleIndex = 7;
             this.materialCol.Width = 86;
             // 
             // colIsComplete
@@ -299,7 +319,7 @@
             this.colIsComplete.FieldName = "IsComplete";
             this.colIsComplete.Name = "colIsComplete";
             this.colIsComplete.Visible = true;
-            this.colIsComplete.VisibleIndex = 7;
+            this.colIsComplete.VisibleIndex = 8;
             this.colIsComplete.Width = 61;
             // 
             // colOrderNum
@@ -309,7 +329,7 @@
             this.colOrderNum.Name = "colOrderNum";
             this.colOrderNum.OptionsColumn.AllowEdit = false;
             this.colOrderNum.Visible = true;
-            this.colOrderNum.VisibleIndex = 11;
+            this.colOrderNum.VisibleIndex = 12;
             this.colOrderNum.Width = 122;
             // 
             // gridColSchedName
@@ -319,7 +339,7 @@
             this.gridColSchedName.Name = "gridColSchedName";
             this.gridColSchedName.OptionsColumn.AllowEdit = false;
             this.gridColSchedName.Visible = true;
-            this.gridColSchedName.VisibleIndex = 9;
+            this.gridColSchedName.VisibleIndex = 10;
             this.gridColSchedName.Width = 163;
             // 
             // gridColBatchName
@@ -329,7 +349,7 @@
             this.gridColBatchName.Name = "gridColBatchName";
             this.gridColBatchName.OptionsColumn.AllowEdit = false;
             this.gridColBatchName.Visible = true;
-            this.gridColBatchName.VisibleIndex = 10;
+            this.gridColBatchName.VisibleIndex = 11;
             this.gridColBatchName.Width = 158;
             // 
             // IsBatch
@@ -339,7 +359,7 @@
             this.IsBatch.Name = "IsBatch";
             this.IsBatch.OptionsColumn.AllowEdit = false;
             this.IsBatch.Visible = true;
-            this.IsBatch.VisibleIndex = 8;
+            this.IsBatch.VisibleIndex = 9;
             this.IsBatch.Width = 47;
             // 
             // colDateEntered
@@ -350,7 +370,7 @@
             this.colDateEntered.FieldName = "Order.EntryDate";
             this.colDateEntered.Name = "colDateEntered";
             this.colDateEntered.Visible = true;
-            this.colDateEntered.VisibleIndex = 12;
+            this.colDateEntered.VisibleIndex = 13;
             this.colDateEntered.Width = 96;
             // 
             // colNotes
@@ -360,11 +380,12 @@
             this.colNotes.FieldName = "Notes";
             this.colNotes.Name = "colNotes";
             this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 13;
+            this.colNotes.VisibleIndex = 14;
             this.colNotes.Width = 238;
             // 
             // repositoryItemMemoEdit1
             // 
+            this.repositoryItemMemoEdit1.AcceptsReturn = false;
             this.repositoryItemMemoEdit1.Name = "repositoryItemMemoEdit1";
             // 
             // colOrderIsComplete
@@ -373,7 +394,15 @@
             this.colOrderIsComplete.FieldName = "Order.IsComplete";
             this.colOrderIsComplete.Name = "colOrderIsComplete";
             this.colOrderIsComplete.Visible = true;
-            this.colOrderIsComplete.VisibleIndex = 15;
+            this.colOrderIsComplete.VisibleIndex = 16;
+            // 
+            // colHasBends
+            // 
+            this.colHasBends.Caption = "Has Bends";
+            this.colHasBends.FieldName = "Part.HasBends";
+            this.colHasBends.Name = "colHasBends";
+            this.colHasBends.Visible = true;
+            this.colHasBends.VisibleIndex = 17;
             // 
             // repositoryItemImageEdit1
             // 
@@ -381,6 +410,11 @@
             this.repositoryItemImageEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemImageEdit1.Name = "repositoryItemImageEdit1";
+            // 
+            // repositoryItemCheckEdit1
+            // 
+            this.repositoryItemCheckEdit1.AutoHeight = false;
+            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
             // 
             // ribbonControl1
             // 
@@ -716,20 +750,16 @@
             // 
             // gridControlNests
             // 
-            this.gridControlNests.DataSource = this.nestsBindingSource;
+            this.gridControlNests.DataSource = typeof(RadanMaster.Models.DisplayNest);
             this.gridControlNests.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridControlNests.Location = new System.Drawing.Point(0, 0);
             this.gridControlNests.MainView = this.gridViewNests;
             this.gridControlNests.MenuManager = this.ribbonControl1;
             this.gridControlNests.Name = "gridControlNests";
-            this.gridControlNests.Size = new System.Drawing.Size(1600, 69);
+            this.gridControlNests.Size = new System.Drawing.Size(1600, 41);
             this.gridControlNests.TabIndex = 4;
             this.gridControlNests.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewNests});
-            // 
-            // nestsBindingSource
-            // 
-            this.nestsBindingSource.Filter = "nestName = \'P1000\'";
             // 
             // gridViewNests
             // 
@@ -742,7 +772,6 @@
             this.gridViewNests.Name = "gridViewNests";
             this.gridViewNests.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colQtyOnNest, DevExpress.Data.ColumnSortOrder.Ascending)});
-            this.gridViewNests.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.gridViewNests_CustomUnboundColumnData);
             // 
             // colID1
             // 
@@ -751,14 +780,14 @@
             // 
             // colnestName
             // 
-            this.colnestName.FieldName = "nestName";
+            this.colnestName.FieldName = "NestName";
             this.colnestName.Name = "colnestName";
             this.colnestName.Visible = true;
             this.colnestName.VisibleIndex = 0;
             // 
             // colnestPath
             // 
-            this.colnestPath.FieldName = "nestPath";
+            this.colnestPath.FieldName = "NestPath";
             this.colnestPath.Name = "colnestPath";
             this.colnestPath.Visible = true;
             this.colnestPath.VisibleIndex = 1;
@@ -775,6 +804,10 @@
             this.colQtyOnNest.Visible = true;
             this.colQtyOnNest.VisibleIndex = 2;
             // 
+            // nestsBindingSource
+            // 
+            this.nestsBindingSource.Filter = "nestName = \'P1000\'";
+            // 
             // splitContainerControl1
             // 
             this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -787,7 +820,7 @@
             this.splitContainerControl1.Panel2.Controls.Add(this.gridControlNests);
             this.splitContainerControl1.Panel2.Text = "Panel2";
             this.splitContainerControl1.Size = new System.Drawing.Size(1600, 596);
-            this.splitContainerControl1.SplitterPosition = 522;
+            this.splitContainerControl1.SplitterPosition = 550;
             this.splitContainerControl1.TabIndex = 5;
             // 
             // progressPanel1
@@ -795,7 +828,7 @@
             this.progressPanel1.Appearance.BackColor = System.Drawing.Color.Transparent;
             this.progressPanel1.Appearance.Options.UseBackColor = true;
             this.progressPanel1.BarAnimationElementThickness = 2;
-            this.progressPanel1.Location = new System.Drawing.Point(394, 151);
+            this.progressPanel1.Location = new System.Drawing.Point(935, 105);
             this.progressPanel1.Name = "progressPanel1";
             this.progressPanel1.Size = new System.Drawing.Size(246, 66);
             this.progressPanel1.TabIndex = 1;
@@ -821,6 +854,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
@@ -829,10 +863,11 @@
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlNests)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nestsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewNests)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nestsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
             this.splitContainerControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.displayItemBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -914,5 +949,9 @@
         private DevExpress.XtraBars.BarButtonItem barButtonRetrieveAll;
         private DevExpress.XtraGrid.Columns.GridColumn colOrderIsComplete;
         private DevExpress.XtraBars.BarToggleSwitchItem barToggleSwitchShowCompletedOrders;
+        private System.Windows.Forms.BindingSource displayItemBindingSource;
+        private DevExpress.XtraGrid.Columns.GridColumn colHasBends;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
+        private DevExpress.XtraGrid.Columns.GridColumn colQtyRemaining;
     }
 }

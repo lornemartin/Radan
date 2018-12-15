@@ -13,7 +13,7 @@ namespace RadanMaster.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201812051936441_InitialCreate"; }
+            get { return "201812121321175_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

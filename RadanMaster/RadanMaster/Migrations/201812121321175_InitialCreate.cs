@@ -77,6 +77,7 @@ namespace RadanMaster.Migrations
                         Material = c.String(),
                         Thickness = c.Double(nullable: false),
                         Thumbnail = c.Binary(),
+                        HasBends = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             

@@ -236,109 +236,108 @@ namespace RadanInterface2
 
         public bool InsertAttributes(string SymFilePath, string MaterialName, string MaterialThickness, string unitType, string partDesc, ref string ErrorMessage)
         {
-            if (!System.IO.File.Exists(SymFilePath))
-            {
-                ErrorMessage = "The SYM file does not exist and material and thickness cannot be inserted";
-                return false;
-            }
-            try
-            {
-                XDocument symDoc = XDocument.Load(SymFilePath);
+            #region oldcode
+            //if (!System.IO.File.Exists(SymFilePath))
+            //{
+            //    ErrorMessage = "The SYM file does not exist and material and thickness cannot be inserted";
+            //    return false;
+            //}
+            //try
+            //{
+            //    XDocument symDoc = XDocument.Load(SymFilePath);
 
-                // set material name attribute
-                XElement temp = symDoc.Descendants(symNameSpace + ATT_ELEMENT)
-                                                .Where(t => t.Attribute(NUM_ATTRIBUTE).Value == MATERIAL_ATT_NUMBER).FirstOrDefault();
-                if (temp == null)
-                {
-                    ErrorMessage = "The material element (" + MATERIAL_ATT_NUMBER + ") is missing in the SYM file, material cannot be inserted";
-                    return false;
-                }
-                if (temp.Attribute(VALUE_ATTRIBUTE) == null)
-                {
-                    XAttribute value = new XAttribute(VALUE_ATTRIBUTE, MaterialName);
-                    temp.Add(value);
-                }
-                else
-                {
-                    temp.SetAttributeValue("value", MaterialName);
-                }
+            //    // set material name attribute
+            //    XElement temp = symDoc.Descendants(symNameSpace + ATT_ELEMENT)
+            //                                    .Where(t => t.Attribute(NUM_ATTRIBUTE).Value == MATERIAL_ATT_NUMBER).FirstOrDefault();
+            //    if (temp == null)
+            //    {
+            //        ErrorMessage = "The material element (" + MATERIAL_ATT_NUMBER + ") is missing in the SYM file, material cannot be inserted";
+            //        return false;
+            //    }
+            //    if (temp.Attribute(VALUE_ATTRIBUTE) == null)
+            //    {
+            //        XAttribute value = new XAttribute(VALUE_ATTRIBUTE, MaterialName);
+            //        temp.Add(value);
+            //    }
+            //    else
+            //    {
+            //        temp.SetAttributeValue("value", MaterialName);
+            //    }
 
-                // set material thickness attribute
-                temp = symDoc.Descendants(symNameSpace + ATT_ELEMENT)
-                            .Where(t => t.Attribute(NUM_ATTRIBUTE).Value == THICKNESS_ATT_NUMBER).FirstOrDefault();
-                if (temp == null)
-                {
-                    ErrorMessage = "The material thickness element (" + THICKNESS_ATT_NUMBER + ") is missing in the SYM file, thickness cannot be inserted";
-                    return false;
-                }
-                if (temp.Attribute(VALUE_ATTRIBUTE) == null)
-                {
-                    XAttribute value = new XAttribute(VALUE_ATTRIBUTE, MaterialThickness);
-                    temp.Add(value);
-                }
-                else
-                {
-                    temp.SetAttributeValue("value", MaterialThickness);
-                }
+            //    // set material thickness attribute
+            //    temp = symDoc.Descendants(symNameSpace + ATT_ELEMENT)
+            //                .Where(t => t.Attribute(NUM_ATTRIBUTE).Value == THICKNESS_ATT_NUMBER).FirstOrDefault();
+            //    if (temp == null)
+            //    {
+            //        ErrorMessage = "The material thickness element (" + THICKNESS_ATT_NUMBER + ") is missing in the SYM file, thickness cannot be inserted";
+            //        return false;
+            //    }
+            //    if (temp.Attribute(VALUE_ATTRIBUTE) == null)
+            //    {
+            //        XAttribute value = new XAttribute(VALUE_ATTRIBUTE, MaterialThickness);
+            //        temp.Add(value);
+            //    }
+            //    else
+            //    {
+            //        temp.SetAttributeValue("value", MaterialThickness);
+            //    }
 
-                // set part description attribute
-                temp = symDoc.Descendants(symNameSpace + ATT_ELEMENT)
-                            .Where(t => t.Attribute(NUM_ATTRIBUTE).Value == DESCRIPTION_ATT_NUMBER).FirstOrDefault();
-                if (temp == null)
-                {
-                    ErrorMessage = "The part description element (" + DESCRIPTION_ATT_NUMBER + ") is missing in the SYM file, description cannot be inserted";
-                    return false;
-                }
-                if (temp.Attribute(VALUE_ATTRIBUTE) == null)
-                {
-                    XAttribute value = new XAttribute(VALUE_ATTRIBUTE, partDesc);
-                    temp.Add(value);
-                }
-                else
-                {
-                    temp.SetAttributeValue("value", partDesc);
-                }
+            //    // set part description attribute
+            //    temp = symDoc.Descendants(symNameSpace + ATT_ELEMENT)
+            //                .Where(t => t.Attribute(NUM_ATTRIBUTE).Value == DESCRIPTION_ATT_NUMBER).FirstOrDefault();
+            //    if (temp == null)
+            //    {
+            //        ErrorMessage = "The part description element (" + DESCRIPTION_ATT_NUMBER + ") is missing in the SYM file, description cannot be inserted";
+            //        return false;
+            //    }
+            //    if (temp.Attribute(VALUE_ATTRIBUTE) == null)
+            //    {
+            //        XAttribute value = new XAttribute(VALUE_ATTRIBUTE, partDesc);
+            //        temp.Add(value);
+            //    }
+            //    else
+            //    {
+            //        temp.SetAttributeValue("value", partDesc);
+            //    }
 
 
-                // set part unit attribute
-                temp = symDoc.Descendants(symNameSpace + ATT_ELEMENT)
-                            .Where(t => t.Attribute(NUM_ATTRIBUTE).Value == UNIT_ATT_NUMBER).FirstOrDefault();
-                if (temp == null)
-                {
-                    ErrorMessage = "The part unit element (" + UNIT_ATT_NUMBER + ") is missing in the SYM file, description cannot be inserted";
-                    return false;
-                }
-                if (temp.Attribute(VALUE_ATTRIBUTE) == null)
-                {
-                    XAttribute value = new XAttribute(VALUE_ATTRIBUTE, partDesc);
-                    temp.Add(value);
-                }
-                else
-                {
-                    temp.SetAttributeValue("value", unitType);
-                }
+            //    // set part unit attribute
+            //    temp = symDoc.Descendants(symNameSpace + ATT_ELEMENT)
+            //                .Where(t => t.Attribute(NUM_ATTRIBUTE).Value == UNIT_ATT_NUMBER).FirstOrDefault();
+            //    if (temp == null)
+            //    {
+            //        ErrorMessage = "The part unit element (" + UNIT_ATT_NUMBER + ") is missing in the SYM file, description cannot be inserted";
+            //        return false;
+            //    }
+            //    if (temp.Attribute(VALUE_ATTRIBUTE) == null)
+            //    {
+            //        XAttribute value = new XAttribute(VALUE_ATTRIBUTE, partDesc);
+            //        temp.Add(value);
+            //    }
+            //    else
+            //    {
+            //        temp.SetAttributeValue("value", unitType);
+            //    }
 
-                // save sym file
-                try
-                {
-                    symDoc.Save(SymFilePath);
-                    return true;
-                }
-                catch (Exception x)
-                {
-                    ErrorMessage = "An IO Error occured and material and thickness cannot be inserted\r\n\r\nError Reports\r\n" + x.Message;
-                    return false;
-                }
-            }
-            catch (Exception x)
-            {
-                ErrorMessage = "An IO Error occured and material and thickness cannot be inserted\r\n\r\nError Reports\r\n" + x.Message;
-                return false;
-            }
-        }
+            //    // save sym file
+            //    try
+            //    {
+            //        symDoc.Save(SymFilePath);
+            //        return true;
+            //    }
+            //    catch (Exception x)
+            //    {
+            //        ErrorMessage = "An IO Error occured and material and thickness cannot be inserted\r\n\r\nError Reports\r\n" + x.Message;
+            //        return false;
+            //    }
+            //}
+            //catch (Exception x)
+            //{
+            //    ErrorMessage = "An IO Error occured and material and thickness cannot be inserted\r\n\r\nError Reports\r\n" + x.Message;
+            //    return false;
+            //}
+            #endregion
 
-        public bool InsertAdditionalAttributes(string SymFilePath, string OrderNumber, string ScheduleName, string BatchName, ref string ErrorMessage)
-        {
             if (!System.IO.File.Exists(SymFilePath))
             {
                 ErrorMessage = "The SYM file does not exist and attributes cannot be inserted";
@@ -352,14 +351,53 @@ namespace RadanInterface2
                 // get a handle to the existing attributes
                 int oldhandle = rApp.Mac.att_load(SymFilePath, false);
 
-                bool success1 = rApp.Mac.att_set_value(newHandle, 201, OrderNumber);
-                bool success2 = rApp.Mac.att_set_value(newHandle, 202, ScheduleName);
-                bool success3 = rApp.Mac.att_set_value(newHandle, 203, BatchName);
+                bool success1 = rApp.Mac.att_set_value(newHandle, 119, MaterialName);
+                bool success2 = rApp.Mac.att_set_value(newHandle, 120, MaterialThickness);
+                bool success3 = rApp.Mac.att_set_value(newHandle, 121, unitType);
+                bool success4 = rApp.Mac.att_set_value(newHandle, 200, partDesc);
 
                 // merge the new attributes with the old.
-                bool success4 = rApp.Mac.att_update_file(SymFilePath, newHandle, true);
+                bool success5 = rApp.Mac.att_update_file(SymFilePath, newHandle, true);
 
-                return success1 && success2 && success3 && success3 && success4;
+                return success1 && success2 && success3 && success3 && success4 & success5;
+            }
+            catch (Exception x)
+            {
+                ErrorMessage = "An IO Error occured and attributes cannot be inserted\r\n\r\nError Reports\r\n" + x.Message;
+                return false;
+            }
+
+        }
+
+        public bool InsertAdditionalAttributes(string SymFilePath, string MaterialName, string MaterialThickness, string unitType, string partDesc, string OrderNumber, string ScheduleName, string BatchName, bool HasBends, ref string ErrorMessage)
+        {
+            if (!System.IO.File.Exists(SymFilePath))
+            {
+                ErrorMessage = "The SYM file does not exist and attributes cannot be inserted";
+                return false;
+            }
+            try
+            {
+                // get a handle to the existing attributes
+                int oldhandle = rApp.Mac.att_load(SymFilePath, false);
+
+                // get a handle to a brand new set of attributes
+                int newHandle = rApp.Mac.att_new(SymFilePath);
+
+                bool success1 = rApp.Mac.att_set_value(newHandle, 119, MaterialName);
+                bool success2 = rApp.Mac.att_set_value(newHandle, 120, MaterialThickness);
+                bool success3 = rApp.Mac.att_set_value(newHandle, 121, unitType);
+                bool success4 = rApp.Mac.att_set_value(newHandle, 200, partDesc);
+                bool success5 = rApp.Mac.att_set_value(newHandle, 201, OrderNumber);
+                bool success6 = rApp.Mac.att_set_value(newHandle, 202, ScheduleName);
+                bool success7 = rApp.Mac.att_set_value(newHandle, 203, BatchName);
+                string hasBendsFlag = (HasBends == true) ? "1" : "0";
+                bool success8 = rApp.Mac.att_set_value(newHandle, 301, hasBendsFlag);
+
+                // merge the new attributes with the old.
+                bool success9 = rApp.Mac.att_update_file(SymFilePath, newHandle, true);
+
+                return success1 && success2 && success3 && success3 && success4 && success5 && success6 && success7 && success8 && success9;
             }
             catch (Exception x)
             {
@@ -422,7 +460,7 @@ namespace RadanInterface2
             }
         }
 
-        public bool openNest(string nestName, ref string errMsg)
+        public bool openNest(string nestName,ref string errMsg)
         {
             try
             {
@@ -468,6 +506,21 @@ namespace RadanInterface2
         public bool SaveProject()
         {
             return rApp.Mac.prj_save();
+        }
+
+        public bool IsProjectReady()
+        {
+            // see if we can query interface, return true if we can, false if we can't
+            try
+            {
+                string version = rApp.Application.SoftwareVersion;
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+                
         }
 
         public string GetThicknessFromSym(string fileName)
@@ -569,7 +622,7 @@ namespace RadanInterface2
             return "";
         }
 
-        public char[] GetThumbnailDataFromSym(string fileName)
+        public char [] GetThumbnailDataFromSym(string fileName)
         {
             XmlDocument doc = new XmlDocument();
 
@@ -596,37 +649,6 @@ namespace RadanInterface2
             }
 
             return thumbNailString.ToCharArray();
-        }
-
-        public bool GetBendDataFromSym(string fileName)
-        {
-            XmlDocument doc = new XmlDocument();
-
-            if (System.IO.File.Exists(fileName))
-            {
-                doc.Load(fileName);
-            }
-            else
-            {
-                return false;
-            }
-
-            // cycle through each child node
-            if (doc.DocumentElement.ChildNodes.Count > 4)
-            {
-                foreach (XmlNode node in doc.DocumentElement.ChildNodes[4])
-                {
-                    if (node.OuterXml.Contains("Number of Bends"))
-                    {
-                        if (node.Attributes[2].Value != null)
-                            return true;
-                    }
-                }
-            }
-            else
-                return false;
-
-            return false;
         }
     }
 }
