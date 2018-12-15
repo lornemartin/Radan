@@ -485,6 +485,19 @@ namespace RadanMaster
                         }
                     }
 
+                    // check to make sure all order items are still in Radan and notify user if not
+                    List<OrderItem> orderItemsInRadan = dbContext.OrderItems.Where(o => o.IsInProject).ToList();
+
+                    foreach(OrderItem item in orderItemsInRadan)
+                    {
+                        RadanPart radanPart = rPrj.Parts.Part.Where(p => p.Bin == item.RadanIDNumber.ToString()).FirstOrDefault();
+                        if(radanPart == null)
+                        {
+                            MessageBox.Show(item.Part.FileName + " no longer exists in Radan project.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            item.IsInProject = false;
+                        }
+                    }
+
                     dbContext.SaveChanges();
                     gridViewItems.RefreshData();
                 }
@@ -492,6 +505,7 @@ namespace RadanMaster
             }
             catch (Exception ex)
             {
+                MessageBox.Show("Sync with Radan Project was not successful" + "\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
