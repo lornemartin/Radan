@@ -1072,7 +1072,7 @@ namespace RadanMaster
             DialogResult result = openFileDialogAddItem.ShowDialog();
             if (result == DialogResult.OK) // Test result.
             {
-                AddItemDialog.AddItem addItemDialog = new AddItemDialog.AddItem();
+                AddItemDialog.AddItem addItemDialog = new AddItemDialog.AddItem(dbContext);
                 DialogResult addItemResult = addItemDialog.ShowDialog();
 
 
