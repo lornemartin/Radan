@@ -461,6 +461,29 @@ namespace RadanMaster
                         }
                     }
 
+                    // check for completed orders....right now this only work one way, it won't uncheck completed orders that are no longer complete
+                    bool orderComplete = true;
+                    List<OrderItem> orderItemsToSync = dbContext.OrderItems.ToList();   // this may cause performance problems eventually
+                    foreach (OrderItem syncItem in orderItemsToSync)
+                    {
+                        if (syncItem.Order.IsComplete != true)      // no need to check if order is already complete
+                        {
+                            // check completion status of all associated order items
+                            List<OrderItem> associatedOrderItems = dbContext.OrderItems.Where(o => o.Order.ID == syncItem.Order.ID).ToList();
+                            orderComplete = true;
+                            foreach (OrderItem item in associatedOrderItems)
+                            {
+                                if (item.IsComplete == false)
+                                {
+                                    orderComplete = false;
+                                    break;
+                                }
+                            }
+
+                            // if all associated order items are complete, consider whole order as complete
+                            if (orderComplete == true) syncItem.Order.IsComplete = true;
+                        }
+                    }
 
                     dbContext.SaveChanges();
                     gridViewItems.RefreshData();
