@@ -1483,8 +1483,10 @@ namespace RadanMaster
             if (barToggleSwitchGroup1.Checked)
             {
                 //gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
-                gridViewItems.Columns["Order.BatchName"].GroupIndex = 2;
-                gridViewItems.Columns["Part.Thickness"].GroupIndex = 3;
+                gridViewItems.Columns["Order.BatchName"].GroupIndex = 1;
+                //gridViewItems.Columns["Part.Thickness"].GroupIndex = 3;
+                gridViewItems.Columns["Order.BatchName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+                gridViewItems.Columns["Order.EntryDate"].SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
 
                 gridViewItems.Columns["Order.IsBatch"].FilterInfo =
                    new ColumnFilterInfo("[Order.IsBatch] == 'true'");
@@ -1516,6 +1518,7 @@ namespace RadanMaster
                 //gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
                 gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 2;
                 gridViewItems.Columns["Part.Thickness"].GroupIndex = 3;
+                gridViewItems.Columns["Order.ScheduleName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
 
                 gridViewItems.Columns["Order.IsBatch"].FilterInfo =
                    new ColumnFilterInfo("[Order.IsBatch] == 'false'");
