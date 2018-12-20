@@ -87,6 +87,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_24F445849E4C4A91A6946365737B3F71"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2C702D595B48C3979CC36245371570EF"
         "OwnerKey" = "8:_E0FEA20ECBD69989E0A3FAC83027D8C6"
         "MsmSig" = "8:_UNDEFINED"
@@ -213,12 +219,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_546E3C9EC8F64664BBD79AA03EF40B7F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_55362CBDE972EEB64F262D373D3C72F7"
         "OwnerKey" = "8:_C2EF34CF2A5A4E65BBBA5D37198AB133"
         "MsmSig" = "8:_UNDEFINED"
@@ -309,6 +309,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6997AF3AEA504FF0886BB96F5E0C2861"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_72F7EB622B431C2AD6F0A949F9D6BB27"
         "OwnerKey" = "8:_EAB9B39CFDB658BB65162617A816342E"
         "MsmSig" = "8:_UNDEFINED"
@@ -329,6 +335,12 @@
         {
         "MsmKey" = "8:_7516EA4E1A1B40FBAEF834AB61EB9BE5"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7D2B270D3CB163CF2DF6FF2C61414026"
+        "OwnerKey" = "8:_C2EF34CF2A5A4E65BBBA5D37198AB133"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -580,12 +592,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3AD3E7A4DA3A82910F4B99E715B68CE4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C2EF34CF2A5A4E65BBBA5D37198AB133"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -623,6 +629,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C8E7DD511952D3AF0AC96A62CB3F3D07"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_7D2B270D3CB163CF2DF6FF2C61414026"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -739,6 +751,24 @@
         "OwnerKey" = "8:_03A5DAA77FAAEE55F93502054EC1E940"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3AD3E7A4DA3A82910F4B99E715B68CE4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_6997AF3AEA504FF0886BB96F5E0C2861"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_24F445849E4C4A91A6946365737B3F71"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -747,7 +777,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\RadanMasterSetup.msi"
+        "OutputFilename" = "8:M:\\temp\\RadanMasterSetup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -770,6 +800,21 @@
                     {
                     "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
                     "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.SqlServer.Express.11.0"
+                    {
+                    "Name" = "8:SQL Server 2012 Express"
+                    "ProductCode" = "8:Microsoft.SqlServer.Express.11.0"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.SqlServer.SQLSysClrTypes.12.0.x64"
+                    {
+                    "Name" = "8:Microsoft® System CLR Types for SQL Server® 2014 (x64)"
+                    "ProductCode" = "8:Microsoft.SqlServer.SQLSysClrTypes.12.0.x64"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.SqlServer.SQLSysClrTypes.12.0.x86"
+                    {
+                    "Name" = "8:Microsoft® System CLR Types for SQL Server® 2014 (x86)"
+                    "ProductCode" = "8:Microsoft.SqlServer.SQLSysClrTypes.12.0.x86"
                     }
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.SqlServer.SqlLocalDB.11.1"
                     {
@@ -1107,26 +1152,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_546E3C9EC8F64664BBD79AA03EF40B7F"
-            {
-            "SourcePath" = "8:..\\..\\RadanMaster\\RadanMaster\\bin\\Debug\\AppSettings.xml"
-            "TargetName" = "8:AppSettings.xml"
-            "Tag" = "8:"
-            "Folder" = "8:_D0FBEC04C94D4C8DB9CF0ADE6E793D3C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_55362CBDE972EEB64F262D373D3C72F7"
             {
             "AssemblyRegister" = "3:1"
@@ -1300,6 +1325,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7D2B270D3CB163CF2DF6FF2C61414026"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_7D2B270D3CB163CF2DF6FF2C61414026"
+                    {
+                    "Name" = "8:log4net.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:log4net.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D0FBEC04C94D4C8DB9CF0ADE6E793D3C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_83F7BDFC42120D28E4F31DD9F32E5145"
@@ -1846,7 +1902,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RadanMaster"
         "ProductCode" = "8:{795003D8-7AB1-4CB6-AAF9-15FEA410870D}"
-        "PackageCode" = "8:{BD3CBF45-CA80-480E-8BFA-6521B734B01D}"
+        "PackageCode" = "8:{DA0279BD-14D1-4433-90AA-7EBC91B9EED6}"
         "UpgradeCode" = "8:{94741E26-533B-43F7-9285-3000144FEAEA}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -2379,6 +2435,62 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_24F445849E4C4A91A6946365737B3F71"
+            {
+            "SourcePath" = "8:..\\..\\RadanProject\\obj\\Debug\\RadanProject.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D0FBEC04C94D4C8DB9CF0ADE6E793D3C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{2EE4097D-E0FE-4A4B-B913-DD38FEE62FCE}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6997AF3AEA504FF0886BB96F5E0C2861"
+            {
+            "SourcePath" = "8:..\\..\\RadanInterface2\\obj\\Debug\\RadanInterface2.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D0FBEC04C94D4C8DB9CF0ADE6E793D3C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{33AAB76E-FFAB-4B0C-B6A4-F66D4726195A}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C2EF34CF2A5A4E65BBBA5D37198AB133"
             {
             "SourcePath" = "8:..\\..\\RadanMaster\\RadanMaster\\obj\\Debug\\RadanMaster.exe"

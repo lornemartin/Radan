@@ -59,10 +59,18 @@ namespace RadanMaster
                 // Instantiate a new DBContext
 
                 dbContext = new DAL.RadanMasterContext();
+
+                logger.Info("dbContext initialized.");
                 
                 radanProjectName = (string)AppSettings.AppSettings.Get("RadanProjectPathAndFile");
+
+                logger.Info("Radan Project Name = " + radanProjectName);
+
                 barEditRadanProjectBrowse.EditValue = radanProjectName;
                 symFolder = (string)AppSettings.AppSettings.Get("SymFilePath");
+                logger.Info("SymFolder = " + symFolder);
+                logger.Info("Test");
+
                 radInterface = new RadanInterface();
                 if (radInterface.Initialize())
                 {
@@ -83,6 +91,7 @@ namespace RadanMaster
                 dbContext.NestedParts.Load();
 
                 logger.Info("dbContext loaded.");
+                logger.Info("Test2");
 
                 this.Text = dbContext.Database.Connection.Database.ToString();
 
