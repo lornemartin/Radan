@@ -15,7 +15,7 @@ namespace RadanMaster.AppSettings
 {
     public static class AppSettings
     {
-        public static readonly string SettingsFilePath = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName + @"\AppSettings.xml";
+        public static readonly string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\AppSettings.xml";
 
         #region Get setting
         public static object Get(string key)
