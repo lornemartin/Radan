@@ -1248,7 +1248,7 @@ namespace RadanMaster
                 if (radInterface.getOpenProjectName(ref errMsg) == radanProjectName)
                 {
                     if (XtraMessageBox.Show("Are you sure you want to clear this Radan Project and initialize a new empty one?","Confirmation",MessageBoxButtons.YesNo) != DialogResult.No)
-                CreateNewRadanProject();
+                        CreateNewRadanProject();
                 }
                 else
                 {
@@ -1661,6 +1661,100 @@ namespace RadanMaster
             dbContext.SaveChanges();
         }
 
+        private void gridViewNests_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
+        {
+            GridView view = sender as GridView;
+            if (e.MenuType == DevExpress.XtraGrid.Views.Grid.GridMenuType.Row)
+            {
+                int rowHandle = e.HitInfo.RowHandle;
+
+                if (rowHandle >= 0)
+                {
+                    DisplayNest currentNest = (DisplayNest)gridViewNests.GetRow(rowHandle);
+                    e.Menu.Items.Clear();
+                    DXMenuItem nestToDelete = new DXMenuItem("Delete Nest", OnDeleteNestClick);
+                    nestToDelete.Tag = currentNest;
+                    e.Menu.Items.Add(nestToDelete);
+                }
+
+            }
+        }
+
+        void OnDeleteNestClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (XtraMessageBox.Show("Are you sure you want to delete this nest?", "Confirmation", MessageBoxButtons.YesNo) != DialogResult.No)
+                {
+                    MessageBox.Show("Please note that the sheet quantities in the Radan project will have to be updated manually.\nAlso note that the actual nest will not be deleted in Radan, it will only be removed from the database\n");
+                    
+                    DXMenuItem menuItem = sender as DXMenuItem;
+
+                    DisplayNest displayNest = (DisplayNest)menuItem.Tag;
+
+                    Nest nestToDelete = dbContext.Nests.Where(n => n.nestName == displayNest.NestName).Where(n => n.nestPath == displayNest.NestPath).FirstOrDefault();
+
+                    if (nestToDelete == null)
+                    {
+                        MessageBox.Show("This nest has not been saved to the database yet.  Please remove it in the Radan project.");
+                    }
+                    else
+                    {
+                        // find all the nested parts associated with this nest
+                        List<NestedParts> nestedPartsToRemove = nestToDelete.NestedParts.ToList();
+
+                        // remove all the nested parts from the nest and from the db context
+                        foreach (NestedParts nestedPart in nestedPartsToRemove)
+                        {
+                            // find the order item associated to this nested part
+                            OrderItem item = nestedPart.OrderItem;
+                            // adjust nested qty
+                            item.QtyNested -= nestedPart.Qty;
+                            // remove the association
+                            item.AssociatedNests.Remove(nestToDelete);
+                            // if item was complete before, it no longer is...
+                            item.IsComplete = false;
+                            // remove the nested part from the nest
+                            nestToDelete.NestedParts.Remove(nestedPart);
+                            // and from the db context
+                            dbContext.NestedParts.Remove(nestedPart);
+                        }
+
+                        // then remove the nest
+                        dbContext.Nests.Remove(nestToDelete);
+
+                        dbContext.SaveChanges();
+
+                        gridViewItems.RefreshData();
+                        gridViewNests.RefreshData();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error in deleting nest.  Database has not been modified." + "\n" +
+                                ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // reset dbContext to original state if anything goes wrong.
+                foreach (DbEntityEntry entry in dbContext.ChangeTracker.Entries())
+                {
+                    switch (entry.State)
+                    {
+                        case EntityState.Modified:
+                            entry.State = EntityState.Unchanged;
+                            break;
+                        case EntityState.Added:
+                            entry.State = EntityState.Detached;
+                            break;
+                        case EntityState.Deleted:
+                            entry.Reload();
+                            break;
+                        default: break;
+                    }
+                }
+            }
+        }
     }
 }
 
