@@ -1729,6 +1729,7 @@ namespace RadanMaster
                             item.AssociatedNests.Remove(nestToDelete);
                             // if item was complete before, it no longer is...
                             item.IsComplete = false;
+                            item.Order.IsComplete = false;
                             // remove the nested part from the nest
                             nestToDelete.NestedParts.Remove(nestedPart);
                             // and from the db context
