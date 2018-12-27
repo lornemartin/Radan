@@ -86,6 +86,7 @@
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonRetrieveAll = new DevExpress.XtraBars.BarButtonItem();
             this.barToggleSwitchShowCompletedOrders = new DevExpress.XtraBars.BarToggleSwitchItem();
+            this.barButtonItemConnectToRadan = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgSkins = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -442,9 +443,10 @@
             this.barToggleSwitchGroup2,
             this.barButtonItem1,
             this.barButtonRetrieveAll,
-            this.barToggleSwitchShowCompletedOrders});
+            this.barToggleSwitchShowCompletedOrders,
+            this.barButtonItemConnectToRadan});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 4;
+            this.ribbonControl1.MaxItemId = 5;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
@@ -655,6 +657,16 @@
             this.barToggleSwitchShowCompletedOrders.Name = "barToggleSwitchShowCompletedOrders";
             this.barToggleSwitchShowCompletedOrders.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barToggleSwitchShowCompletedOrders_CheckedChanged);
             // 
+            // barButtonItemConnectToRadan
+            // 
+            this.barButtonItemConnectToRadan.Caption = "Connect To Radan";
+            this.barButtonItemConnectToRadan.Hint = "Connect To Running Instance of Radan";
+            this.barButtonItemConnectToRadan.Id = 4;
+            this.barButtonItemConnectToRadan.ImageOptions.Image = global::RadanMaster.Properties.Resources.radan;
+            this.barButtonItemConnectToRadan.Name = "barButtonItemConnectToRadan";
+            this.barButtonItemConnectToRadan.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonItemConnectToRadan.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemConnectToRadan_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -691,6 +703,7 @@
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonUpdateFromRadan);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonNewRadanProject);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonRetrieveAll);
+            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItemConnectToRadan);
             this.ribbonPageGroup2.ItemsLayout = DevExpress.XtraBars.Ribbon.RibbonPageGroupItemsLayout.OneRow;
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "Radan";
@@ -954,5 +967,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colHasBends;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn colQtyRemaining;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemConnectToRadan;
     }
 }

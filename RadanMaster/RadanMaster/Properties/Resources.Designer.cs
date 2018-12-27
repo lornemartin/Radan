@@ -63,6 +63,16 @@ namespace RadanMaster.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap radan {
+            get {
+                object obj = ResourceManager.GetObject("radan", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap refreshallpivottable_16x16 {
             get {
                 object obj = ResourceManager.GetObject("refreshallpivottable_16x16", resourceCulture);
@@ -87,6 +97,15 @@ namespace RadanMaster.Properties {
             get {
                 object obj = ResourceManager.GetObject("refreshallpivottable_32x321", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to if (XtraMessageBox.Show(&quot;Are you sure you want to clear this Radan Project and initialize a new empty one?&quot;,&quot;Confirmation&quot;,MessageBoxButtons.YesNo) != DialogResult.No).
+        /// </summary>
+        internal static string String {
+            get {
+                return ResourceManager.GetString("String", resourceCulture);
             }
         }
     }

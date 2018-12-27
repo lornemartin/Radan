@@ -206,6 +206,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="radanmaster_OWs_icon.ico" />
+    <None Include="Resources\radan.jpg" />
+    <None Include="Resources\Radan Icon.bmp" />
     <None Include="Resources\refreshallpivottable_16x16.png" />
     <None Include="Resources\refreshallpivottable_32x321.png" />
     <None Include="Resources\refreshallpivottable_32x32.png" />

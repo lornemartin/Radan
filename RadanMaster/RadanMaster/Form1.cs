@@ -1425,6 +1425,21 @@ namespace RadanMaster
                 }
             }
         }
+
+        private void barButtonItemConnectToRadan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            radInterface = new RadanInterface();
+            if (radInterface.Initialize())
+            {
+                toolStripStatusLabel1.Text = "Connected to Radan";
+                logger.Info("Connected to Radan.");
+            }
+            else
+            {
+                toolStripStatusLabel1.Text = "Could not connect to Radan";
+                logger.Info("Could not connect to Radan.");
+            }
+        }
         #endregion
 
         private void barToggleSwitchShowBatches_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -1755,6 +1770,8 @@ namespace RadanMaster
                 }
             }
         }
+
+        
     }
 }
 

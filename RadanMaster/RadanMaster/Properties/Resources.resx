@@ -127,4 +127,10 @@
   <data name="refreshallpivottable_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\refreshallpivottable_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="radan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\radan.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>if (XtraMessageBox.Show("Are you sure you want to clear this Radan Project and initialize a new empty one?","Confirmation",MessageBoxButtons.YesNo) != DialogResult.No)</value>
+  </data>
 </root>
