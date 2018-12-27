@@ -14,6 +14,7 @@ namespace RadanMaster.Models
         public int ID { get; set; }
         public string nestName { get; set; }
         public string nestPath { get; set; }
+        public byte[] Thumbnail { get; set; }
 
 
         public virtual ICollection<OrderItem> OrderItems { get; set; }

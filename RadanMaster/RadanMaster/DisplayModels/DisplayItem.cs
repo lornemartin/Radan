@@ -79,5 +79,6 @@ namespace RadanMaster.Models
         public string NestName { get; set; }
         public string NestPath { get; set; }
         public int QtyOnNest { get; set; }
+        public byte[] Thumbnail { get; set; }
     }
 }

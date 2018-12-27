@@ -714,6 +714,11 @@ namespace RadanMaster
                         Nest newMasterNest = new Nest();
                         newMasterNest.nestName = radanNest.FileName;
                         newMasterNest.nestPath = Path.GetDirectoryName(radanProjectName);
+                        char[] thumbnailCharArray = radInterface.GetThumbnailDataFromSym(Path.GetDirectoryName(radanProjectName) + "\\nests\\" + radanNest.FileName);
+                        byte[] thumbnailByteArray = null;
+                        if (thumbnailCharArray != null)
+                            thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
+                        newMasterNest.Thumbnail = thumbnailByteArray;
                         newMasterNest.NestedParts = new List<NestedParts>();
 
                         foreach (NestsPartsMade nestedRadanPart in radanNest.PartsMade)
@@ -1291,6 +1296,7 @@ namespace RadanMaster
                         displayNest.NestPath = nest.nestPath;
                         NestedParts nestedPart = nest.NestedParts.Where(np => np.OrderItem == selectedItem).FirstOrDefault();
                         displayNest.QtyOnNest = nestedPart.Qty;
+                        displayNest.Thumbnail = nest.Thumbnail;
                         displayNests.Add(displayNest);
                     }
 
@@ -1313,6 +1319,14 @@ namespace RadanMaster
                                 displayNest.NestName = radanNest.FileName;
                                 displayNest.NestPath = Path.GetDirectoryName(radanProjectName);
                                 displayNest.QtyOnNest = nst.Made;
+
+                                char[] thumbnailCharArray = radInterface.GetThumbnailDataFromSym(displayNest.NestPath + "\\Nests\\" + displayNest.NestName);
+                                byte[] thumbnailByteArray = null;
+                                if (thumbnailCharArray!=null)
+                                    thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
+
+                                displayNest.Thumbnail = thumbnailByteArray;
+
                                 displayNests.Add(displayNest);
                             }
                         }

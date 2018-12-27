@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::RadanMaster.SplashScreen1), true, true, true);
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue2 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.colIsInProject = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControlItems = new DevExpress.XtraGrid.GridControl();
@@ -105,6 +105,8 @@
             this.gridControlNests = new DevExpress.XtraGrid.GridControl();
             this.gridViewNests = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colThumbnail = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemPictureEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
             this.colnestName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colnestPath = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQtyOnNest = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -128,6 +130,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlNests)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewNests)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nestsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
@@ -193,15 +196,15 @@
             this.colNotes,
             this.colOrderIsComplete,
             this.colHasBends});
-            gridFormatRule2.ApplyToRow = true;
-            gridFormatRule2.Column = this.colIsInProject;
-            gridFormatRule2.Name = "frmtIsInProject";
-            formatConditionRuleValue2.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
-            formatConditionRuleValue2.Appearance.Options.UseFont = true;
-            formatConditionRuleValue2.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
-            formatConditionRuleValue2.Value1 = true;
-            gridFormatRule2.Rule = formatConditionRuleValue2;
-            this.gridViewItems.FormatRules.Add(gridFormatRule2);
+            gridFormatRule1.ApplyToRow = true;
+            gridFormatRule1.Column = this.colIsInProject;
+            gridFormatRule1.Name = "frmtIsInProject";
+            formatConditionRuleValue1.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            formatConditionRuleValue1.Appearance.Options.UseFont = true;
+            formatConditionRuleValue1.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
+            formatConditionRuleValue1.Value1 = true;
+            gridFormatRule1.Rule = formatConditionRuleValue1;
+            this.gridViewItems.FormatRules.Add(gridFormatRule1);
             this.gridViewItems.GridControl = this.gridControlItems;
             this.gridViewItems.Name = "gridViewItems";
             this.gridViewItems.OptionsEditForm.ShowOnF2Key = DevExpress.Utils.DefaultBoolean.True;
@@ -769,6 +772,8 @@
             this.gridControlNests.MainView = this.gridViewNests;
             this.gridControlNests.MenuManager = this.ribbonControl1;
             this.gridControlNests.Name = "gridControlNests";
+            this.gridControlNests.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemPictureEdit2});
             this.gridControlNests.Size = new System.Drawing.Size(1600, 195);
             this.gridControlNests.TabIndex = 4;
             this.gridControlNests.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -778,11 +783,13 @@
             // 
             this.gridViewNests.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colID1,
+            this.colThumbnail,
             this.colnestName,
             this.colnestPath,
             this.colQtyOnNest});
             this.gridViewNests.GridControl = this.gridControlNests;
             this.gridViewNests.Name = "gridViewNests";
+            this.gridViewNests.OptionsView.RowAutoHeight = true;
             this.gridViewNests.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colQtyOnNest, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gridViewNests.PopupMenuShowing += new DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventHandler(this.gridViewNests_PopupMenuShowing);
@@ -792,19 +799,35 @@
             this.colID1.FieldName = "ID";
             this.colID1.Name = "colID1";
             // 
+            // colThumbnail
+            // 
+            this.colThumbnail.Caption = "Thumbnail";
+            this.colThumbnail.ColumnEdit = this.repositoryItemPictureEdit2;
+            this.colThumbnail.FieldName = "Thumbnail";
+            this.colThumbnail.Name = "colThumbnail";
+            this.colThumbnail.Visible = true;
+            this.colThumbnail.VisibleIndex = 0;
+            // 
+            // repositoryItemPictureEdit2
+            // 
+            this.repositoryItemPictureEdit2.Name = "repositoryItemPictureEdit2";
+            this.repositoryItemPictureEdit2.ShowZoomSubMenu = DevExpress.Utils.DefaultBoolean.True;
+            this.repositoryItemPictureEdit2.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
+            this.repositoryItemPictureEdit2.ZoomPercent = 300D;
+            // 
             // colnestName
             // 
             this.colnestName.FieldName = "NestName";
             this.colnestName.Name = "colnestName";
             this.colnestName.Visible = true;
-            this.colnestName.VisibleIndex = 0;
+            this.colnestName.VisibleIndex = 1;
             // 
             // colnestPath
             // 
             this.colnestPath.FieldName = "NestPath";
             this.colnestPath.Name = "colnestPath";
             this.colnestPath.Visible = true;
-            this.colnestPath.VisibleIndex = 1;
+            this.colnestPath.VisibleIndex = 2;
             // 
             // colQtyOnNest
             // 
@@ -816,7 +839,7 @@
             this.colQtyOnNest.OptionsColumn.AllowEdit = false;
             this.colQtyOnNest.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
             this.colQtyOnNest.Visible = true;
-            this.colQtyOnNest.VisibleIndex = 2;
+            this.colQtyOnNest.VisibleIndex = 3;
             // 
             // nestsBindingSource
             // 
@@ -878,6 +901,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlNests)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewNests)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nestsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
             this.splitContainerControl1.ResumeLayout(false);
@@ -968,5 +992,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn colQtyRemaining;
         private DevExpress.XtraBars.BarButtonItem barButtonItemConnectToRadan;
+        private DevExpress.XtraGrid.Columns.GridColumn colThumbnail;
+        private DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit repositoryItemPictureEdit2;
     }
 }

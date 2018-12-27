@@ -111,6 +111,10 @@
     <Compile Include="Migrations\201812121321175_InitialCreate.Designer.cs">
       <DependentUpon>201812121321175_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812271330252_AddedNestThumbnail.cs" />
+    <Compile Include="Migrations\201812271330252_AddedNestThumbnail.Designer.cs">
+      <DependentUpon>201812271330252_AddedNestThumbnail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DisplayModels\DisplayItem.cs" />
     <Compile Include="Models\Nest.cs" />
@@ -147,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812121321175_InitialCreate.resx">
       <DependentUpon>201812121321175_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812271330252_AddedNestThumbnail.resx">
+      <DependentUpon>201812271330252_AddedNestThumbnail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
