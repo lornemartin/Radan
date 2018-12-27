@@ -297,11 +297,12 @@ namespace RadanMaster
                             string orderNumber = oItem.Order.OrderNumber == null ? "" : oItem.Order.OrderNumber;
                             string scheduleName = oItem.Order.ScheduleName == null ? "" : oItem.Order.ScheduleName;
                             string batchName = oItem.Order.BatchName == null ? "" : oItem.Order.BatchName;
+                            string description = oItem.Part.Description == null ? "" : oItem.Part.Description;
 
                             //bool hasBends = radInterface.GetBendDataFromSym(symFolder + "\\" + symName + ".sym");
 
                             string errMessage = "";
-                            radInterface.InsertAdditionalAttributes(calculatedSymPath + symName + ".sym", oItem.Part.Material, oItem.Part.Thickness.ToString(), "in", oItem.Part.Description, orderNumber, scheduleName, batchName, oItem.Part.HasBends, ref errMessage);
+                            radInterface.InsertAdditionalAttributes(calculatedSymPath + symName + ".sym", oItem.Part.Material, oItem.Part.Thickness.ToString(), "in", description, orderNumber, scheduleName, batchName, oItem.Part.HasBends, ref errMessage);
                         }
 
                         rPart = new RadanPart();
@@ -1137,8 +1138,15 @@ namespace RadanMaster
 
                         dbContext.Parts.Add(newPart);
                         dbContext.SaveChanges();
-
-
+                    }
+                    else
+                    {
+                        // update properties if needed
+                        newPart.Description = description;
+                        newPart.Thickness = thickness;
+                        newPart.Material = material;
+                        newPart.Thumbnail = thumbnailByteArray;
+                        dbContext.SaveChanges();
                     }
 
                     if(AddItemDialog.AddItem.lastOrderNumber != "")

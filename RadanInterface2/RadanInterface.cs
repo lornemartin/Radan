@@ -603,19 +603,24 @@ namespace RadanInterface2
             // cycle through each child node
             foreach (XmlNode node in doc.DocumentElement.FirstChild)
             {
-                if (node.InnerXml.Contains("Part Description"))
+                try
                 {
-                    foreach (XmlNode subNode in node)
+                    if (node.InnerXml.Contains("Part Description"))
                     {
-                        if (subNode.OuterXml.Contains("Part Description"))
+                        foreach (XmlNode subNode in node)
                         {
-                            if (subNode.Value != null)
+                            if (subNode.OuterXml.Contains("Part Description"))
                             {
                                 string attr = subNode.Attributes["value"].Value;
                                 return attr;
                             }
                         }
                     }
+                }
+                catch(Exception)
+                {
+                    // shouldn't really do this, but I couldn't figure out how to test for a null value in this attribute, so relying on the exception handler instead
+                    return null;
                 }
 
             }
