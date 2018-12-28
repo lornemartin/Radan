@@ -263,7 +263,6 @@ namespace RadanMaster
                     if(oItem.Part.Description == "")
                     {
                         oItem.Part.Description = radInterface.GetDescriptionFromSym(symFolder + symName + ".sym");
-
                     }
                 }
 

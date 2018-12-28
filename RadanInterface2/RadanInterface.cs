@@ -193,6 +193,22 @@ namespace RadanInterface2
             }
         }
 
+        public bool CheckGeometry(string filePath)
+        {
+            // just a test function here, to see what we can all access from Mac object
+            try
+            {
+                rApp.Mac.scan(filePath, "N", 0);
+                bool b = rApp.Mac.elf_closed("/", 0);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public bool SavePart(string TopPattern, string SymFilePath, ref string ErrorMessage)
         {
             string command = "save_symbol(S0, S1, G0, G1, G2)";
