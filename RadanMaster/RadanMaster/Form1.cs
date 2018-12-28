@@ -1340,14 +1340,18 @@ namespace RadanMaster
                         }
                     }
                 }
-
+               
                 gridControlNests.DataSource = new System.ComponentModel.BindingList<RadanMaster.Models.DisplayNest>();
                 gridControlNests.DataSource = displayNests;
+                gridViewNests.Columns["NestPath"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+                //gridViewNests.Columns["NestName"].SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+
+
             }
 
 
-           
-            
+
+
             gridViewNests.RefreshData();
         }
 

@@ -164,7 +164,7 @@
             this.repositoryItemSpinEdit1,
             this.repositoryItemMemoEdit1,
             this.repositoryItemCheckEdit1});
-            this.gridControlItems.Size = new System.Drawing.Size(1600, 396);
+            this.gridControlItems.Size = new System.Drawing.Size(1600, 302);
             this.gridControlItems.TabIndex = 0;
             this.gridControlItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewItems});
@@ -774,7 +774,7 @@
             this.gridControlNests.Name = "gridControlNests";
             this.gridControlNests.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemPictureEdit2});
-            this.gridControlNests.Size = new System.Drawing.Size(1600, 195);
+            this.gridControlNests.Size = new System.Drawing.Size(1600, 289);
             this.gridControlNests.TabIndex = 4;
             this.gridControlNests.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewNests});
@@ -790,8 +790,6 @@
             this.gridViewNests.GridControl = this.gridControlNests;
             this.gridViewNests.Name = "gridViewNests";
             this.gridViewNests.OptionsView.RowAutoHeight = true;
-            this.gridViewNests.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colQtyOnNest, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gridViewNests.PopupMenuShowing += new DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventHandler(this.gridViewNests_PopupMenuShowing);
             // 
             // colID1
@@ -857,7 +855,7 @@
             this.splitContainerControl1.Panel2.Controls.Add(this.gridControlNests);
             this.splitContainerControl1.Panel2.Text = "Panel2";
             this.splitContainerControl1.Size = new System.Drawing.Size(1600, 596);
-            this.splitContainerControl1.SplitterPosition = 396;
+            this.splitContainerControl1.SplitterPosition = 302;
             this.splitContainerControl1.TabIndex = 5;
             // 
             // progressPanel1
