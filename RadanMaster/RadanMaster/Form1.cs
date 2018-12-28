@@ -256,6 +256,17 @@ namespace RadanMaster
                 rPrj = rPrj.LoadData(radanProjectName);
                 string symName = oItem.Part.FileName;
 
+                // this is only needed if description was not correctly read from sym when part was entered into DB.  It should
+                // eventually not be needed anymore, but will be handy for the short term to populate description field in radan project.
+                if(radInterface!=null)
+                {
+                    if(oItem.Part.Description == "")
+                    {
+                        oItem.Part.Description = radInterface.GetDescriptionFromSym(symFolder + symName + ".sym");
+
+                    }
+                }
+
                 if (rPrj.Parts != null)
                 {
                     RadanPart rPart = new RadanPart();
