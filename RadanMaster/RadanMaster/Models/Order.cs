@@ -19,6 +19,7 @@ namespace RadanMaster.Models
         public DateTime DueDate { get; set; }
         public bool IsComplete { get; set; }
         public bool IsBatch { get; set; }
+        public DateTime DateCompleted { get; set; }
 
         public virtual ICollection<OrderItem> OrderItems { get; set; }
     }

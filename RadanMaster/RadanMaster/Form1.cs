@@ -381,127 +381,6 @@ namespace RadanMaster
                 if (saveRadan())
                 {
                     rPrj = rPrj.LoadData(radanProjectName);
-                    //List<RadanNest> nestList = rPrj.Nests.ToList();
-                    //string nestPath = Path.GetDirectoryName(radanProjectName) + "\\";
-
-                    #region oldcode
-                    //foreach(RadanPart radanPart in rPrj.Parts.Part)     // loop through all the radan parts in this radan project
-                    //{
-                    //    OrderItem masterItem = dbContext.OrderItems.Where(o => o.RadanID.RadanIDNumber.ToString() == radanPart.Bin).FirstOrDefault();      // this item will exist if it was brought in through radan master
-                    //    if(masterItem!=null)
-                    //    { 
-                    //    Nest masterNest = new Nest();
-                    //    NestedParts masterNestedPart = new NestedParts();
-
-                    //        foreach (SheetUsedInNest nestedRadanPart in radanPart.UsedInNests)   //loop through all the nested Parts in this Part
-                    //        {
-                    //            RadanNest radanNest = rPrj.Nests.Where(n => n.ID == nestedRadanPart.ID.ToString()).FirstOrDefault();
-                    //            masterNest = dbContext.Nests.Where(n => n.nestName == radanNest.FileName).Where(n => n.nestPath == nestPath).FirstOrDefault();    // this nest may or may not exist
-
-                    //            if (masterNest == null)       // if master nest does not exist, create it
-                    //            {
-                    //                masterNest = new Nest();
-                    //                masterNest.nestName = radanNest.FileName;
-                    //                masterNest.nestPath = nestPath;
-                    //                masterNest.NestedParts = new List<NestedParts>();
-                    //            }
-
-                    //            // search this nest for nested parts and create if they don't exist...
-                    //            string symName = Path.GetFileNameWithoutExtension(radanPart.Symbol);
-                    //            string radanID = radanPart.Bin;
-
-                    //            masterNestedPart = masterNest.NestedParts.Where(np => np.OrderItem.Part.FileName == symName).Where(np => np.OrderItem.RadanIDNumber.ToString() == radanPart.Bin).FirstOrDefault();
-                    //            if (masterNestedPart == null)
-                    //            {
-                    //                // create new
-                    //                masterNestedPart = new NestedParts();
-                    //                masterNestedPart.Qty = nestedRadanPart.Made;
-                    //                masterNestedPart.OrderItem = masterItem;
-                    //                masterNest.NestedParts.Add(masterNestedPart);
-                    //            }
-                    //            else
-                    //            {
-                    //                // update existing
-                    //                masterNestedPart.Qty = nestedRadanPart.Made;
-                    //            }
-
-                    //            if (masterItem.AssociatedNests == null)
-                    //                masterItem.AssociatedNests = new List<Nest>();
-
-                    //            if (!masterItem.AssociatedNests.Contains(masterNest))
-                    //                masterItem.AssociatedNests.Add(masterNest);
-
-
-
-                    //            dbContext.SaveChanges();
-                    //        }
-
-                    //    }
-                    //    else
-                    //    {
-                    //        // radan part does not exist in master item list, nothing to sync...
-                    //    }
-                    //}
-
-                    //// make sure no nests got deleted from Radan project since last sync
-                    //foreach (Nest masterNest in dbContext.Nests.ToList().Where(n => n.nestPath == nestPath))
-                    //{
-                    //    RadanNest radanNest = rPrj.Nests.Where(r => r.FileName == masterNest.nestName).FirstOrDefault();
-                    //    if (radanNest == null)     // remove master nest if it no longer exists in radan project.
-                    //    {
-                    //        dbContext.Nests.Remove(masterNest);
-                    //    }
-                    //}
-
-                    //// if radan parts get deleted from existing synched nests, there will be orphaned nested part records in master that need to be removed
-                    ////  also possibly associated nest associations that will need to be removed.
-                    //bool matchingNestedPartFound = false;
-
-                    //foreach(OrderItem item in dbContext.OrderItems.Where(i => i.IsInProject == true).ToList())
-                    //{
-                    //    RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.RadanIDNumber);
-                    //    if (rPart != null)
-                    //        item.IsInProject = true;
-                    //    else
-                    //        item.IsInProject = false;
-
-                    //    if (item.AssociatedNests!=null)
-                    //    {
-                    //        RadanPart radanPart = rPrj.Parts.Part.Where(p => p.Bin == item.RadanIDNumber.ToString()).FirstOrDefault();
-                    //        foreach (Nest masterNest in item.AssociatedNests)
-                    //        {
-                    //            RadanNest radanNest = rPrj.Nests.Where(n => n.FileName == masterNest.nestName).FirstOrDefault();
-                    //            if (radanNest != null)
-                    //            {
-                    //                string radanNestID = radanNest.ID;
-
-                    //                if (radanPart.UsedInNests.Count > 0)
-                    //                {
-                    //                    foreach (SheetUsedInNest nestedRadanPart in radanPart.UsedInNests)
-                    //                    {
-                    //                        if (nestedRadanPart.ID.ToString() == radanNestID)
-                    //                        {
-                    //                            matchingNestedPartFound = true;
-                    //                        }
-                    //                    }
-                    //                    if (!matchingNestedPartFound)
-                    //                    {
-                    //                        NestedParts masterNestedPart = masterNest.NestedParts.Where(p => p.OrderItem == item).FirstOrDefault();
-                    //                        masterNest.NestedParts.Remove(masterNestedPart);
-                    //                        item.AssociatedNests.Remove(masterNest);
-                    //                    }
-                    //                }
-                    //                else
-                    //                {
-                    //                    item.AssociatedNests.Clear();
-                    //                }
-                    //            }
-
-                    //        }
-                    //    }
-                    //}
-                    #endregion
-
                     // check for parts in radan project that cannot be synced and warn user accordingly
                     foreach(RadanPart radanPart in rPrj.Parts.Part)
                     {
@@ -532,7 +411,11 @@ namespace RadanMaster
                             }
 
                             // if all associated order items are complete, consider whole order as complete
-                            if (orderComplete == true) syncItem.Order.IsComplete = true;
+                            if (orderComplete == true)
+                            {
+                                syncItem.Order.IsComplete = true;
+
+                            }
                         }
                     }
 
