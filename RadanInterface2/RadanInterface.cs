@@ -193,19 +193,101 @@ namespace RadanInterface2
             }
         }
 
-        public bool CheckGeometry(string filePath)
+        public bool HasBends(string filePath)
         {
-            // just a test function here, to see what we can all access from Mac object
             try
             {
-                rApp.Mac.scan(filePath, "N", 0);
-                bool b = rApp.Mac.elf_closed("/", 0);
+                rApp.OpenSymbol(filePath, true, "");
+                bool hasBend = false;
+                string lineType = "";
+                Radraft.Interop.Mac mac = rApp.Mac;
 
-                return true;
+
+                rApp.Mac.scan(mac.PART_PATTERN, "l", 0);
+                while (rApp.Mac.next() != 0)
+                {
+                    rApp.Mac.find();
+
+                    lineType = RadanLineString(rApp.Mac.LT0);
+                    var v3 = rApp.Mac.F_BEND_ID0;
+
+                    if (v3!="" || lineType.Contains("Dash") || lineType.Contains("Chain")) // if v3 has something in it, or if linetype is dashed or chained, we found a bend line
+                    {
+                        hasBend = true;
+                        break;
+                    }
+                }
+
+                rApp.Mac.end_scan();
+
+                if (hasBend)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        public string RadanLineString(uint LT0)
+        {
+            if (LT0 == 1)
+            {
+                return "Full";
+            }
+            else if (LT0 == 2)
+            {
+                return "Dash";
+            }
+            else if (LT0 == 3)
+            {
+                return "Chain";
+            }
+            else if (LT0 == 4)
+            {
+                return "Random";
+            }
+            else if (LT0 % 64 == 5)
+            {
+                return "Dash 2";
+            }
+            else if (LT0 % 64 == 6)
+            {
+                return "Chain 2";
+            }
+            else if (LT0 % 64 == 7)
+            {
+                return "Random 2";
+            }
+            else if (LT0 % 64 == 8)
+            {
+                return "Double Dash Chain";
+            }
+            else if (LT0 % 64 == 9)
+            {
+                return "Hedge";
+            }
+            else if (LT0 % 64 == 10)
+            {
+                return "Cross Fence";
+            }
+            else if (LT0 % 64 == 11)
+            {
+                return "Square Fence";
+            }
+            else if (LT0 % 64 == 12)
+            {
+                return "Zig Zag";
+            }
+            else
+            {
+                return "Full";
             }
         }
 
@@ -476,7 +558,7 @@ namespace RadanInterface2
             }
         }
 
-        public bool openNest(string nestName,ref string errMsg)
+        public bool openNest(string nestName, ref string errMsg)
         {
             try
             {
@@ -532,11 +614,11 @@ namespace RadanInterface2
                 string version = rApp.Application.SoftwareVersion;
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
-                
+
         }
 
         public string GetThicknessFromSym(string fileName)
@@ -633,7 +715,7 @@ namespace RadanInterface2
                         }
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     // shouldn't really do this, but I couldn't figure out how to test for a null value in this attribute, so relying on the exception handler instead
                     return null;
@@ -643,7 +725,7 @@ namespace RadanInterface2
             return "";
         }
 
-        public char [] GetThumbnailDataFromSym(string fileName)
+        public char[] GetThumbnailDataFromSym(string fileName)
         {
             XmlDocument doc = new XmlDocument();
 

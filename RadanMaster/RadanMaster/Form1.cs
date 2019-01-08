@@ -151,6 +151,7 @@ namespace RadanMaster
             string batchName = di.Parent.Name;
             string schedName = di.Parent.Name;
             byte[] thumbnailByteArray = null;
+            bool hasBends = false;
 
             RadanInterface radanInterface = new RadanInterface();
 
@@ -169,6 +170,7 @@ namespace RadanMaster
                         {
                             char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(symName);
                             thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
+                            hasBends = radanInterface.HasBends(symName);
                         }
 
                         Part newPart = new Part();
@@ -183,9 +185,20 @@ namespace RadanMaster
                             newPart.Thickness = double.Parse(modifiedThickness);
                             newPart.Material = lineItem.Material;
                             newPart.Thumbnail = thumbnailByteArray;
-
+                            newPart.HasBends = hasBends;
 
                             dbContext.Parts.Add(newPart);
+                            dbContext.SaveChanges();
+                        }
+                        else
+                        {
+                            // update properties if needed
+                            newPart.Description = lineItem.ItemDescription;
+                            string modifiedThickness = lineItem.MaterialThickness.Substring(0, lineItem.MaterialThickness.LastIndexOf(" "));
+                            newPart.Thickness = double.Parse(modifiedThickness);
+                            newPart.Material = lineItem.Material;
+                            newPart.Thumbnail = thumbnailByteArray;
+                            newPart.HasBends = hasBends;
                             dbContext.SaveChanges();
                         }
 
@@ -1134,6 +1147,7 @@ namespace RadanMaster
                     string material = radanInterface.GetMaterialTypeFromSym(addItemFileName);
                     char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(addItemFileName);
                     byte[] thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
+                    bool hasBends = radanInterface.HasBends(addItemFileName);
 
 
                     Part newPart = dbContext.Parts.Where(p => p.FileName == name).FirstOrDefault();
@@ -1145,6 +1159,7 @@ namespace RadanMaster
                         newPart.Thickness = thickness;
                         newPart.Material = material;
                         newPart.Thumbnail = thumbnailByteArray;
+                        newPart.HasBends = hasBends;
 
                         dbContext.Parts.Add(newPart);
                         dbContext.SaveChanges();
@@ -1156,6 +1171,7 @@ namespace RadanMaster
                         newPart.Thickness = thickness;
                         newPart.Material = material;
                         newPart.Thumbnail = thumbnailByteArray;
+                        newPart.HasBends = hasBends;
                         dbContext.SaveChanges();
                     }
 
