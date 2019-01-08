@@ -87,6 +87,8 @@
             this.barButtonRetrieveAll = new DevExpress.XtraBars.BarButtonItem();
             this.barToggleSwitchShowCompletedOrders = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.barButtonItemConnectToRadan = new DevExpress.XtraBars.BarButtonItem();
+            this.barCheckItemShowAllCompletedOrders = new DevExpress.XtraBars.BarCheckItem();
+            this.barCheckItemShowCompletedOrdersFromLastDayOnly = new DevExpress.XtraBars.BarCheckItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgSkins = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -94,6 +96,7 @@
             this.rbnPageFilters = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageQuickFilters = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageQuickSorts = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageCompletedOrders = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.repositoryItemTextEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogAddItem = new System.Windows.Forms.OpenFileDialog();
@@ -114,6 +117,7 @@
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
             this.displayItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.colDateCompleted = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
@@ -195,7 +199,8 @@
             this.colIsInProject,
             this.colNotes,
             this.colOrderIsComplete,
-            this.colHasBends});
+            this.colHasBends,
+            this.colDateCompleted});
             gridFormatRule1.ApplyToRow = true;
             gridFormatRule1.Column = this.colIsInProject;
             gridFormatRule1.Name = "frmtIsInProject";
@@ -447,9 +452,11 @@
             this.barButtonItem1,
             this.barButtonRetrieveAll,
             this.barToggleSwitchShowCompletedOrders,
-            this.barButtonItemConnectToRadan});
+            this.barButtonItemConnectToRadan,
+            this.barCheckItemShowAllCompletedOrders,
+            this.barCheckItemShowCompletedOrdersFromLastDayOnly});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 5;
+            this.ribbonControl1.MaxItemId = 7;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
@@ -670,6 +677,26 @@
             this.barButtonItemConnectToRadan.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.barButtonItemConnectToRadan.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemConnectToRadan_ItemClick);
             // 
+            // barCheckItemShowAllCompletedOrders
+            // 
+            this.barCheckItemShowAllCompletedOrders.Caption = "Show All Completed Orders";
+            this.barCheckItemShowAllCompletedOrders.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItemShowAllCompletedOrders.CheckStyle = DevExpress.XtraBars.BarCheckStyles.Radio;
+            this.barCheckItemShowAllCompletedOrders.Id = 5;
+            this.barCheckItemShowAllCompletedOrders.Name = "barCheckItemShowAllCompletedOrders";
+            this.barCheckItemShowAllCompletedOrders.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barCheckItemShowAllCompletedOrders_CheckedChanged);
+            // 
+            // barCheckItemShowCompletedOrdersFromLastDayOnly
+            // 
+            this.barCheckItemShowCompletedOrdersFromLastDayOnly.BindableChecked = true;
+            this.barCheckItemShowCompletedOrdersFromLastDayOnly.Caption = "Show Completed Orders From Last Day Only";
+            this.barCheckItemShowCompletedOrdersFromLastDayOnly.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItemShowCompletedOrdersFromLastDayOnly.Checked = true;
+            this.barCheckItemShowCompletedOrdersFromLastDayOnly.CheckStyle = DevExpress.XtraBars.BarCheckStyles.Radio;
+            this.barCheckItemShowCompletedOrdersFromLastDayOnly.Id = 6;
+            this.barCheckItemShowCompletedOrdersFromLastDayOnly.Name = "barCheckItemShowCompletedOrdersFromLastDayOnly";
+            this.barCheckItemShowCompletedOrdersFromLastDayOnly.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barCheckItemShowCompletedOrdersFromLastDayOnly_CheckedChanged);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -715,7 +742,8 @@
             // 
             this.rbnPageFilters.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageQuickFilters,
-            this.ribbonPageQuickSorts});
+            this.ribbonPageQuickSorts,
+            this.ribbonPageCompletedOrders});
             this.rbnPageFilters.Name = "rbnPageFilters";
             this.rbnPageFilters.Text = "Quick Filters & Groups";
             // 
@@ -733,9 +761,15 @@
             // 
             this.ribbonPageQuickSorts.ItemLinks.Add(this.barToggleSwitchGroup1);
             this.ribbonPageQuickSorts.ItemLinks.Add(this.barToggleSwitchGroup2);
-            this.ribbonPageQuickSorts.ItemLinks.Add(this.barToggleSwitchShowCompletedOrders);
             this.ribbonPageQuickSorts.Name = "ribbonPageQuickSorts";
             this.ribbonPageQuickSorts.Text = "Quick Groups";
+            // 
+            // ribbonPageCompletedOrders
+            // 
+            this.ribbonPageCompletedOrders.ItemLinks.Add(this.barCheckItemShowAllCompletedOrders);
+            this.ribbonPageCompletedOrders.ItemLinks.Add(this.barCheckItemShowCompletedOrdersFromLastDayOnly);
+            this.ribbonPageCompletedOrders.Name = "ribbonPageCompletedOrders";
+            this.ribbonPageCompletedOrders.Text = "Completed Orders";
             // 
             // repositoryItemTextEdit3
             // 
@@ -869,6 +903,14 @@
             this.progressPanel1.TabIndex = 1;
             this.progressPanel1.Text = "progressPanel1";
             // 
+            // colDateCompleted
+            // 
+            this.colDateCompleted.Caption = "Date Completed";
+            this.colDateCompleted.FieldName = "Order.DateCompleted";
+            this.colDateCompleted.Name = "colDateCompleted";
+            this.colDateCompleted.Visible = true;
+            this.colDateCompleted.VisibleIndex = 18;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -992,5 +1034,9 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItemConnectToRadan;
         private DevExpress.XtraGrid.Columns.GridColumn colThumbnail;
         private DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit repositoryItemPictureEdit2;
+        private DevExpress.XtraBars.BarCheckItem barCheckItemShowAllCompletedOrders;
+        private DevExpress.XtraBars.BarCheckItem barCheckItemShowCompletedOrdersFromLastDayOnly;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageCompletedOrders;
+        private DevExpress.XtraGrid.Columns.GridColumn colDateCompleted;
     }
 }

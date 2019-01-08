@@ -119,6 +119,10 @@
     <Compile Include="Migrations\201901081454259_Add Orders.DateCompletedField.Designer.cs">
       <DependentUpon>201901081454259_Add Orders.DateCompletedField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901081650573_allow nullable.cs" />
+    <Compile Include="Migrations\201901081650573_allow nullable.Designer.cs">
+      <DependentUpon>201901081650573_allow nullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DisplayModels\DisplayItem.cs" />
     <Compile Include="Models\Nest.cs" />
@@ -161,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901081454259_Add Orders.DateCompletedField.resx">
       <DependentUpon>201901081454259_Add Orders.DateCompletedField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081650573_allow nullable.resx">
+      <DependentUpon>201901081650573_allow nullable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
