@@ -1123,6 +1123,10 @@ namespace RadanMaster
 
         private void barButtonItemAdd_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            if(!radInterface.IsActive())
+            {
+                MessageBox.Show("Connect to Radan before importing in order to calculate whether the part requires bending or not.", "Notice", MessageBoxButtons.OK,MessageBoxIcon.Hand);
+            }
             string addItemFileName = "";
             Order newOrder = new Order();
             // Show the dialog and get result.
@@ -1147,7 +1151,9 @@ namespace RadanMaster
                     string material = radanInterface.GetMaterialTypeFromSym(addItemFileName);
                     char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(addItemFileName);
                     byte[] thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
-                    bool hasBends = radanInterface.HasBends(addItemFileName);
+                    bool hasBends = false;
+                    if(AddItemDialog.AddItem.checkForBends)
+                       hasBends = radanInterface.HasBends(addItemFileName);
 
 
                     Part newPart = dbContext.Parts.Where(p => p.FileName == name).FirstOrDefault();
@@ -1214,6 +1220,7 @@ namespace RadanMaster
                         newItem.Part = newPart;
                         newItem.QtyRequired = int.Parse(AddItemDialog.AddItem.qty);
                         newItem.QtyNested = 0;
+                        newItem.Notes = AddItemDialog.AddItem.notes;
 
                         dbContext.OrderItems.Add(newItem);
                         dbContext.SaveChanges();

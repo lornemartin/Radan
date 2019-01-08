@@ -19,6 +19,8 @@ namespace RadanMaster.AddItemDialog
         public static string lastBatchName { get; set; }
         public static string lastBatchProduct { get; set; }
         public static bool isBatch { get; set; }
+        public static bool checkForBends { get; set; }
+        public static string notes { get; set; }
 
         public AddItem(RadanMaster.DAL.RadanMasterContext ctx)
         {
@@ -92,6 +94,11 @@ namespace RadanMaster.AddItemDialog
                 MessageBox.Show("Please fill in either a batch name or a schedule name, but not both.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 return;
             }
+
+            notes = txtBoxNotes.Text;
+
+            checkForBends = chkBoxCheckForBends.Checked;
+
 
 
             this.Close();
