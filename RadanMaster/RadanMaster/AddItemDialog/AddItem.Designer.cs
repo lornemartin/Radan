@@ -82,7 +82,7 @@
             this.btnAdd.Location = new System.Drawing.Point(216, 343);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 4;
+            this.btnAdd.TabIndex = 6;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -93,7 +93,7 @@
             this.btnCancel.Location = new System.Drawing.Point(100, 343);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 5;
+            this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -134,12 +134,10 @@
             // chkBoxCheckForBends
             // 
             this.chkBoxCheckForBends.AutoSize = true;
-            this.chkBoxCheckForBends.Checked = true;
-            this.chkBoxCheckForBends.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBoxCheckForBends.Location = new System.Drawing.Point(56, 277);
             this.chkBoxCheckForBends.Name = "chkBoxCheckForBends";
             this.chkBoxCheckForBends.Size = new System.Drawing.Size(108, 17);
-            this.chkBoxCheckForBends.TabIndex = 6;
+            this.chkBoxCheckForBends.TabIndex = 5;
             this.chkBoxCheckForBends.Text = "Check For Bends";
             this.chkBoxCheckForBends.UseVisualStyleBackColor = true;
             // 
@@ -157,7 +155,7 @@
             this.txtBoxNotes.Location = new System.Drawing.Point(170, 228);
             this.txtBoxNotes.Name = "txtBoxNotes";
             this.txtBoxNotes.Size = new System.Drawing.Size(204, 20);
-            this.txtBoxNotes.TabIndex = 7;
+            this.txtBoxNotes.TabIndex = 4;
             // 
             // AddItem
             // 
@@ -181,6 +179,7 @@
             this.Controls.Add(this.comboBoxOrderNum);
             this.Name = "AddItem";
             this.Text = "AddItem";
+            this.Load += new System.EventHandler(this.AddItem_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

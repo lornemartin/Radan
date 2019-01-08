@@ -65,6 +65,7 @@ namespace RadanMaster.AddItemDialog
             lastOrderNumber = comboBoxOrderNum.Text;
             lastSchedName = comboBoxSchedName.Text;
             lastBatchName = comboBoxBatchName.Text;
+
             if (comboBoxBatchName.Text != "") isBatch = true;
             else isBatch = false;
 
@@ -103,6 +104,11 @@ namespace RadanMaster.AddItemDialog
 
             this.Close();
             this.DialogResult = DialogResult.OK;
+            
+        }
+
+        private void AddItem_Load(object sender, EventArgs e)
+        {
             
         }
     }
