@@ -89,6 +89,7 @@
             this.barCheckItemShowAllCompletedOrders = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemShowCompletedOrdersFromLastDayOnly = new DevExpress.XtraBars.BarCheckItem();
             this.barEditNumOfDays = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemSpinEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgSkins = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -101,7 +102,6 @@
             this.repositoryItemTimeSpanEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTimeSpanEdit();
             this.repositoryItemSpinEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.repositoryItemSpinEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
-            this.repositoryItemSpinEdit4 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogAddItem = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogProject = new System.Windows.Forms.OpenFileDialog();
@@ -130,11 +130,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTimeSpanEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit4)).BeginInit();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlNests)).BeginInit();
@@ -219,6 +219,7 @@
             this.gridViewItems.OptionsSelection.MultiSelect = true;
             this.gridViewItems.OptionsView.RowAutoHeight = true;
             this.gridViewItems.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridViewItems_RowClick);
+            this.gridViewItems.CustomDrawGroupRow += new DevExpress.XtraGrid.Views.Base.RowObjectCustomDrawEventHandler(this.gridViewItems_CustomDrawGroupRow);
             this.gridViewItems.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridViewItems_RowCellStyle);
             this.gridViewItems.PopupMenuShowing += new DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventHandler(this.gridViewItems_PopupMenuShowing);
             this.gridViewItems.HiddenEditor += new System.EventHandler(this.gridViewItems_HiddenEditor);
@@ -683,8 +684,10 @@
             // 
             // barCheckItemShowAllCompletedOrders
             // 
+            this.barCheckItemShowAllCompletedOrders.BindableChecked = true;
             this.barCheckItemShowAllCompletedOrders.Caption = "Show All Completed Orders";
             this.barCheckItemShowAllCompletedOrders.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItemShowAllCompletedOrders.Checked = true;
             this.barCheckItemShowAllCompletedOrders.CheckStyle = DevExpress.XtraBars.BarCheckStyles.Radio;
             this.barCheckItemShowAllCompletedOrders.Id = 5;
             this.barCheckItemShowAllCompletedOrders.Name = "barCheckItemShowAllCompletedOrders";
@@ -692,10 +695,8 @@
             // 
             // barCheckItemShowCompletedOrdersFromLastDayOnly
             // 
-            this.barCheckItemShowCompletedOrdersFromLastDayOnly.BindableChecked = true;
             this.barCheckItemShowCompletedOrdersFromLastDayOnly.Caption = "Show Completed Orders From Last N Days";
             this.barCheckItemShowCompletedOrdersFromLastDayOnly.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
-            this.barCheckItemShowCompletedOrdersFromLastDayOnly.Checked = true;
             this.barCheckItemShowCompletedOrdersFromLastDayOnly.CheckStyle = DevExpress.XtraBars.BarCheckStyles.Radio;
             this.barCheckItemShowCompletedOrdersFromLastDayOnly.Id = 6;
             this.barCheckItemShowCompletedOrdersFromLastDayOnly.Name = "barCheckItemShowCompletedOrdersFromLastDayOnly";
@@ -710,8 +711,15 @@
             this.barEditNumOfDays.Id = 8;
             this.barEditNumOfDays.ItemClickFireMode = DevExpress.XtraBars.BarItemEventFireMode.Immediate;
             this.barEditNumOfDays.Name = "barEditNumOfDays";
-            this.barEditNumOfDays.EditValueChanged += new System.EventHandler(this.barEditNumOfDays_EditValueChanged);
             this.barEditNumOfDays.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barEditNumOfDays_ItemClick);
+            // 
+            // repositoryItemSpinEdit4
+            // 
+            this.repositoryItemSpinEdit4.AutoHeight = false;
+            this.repositoryItemSpinEdit4.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemSpinEdit4.Name = "repositoryItemSpinEdit4";
+            this.repositoryItemSpinEdit4.EditValueChanged += new System.EventHandler(this.repositoryItemSpinEdit4_EditValueChanged);
             // 
             // ribbonPage1
             // 
@@ -825,14 +833,6 @@
             this.repositoryItemSpinEdit3.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemSpinEdit3.Name = "repositoryItemSpinEdit3";
-            // 
-            // repositoryItemSpinEdit4
-            // 
-            this.repositoryItemSpinEdit4.AutoHeight = false;
-            this.repositoryItemSpinEdit4.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemSpinEdit4.Name = "repositoryItemSpinEdit4";
-            this.repositoryItemSpinEdit4.EditValueChanged += new System.EventHandler(this.repositoryItemSpinEdit4_EditValueChanged);
             // 
             // statusStrip1
             // 
@@ -983,11 +983,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTimeSpanEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit4)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();

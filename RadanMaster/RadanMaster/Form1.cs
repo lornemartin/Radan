@@ -104,7 +104,8 @@ namespace RadanMaster
                 logger.Info("Datasources set.");
 
                 barToggleSwitchGroup1.PerformClick();
-                barToggleSwitchShowCompletedOrders.PerformClick();
+                //barToggleSwitchShowCompletedOrders.PerformClick();
+                barEditNumOfDays.PerformClick();
 
                 rPrj.LoadData(radanProjectName);
                 logger.Info("Radan project loaded.");
@@ -1599,6 +1600,8 @@ namespace RadanMaster
 
                 gridViewItems.Columns["Order.DateCompleted"].ClearFilter();
 
+                gridViewItems.ActiveFilter.Clear();
+
                 barEditNumOfDays.Enabled = false;
             }
             else
@@ -1612,12 +1615,6 @@ namespace RadanMaster
             barCheckItemShowCompletedOrdersFromLastDayOnly.Checked = !barCheckItemShowAllCompletedOrders.Checked;
         }
 
-        private void barEditNumOfDays_EditValueChanged(object sender, EventArgs e)
-        {
-
-            //filterOrdersByDate();
-        }
-
         private void filterOrdersByDate()
         {
             // if only the following is active, it will work the old way, showing only non-complete orders
@@ -1628,7 +1625,7 @@ namespace RadanMaster
             DateTime FromDate;
 
             int numOfDays = int.Parse(barEditNumOfDays.EditValue.ToString());
-            FromDate = DateTime.Now.AddDays(0 - numOfDays);
+            FromDate = DateTime.Now.AddDays(0 - (numOfDays+1));
 
             CriteriaOperator expr1 = new BinaryOperator("Order.IsComplete", false, BinaryOperatorType.Equal);
             CriteriaOperator expr2 = new BinaryOperator("Order.DateCompleted", FromDate, BinaryOperatorType.GreaterOrEqual);
@@ -1750,9 +1747,32 @@ namespace RadanMaster
         }
 
 
+
         #endregion
 
-        
+        private void gridViewItems_CustomDrawGroupRow(object sender, RowObjectCustomDrawEventArgs e)
+        {
+            GridGroupRowInfo row = e.Info as GridGroupRowInfo;
+
+            if (row.GroupText.Contains("Batch Name"))
+            {
+                int numComplete = 1;
+                int numTotal = 1;
+
+                int childCount = gridViewItems.GetChildRowCount(row.RowHandle);
+                for (int i = 0; i < childCount; i++)
+                {
+                    // The child is a data row.   
+                    object childRow = gridViewItems.GetRow(row.RowHandle);
+                    OrderItem item = (OrderItem)childRow;
+                    numTotal++;
+                    if (item.IsComplete) numComplete++;
+                    
+                }
+
+                row.GroupText += "        " + numTotal / numComplete + "%";
+            }
+        }
     }
 }
 
