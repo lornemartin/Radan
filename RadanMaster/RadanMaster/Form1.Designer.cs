@@ -58,6 +58,7 @@
             this.repositoryItemMemoEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colOrderIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colHasBends = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDateCompleted = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemImageEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemImageEdit();
             this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
@@ -89,6 +90,8 @@
             this.barButtonItemConnectToRadan = new DevExpress.XtraBars.BarButtonItem();
             this.barCheckItemShowAllCompletedOrders = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemShowCompletedOrdersFromLastDayOnly = new DevExpress.XtraBars.BarCheckItem();
+            this.barEditNumOfDays = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemSpinEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rpgSkins = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -98,6 +101,7 @@
             this.ribbonPageQuickSorts = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageCompletedOrders = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.repositoryItemTextEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.repositoryItemTimeSpanEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTimeSpanEdit();
             this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogAddItem = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogProject = new System.Windows.Forms.OpenFileDialog();
@@ -117,7 +121,6 @@
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
             this.displayItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.colDateCompleted = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
@@ -129,7 +132,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTimeSpanEdit1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlNests)).BeginInit();
@@ -413,6 +418,14 @@
             this.colHasBends.Visible = true;
             this.colHasBends.VisibleIndex = 17;
             // 
+            // colDateCompleted
+            // 
+            this.colDateCompleted.Caption = "Date Completed";
+            this.colDateCompleted.FieldName = "Order.DateCompleted";
+            this.colDateCompleted.Name = "colDateCompleted";
+            this.colDateCompleted.Visible = true;
+            this.colDateCompleted.VisibleIndex = 18;
+            // 
             // repositoryItemImageEdit1
             // 
             this.repositoryItemImageEdit1.AutoHeight = false;
@@ -454,9 +467,10 @@
             this.barToggleSwitchShowCompletedOrders,
             this.barButtonItemConnectToRadan,
             this.barCheckItemShowAllCompletedOrders,
-            this.barCheckItemShowCompletedOrdersFromLastDayOnly});
+            this.barCheckItemShowCompletedOrdersFromLastDayOnly,
+            this.barEditNumOfDays});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 7;
+            this.ribbonControl1.MaxItemId = 9;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
@@ -464,7 +478,9 @@
             this.ribbonControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1,
             this.repositoryItemTextEdit2,
-            this.repositoryItemTextEdit3});
+            this.repositoryItemTextEdit3,
+            this.repositoryItemTimeSpanEdit1,
+            this.repositoryItemSpinEdit2});
             this.ribbonControl1.Size = new System.Drawing.Size(1600, 143);
             // 
             // skinRibbonGalleryBarItem1
@@ -689,13 +705,40 @@
             // barCheckItemShowCompletedOrdersFromLastDayOnly
             // 
             this.barCheckItemShowCompletedOrdersFromLastDayOnly.BindableChecked = true;
-            this.barCheckItemShowCompletedOrdersFromLastDayOnly.Caption = "Show Completed Orders From Last Day Only";
+            this.barCheckItemShowCompletedOrdersFromLastDayOnly.Caption = "Show Completed Orders From Last N Days";
             this.barCheckItemShowCompletedOrdersFromLastDayOnly.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
             this.barCheckItemShowCompletedOrdersFromLastDayOnly.Checked = true;
             this.barCheckItemShowCompletedOrdersFromLastDayOnly.CheckStyle = DevExpress.XtraBars.BarCheckStyles.Radio;
             this.barCheckItemShowCompletedOrdersFromLastDayOnly.Id = 6;
             this.barCheckItemShowCompletedOrdersFromLastDayOnly.Name = "barCheckItemShowCompletedOrdersFromLastDayOnly";
             this.barCheckItemShowCompletedOrdersFromLastDayOnly.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.barCheckItemShowCompletedOrdersFromLastDayOnly_CheckedChanged);
+            // 
+            // barEditNumOfDays
+            // 
+            this.barEditNumOfDays.Caption = "Number of days";
+            this.barEditNumOfDays.Edit = this.repositoryItemSpinEdit2;
+            this.barEditNumOfDays.EditValue = 1;
+            this.barEditNumOfDays.EditWidth = 100;
+            this.barEditNumOfDays.Id = 8;
+            this.barEditNumOfDays.Name = "barEditNumOfDays";
+            this.barEditNumOfDays.EditValueChanged += new System.EventHandler(this.barEditNumOfDays_EditValueChanged);
+            this.barEditNumOfDays.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barEditNumOfDays_ItemClick);
+            // 
+            // repositoryItemSpinEdit2
+            // 
+            this.repositoryItemSpinEdit2.AutoHeight = false;
+            this.repositoryItemSpinEdit2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemSpinEdit2.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Default;
+            this.repositoryItemSpinEdit2.IsFloatValue = false;
+            this.repositoryItemSpinEdit2.Mask.EditMask = "N00";
+            this.repositoryItemSpinEdit2.MaxValue = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.repositoryItemSpinEdit2.Name = "repositoryItemSpinEdit2";
+            this.repositoryItemSpinEdit2.EditValueChanged += new System.EventHandler(this.repositoryItemSpinEdit2_EditValueChanged);
             // 
             // ribbonPage1
             // 
@@ -768,6 +811,7 @@
             // 
             this.ribbonPageCompletedOrders.ItemLinks.Add(this.barCheckItemShowAllCompletedOrders);
             this.ribbonPageCompletedOrders.ItemLinks.Add(this.barCheckItemShowCompletedOrdersFromLastDayOnly);
+            this.ribbonPageCompletedOrders.ItemLinks.Add(this.barEditNumOfDays);
             this.ribbonPageCompletedOrders.Name = "ribbonPageCompletedOrders";
             this.ribbonPageCompletedOrders.Text = "Completed Orders";
             // 
@@ -775,6 +819,17 @@
             // 
             this.repositoryItemTextEdit3.AutoHeight = false;
             this.repositoryItemTextEdit3.Name = "repositoryItemTextEdit3";
+            // 
+            // repositoryItemTimeSpanEdit1
+            // 
+            this.repositoryItemTimeSpanEdit1.AllowEditHours = false;
+            this.repositoryItemTimeSpanEdit1.AllowEditMinutes = false;
+            this.repositoryItemTimeSpanEdit1.AllowEditSeconds = false;
+            this.repositoryItemTimeSpanEdit1.AutoHeight = false;
+            this.repositoryItemTimeSpanEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemTimeSpanEdit1.Name = "repositoryItemTimeSpanEdit1";
+            this.repositoryItemTimeSpanEdit1.TimeEditStyle = DevExpress.XtraEditors.Repository.TimeEditStyle.SpinButtons;
             // 
             // statusStrip1
             // 
@@ -903,14 +958,6 @@
             this.progressPanel1.TabIndex = 1;
             this.progressPanel1.Text = "progressPanel1";
             // 
-            // colDateCompleted
-            // 
-            this.colDateCompleted.Caption = "Date Completed";
-            this.colDateCompleted.FieldName = "Order.DateCompleted";
-            this.colDateCompleted.Name = "colDateCompleted";
-            this.colDateCompleted.Visible = true;
-            this.colDateCompleted.VisibleIndex = 18;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -935,7 +982,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTimeSpanEdit1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
@@ -1038,5 +1087,8 @@
         private DevExpress.XtraBars.BarCheckItem barCheckItemShowCompletedOrdersFromLastDayOnly;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageCompletedOrders;
         private DevExpress.XtraGrid.Columns.GridColumn colDateCompleted;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTimeSpanEdit repositoryItemTimeSpanEdit1;
+        private DevExpress.XtraBars.BarEditItem barEditNumOfDays;
+        private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit2;
     }
 }
