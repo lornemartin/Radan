@@ -1742,8 +1742,11 @@ namespace RadanMaster
                     e.Appearance.ForeColor = Color.Blue;
                 else if (percentageDone == 100)
                     e.Appearance.ForeColor = Color.Green;
-               
-                row.GroupText += "        " + String.Format("{0:0}", percentageDone) + "%";
+
+                if (!row.GroupText.Contains("%"))
+                {
+                    row.GroupText += "        " + String.Format("{0:0}", percentageDone) + "%";
+                }
 
             }
         }
