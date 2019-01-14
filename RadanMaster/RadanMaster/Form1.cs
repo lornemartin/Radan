@@ -55,10 +55,16 @@ namespace RadanMaster
             {
                 InitializeComponent();
 
+                if (System.IO.File.Exists("ItemsGridLayout.xml"))
+                {
+                    gridControlItems.ForceInitialize();
+                    gridControlItems.MainView.RestoreLayoutFromXml("ItemsGridLayout.xml");
+                }
+
                 groupAndFilterSettings = new GroupAndFilterSettings();
                 groupAndFilterSettings.LoadSettingsFromFile();
 
-                
+
                 barToggleSwitchShowBatches.Checked = groupAndFilterSettings.ShowBatches;
                 barToggleSwitchShowOrders.Checked = groupAndFilterSettings.ShowOrders;
                 barToggleShowComplete.Checked = groupAndFilterSettings.ShowComplete;
@@ -68,6 +74,7 @@ namespace RadanMaster
                 barCheckItemShowAllCompletedOrders.Checked = groupAndFilterSettings.ShowAllCompletedOrders;
                 barCheckItemShowCompletedOrdersFromLastDayOnly.Checked = groupAndFilterSettings.ShowCompletedOrdersFromLastNDays;
                 barEditNumOfDays.EditValue = groupAndFilterSettings.NumberOfDays;
+                
 
                 //groupAndFilterSettings.ShowBatches = true;
                 //groupAndFilterSettings.ShowOrders = false;
@@ -1849,6 +1856,7 @@ namespace RadanMaster
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             groupAndFilterSettings.SaveSettingsToFile();
+            gridControlItems.MainView.SaveLayoutToXml("ItemsGridLayout.xml");
         }
     }
 }
