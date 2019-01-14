@@ -880,6 +880,7 @@ namespace RadanMaster
 
         private void gridView1_KeyDown(object sender, KeyEventArgs e)
         {
+            bool canDelete = true;
             if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control)
             {
                 GridView view = sender as GridView;
@@ -888,7 +889,21 @@ namespace RadanMaster
                   DialogResult.Yes)
                     return;
 
-                view.DeleteSelectedRows();
+                List<int> rowHandleList = view.GetSelectedRows().ToList();
+                foreach(int rowHandle in rowHandleList)
+                {
+                    object o = view.GetRow(rowHandle);
+                    OrderItem itemToDelete = (OrderItem)o;
+                    if(itemToDelete.IsInProject == true)
+                    {
+                        MessageBox.Show("Cannot delete items that are currently in a Radan project.  Please change your selection and try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        canDelete = false;
+                        break;
+                    }
+                }
+
+                if(canDelete)
+                    view.DeleteSelectedRows();
             }
         }
 
@@ -1646,6 +1661,42 @@ namespace RadanMaster
             filterOrdersByDate();
         }
 
+        private void gridViewItems_CustomDrawGroupRow(object sender, RowObjectCustomDrawEventArgs e)
+        {
+            GridGroupRowInfo row = e.Info as GridGroupRowInfo;
+
+            if (row.GroupText.Contains("Batch Name"))
+            {
+                int numComplete = 0;
+                int numTotal = 0;
+                int childCount = gridViewItems.GetChildRowCount(row.RowHandle);
+
+                for (int i = 0; i < childCount; i++)
+                {
+                    int childRowHandle = gridViewItems.GetChildRowHandle(row.RowHandle, i);
+                    object childRow = gridViewItems.GetRow(childRowHandle);
+
+                    OrderItem item = (OrderItem)childRow;
+                    numTotal++;
+                    if (item.IsComplete) numComplete++;
+                }
+
+                double percentageDone = 0.0;
+                if (numComplete > 0)
+                {
+                    double ratio = (double)numComplete / numTotal;
+                    percentageDone = ratio * 100;
+                }
+                else
+                {
+                    percentageDone = 0;
+                }
+
+                row.GroupText += "        " + String.Format("{0:0}", percentageDone) + "%";
+
+            }
+        }
+
         #endregion
 
         #region Nests
@@ -1750,42 +1801,7 @@ namespace RadanMaster
 
         #endregion
 
-        private void gridViewItems_CustomDrawGroupRow(object sender, RowObjectCustomDrawEventArgs e)
-        {
-            GridGroupRowInfo row = e.Info as GridGroupRowInfo;
-
-            if (row.GroupText.Contains("Batch Name"))
-            {
-                int numComplete = 0;
-                int numTotal = 0;
-                int childCount = gridViewItems.GetChildRowCount(row.RowHandle);
-                
-                for (int i = 0; i < childCount; i++)
-                {
-                    int childRowHandle = gridViewItems.GetChildRowHandle(row.RowHandle,i);
-                    object childRow = gridViewItems.GetRow(childRowHandle);
-
-                    OrderItem item = (OrderItem)childRow;
-                    numTotal++;
-                    if (item.IsComplete) numComplete++;
-                    
-                }
-
-                double percentageDone = 0.0;
-                if (numComplete > 0)
-                {
-                    double ratio = (double) numComplete / numTotal;
-                    percentageDone = ratio * 100;
-
-                }
-                else
-                {
-                    percentageDone = 0;
-                }
-
-                row.GroupText += "        " + String.Format("{0:0}", percentageDone) + "%";
-            }
-        }
+        
     }
 }
 
