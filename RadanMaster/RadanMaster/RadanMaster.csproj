@@ -107,6 +107,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupAndFilterSettings.cs" />
     <Compile Include="Migrations\201812121321175_InitialCreate.cs" />
     <Compile Include="Migrations\201812121321175_InitialCreate.Designer.cs">
       <DependentUpon>201812121321175_InitialCreate.cs</DependentUpon>

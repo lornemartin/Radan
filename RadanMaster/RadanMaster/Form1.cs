@@ -43,6 +43,7 @@ namespace RadanMaster
         string symFolder { get; set; }
         RadanInterface radInterface { get; set; }
         BindingList<DisplayItem> DisplayItems { get; set; }
+        GroupAndFilterSettings groupAndFilterSettings { get; set; }
 
         private static readonly log4net.ILog logger =
         log4net.LogManager.GetLogger(typeof(Program));
@@ -54,7 +55,32 @@ namespace RadanMaster
             {
                 InitializeComponent();
 
+                groupAndFilterSettings = new GroupAndFilterSettings();
+                groupAndFilterSettings.LoadSettingsFromFile();
+
                 
+                barToggleSwitchShowBatches.Checked = groupAndFilterSettings.ShowBatches;
+                barToggleSwitchShowOrders.Checked = groupAndFilterSettings.ShowOrders;
+                barToggleShowComplete.Checked = groupAndFilterSettings.ShowComplete;
+                barToggleShowRadan.Checked = groupAndFilterSettings.ShowOnlyItemsInRadan;
+                barToggleSwitchGroup1.Checked = groupAndFilterSettings.GroupByBatchAndThickness;
+                barToggleSwitchGroup2.Checked = groupAndFilterSettings.GroupByScheduleAndThickness;
+                barCheckItemShowAllCompletedOrders.Checked = groupAndFilterSettings.ShowAllCompletedOrders;
+                barCheckItemShowCompletedOrdersFromLastDayOnly.Checked = groupAndFilterSettings.ShowCompletedOrdersFromLastNDays;
+                barEditNumOfDays.EditValue = groupAndFilterSettings.NumberOfDays;
+
+                //groupAndFilterSettings.ShowBatches = true;
+                //groupAndFilterSettings.ShowOrders = false;
+                //groupAndFilterSettings.ShowComplete = true;
+                //groupAndFilterSettings.ShowOnlyItemsInRadan = false;
+                //groupAndFilterSettings.GroupByBatchAndThickness = true;
+                //groupAndFilterSettings.GroupByScheduleAndThickness = false;
+                //groupAndFilterSettings.ShowAllCompletedOrders = false;
+                //groupAndFilterSettings.ShowCompletedOrdersFromLastNDays = true;
+                //groupAndFilterSettings.NumberOfDays = 1;
+
+                //groupAndFilterSettings.SaveSettingsToFile();
+
                 log4net.Config.XmlConfigurator.Configure(); // configure logging
                 logger.Info("Starting Program.");
 
@@ -103,9 +129,9 @@ namespace RadanMaster
 
                 logger.Info("Datasources set.");
 
-                barToggleSwitchGroup1.PerformClick();
+                //barToggleSwitchGroup1.PerformClick();
                 //barToggleSwitchShowCompletedOrders.PerformClick();
-                barEditNumOfDays.PerformClick();
+                //barEditNumOfDays.PerformClick();
 
                 rPrj.LoadData(radanProjectName);
                 logger.Info("Radan project loaded.");
@@ -1457,22 +1483,23 @@ namespace RadanMaster
             if (barToggleSwitchShowBatches.Checked && barToggleSwitchShowOrders.Checked)
             {
                 gridViewItems.Columns["Order.IsBatch"].ClearFilter();
+                groupAndFilterSettings.ShowBatches = true;
+                groupAndFilterSettings.ShowOrders = true;
             }
             else if (barToggleSwitchShowBatches.Checked && !barToggleSwitchShowOrders.Checked)
             {
                 gridViewItems.Columns["Order.IsBatch"].FilterInfo =
                     new ColumnFilterInfo("[Order.IsBatch] == true");
+                groupAndFilterSettings.ShowBatches = true;
+                groupAndFilterSettings.ShowOrders = false;
             }
             else if (!barToggleSwitchShowBatches.Checked && barToggleSwitchShowOrders.Checked)
             {
                 gridViewItems.Columns["Order.IsBatch"].FilterInfo =
                     new ColumnFilterInfo("[Order.IsBatch] == false");
+                groupAndFilterSettings.ShowBatches = false;
+                groupAndFilterSettings.ShowOrders = true;
             }
-            //else
-            //{
-            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
-            //        new ColumnFilterInfo("[Order.IsBatch] == bogus");
-            //}
 
         }
 
@@ -1482,10 +1509,12 @@ namespace RadanMaster
             {
                 gridViewItems.Columns["IsInProject"].FilterInfo =
                     new ColumnFilterInfo("[IsInProject] == true");
+                groupAndFilterSettings.ShowOnlyItemsInRadan = true;
             }
             else
             {
                 gridViewItems.Columns["IsInProject"].ClearFilter();
+                groupAndFilterSettings.ShowOnlyItemsInRadan = false;
 
             }
         }
@@ -1495,24 +1524,24 @@ namespace RadanMaster
             if (barToggleSwitchShowBatches.Checked && barToggleSwitchShowOrders.Checked)
             {
                 gridViewItems.Columns["Order.IsBatch"].ClearFilter();
+                groupAndFilterSettings.ShowBatches = true;
+                groupAndFilterSettings.ShowOrders = true;
             }
             else if (barToggleSwitchShowBatches.Checked && !barToggleSwitchShowOrders.Checked)
             {
                 gridViewItems.Columns["Order.IsBatch"].FilterInfo =
                     new ColumnFilterInfo("[Order.IsBatch] == true");
+                groupAndFilterSettings.ShowBatches = true;
+                groupAndFilterSettings.ShowOrders = false;
             }
             else if (!barToggleSwitchShowBatches.Checked && barToggleSwitchShowOrders.Checked)
             {
                 gridViewItems.Columns["Order.IsBatch"].FilterInfo =
                     new ColumnFilterInfo("[Order.IsBatch] == false");
+                groupAndFilterSettings.ShowBatches = false;
+                groupAndFilterSettings.ShowOrders = true;
             }
-            //else
-            //{
-            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
-            //        new ColumnFilterInfo("[Order.IsBatch] == bogus");
-            //}
-
-
+           
         }
 
         private void barToggleShowComplete_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -1521,10 +1550,12 @@ namespace RadanMaster
             {
                 gridViewItems.Columns["IsComplete"].FilterInfo =
                     new ColumnFilterInfo("[IsComplete] == false");
+                groupAndFilterSettings.ShowComplete = false;
             }
             else
             {
                 gridViewItems.Columns["IsComplete"].ClearFilter();
+                groupAndFilterSettings.ShowComplete = true;
             }
 
         }
@@ -1532,31 +1563,31 @@ namespace RadanMaster
         private void barToggleSwitchGroup1_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             // group by batch and thickness
-            if (barToggleSwitchGroup1.Checked)
-            {
-                //gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
-                gridViewItems.Columns["Order.BatchName"].GroupIndex = 1;
-                //gridViewItems.Columns["Part.Thickness"].GroupIndex = 3;
-                gridViewItems.Columns["Order.BatchName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
-                gridViewItems.Columns["Order.EntryDate"].SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            //if (barToggleSwitchGroup1.Checked)
+            //{
+            //    gridViewItems.Columns["Order.BatchName"].GroupIndex = 1;
+            //    gridViewItems.Columns["Order.BatchName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            //    gridViewItems.Columns["Order.EntryDate"].SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
 
-                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
-                   new ColumnFilterInfo("[Order.IsBatch] == true");
-                barToggleSwitchShowBatches.Checked = true;
-                barToggleSwitchShowOrders.Checked = false;
-            }
-            else
-            {
-                //gridViewItems.Columns["Order.IsBatch"].GroupIndex = -1;
-                gridViewItems.Columns["Order.BatchName"].GroupIndex = -1;
-                //gridViewItems.Columns["Order.ScheduleName"].GroupIndex = -1;
-                gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
+            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+            //       new ColumnFilterInfo("[Order.IsBatch] == true");
+            //    barToggleSwitchShowBatches.Checked = true;
+            //    groupAndFilterSettings.ShowBatches = true;
+            //    barToggleSwitchShowOrders.Checked = false;
+            //    groupAndFilterSettings.ShowOrders = false;
+            //}
+            //else
+            //{
+            //    gridViewItems.Columns["Order.BatchName"].GroupIndex = -1;
+            //    gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
 
-                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
-                   new ColumnFilterInfo("[Order.IsBatch] == 'false'");
-                barToggleSwitchShowBatches.Checked = false;
-                barToggleSwitchShowOrders.Checked = true;
-            }
+            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+            //       new ColumnFilterInfo("[Order.IsBatch] == 'false'");
+            //    barToggleSwitchShowBatches.Checked = false;
+            //    groupAndFilterSettings.ShowBatches = false;
+            //    barToggleSwitchShowOrders.Checked = true;
+            //    groupAndFilterSettings.ShowOrders = true;
+            //}
 
 
 
@@ -1565,30 +1596,34 @@ namespace RadanMaster
         private void barToggleSwitchGroup2_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             // group by schedule and thickness
-            if (barToggleSwitchGroup2.Checked)
-            {
-                //gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
-                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 2;
-                gridViewItems.Columns["Part.Thickness"].GroupIndex = 3;
-                gridViewItems.Columns["Order.ScheduleName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            //if (barToggleSwitchGroup2.Checked)
+            //{
+            //    //gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
+            //    gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 2;
+            //    gridViewItems.Columns["Part.Thickness"].GroupIndex = 3;
+            //    gridViewItems.Columns["Order.ScheduleName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
 
-                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
-                   new ColumnFilterInfo("[Order.IsBatch] == false");
-                barToggleSwitchShowBatches.Checked = false;
-                barToggleSwitchShowOrders.Checked = true;
-            }
-            else
-            {
-                //gridViewItems.Columns["Order.IsBatch"].GroupIndex = -1;
-                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = -1;
-                //gridViewItems.Columns["Order.BatchName"].GroupIndex = -1;
-                gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
+            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+            //       new ColumnFilterInfo("[Order.IsBatch] == false");
+            //    barToggleSwitchShowBatches.Checked = false;
+            //    groupAndFilterSettings.ShowBatches = false;
+            //    barToggleSwitchShowOrders.Checked = true;
+            //    groupAndFilterSettings.ShowOrders = true;
+            //}
+            //else
+            //{
+            //    //gridViewItems.Columns["Order.IsBatch"].GroupIndex = -1;
+            //    gridViewItems.Columns["Order.ScheduleName"].GroupIndex = -1;
+            //    //gridViewItems.Columns["Order.BatchName"].GroupIndex = -1;
+            //    gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
 
-                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
-                   new ColumnFilterInfo("[Order.IsBatch] == true");
-                barToggleSwitchShowBatches.Checked = true;
-                barToggleSwitchShowOrders.Checked = false;
-            }
+            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+            //       new ColumnFilterInfo("[Order.IsBatch] == true");
+            //    barToggleSwitchShowBatches.Checked = true;
+            //    groupAndFilterSettings.ShowBatches = true;
+            //    barToggleSwitchShowOrders.Checked = false;
+            //    groupAndFilterSettings.ShowOrders = false;
+            //}
         }
 
         private void barToggleSwitchShowCompletedOrders_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -1597,10 +1632,12 @@ namespace RadanMaster
             {
                 gridViewItems.Columns["Order.IsComplete"].FilterInfo =
                     new ColumnFilterInfo("[Order.IsComplete] == false");
+                groupAndFilterSettings.ShowAllCompletedOrders = false;
             }
             else
             {
                 gridViewItems.Columns["Order.IsComplete"].ClearFilter();
+                groupAndFilterSettings.ShowAllCompletedOrders = true;
             }
 
         }
@@ -1608,6 +1645,7 @@ namespace RadanMaster
         private void barCheckItemShowCompletedOrdersFromLastDayOnly_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             barCheckItemShowAllCompletedOrders.Checked = !barCheckItemShowCompletedOrdersFromLastDayOnly.Checked;
+            groupAndFilterSettings.ShowAllCompletedOrders = barCheckItemShowAllCompletedOrders.Checked;
 
             if (barCheckItemShowAllCompletedOrders.Checked)
             {
@@ -1628,13 +1666,11 @@ namespace RadanMaster
         private void barCheckItemShowAllCompletedOrders_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             barCheckItemShowCompletedOrdersFromLastDayOnly.Checked = !barCheckItemShowAllCompletedOrders.Checked;
+            groupAndFilterSettings.ShowCompletedOrdersFromLastNDays = barCheckItemShowCompletedOrdersFromLastDayOnly.Checked;
         }
 
         private void filterOrdersByDate()
         {
-            // if only the following is active, it will work the old way, showing only non-complete orders
-            //gridViewItems.Columns["Order.IsComplete"].FilterInfo =
-            //    new ColumnFilterInfo("[Order.IsComplete] == false");
             barEditNumOfDays.Enabled = true;
 
             DateTime FromDate;
@@ -1659,6 +1695,8 @@ namespace RadanMaster
         {
             ribbonControl1.Manager.ActiveEditItemLink.PostEditor();
             filterOrdersByDate();
+
+            groupAndFilterSettings.NumberOfDays = int.Parse(barEditNumOfDays.EditValue.ToString());
         }
 
         private void gridViewItems_CustomDrawGroupRow(object sender, RowObjectCustomDrawEventArgs e)
@@ -1805,9 +1843,13 @@ namespace RadanMaster
 
 
 
+
         #endregion
 
-        
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            groupAndFilterSettings.SaveSettingsToFile();
+        }
     }
 }
 
