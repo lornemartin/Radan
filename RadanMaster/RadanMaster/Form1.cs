@@ -1756,21 +1756,34 @@ namespace RadanMaster
 
             if (row.GroupText.Contains("Batch Name"))
             {
-                int numComplete = 1;
-                int numTotal = 1;
-
+                int numComplete = 0;
+                int numTotal = 0;
                 int childCount = gridViewItems.GetChildRowCount(row.RowHandle);
+                
                 for (int i = 0; i < childCount; i++)
                 {
-                    // The child is a data row.   
-                    object childRow = gridViewItems.GetRow(row.RowHandle);
+                    int childRowHandle = gridViewItems.GetChildRowHandle(row.RowHandle,i);
+                    object childRow = gridViewItems.GetRow(childRowHandle);
+
                     OrderItem item = (OrderItem)childRow;
                     numTotal++;
                     if (item.IsComplete) numComplete++;
                     
                 }
 
-                row.GroupText += "        " + numTotal / numComplete + "%";
+                double percentageDone = 0.0;
+                if (numComplete > 0)
+                {
+                    double ratio = (double) numComplete / numTotal;
+                    percentageDone = ratio * 100;
+
+                }
+                else
+                {
+                    percentageDone = 0;
+                }
+
+                row.GroupText += "        " + String.Format("{0:0}", percentageDone) + "%";
             }
         }
     }
