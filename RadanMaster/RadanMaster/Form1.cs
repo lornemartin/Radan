@@ -1686,12 +1686,18 @@ namespace RadanMaster
                 {
                     double ratio = (double)numComplete / numTotal;
                     percentageDone = ratio * 100;
+                    
                 }
                 else
                 {
                     percentageDone = 0;
                 }
 
+                if (percentageDone > 0 && percentageDone <= 99)
+                    e.Appearance.ForeColor = Color.Blue;
+                else if (percentageDone == 100)
+                    e.Appearance.ForeColor = Color.Green;
+               
                 row.GroupText += "        " + String.Format("{0:0}", percentageDone) + "%";
 
             }
