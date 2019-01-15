@@ -367,10 +367,14 @@ namespace RadanMaster
                             string orderNumber = "";
                             if (!multiple)
                                 orderNumber = oItem.Order.OrderNumber == null ? "" : oItem.Order.OrderNumber;
-                            else
+                            else if(oItem.Order.OrderNumber != "")
                                 orderNumber = "mulitiple";
                             string scheduleName = oItem.Order.ScheduleName == null ? "" : oItem.Order.ScheduleName;
-                            string batchName = oItem.Order.BatchName == null ? "" : oItem.Order.BatchName;
+                            string batchName = "";
+                            if (!multiple)
+                                batchName = oItem.Order.BatchName == null ? "" : oItem.Order.BatchName;
+                            else if (oItem.Order.BatchName != "")
+                                batchName = "multiple";
                             string description = oItem.Part.Description == null ? "" : oItem.Part.Description;
 
                             //bool hasBends = radInterface.GetBendDataFromSym(symFolder + "\\" + symName + ".sym");
