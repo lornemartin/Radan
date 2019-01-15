@@ -347,15 +347,28 @@ namespace RadanMaster
                         //create new part in project
 
                         string calculatedSymPath = "";
+                        bool multiple = false;
 
                         if (File.Exists(symFolder + "\\" + symName + ".sym"))
                         {
                             calculatedSymPath = CalculateFolderPath(oItem);      // copy sym file from main sym folder to current project so that we can set custom attributes
-                            System.IO.Directory.CreateDirectory(calculatedSymPath);     // create new folder if necessary.
+                            if (!Directory.Exists(Path.GetDirectoryName(calculatedSymPath)))
+                            {
+                                System.IO.Directory.CreateDirectory(calculatedSymPath);     // create new folder if necessary.
+                            }
+                            else
+                            {
+                                multiple = true;
+                            }
+
                             File.Copy(symFolder + symName + ".sym", calculatedSymPath + symName + ".sym", true);
 
                             // save the custom attributes to the newly copied sym file
-                            string orderNumber = oItem.Order.OrderNumber == null ? "" : oItem.Order.OrderNumber;
+                            string orderNumber = "";
+                            if (!multiple)
+                                orderNumber = oItem.Order.OrderNumber == null ? "" : oItem.Order.OrderNumber;
+                            else
+                                orderNumber = "mulitiple";
                             string scheduleName = oItem.Order.ScheduleName == null ? "" : oItem.Order.ScheduleName;
                             string batchName = oItem.Order.BatchName == null ? "" : oItem.Order.BatchName;
                             string description = oItem.Part.Description == null ? "" : oItem.Part.Description;
@@ -399,14 +412,25 @@ namespace RadanMaster
         {
             string path = "";
 
-            if (orderItem.Order.IsBatch == false)
+            string symFileName = orderItem.Part.FileName + ".sym";
+
+            String[] matchingFiles = Directory.GetFiles((Path.GetDirectoryName(radanProjectName) + "\\Symbols\\"), symFileName, SearchOption.AllDirectories);
+
+            if (matchingFiles.Count() > 0)
             {
-                if (orderItem.Order.OrderNumber == null) orderItem.Order.OrderNumber = "";
-                path = Path.GetDirectoryName(radanProjectName) + "\\Symbols" + "\\" + orderItem.Order.OrderNumber + "\\";
+                path = Path.GetDirectoryName(matchingFiles[0]) + "\\";
             }
             else
             {
-                path = Path.GetDirectoryName(radanProjectName) + "\\Symbols" + "\\" + orderItem.Order.BatchName + "\\";
+                if (orderItem.Order.IsBatch == false)
+                {
+                    if (orderItem.Order.OrderNumber == null) orderItem.Order.OrderNumber = "";
+                    path = Path.GetDirectoryName(radanProjectName) + "\\Symbols" + "\\" + orderItem.Order.OrderNumber + "\\";
+                }
+                else
+                {
+                    path = Path.GetDirectoryName(radanProjectName) + "\\Symbols" + "\\" + orderItem.Order.BatchName + "\\";
+                }
             }
 
             return path;
