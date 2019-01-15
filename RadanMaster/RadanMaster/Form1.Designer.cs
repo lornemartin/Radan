@@ -216,6 +216,7 @@
             this.gridViewItems.GridControl = this.gridControlItems;
             this.gridViewItems.Name = "gridViewItems";
             this.gridViewItems.OptionsEditForm.ShowOnF2Key = DevExpress.Utils.DefaultBoolean.True;
+            this.gridViewItems.OptionsLayout.StoreAppearance = true;
             this.gridViewItems.OptionsSelection.MultiSelect = true;
             this.gridViewItems.OptionsView.RowAutoHeight = true;
             this.gridViewItems.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridViewItems_RowClick);

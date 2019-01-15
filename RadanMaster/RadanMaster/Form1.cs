@@ -55,11 +55,7 @@ namespace RadanMaster
             {
                 InitializeComponent();
 
-                if (System.IO.File.Exists("ItemsGridLayout.xml"))
-                {
-                    gridControlItems.ForceInitialize();
-                    gridControlItems.MainView.RestoreLayoutFromXml("ItemsGridLayout.xml");
-                }
+                
 
                 groupAndFilterSettings = new GroupAndFilterSettings();
                 groupAndFilterSettings.LoadSettingsFromFile();
@@ -144,6 +140,12 @@ namespace RadanMaster
                 logger.Info("Radan project loaded.");
 
                 progressPanel1.Hide();
+
+                if (System.IO.File.Exists("ItemsGridLayout.xml"))
+                {
+                    gridControlItems.ForceInitialize();
+                    gridControlItems.MainView.RestoreLayoutFromXml("ItemsGridLayout.xml");
+                }
             }
             catch (Exception ex)
             {
@@ -1564,73 +1566,93 @@ namespace RadanMaster
                 gridViewItems.Columns["IsComplete"].ClearFilter();
                 groupAndFilterSettings.ShowComplete = true;
             }
-
         }
 
         private void barToggleSwitchGroup1_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             // group by batch and thickness
-            //if (barToggleSwitchGroup1.Checked)
-            //{
-            //    gridViewItems.Columns["Order.BatchName"].GroupIndex = 1;
-            //    gridViewItems.Columns["Order.BatchName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
-            //    gridViewItems.Columns["Order.EntryDate"].SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            if (barToggleSwitchGroup1.Checked)
+            {
+                gridViewItems.Columns["Order.BatchName"].GroupIndex = 1;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = 2;
+                gridViewItems.Columns["Order.BatchName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
 
-            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
-            //       new ColumnFilterInfo("[Order.IsBatch] == true");
-            //    barToggleSwitchShowBatches.Checked = true;
-            //    groupAndFilterSettings.ShowBatches = true;
-            //    barToggleSwitchShowOrders.Checked = false;
-            //    groupAndFilterSettings.ShowOrders = false;
-            //}
-            //else
-            //{
-            //    gridViewItems.Columns["Order.BatchName"].GroupIndex = -1;
-            //    gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                   new ColumnFilterInfo("[Order.IsBatch] == true");
+                groupAndFilterSettings.ShowBatches = true;
+                groupAndFilterSettings.ShowOrders = false;
 
-            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
-            //       new ColumnFilterInfo("[Order.IsBatch] == 'false'");
-            //    barToggleSwitchShowBatches.Checked = false;
-            //    groupAndFilterSettings.ShowBatches = false;
-            //    barToggleSwitchShowOrders.Checked = true;
-            //    groupAndFilterSettings.ShowOrders = true;
-            //}
+                groupAndFilterSettings.GroupByBatchAndThickness = true;
+                groupAndFilterSettings.GroupByScheduleAndThickness = false;
+            }
+            else
+            {
+                gridViewItems.Columns["Order.BatchName"].GroupIndex = -1;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
 
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                   new ColumnFilterInfo("[Order.IsBatch] == 'false'");
+                groupAndFilterSettings.ShowBatches = false;
+                groupAndFilterSettings.ShowOrders = true;
 
+                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 1;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = 2;
+                gridViewItems.Columns["Order.ScheduleName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                   new ColumnFilterInfo("[Order.IsBatch] == false");
+                groupAndFilterSettings.ShowBatches = false;
+                groupAndFilterSettings.ShowOrders = true;
+
+                groupAndFilterSettings.GroupByBatchAndThickness = false;
+                groupAndFilterSettings.GroupByScheduleAndThickness = true;
+            }
+
+            SetGroupAndFilterSwitches();
 
         }
 
         private void barToggleSwitchGroup2_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             // group by schedule and thickness
-            //if (barToggleSwitchGroup2.Checked)
-            //{
-            //    //gridViewItems.Columns["Order.IsBatch"].GroupIndex = 1;
-            //    gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 2;
-            //    gridViewItems.Columns["Part.Thickness"].GroupIndex = 3;
-            //    gridViewItems.Columns["Order.ScheduleName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+            if (barToggleSwitchGroup2.Checked)
+            {
+                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 1;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = 2;
+                gridViewItems.Columns["Order.ScheduleName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
 
-            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
-            //       new ColumnFilterInfo("[Order.IsBatch] == false");
-            //    barToggleSwitchShowBatches.Checked = false;
-            //    groupAndFilterSettings.ShowBatches = false;
-            //    barToggleSwitchShowOrders.Checked = true;
-            //    groupAndFilterSettings.ShowOrders = true;
-            //}
-            //else
-            //{
-            //    //gridViewItems.Columns["Order.IsBatch"].GroupIndex = -1;
-            //    gridViewItems.Columns["Order.ScheduleName"].GroupIndex = -1;
-            //    //gridViewItems.Columns["Order.BatchName"].GroupIndex = -1;
-            //    gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                   new ColumnFilterInfo("[Order.IsBatch] == false");
+                groupAndFilterSettings.ShowBatches = false;
+                groupAndFilterSettings.ShowOrders = true;
 
-            //    gridViewItems.Columns["Order.IsBatch"].FilterInfo =
-            //       new ColumnFilterInfo("[Order.IsBatch] == true");
-            //    barToggleSwitchShowBatches.Checked = true;
-            //    groupAndFilterSettings.ShowBatches = true;
-            //    barToggleSwitchShowOrders.Checked = false;
-            //    groupAndFilterSettings.ShowOrders = false;
-            //}
+                groupAndFilterSettings.GroupByBatchAndThickness = false;
+                groupAndFilterSettings.GroupByScheduleAndThickness = true;
+            }
+            else
+            {
+                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = -1;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = -1;
+
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                   new ColumnFilterInfo("[Order.IsBatch] == true");
+                groupAndFilterSettings.ShowBatches = true;
+                groupAndFilterSettings.ShowOrders = false;
+
+                gridViewItems.Columns["Order.BatchName"].GroupIndex = 1;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = 2;
+                gridViewItems.Columns["Order.BatchName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
+
+                gridViewItems.Columns["Order.IsBatch"].FilterInfo =
+                   new ColumnFilterInfo("[Order.IsBatch] == true");
+                groupAndFilterSettings.ShowBatches = true;
+                groupAndFilterSettings.ShowOrders = false;
+
+                groupAndFilterSettings.GroupByBatchAndThickness = true;
+                groupAndFilterSettings.GroupByScheduleAndThickness = false;
+            }
+
+            SetGroupAndFilterSwitches();
         }
 
         private void barToggleSwitchShowCompletedOrders_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -1751,6 +1773,19 @@ namespace RadanMaster
             }
         }
 
+        public void SetGroupAndFilterSwitches()
+        {
+            barToggleSwitchShowBatches.Checked = groupAndFilterSettings.ShowBatches;
+            barToggleSwitchShowOrders.Checked = groupAndFilterSettings.ShowOrders;
+            barToggleShowComplete.Checked = groupAndFilterSettings.ShowComplete;
+            barToggleShowRadan.Checked = groupAndFilterSettings.ShowOnlyItemsInRadan;
+            barToggleSwitchGroup1.Checked = groupAndFilterSettings.GroupByBatchAndThickness;
+            barToggleSwitchGroup2.Checked = groupAndFilterSettings.GroupByScheduleAndThickness;
+            barToggleSwitchShowCompletedOrders.Checked = groupAndFilterSettings.ShowAllCompletedOrders;
+            barCheckItemShowCompletedOrdersFromLastDayOnly.Checked = groupAndFilterSettings.ShowCompletedOrdersFromLastNDays;
+            barEditNumOfDays.EditValue = groupAndFilterSettings.NumberOfDays;
+        }
+
         #endregion
 
         #region Nests
@@ -1859,7 +1894,7 @@ namespace RadanMaster
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             groupAndFilterSettings.SaveSettingsToFile();
-            gridControlItems.MainView.SaveLayoutToXml("ItemsGridLayout.xml");
+            gridControlItems.MainView.SaveLayoutToXml("ItemsGridLayout.xml",OptionsLayoutBase.FullLayout);
         }
     }
 }
