@@ -1601,8 +1601,9 @@ namespace RadanMaster
             // group by batch and thickness
             if (barToggleSwitchGroup1.Checked)
             {
-                gridViewItems.Columns["Order.BatchName"].GroupIndex = 1;
-                gridViewItems.Columns["Part.Thickness"].GroupIndex = 2;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = 1;
+                gridViewItems.Columns["Order.BatchName"].GroupIndex = 2;
+                
                 gridViewItems.Columns["Order.BatchName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
 
                 gridViewItems.Columns["Order.IsBatch"].FilterInfo =
@@ -1623,8 +1624,9 @@ namespace RadanMaster
                 groupAndFilterSettings.ShowBatches = false;
                 groupAndFilterSettings.ShowOrders = true;
 
-                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 1;
-                gridViewItems.Columns["Part.Thickness"].GroupIndex = 2;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = 1;
+                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 2;
+                
                 gridViewItems.Columns["Order.ScheduleName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
 
                 gridViewItems.Columns["Order.IsBatch"].FilterInfo =
@@ -1645,8 +1647,9 @@ namespace RadanMaster
             // group by schedule and thickness
             if (barToggleSwitchGroup2.Checked)
             {
-                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 1;
-                gridViewItems.Columns["Part.Thickness"].GroupIndex = 2;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = 1;
+                gridViewItems.Columns["Order.ScheduleName"].GroupIndex = 2;
+                
                 gridViewItems.Columns["Order.ScheduleName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
 
                 gridViewItems.Columns["Order.IsBatch"].FilterInfo =
@@ -1667,8 +1670,9 @@ namespace RadanMaster
                 groupAndFilterSettings.ShowBatches = true;
                 groupAndFilterSettings.ShowOrders = false;
 
-                gridViewItems.Columns["Order.BatchName"].GroupIndex = 1;
-                gridViewItems.Columns["Part.Thickness"].GroupIndex = 2;
+                gridViewItems.Columns["Part.Thickness"].GroupIndex = 1;
+                gridViewItems.Columns["Order.BatchName"].GroupIndex = 2;
+                
                 gridViewItems.Columns["Order.BatchName"].SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
 
                 gridViewItems.Columns["Order.IsBatch"].FilterInfo =
