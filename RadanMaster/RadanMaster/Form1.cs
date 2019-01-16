@@ -685,26 +685,34 @@ namespace RadanMaster
 
                         foreach (NestsPartsMade nestedRadanPart in radanNest.PartsMade)
                         {
-                            NestedParts masterNestedPart = new NestedParts();
-                            int radanPartID = (int)nestedRadanPart.PartsListItems[0].ID;
-                            int radanID = int.Parse(rPrj.Parts.Part.Where(p => p.ID == radanPartID).FirstOrDefault().Bin);
-                            orderItem = dbContext.OrderItems.Where(o => o.RadanIDNumber == radanID).FirstOrDefault();
-
-                            masterNestedPart.OrderItem = orderItem;
-                            masterNestedPart.Qty = nestedRadanPart.PartsListItems[0].Made;
-
-                            dbContext.NestedParts.Add(masterNestedPart);
-
-                            newMasterNest.NestedParts.Add(masterNestedPart);
-
-                            if (orderItem.AssociatedNests == null)
-                                orderItem.AssociatedNests = new List<Nest>();
-
-                            if (!orderItem.AssociatedNests.Contains(newMasterNest))
+                            foreach(NestPartsMadeListItem partMade in nestedRadanPart.PartsListItems)
                             {
-                                orderItem.AssociatedNests.Add(newMasterNest);
-                                orderItem.QtyNested += nestedRadanPart.Made;
+                                NestedParts masterNestedPart = new NestedParts();
+
+                                //int radanPartID = (int)nestedRadanPart.PartsListItems[0].ID;
+                                int radanPartID = (int) partMade.ID;
+
+                                int radanID = int.Parse(rPrj.Parts.Part.Where(p => p.ID == radanPartID).FirstOrDefault().Bin);
+                                orderItem = dbContext.OrderItems.Where(o => o.RadanIDNumber == radanID).FirstOrDefault();
+
+                                masterNestedPart.OrderItem = orderItem;
+                                masterNestedPart.Qty = partMade.Made;
+
+                                dbContext.NestedParts.Add(masterNestedPart);
+
+                                newMasterNest.NestedParts.Add(masterNestedPart);
+
+                                if (orderItem.AssociatedNests == null)
+                                    orderItem.AssociatedNests = new List<Nest>();
+
+                                if (!orderItem.AssociatedNests.Contains(newMasterNest))
+                                {
+                                    orderItem.AssociatedNests.Add(newMasterNest);
+                                    orderItem.QtyNested += partMade.Made;
+                                }
+
                             }
+                            
 
                         }
                         dbContext.Nests.Add(newMasterNest);
