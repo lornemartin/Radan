@@ -417,11 +417,11 @@ namespace RadanMaster
                 if (orderItem.Order.IsBatch == false)
                 {
                     if (orderItem.Order.OrderNumber == null) orderItem.Order.OrderNumber = "";
-                    path = Path.GetDirectoryName(radanProjectName) + "\\Symbols" + "\\" + orderItem.Order.OrderNumber + "\\";
+                    path = Path.GetDirectoryName(radanProjectName) + "\\Symbols" + "\\" + orderItem.Order.OrderNumber + "\\" + orderItem.Part.FileName + "\\";
                 }
                 else
                 {
-                    path = Path.GetDirectoryName(radanProjectName) + "\\Symbols" + "\\" + orderItem.Order.BatchName + "\\";
+                    path = Path.GetDirectoryName(radanProjectName) + "\\Symbols" + "\\" + orderItem.Order.BatchName + "\\" + orderItem.Part.FileName + "\\";
                 }
             }
 
@@ -591,10 +591,7 @@ namespace RadanMaster
                         {
                             rPart.Number = rPart.Made;
                         }
-
-
                     }
-
                 }
 
                 rPrj.SaveData(radanProjectName);
@@ -608,6 +605,19 @@ namespace RadanMaster
                 return true;
             }
             catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        private bool RemoveSymFileFromProject(string name)
+        {
+            try
+            {
+
+                return true;
+            }
+            catch(Exception ex)
             {
                 return false;
             }
