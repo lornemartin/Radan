@@ -1536,12 +1536,41 @@ namespace RadanMaster
                     DXMenuItem updateItem = new DXMenuItem("Update Thumbnail", OnUpdateThumbnailClick);
                     updateItem.Tag = item;
                     e.Menu.Items.Add(updateItem);
+
+                    DXMenuItem convertItem = new DXMenuItem("Retrieve From Vault", OnRetrieveFromVaultClick);
+                    convertItem.Tag = item;
+                    e.Menu.Items.Add(convertItem);
                 }
 
             }
         }
 
         void OnUpdateThumbnailClick(object sender, EventArgs e)
+        {
+            {
+                DXMenuItem menuItem = sender as DXMenuItem;
+
+                OrderItem item = (OrderItem)menuItem.Tag;
+
+                string fileName = symFolder + "\\" + item.Part.FileName + ".sym";
+
+                RadanInterface radanInterface = new RadanInterface();
+                char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(fileName);
+                if (thumbnailCharArray != null)
+                {
+                    byte[] thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
+                    item.Part.Thumbnail = thumbnailByteArray;
+                }
+                else
+                {
+                    item.Part.Thumbnail = null;
+                }
+
+                dbContext.SaveChanges();
+            }
+        }
+
+        void OnRetrieveFromVaultClick(object sender, EventArgs e)
         {
 
         }
