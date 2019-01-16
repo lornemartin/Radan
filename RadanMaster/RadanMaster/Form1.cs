@@ -1765,7 +1765,7 @@ namespace RadanMaster
             DateTime FromDate;
 
             int numOfDays = int.Parse(barEditNumOfDays.EditValue.ToString());
-            FromDate = DateTime.Now.AddDays(0 - (numOfDays+1));
+            FromDate = DateTime.Now.AddDays(0 - (numOfDays));
 
             CriteriaOperator expr1 = new BinaryOperator("Order.IsComplete", false, BinaryOperatorType.Equal);
             CriteriaOperator expr2 = new BinaryOperator("Order.DateCompleted", FromDate, BinaryOperatorType.GreaterOrEqual);

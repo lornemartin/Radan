@@ -719,6 +719,13 @@
             this.repositoryItemSpinEdit4.AutoHeight = false;
             this.repositoryItemSpinEdit4.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemSpinEdit4.IsFloatValue = false;
+            this.repositoryItemSpinEdit4.Mask.EditMask = "N00";
+            this.repositoryItemSpinEdit4.MaxValue = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             this.repositoryItemSpinEdit4.Name = "repositoryItemSpinEdit4";
             this.repositoryItemSpinEdit4.EditValueChanged += new System.EventHandler(this.repositoryItemSpinEdit4_EditValueChanged);
             // 
