@@ -343,7 +343,8 @@ namespace RadanMaster
                             }
                             else
                             {
-                                multiple = true;
+                                if(File.Exists(calculatedSymPath + "\\" + symName + ".sym"))
+                                    multiple = true;
                             }
 
                             File.Copy(symFolder + symName + ".sym", calculatedSymPath + symName + ".sym", true);
@@ -528,6 +529,9 @@ namespace RadanMaster
                             dbContext.RadanIDs.Remove(radanIdToRemove);
                             rPrj.Parts.Part.Remove(rPart);
                             item.RadanIDNumber = 0;
+                           
+                            RemoveSymFileFromProject(rPart.Symbol);
+                            dbContext.SaveChanges();        // save db before next iteration so RemoveSymFiles calculates properly
                         }
 
                         else
@@ -583,6 +587,9 @@ namespace RadanMaster
                                 dbContext.RadanIDs.Remove(radanIdToRemove);
                                 rPrj.Parts.Part.Remove(rPart);
                                 orderItem.RadanIDNumber = 0;
+                               
+                                RemoveSymFileFromProject(rPart.Symbol);
+                                dbContext.SaveChanges();    // save db before next iteration so RemoveSymFiles calculates properly
                             }
 
                         }
@@ -610,11 +617,26 @@ namespace RadanMaster
             }
         }
 
-        private bool RemoveSymFileFromProject(string name)
+        private bool RemoveSymFileFromProject(string symFileName)
         {
             try
             {
+                if (rPrj == null)
+                {
+                    rPrj = new RadanProject();
+                    rPrj = rPrj.LoadData(radanProjectName);
+                }
 
+                string symFileNameWithoutPath = Path.GetFileName(symFileName);
+                string symFileNameWithoutPathWithoutExtension = Path.GetFileNameWithoutExtension(symFileName);
+
+                List<OrderItem> matchingItemList = dbContext.OrderItems.Where(o => o.Part.FileName == symFileNameWithoutPathWithoutExtension).Where(o => o.IsInProject).ToList();
+
+                if(matchingItemList.Count == 1)
+                {
+                    List<string> matchingSymFiles = Directory.GetFiles((Path.GetDirectoryName(radanProjectName) + "\\Symbols\\"), symFileNameWithoutPath, SearchOption.AllDirectories).ToList();
+                    File.Delete(matchingSymFiles[0]);   // there should only be one file to delete.
+                }
                 return true;
             }
             catch(Exception ex)
