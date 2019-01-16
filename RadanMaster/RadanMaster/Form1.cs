@@ -193,7 +193,8 @@ namespace RadanMaster
                         {
                             char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(symName);
                             thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
-                            hasBends = radanInterface.HasBends(symName);
+                            //hasBends = radanInterface.HasBends(symName);
+                            hasBends = false;
                         }
 
                         Part newPart = new Part();
