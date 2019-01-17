@@ -32,6 +32,7 @@ using log4net;
 using log4net.Config;
 using DevExpress.Data.Filtering;
 using DevExpress.XtraBars.Native;
+using VaultAccess;
 
 namespace RadanMaster
 {
@@ -1572,7 +1573,16 @@ namespace RadanMaster
 
         void OnRetrieveFromVaultClick(object sender, EventArgs e)
         {
+            VaultAccess.VaultAccess va = new VaultAccess.VaultAccess();
 
+            DXMenuItem menuItem = sender as DXMenuItem;
+            OrderItem item = (OrderItem)menuItem.Tag;
+
+            string fileToSearch = item.Part.FileName;
+
+            va.Login("lorne", "lorne", "hwvsvt01", "Vault");
+            va.searrchAndDownloadFile(fileToSearch, "C:\\temp");
+            
         }
         #endregion
 
