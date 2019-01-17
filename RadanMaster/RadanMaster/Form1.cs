@@ -123,10 +123,11 @@ namespace RadanMaster
                 progressPanel1.Hide();
 
                 // load grid layout from file
-                if (System.IO.File.Exists("ItemsGridLayout.xml"))
+                string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\ItemsGridLayout.xml";
+                if (System.IO.File.Exists(SettingsFilePath))
                 {
                     gridControlItems.ForceInitialize();
-                    gridControlItems.MainView.RestoreLayoutFromXml("ItemsGridLayout.xml");
+                    gridControlItems.MainView.RestoreLayoutFromXml(SettingsFilePath);
                 }
 
                 // load collapsed/expanded state of gridview
@@ -2090,7 +2091,8 @@ namespace RadanMaster
             groupAndFilterSettings.SaveSettingsToFile();
 
             // save the layout 
-            gridControlItems.MainView.SaveLayoutToXml("ItemsGridLayout.xml",OptionsLayoutBase.FullLayout);
+            string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\ItemsGridLayout.xml";
+            gridControlItems.MainView.SaveLayoutToXml(SettingsFilePath, OptionsLayoutBase.FullLayout);
 
             //save the expanded/contracted state of grouped rows
             helper.SaveViewInfo();

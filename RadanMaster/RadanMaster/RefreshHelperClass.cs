@@ -68,8 +68,9 @@ namespace RadanMaster
                 }
             }
 
+            string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\ExapandedRows.xml";
             var serializer = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(RowInfo) });
-            using (FileStream stream = new FileStream($"ExapandedRows.xml", FileMode.Create))
+            using (FileStream stream = new FileStream(SettingsFilePath, FileMode.Create))
             {
                 serializer.Serialize(stream, list);
             }
@@ -77,9 +78,10 @@ namespace RadanMaster
 
         public void LoadExpansionViewInfo()
         {
+            string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\ExapandedRows.xml";
             ArrayList list = new ArrayList();
             var serializer = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(RowInfo) });
-            using (FileStream stream = new FileStream($"ExapandedRows.xml", FileMode.Open))
+            using (FileStream stream = new FileStream(SettingsFilePath, FileMode.Open))
             {
                 list = (ArrayList)serializer.Deserialize(stream);
             }
