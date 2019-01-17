@@ -1138,8 +1138,8 @@ namespace RadanMaster
             string addItemFileName = "";
             Order newOrder = new Order();
             // Show the dialog and get result.
-            openFileDialogImport.InitialDirectory = (string)AppSettings.AppSettings.Get("SymFilePath");
-            openFileDialogImport.Filter = "sym files (*.sym) | *.sym";
+            openFileDialogAddItem.InitialDirectory = (string)AppSettings.AppSettings.Get("SymFilePath");
+            openFileDialogAddItem.Filter = "sym files (*.sym) | *.sym";
             DialogResult result = openFileDialogAddItem.ShowDialog();
             if (result == DialogResult.OK) // Test result.
             {
