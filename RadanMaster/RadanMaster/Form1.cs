@@ -1527,23 +1527,6 @@ namespace RadanMaster
             GridView view = sender as GridView;
             if (e.MenuType == DevExpress.XtraGrid.Views.Grid.GridMenuType.Row)
             {
-                //int rowHandle = e.HitInfo.RowHandle;
-
-                //if (rowHandle >= 0)
-                //{
-                //    OrderItem item = (OrderItem)gridViewItems.GetRow(rowHandle);
-
-                //    e.Menu.Items.Clear();
-                //    DXMenuItem updateItem = new DXMenuItem("Update Thumbnail", OnUpdateThumbnailClick);
-                //    updateItem.Tag = item;
-                //    e.Menu.Items.Add(updateItem);
-
-                //    DXMenuItem convertItem = new DXMenuItem("Retrieve From Vault", OnRetrieveFromVaultClick);
-                //    convertItem.Tag = item;
-                //    e.Menu.Items.Add(convertItem);
-                //}
-
-
                 List<int> selectedItemHandles = new List<int>();
                 selectedItemHandles = gridViewItems.GetSelectedRows().ToList();
 
