@@ -1553,36 +1553,109 @@ namespace RadanMaster
 
                 OrderItem item = (OrderItem)menuItem.Tag;
 
-                string fileName = symFolder + "\\" + item.Part.FileName + ".sym";
-
-                RadanInterface radanInterface = new RadanInterface();
-                char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(fileName);
-                if (thumbnailCharArray != null)
-                {
-                    byte[] thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
-                    item.Part.Thumbnail = thumbnailByteArray;
-                }
-                else
-                {
-                    item.Part.Thumbnail = null;
-                }
-
-                dbContext.SaveChanges();
+                updateThumbnail(item);
             }
         }
 
+        void updateThumbnail(OrderItem item)
+        {
+            string fileName = symFolder + "\\" + item.Part.FileName + ".sym";
+
+            RadanInterface radanInterface = new RadanInterface();
+            char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(fileName);
+            if (thumbnailCharArray != null)
+            {
+                byte[] thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
+                item.Part.Thumbnail = thumbnailByteArray;
+            }
+            else
+            {
+                item.Part.Thumbnail = null;
+            }
+
+            gridViewItems.RefreshData();
+
+            dbContext.SaveChanges();
+        }
+
+
         void OnRetrieveFromVaultClick(object sender, EventArgs e)
         {
-            VaultAccess.VaultAccess va = new VaultAccess.VaultAccess();
+            try
+            {
+                if (saveRadan())
+                {
+                    SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
 
-            DXMenuItem menuItem = sender as DXMenuItem;
-            OrderItem item = (OrderItem)menuItem.Tag;
+                    VaultAccess.VaultAccess va = new VaultAccess.VaultAccess();
 
-            string fileToSearch = item.Part.FileName;
+                    DXMenuItem menuItem = sender as DXMenuItem;
+                    OrderItem item = (OrderItem)menuItem.Tag;
 
-            va.Login("lorne", "lorne", "hwvsvt01", "Vault");
-            va.searrchAndDownloadFile(fileToSearch, "C:\\temp");
-            
+                    string fileToSearch = item.Part.FileName;
+                    string tempFolder = Path.Combine(Path.GetTempPath(), "RadanMaster");
+                    new FileInfo(tempFolder).Directory.Create();        // create folder if it doesn't exist
+
+                    string vaultUserName = (string)AppSettings.AppSettings.Get("VaultUserName");
+                    string vaultPassword = (string)AppSettings.AppSettings.Get("VaultPassword");
+                    string vaultServer = (string)AppSettings.AppSettings.Get("VaultServer");
+                    string vaultName = (string)AppSettings.AppSettings.Get("VaultName");
+
+                    if(!va.Login(vaultUserName, vaultPassword, vaultServer, vaultName))
+                    {
+                        SplashScreenManager.HideImage();
+                        MessageBox.Show("Error logging into Vault.");
+                        return;
+                    }
+
+                    if(!va.searrchAndDownloadFile(fileToSearch, tempFolder))
+                    {
+                        SplashScreenManager.HideImage();
+                        MessageBox.Show("Error in retrieving file from Vault");
+                        return;
+                    }
+
+                    string partName = "";
+                    string partThickness = "";
+                    string topPattern = "";
+                    string materialName = "";
+                    string errorMsg = "";
+                    string symFileToSave = Path.Combine(symFolder, item.Part.FileName + ".sym");
+
+                    radInterface.Open3DFileInRadan(Path.Combine(tempFolder, item.Part.FileName + ".ipt"), materialName, ref errorMsg);
+                    if (errorMsg != "")
+                    {
+                        SplashScreenManager.HideImage();
+                        MessageBox.Show(errorMsg);
+                        return;
+                    }
+                    radInterface.UnfoldActive3DFile(ref partName, ref materialName, ref partThickness, ref topPattern, ref errorMsg);
+                    if (errorMsg != "")
+                    {
+                        SplashScreenManager.HideImage();
+                        MessageBox.Show(errorMsg);
+                        return;
+                    }
+                    radInterface.SavePart(topPattern, symFileToSave, ref errorMsg);
+                    if (errorMsg != "")
+                    {
+                        SplashScreenManager.HideImage();
+                        MessageBox.Show(errorMsg);
+                        return;
+                    }
+
+                    updateThumbnail(item);
+
+                    SplashScreenManager.HideImage();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error in retrieving file from Vault.");
+                SplashScreenManager.HideImage();
+            }
+
         }
         #endregion
 
@@ -2006,6 +2079,21 @@ namespace RadanMaster
 
             //save the expanded/contracted state of grouped rows
             helper.SaveViewInfo();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // first delete all the temp files from the previous run
+            string tempDir = System.IO.Path.GetTempPath() + @"\RadanMaster\";
+            if (Directory.Exists(tempDir))
+            {
+                DirectoryInfo dir = new DirectoryInfo(tempDir);
+                foreach (FileInfo f in dir.GetFiles())
+                {
+                    System.IO.File.SetAttributes(f.FullName, FileAttributes.Normal);
+                    f.Delete();
+                }
+            }
         }
     }
 }
