@@ -696,6 +696,8 @@ namespace RadanMaster
 
         private bool CreateNewRadanProject()
         {
+            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+
             string oldProjectName = "";
             try
             {
@@ -853,8 +855,12 @@ namespace RadanMaster
                 // wait until the very end to save the DB, that way if something goes wrong, DB will not be changed.
                 dbContext.SaveChanges();
 
+                SplashScreenManager.HideImage();
+
                 MessageBox.Show("Number of items updated: " + numOfItemsUpdated + "\n" +
                                 "Number of nests saved: " + numOfNestsSaved);
+
+                
                 return true;
             }
             catch (Exception ex)
@@ -888,6 +894,7 @@ namespace RadanMaster
                 rPrj = new RadanProject();
                 rPrj = rPrj.LoadData(oldProjectName);
 
+                SplashScreenManager.HideImage();
                 return false;
             }
         }
