@@ -1527,22 +1527,41 @@ namespace RadanMaster
             GridView view = sender as GridView;
             if (e.MenuType == DevExpress.XtraGrid.Views.Grid.GridMenuType.Row)
             {
-                int rowHandle = e.HitInfo.RowHandle;
+                //int rowHandle = e.HitInfo.RowHandle;
 
-                if (rowHandle >= 0)
+                //if (rowHandle >= 0)
+                //{
+                //    OrderItem item = (OrderItem)gridViewItems.GetRow(rowHandle);
+
+                //    e.Menu.Items.Clear();
+                //    DXMenuItem updateItem = new DXMenuItem("Update Thumbnail", OnUpdateThumbnailClick);
+                //    updateItem.Tag = item;
+                //    e.Menu.Items.Add(updateItem);
+
+                //    DXMenuItem convertItem = new DXMenuItem("Retrieve From Vault", OnRetrieveFromVaultClick);
+                //    convertItem.Tag = item;
+                //    e.Menu.Items.Add(convertItem);
+                //}
+
+
+                List<int> selectedItemHandles = new List<int>();
+                selectedItemHandles = gridViewItems.GetSelectedRows().ToList();
+
+                List<OrderItem> selectedItems = new List<OrderItem>();
+
+                foreach (int handle in selectedItemHandles)
                 {
-                    OrderItem item = (OrderItem)gridViewItems.GetRow(rowHandle);
-
-                    e.Menu.Items.Clear();
-                    DXMenuItem updateItem = new DXMenuItem("Update Thumbnail", OnUpdateThumbnailClick);
-                    updateItem.Tag = item;
-                    e.Menu.Items.Add(updateItem);
-
-                    DXMenuItem convertItem = new DXMenuItem("Retrieve From Vault", OnRetrieveFromVaultClick);
-                    convertItem.Tag = item;
-                    e.Menu.Items.Add(convertItem);
+                    selectedItems.Add((OrderItem)gridViewItems.GetRow(handle));
                 }
 
+                e.Menu.Items.Clear();
+                DXMenuItem updateItem = new DXMenuItem("Update Thumbnail", OnUpdateThumbnailClick);
+                updateItem.Tag = selectedItems;
+                e.Menu.Items.Add(updateItem);
+
+                DXMenuItem convertItem = new DXMenuItem("Retrieve From Vault", OnRetrieveFromVaultClick);
+                convertItem.Tag = selectedItems;
+                e.Menu.Items.Add(convertItem);
             }
         }
 
@@ -1551,9 +1570,12 @@ namespace RadanMaster
             {
                 DXMenuItem menuItem = sender as DXMenuItem;
 
-                OrderItem item = (OrderItem)menuItem.Tag;
+                List<OrderItem> selectedItems = (List<OrderItem>)menuItem.Tag;
 
-                updateThumbnail(item);
+                foreach (OrderItem item in selectedItems)
+                {
+                    updateThumbnail(item);
+                }
             }
         }
 
@@ -1590,61 +1612,64 @@ namespace RadanMaster
                     VaultAccess.VaultAccess va = new VaultAccess.VaultAccess();
 
                     DXMenuItem menuItem = sender as DXMenuItem;
-                    OrderItem item = (OrderItem)menuItem.Tag;
+                    List<OrderItem> selectedItems = (List<OrderItem>) menuItem.Tag;
 
-                    string fileToSearch = item.Part.FileName;
-                    string tempFolder = Path.Combine(Path.GetTempPath(), "RadanMaster");
-                    new FileInfo(tempFolder).Directory.Create();        // create folder if it doesn't exist
-
-                    string vaultUserName = (string)AppSettings.AppSettings.Get("VaultUserName");
-                    string vaultPassword = (string)AppSettings.AppSettings.Get("VaultPassword");
-                    string vaultServer = (string)AppSettings.AppSettings.Get("VaultServer");
-                    string vaultName = (string)AppSettings.AppSettings.Get("VaultName");
-
-                    if(!va.Login(vaultUserName, vaultPassword, vaultServer, vaultName))
+                    foreach (OrderItem item in selectedItems)
                     {
-                        SplashScreenManager.HideImage();
-                        MessageBox.Show("Error logging into Vault.");
-                        return;
-                    }
+                        string fileToSearch = item.Part.FileName;
+                        string tempFolder = Path.Combine(Path.GetTempPath(), "RadanMaster");
+                        new FileInfo(tempFolder).Directory.Create();        // create folder if it doesn't exist
 
-                    if(!va.searrchAndDownloadFile(fileToSearch, tempFolder))
-                    {
-                        SplashScreenManager.HideImage();
-                        MessageBox.Show("Error in retrieving file from Vault");
-                        return;
-                    }
+                        string vaultUserName = (string)AppSettings.AppSettings.Get("VaultUserName");
+                        string vaultPassword = (string)AppSettings.AppSettings.Get("VaultPassword");
+                        string vaultServer = (string)AppSettings.AppSettings.Get("VaultServer");
+                        string vaultName = (string)AppSettings.AppSettings.Get("VaultName");
 
-                    string partName = "";
-                    string partThickness = "";
-                    string topPattern = "";
-                    string materialName = "";
-                    string errorMsg = "";
-                    string symFileToSave = Path.Combine(symFolder, item.Part.FileName + ".sym");
+                        if (!va.Login(vaultUserName, vaultPassword, vaultServer, vaultName))
+                        {
+                            SplashScreenManager.HideImage();
+                            MessageBox.Show("Error logging into Vault.");
+                            return;
+                        }
 
-                    radInterface.Open3DFileInRadan(Path.Combine(tempFolder, item.Part.FileName + ".ipt"), materialName, ref errorMsg);
-                    if (errorMsg != "")
-                    {
-                        SplashScreenManager.HideImage();
-                        MessageBox.Show(errorMsg);
-                        return;
-                    }
-                    radInterface.UnfoldActive3DFile(ref partName, ref materialName, ref partThickness, ref topPattern, ref errorMsg);
-                    if (errorMsg != "")
-                    {
-                        SplashScreenManager.HideImage();
-                        MessageBox.Show(errorMsg);
-                        return;
-                    }
-                    radInterface.SavePart(topPattern, symFileToSave, ref errorMsg);
-                    if (errorMsg != "")
-                    {
-                        SplashScreenManager.HideImage();
-                        MessageBox.Show(errorMsg);
-                        return;
-                    }
+                        if (!va.searrchAndDownloadFile(fileToSearch, tempFolder))
+                        {
+                            SplashScreenManager.HideImage();
+                            MessageBox.Show("Error in retrieving file from Vault");
+                            return;
+                        }
 
-                    updateThumbnail(item);
+                        string partName = "";
+                        string partThickness = "";
+                        string topPattern = "";
+                        string materialName = "";
+                        string errorMsg = "";
+                        string symFileToSave = Path.Combine(symFolder, item.Part.FileName + ".sym");
+
+                        radInterface.Open3DFileInRadan(Path.Combine(tempFolder, item.Part.FileName + ".ipt"), materialName, ref errorMsg);
+                        if (errorMsg != "")
+                        {
+                            SplashScreenManager.HideImage();
+                            MessageBox.Show(errorMsg);
+                            return;
+                        }
+                        radInterface.UnfoldActive3DFile(ref partName, ref materialName, ref partThickness, ref topPattern, ref errorMsg);
+                        if (errorMsg != "")
+                        {
+                            SplashScreenManager.HideImage();
+                            MessageBox.Show(errorMsg);
+                            return;
+                        }
+                        radInterface.SavePart(topPattern, symFileToSave, ref errorMsg);
+                        if (errorMsg != "")
+                        {
+                            SplashScreenManager.HideImage();
+                            MessageBox.Show(errorMsg);
+                            return;
+                        }
+
+                        updateThumbnail(item);
+                    }
 
                     SplashScreenManager.HideImage();
 
