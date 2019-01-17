@@ -1146,7 +1146,6 @@ namespace RadanMaster
                 AddItemDialog.AddItem addItemDialog = new AddItemDialog.AddItem(dbContext);
                 DialogResult addItemResult = addItemDialog.ShowDialog();
 
-
                 if (addItemResult == DialogResult.OK)
                 {
                     addItemFileName = (openFileDialogAddItem.FileName);
