@@ -1205,9 +1205,9 @@ namespace RadanMaster
                         newOrder.DueDate = DateTime.Now;
                         newOrder.EntryDate = DateTime.Now;
                         newOrder.OrderItems = new List<OrderItem>();
-                        newOrder.OrderNumber = AddItemDialog.AddItem.lastOrderNumber;
-                        newOrder.ScheduleName = AddItemDialog.AddItem.lastSchedName;
-                        newOrder.BatchName = AddItemDialog.AddItem.lastBatchName;
+                        newOrder.OrderNumber = AddItemDialog.AddItem.lastOrderNumber.TrimEnd();
+                        newOrder.ScheduleName = AddItemDialog.AddItem.lastSchedName.TrimEnd();
+                        newOrder.BatchName = AddItemDialog.AddItem.lastBatchName.TrimEnd();
                         if (newOrder.BatchName == null) newOrder.BatchName = "";
                         newOrder.IsBatch = AddItemDialog.AddItem.isBatch;
 
