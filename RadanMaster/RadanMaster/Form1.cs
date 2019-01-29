@@ -296,8 +296,8 @@ namespace RadanMaster
         {
             try
             {
-                rPrj = new RadanProject();
-                rPrj = rPrj.LoadData(radanProjectName);
+                //rPrj = new RadanProject();
+                //rPrj = rPrj.LoadData(radanProjectName);
                 string symName = oItem.Part.FileName;
 
                 // this is only needed if description was not correctly read from sym when part was entered into DB.  It should
@@ -325,7 +325,7 @@ namespace RadanMaster
                             {
                                 matchFound = true;
                                 rPart.Number = oItem.QtyRequired - oItem.QtyNested;  // item still exists in project, just need to update 
-                                rPrj.SaveData(radanProjectName);
+                                //rPrj.SaveData(radanProjectName);
 
                                 MessageBox.Show(Path.GetFileName(symName) + " already exists in this radan projecs, only qty required will be updated.");
                                 oItem.IsInProject = true;
@@ -390,13 +390,14 @@ namespace RadanMaster
                         else
                             return false;   // 
                         rPrj.AddPart(rPart);
-                        rPrj.SaveData(radanProjectName);
+                        //rPrj.SaveData(radanProjectName);
 
                         oItem.IsInProject = true;
                         dbContext.SaveChanges();
                     }
 
                 }
+                rPrj.SaveData(radanProjectName);
                 return true;
             }
             catch (Exception ex)
@@ -1024,6 +1025,8 @@ namespace RadanMaster
 
                     if (saveRadan())
                     {
+                        rPrj = new RadanProject();
+                        rPrj = rPrj.LoadData(radanProjectName);
 
                         for (int i = 0; i < gridViewItems.DataRowCount; i++)
                         {
