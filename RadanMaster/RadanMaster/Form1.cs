@@ -525,8 +525,6 @@ namespace RadanMaster
                 foreach (int i in rows)
                 {
                     OrderItem item = (OrderItem)gridViewItems.GetRow(i);
-                    //if (item.AssociatedNests == null)
-                    //    item.AssociatedNests = new List<Nest>();
 
                     RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.RadanIDNumber);
                     if (rPart != null)
@@ -547,9 +545,7 @@ namespace RadanMaster
                         {
                             rPart.Number = rPart.Made;
                         }
-
-
-                        rPrj.SaveData(radanProjectName);
+                        //rPrj.SaveData(radanProjectName);
                     }
                 }
 
