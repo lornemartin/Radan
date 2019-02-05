@@ -238,7 +238,8 @@ namespace RadanMaster
                                 if (isBatch)
                                     searchOrder = dbContext.Orders.Where(o => o.BatchName == batchName).FirstOrDefault();
                                 else
-                                    searchOrder = dbContext.Orders.Where(o => o.OrderNumber == oData.OrderNumber).FirstOrDefault();
+                                    searchOrder = dbContext.Orders.Where(o => o.OrderNumber == oData.OrderNumber).
+                                                                   Where(o => o.ScheduleName == schedName).FirstOrDefault();
                                 if (searchOrder == null)    // create new order if it doesn't already exist
                                 {
                                     searchOrder = new Order();
