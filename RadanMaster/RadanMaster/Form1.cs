@@ -267,7 +267,8 @@ namespace RadanMaster
                                 else
                                     searchOrderItem = dbContext.OrderItems.Where(o => o.Order.OrderNumber == oData.OrderNumber).
                                                                            Where(o => o.Part.FileName == lineItem.Number).
-                                                                           Where(o => o.Order.ScheduleName == searchOrder.ScheduleName).FirstOrDefault();
+                                                                           Where(o => o.Order.ScheduleName == schedName).
+                                                                           FirstOrDefault();
                                 if (searchOrderItem == null)   // create a new order item if no match is found with this part number and order number and schedule number
                                 {
                                     searchOrderItem = new OrderItem();
