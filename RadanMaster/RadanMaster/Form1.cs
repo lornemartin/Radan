@@ -1589,7 +1589,6 @@ namespace RadanMaster
             dbContext.SaveChanges();
         }
 
-
         void OnRetrieveFromVaultClick(object sender, EventArgs e)
         {
             try
