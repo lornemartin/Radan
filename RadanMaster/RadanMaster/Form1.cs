@@ -265,8 +265,10 @@ namespace RadanMaster
                                 if (isBatch)
                                     searchOrderItem = dbContext.OrderItems.Where(o => o.Order.BatchName == batchName).Where(o => o.Part.FileName == lineItem.Number).FirstOrDefault();
                                 else
-                                    searchOrderItem = dbContext.OrderItems.Where(o => o.Order.OrderNumber == oData.OrderNumber).Where(o => o.Part.FileName == lineItem.Number).FirstOrDefault();
-                                if (searchOrderItem == null)   // create a new order item if no match is found with this part number and order number
+                                    searchOrderItem = dbContext.OrderItems.Where(o => o.Order.OrderNumber == oData.OrderNumber).
+                                                                           Where(o => o.Part.FileName == lineItem.Number).
+                                                                           Where(o => o.Order.ScheduleName == searchOrder.ScheduleName).FirstOrDefault();
+                                if (searchOrderItem == null)   // create a new order item if no match is found with this part number and order number and schedule number
                                 {
                                     searchOrderItem = new OrderItem();
                                     searchOrderItem.Order = searchOrder;
