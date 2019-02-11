@@ -1660,6 +1660,13 @@ namespace RadanMaster
                             MessageBox.Show(errorMsg);
                             return;
                         }
+                        radInterface.InsertAttributes(symFileToSave, materialName, partThickness, "in", "", ref errorMsg);
+                        if (errorMsg != "")
+                        {
+                            SplashScreenManager.HideImage();
+                            MessageBox.Show(errorMsg);
+                            return;
+                        }
 
                         updateThumbnail(item);
                     }
