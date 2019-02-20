@@ -245,13 +245,13 @@ namespace RadanMaster
                                     searchOrder = new Order();
                                     if (isBatch)
                                     {
-                                        searchOrder.BatchName = batchName;
+                                        searchOrder.BatchName = batchName.TrimEnd(' ');
                                         searchOrder.OrderNumber = "";
                                     }
                                     else
                                     {
-                                        searchOrder.OrderNumber = oData.OrderNumber;
-                                        searchOrder.ScheduleName = schedName;
+                                        searchOrder.OrderNumber = oData.OrderNumber.TrimEnd(' ');
+                                        searchOrder.ScheduleName = schedName.TrimEnd(' ');
                                         searchOrder.BatchName = "";
                                     }
                                     searchOrder.IsComplete = false;
