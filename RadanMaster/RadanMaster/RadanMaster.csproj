@@ -15,7 +15,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -35,6 +35,26 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>radanmaster_OWs_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autodesk.Connectivity.Extensibility.Framework, Version=23.0.0.0, Culture=neutral, PublicKeyToken=aa20f34aedd220e1, processorArchitecture=MSIL">
@@ -133,10 +153,22 @@
     <Compile Include="Migrations\201901081650573_allow nullable.Designer.cs">
       <DependentUpon>201901081650573_allow nullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902202008496_AddedFileClass.cs" />
+    <Compile Include="Migrations\201902202008496_AddedFileClass.Designer.cs">
+      <DependentUpon>201902202008496_AddedFileClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902211721215_AddedFieldsToPartTable.cs" />
+    <Compile Include="Migrations\201902211721215_AddedFieldsToPartTable.Designer.cs">
+      <DependentUpon>201902211721215_AddedFieldsToPartTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DisplayModels\DisplayItem.cs" />
+    <Compile Include="Models\File.cs" />
+    <Compile Include="Models\FileType.cs" />
+    <Compile Include="Models\Material.cs" />
     <Compile Include="Models\Nest.cs" />
     <Compile Include="Models\NestedParts.cs" />
+    <Compile Include="Models\Operation.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Part.cs" />
@@ -179,6 +211,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901081650573_allow nullable.resx">
       <DependentUpon>201901081650573_allow nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902202008496_AddedFileClass.resx">
+      <DependentUpon>201902202008496_AddedFileClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902211721215_AddedFieldsToPartTable.resx">
+      <DependentUpon>201902211721215_AddedFieldsToPartTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

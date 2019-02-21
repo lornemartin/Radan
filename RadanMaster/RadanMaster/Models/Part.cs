@@ -18,5 +18,21 @@ namespace RadanMaster.Models
         public double Thickness { get; set; }
         public byte[] Thumbnail { get; set; }
         public bool HasBends { get; set; }
+        public string Title { get; set; }
+        public string ParentPartNumber { get; set; }
+        public string CategoryName { get; set; }
+        public string StructuralCode { get; set; }
+        public string PlantID { get; set; }
+        public bool IsStock { get; set; }
+        public bool RequiresPDF { get; set; }
+        public string Comment { get; set; }
+        public DateTime ModifiedDate { get; set; }
+        public string State { get; set; }
+        public string Keywords { get; set; }
+        public string Notes { get; set; }
+        public string Revision { get; set; }
+
+        public virtual ICollection<Operation> Operations { get; set; }
+        public virtual ICollection<File> Files { get; set; }
     }
 }

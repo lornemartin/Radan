@@ -33,6 +33,7 @@ using log4net.Config;
 using DevExpress.Data.Filtering;
 using DevExpress.XtraBars.Native;
 using VaultAccess;
+using File = System.IO.File;
 
 namespace RadanMaster
 {

@@ -19,6 +19,9 @@ namespace RadanMaster.DAL
         public DbSet<Nest> Nests { get; set; }
         public DbSet<NestedParts> NestedParts { get; set; }
         public DbSet<RadanID> RadanIDs { get; set; }
+        public DbSet<Operation> Operations { get; set; }
+        public DbSet<Material> Materials { get; set; }
+        public DbSet<File>Files { get; set; }
     }
 
 }
