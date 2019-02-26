@@ -431,7 +431,7 @@ namespace RadanMaster
                 if (orderItem.Order.IsBatch == false)
                 {
                     if (orderItem.Order.OrderNumber == null) orderItem.Order.OrderNumber = "";
-                    path = Path.GetDirectoryName(radanProjectName) + "\\Symbols" + "\\" + orderItem.Order.OrderNumber + "\\" + orderItem.Part.FileName + "\\";
+                    path = Path.GetDirectoryName(radanProjectName) + "\\Symbols" + "\\" + orderItem.Order.OrderNumber + "\\" + orderItem.Order.ScheduleName + "\\" + orderItem.Part.FileName + "\\";
                 }
                 else
                 {
