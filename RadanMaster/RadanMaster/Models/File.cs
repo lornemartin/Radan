@@ -16,9 +16,6 @@ namespace RadanMaster.Models
         public string ContentType { get; set; }
         public byte[] Content { get; set; }
         public FileType FileType { get; set; }
-        public int ProductId { get; set; }
-        public virtual Part Part { get; set; }
-        public int OrderDetailID { get; set; }
-        public virtual OrderItem OrderItem { get; set; }
+        public Part Part { get; set; }
     }
 }

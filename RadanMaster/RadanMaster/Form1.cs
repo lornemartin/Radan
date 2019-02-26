@@ -12,6 +12,7 @@ using RadanMaster.Models;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraPdfViewer;
 
 using VaultItemProcessor;
 
@@ -1494,6 +1495,24 @@ namespace RadanMaster
                     //else
                     //    calcItem.IsComplete = false;
                 }
+            }
+
+            if (e.Column.FieldName == "PDFContent")
+            {
+                OrderItem item = (OrderItem)e.Row;
+
+                if (item.Part.Files.Count() > 0)
+                {
+                    PdfViewer pdfViewer = new PdfViewer();
+                    Stream stream = new MemoryStream(item.Part.Files.FirstOrDefault().Content);
+
+                    //pdfViewer.LoadDocument(stream);
+                    //Bitmap bitmap = pdfViewer.CreateBitmap(1, 600);
+                    //pdfViewer.CloseDocument();
+                    //pdfViewer.Dispose();
+                    //e.Value = bitmap;
+                }
+
             }
         }
 

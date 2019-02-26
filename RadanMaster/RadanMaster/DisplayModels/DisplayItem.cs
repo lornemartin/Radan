@@ -13,6 +13,7 @@ namespace RadanMaster.Models
         public int QtyRequired { get; set; }
         public int QtyNested { get; set; }
         public byte[] Thumbnail { get; set; }
+        public byte[] PDFThumbnail { get; set; }
         public string PartName { get; set; }
         public double Thickness { get; set; }
         public string Description { get; set; }
@@ -34,6 +35,7 @@ namespace RadanMaster.Models
             QtyRequired = item.QtyRequired;
             QtyNested = item.QtyNested;
             Thumbnail = item.Part.Thumbnail;
+            PDFThumbnail = item.Part.Files.FirstOrDefault().Content;
             PartName = item.Part.FileName;
             Thickness = item.Part.Thickness;
             Description = item.Part.Description;
