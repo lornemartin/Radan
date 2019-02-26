@@ -41,9 +41,8 @@
             this.repositoryItemSpinEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.colQtyNested = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQtyRemaining = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumnPDFThumbnail = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumnThumb2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemPictureEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
+            this.gridColumnThumb2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.partNameCol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.PartDescCol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.thicknessCol = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -122,6 +121,8 @@
             this.nestsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
+            this.popupContainerPDFViewer = new DevExpress.XtraEditors.PopupContainerControl();
+            this.pdfViewer1 = new DevExpress.XtraPdfViewer.PdfViewer();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
@@ -146,6 +147,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nestsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).BeginInit();
             this.splitContainerControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.popupContainerPDFViewer)).BeginInit();
+            this.popupContainerPDFViewer.SuspendLayout();
             this.SuspendLayout();
             // 
             // colIsInProject
@@ -155,7 +158,7 @@
             this.colIsInProject.Name = "colIsInProject";
             this.colIsInProject.OptionsColumn.AllowEdit = false;
             this.colIsInProject.Visible = true;
-            this.colIsInProject.VisibleIndex = 16;
+            this.colIsInProject.VisibleIndex = 15;
             this.colIsInProject.Width = 33;
             // 
             // gridControlItems
@@ -175,6 +178,8 @@
             this.gridControlItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewItems});
             this.gridControlItems.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gridControlItems_MouseDoubleClick);
+            this.gridControlItems.MouseHover += new System.EventHandler(this.gridControlItems_MouseHover);
+            this.gridControlItems.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gridControlItems_MouseMove);
             // 
             // gridViewItems
             // 
@@ -187,7 +192,6 @@
             this.colQtyRequired,
             this.colQtyNested,
             this.colQtyRemaining,
-            this.gridColumnPDFThumbnail,
             this.gridColumnThumb2,
             this.partNameCol,
             this.PartDescCol,
@@ -273,15 +277,11 @@
             this.colQtyRemaining.Visible = true;
             this.colQtyRemaining.VisibleIndex = 2;
             // 
-            // gridColumnPDFThumbnail
+            // repositoryItemPictureEdit1
             // 
-            this.gridColumnPDFThumbnail.Caption = "PDF";
-            this.gridColumnPDFThumbnail.ColumnEdit = this.repositoryItemPictureEdit1;
-            this.gridColumnPDFThumbnail.FieldName = "PDFContent";
-            this.gridColumnPDFThumbnail.Name = "gridColumnPDFThumbnail";
-            this.gridColumnPDFThumbnail.UnboundType = DevExpress.Data.UnboundColumnType.Object;
-            this.gridColumnPDFThumbnail.Visible = true;
-            this.gridColumnPDFThumbnail.VisibleIndex = 4;
+            this.repositoryItemPictureEdit1.Name = "repositoryItemPictureEdit1";
+            this.repositoryItemPictureEdit1.PictureStoreMode = DevExpress.XtraEditors.Controls.PictureStoreMode.ByteArray;
+            this.repositoryItemPictureEdit1.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
             // 
             // gridColumnThumb2
             // 
@@ -294,12 +294,6 @@
             this.gridColumnThumb2.VisibleIndex = 3;
             this.gridColumnThumb2.Width = 62;
             // 
-            // repositoryItemPictureEdit1
-            // 
-            this.repositoryItemPictureEdit1.Name = "repositoryItemPictureEdit1";
-            this.repositoryItemPictureEdit1.PictureStoreMode = DevExpress.XtraEditors.Controls.PictureStoreMode.ByteArray;
-            this.repositoryItemPictureEdit1.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
-            // 
             // partNameCol
             // 
             this.partNameCol.Caption = "Part Name";
@@ -307,7 +301,7 @@
             this.partNameCol.Name = "partNameCol";
             this.partNameCol.OptionsColumn.AllowEdit = false;
             this.partNameCol.Visible = true;
-            this.partNameCol.VisibleIndex = 5;
+            this.partNameCol.VisibleIndex = 4;
             this.partNameCol.Width = 245;
             // 
             // PartDescCol
@@ -317,7 +311,7 @@
             this.PartDescCol.Name = "PartDescCol";
             this.PartDescCol.OptionsColumn.AllowEdit = false;
             this.PartDescCol.Visible = true;
-            this.PartDescCol.VisibleIndex = 7;
+            this.PartDescCol.VisibleIndex = 6;
             this.PartDescCol.Width = 86;
             // 
             // thicknessCol
@@ -326,7 +320,7 @@
             this.thicknessCol.FieldName = "Part.Thickness";
             this.thicknessCol.Name = "thicknessCol";
             this.thicknessCol.Visible = true;
-            this.thicknessCol.VisibleIndex = 6;
+            this.thicknessCol.VisibleIndex = 5;
             this.thicknessCol.Width = 86;
             // 
             // materialCol
@@ -335,7 +329,7 @@
             this.materialCol.FieldName = "Part.Material";
             this.materialCol.Name = "materialCol";
             this.materialCol.Visible = true;
-            this.materialCol.VisibleIndex = 8;
+            this.materialCol.VisibleIndex = 7;
             this.materialCol.Width = 86;
             // 
             // colIsComplete
@@ -343,7 +337,7 @@
             this.colIsComplete.FieldName = "IsComplete";
             this.colIsComplete.Name = "colIsComplete";
             this.colIsComplete.Visible = true;
-            this.colIsComplete.VisibleIndex = 9;
+            this.colIsComplete.VisibleIndex = 8;
             this.colIsComplete.Width = 61;
             // 
             // colOrderNum
@@ -353,7 +347,7 @@
             this.colOrderNum.Name = "colOrderNum";
             this.colOrderNum.OptionsColumn.AllowEdit = false;
             this.colOrderNum.Visible = true;
-            this.colOrderNum.VisibleIndex = 13;
+            this.colOrderNum.VisibleIndex = 12;
             this.colOrderNum.Width = 122;
             // 
             // gridColSchedName
@@ -363,7 +357,7 @@
             this.gridColSchedName.Name = "gridColSchedName";
             this.gridColSchedName.OptionsColumn.AllowEdit = false;
             this.gridColSchedName.Visible = true;
-            this.gridColSchedName.VisibleIndex = 11;
+            this.gridColSchedName.VisibleIndex = 10;
             this.gridColSchedName.Width = 163;
             // 
             // gridColBatchName
@@ -373,7 +367,7 @@
             this.gridColBatchName.Name = "gridColBatchName";
             this.gridColBatchName.OptionsColumn.AllowEdit = false;
             this.gridColBatchName.Visible = true;
-            this.gridColBatchName.VisibleIndex = 12;
+            this.gridColBatchName.VisibleIndex = 11;
             this.gridColBatchName.Width = 158;
             // 
             // IsBatch
@@ -383,7 +377,7 @@
             this.IsBatch.Name = "IsBatch";
             this.IsBatch.OptionsColumn.AllowEdit = false;
             this.IsBatch.Visible = true;
-            this.IsBatch.VisibleIndex = 10;
+            this.IsBatch.VisibleIndex = 9;
             this.IsBatch.Width = 47;
             // 
             // colDateEntered
@@ -394,7 +388,7 @@
             this.colDateEntered.FieldName = "Order.EntryDate";
             this.colDateEntered.Name = "colDateEntered";
             this.colDateEntered.Visible = true;
-            this.colDateEntered.VisibleIndex = 14;
+            this.colDateEntered.VisibleIndex = 13;
             this.colDateEntered.Width = 96;
             // 
             // colNotes
@@ -404,7 +398,7 @@
             this.colNotes.FieldName = "Notes";
             this.colNotes.Name = "colNotes";
             this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 15;
+            this.colNotes.VisibleIndex = 14;
             this.colNotes.Width = 238;
             // 
             // repositoryItemMemoEdit1
@@ -418,7 +412,7 @@
             this.colOrderIsComplete.FieldName = "Order.IsComplete";
             this.colOrderIsComplete.Name = "colOrderIsComplete";
             this.colOrderIsComplete.Visible = true;
-            this.colOrderIsComplete.VisibleIndex = 17;
+            this.colOrderIsComplete.VisibleIndex = 16;
             // 
             // colHasBends
             // 
@@ -426,7 +420,7 @@
             this.colHasBends.FieldName = "Part.HasBends";
             this.colHasBends.Name = "colHasBends";
             this.colHasBends.Visible = true;
-            this.colHasBends.VisibleIndex = 18;
+            this.colHasBends.VisibleIndex = 17;
             // 
             // colDateCompleted
             // 
@@ -434,7 +428,7 @@
             this.colDateCompleted.FieldName = "Order.DateCompleted";
             this.colDateCompleted.Name = "colDateCompleted";
             this.colDateCompleted.Visible = true;
-            this.colDateCompleted.VisibleIndex = 19;
+            this.colDateCompleted.VisibleIndex = 18;
             // 
             // repositoryItemLookUpEdit1
             // 
@@ -968,6 +962,7 @@
             this.splitContainerControl1.Horizontal = false;
             this.splitContainerControl1.Location = new System.Drawing.Point(0, 143);
             this.splitContainerControl1.Name = "splitContainerControl1";
+            this.splitContainerControl1.Panel1.Controls.Add(this.popupContainerPDFViewer);
             this.splitContainerControl1.Panel1.Controls.Add(this.progressPanel1);
             this.splitContainerControl1.Panel1.Controls.Add(this.gridControlItems);
             this.splitContainerControl1.Panel1.Text = "Panel1";
@@ -987,6 +982,23 @@
             this.progressPanel1.Size = new System.Drawing.Size(246, 66);
             this.progressPanel1.TabIndex = 1;
             this.progressPanel1.Text = "progressPanel1";
+            // 
+            // popupContainerPDFViewer
+            // 
+            this.popupContainerPDFViewer.Controls.Add(this.pdfViewer1);
+            this.popupContainerPDFViewer.Location = new System.Drawing.Point(289, 145);
+            this.popupContainerPDFViewer.Name = "popupContainerPDFViewer";
+            this.popupContainerPDFViewer.Size = new System.Drawing.Size(601, 406);
+            this.popupContainerPDFViewer.TabIndex = 2;
+            // 
+            // pdfViewer1
+            // 
+            this.pdfViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pdfViewer1.Location = new System.Drawing.Point(0, 0);
+            this.pdfViewer1.Name = "pdfViewer1";
+            this.pdfViewer1.Size = new System.Drawing.Size(601, 406);
+            this.pdfViewer1.TabIndex = 0;
+            this.pdfViewer1.ZoomMode = DevExpress.XtraPdfViewer.PdfZoomMode.FitToVisible;
             // 
             // Form1
             // 
@@ -1028,6 +1040,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nestsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();
             this.splitContainerControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.popupContainerPDFViewer)).EndInit();
+            this.popupContainerPDFViewer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1123,7 +1137,8 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit2;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit3;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit4;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumnPDFThumbnail;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEdit1;
+        private DevExpress.XtraEditors.PopupContainerControl popupContainerPDFViewer;
+        private DevExpress.XtraPdfViewer.PdfViewer pdfViewer1;
     }
 }

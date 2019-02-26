@@ -1496,24 +1496,6 @@ namespace RadanMaster
                     //    calcItem.IsComplete = false;
                 }
             }
-
-            if (e.Column.FieldName == "PDFContent")
-            {
-                OrderItem item = (OrderItem)e.Row;
-
-                if (item.Part.Files.Count() > 0)
-                {
-                    PdfViewer pdfViewer = new PdfViewer();
-                    Stream stream = new MemoryStream(item.Part.Files.FirstOrDefault().Content);
-
-                    //pdfViewer.LoadDocument(stream);
-                    //Bitmap bitmap = pdfViewer.CreateBitmap(1, 600);
-                    //pdfViewer.CloseDocument();
-                    //pdfViewer.Dispose();
-                    //e.Value = bitmap;
-                }
-
-            }
         }
 
         private void barButtonItemConnectToRadan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -2008,6 +1990,48 @@ namespace RadanMaster
             barEditNumOfDays.EditValue = groupAndFilterSettings.NumberOfDays;
         }
 
+        private void gridControlItems_MouseMove(object sender, MouseEventArgs e)
+        {
+            GridHitInfo info = gridViewItems.CalcHitInfo(e.Location);
+            GridViewInfo viewInfo = gridViewItems.GetViewInfo() as GridViewInfo;
+            GridCellInfo cellInfo = viewInfo.GetGridCellInfo(info);
+
+            if (cellInfo != null)
+            {
+                if (cellInfo.Column.Caption == "Part Name")
+                {
+                    int handle = cellInfo.RowHandle;
+                    OrderItem item = (OrderItem) gridViewItems.GetRow(handle);
+                    if (item.Part.Files.Count>0)
+                    {
+                        Stream stream = new MemoryStream(item.Part.Files.FirstOrDefault().Content);
+                        pdfViewer1.LoadDocument(stream);
+                        pdfViewer1.CurrentPageNumber = 1;
+                        pdfViewer1.ZoomMode = PdfZoomMode.FitToVisible;
+                        popupContainerPDFViewer.Show();
+                    }
+                }
+                else
+                {
+                    popupContainerPDFViewer.Hide();
+                }
+
+            }
+            else
+                popupContainerPDFViewer.Hide();
+
+            Point popupPoint = new Point(e.X + 5, e.Y + 5);
+            if (popupPoint.Y + popupContainerPDFViewer.Height > gridControlItems.Height)
+                popupPoint.Y = gridControlItems.Height - popupContainerPDFViewer.Height;
+            popupContainerPDFViewer.Location = popupPoint;
+        }
+
+        private void gridControlItems_MouseHover(object sender, EventArgs e)
+        {
+
+        }
+
+
         #endregion
 
         #region Nests
@@ -2140,6 +2164,7 @@ namespace RadanMaster
                 }
             }
         }
-    }
+
+            }
 }
 
