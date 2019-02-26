@@ -367,12 +367,21 @@ namespace RadanMaster
                                 orderNumber = oItem.Order.OrderNumber == null ? "" : oItem.Order.OrderNumber;
                             else if(oItem.Order.OrderNumber != "")
                                 orderNumber = "mulitiple";
-                            string scheduleName = oItem.Order.ScheduleName == null ? "" : oItem.Order.ScheduleName;
+
+                            string scheduleName = "";
+                            if (!multiple)
+                            {
+                                scheduleName = oItem.Order.ScheduleName == null ? "" : oItem.Order.ScheduleName;
+                            }
+                            else if (oItem.Order.ScheduleName != "")
+                                scheduleName = "multiple";
+
                             string batchName = "";
                             if (!multiple)
                                 batchName = oItem.Order.BatchName == null ? "" : oItem.Order.BatchName;
                             else if (oItem.Order.BatchName != "")
                                 batchName = "multiple";
+
                             string description = oItem.Part.Description == null ? "" : oItem.Part.Description;
 
                             //bool hasBends = radInterface.GetBendDataFromSym(symFolder + "\\" + symName + ".sym");
@@ -1040,8 +1049,14 @@ namespace RadanMaster
                                 string batchName = "";
                                 if (gridViewItems.GetRowCellValue(i, "Order.BatchName") != null)
                                     batchName = gridViewItems.GetRowCellValue(i, "Order.BatchName").ToString();
+                                string schedName = "";
+                                if (gridViewItems.GetRowCellValue(i, "Order.ScheduleName") != null)
+                                    schedName = gridViewItems.GetRowCellValue(i, "Order.ScheduleName").ToString();
 
-                                OrderItem orderItem = dbContext.OrderItems.Where(oi => oi.Part.FileName == partName).Where(oi => oi.Order.OrderNumber == orderNumber).Where(oi => oi.Order.BatchName == batchName).FirstOrDefault();
+                                OrderItem orderItem = dbContext.OrderItems.Where(oi => oi.Part.FileName == partName)
+                                                                          .Where(oi => oi.Order.OrderNumber == orderNumber)
+                                                                          .Where(oi => oi.Order.BatchName == batchName)
+                                                                          .Where(oi => oi.Order.ScheduleName == schedName).FirstOrDefault();
                                 if (orderItem != null)
                                     if (!masterItemToRadanPart(orderItem))
                                     {
