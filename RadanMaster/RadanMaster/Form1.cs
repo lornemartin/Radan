@@ -1049,7 +1049,7 @@ namespace RadanMaster
                                 string batchName = "";
                                 if (gridViewItems.GetRowCellValue(i, "Order.BatchName") != null)
                                     batchName = gridViewItems.GetRowCellValue(i, "Order.BatchName").ToString();
-                                string schedName = "";
+                                string schedName = null;
                                 if (gridViewItems.GetRowCellValue(i, "Order.ScheduleName") != null)
                                     schedName = gridViewItems.GetRowCellValue(i, "Order.ScheduleName").ToString();
 
