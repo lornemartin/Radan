@@ -1,6 +1,6 @@
 ﻿namespace RadanMaster
 {
-    partial class Form1
+    partial class Nesting
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Nesting));
             this.colIsInProject = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControlItems = new DevExpress.XtraGrid.GridControl();
             this.orderItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -41,8 +41,8 @@
             this.repositoryItemSpinEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.colQtyNested = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQtyRemaining = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemPictureEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
             this.gridColumnThumb2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemPictureEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
             this.partNameCol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.PartDescCol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.thicknessCol = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -120,9 +120,9 @@
             this.colQtyOnNest = new DevExpress.XtraGrid.Columns.GridColumn();
             this.nestsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
-            this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
             this.popupContainerPDFViewer = new DevExpress.XtraEditors.PopupContainerControl();
             this.pdfViewer1 = new DevExpress.XtraPdfViewer.PdfViewer();
+            this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
@@ -277,12 +277,6 @@
             this.colQtyRemaining.Visible = true;
             this.colQtyRemaining.VisibleIndex = 2;
             // 
-            // repositoryItemPictureEdit1
-            // 
-            this.repositoryItemPictureEdit1.Name = "repositoryItemPictureEdit1";
-            this.repositoryItemPictureEdit1.PictureStoreMode = DevExpress.XtraEditors.Controls.PictureStoreMode.ByteArray;
-            this.repositoryItemPictureEdit1.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
-            // 
             // gridColumnThumb2
             // 
             this.gridColumnThumb2.Caption = "Thumbnail";
@@ -293,6 +287,12 @@
             this.gridColumnThumb2.Visible = true;
             this.gridColumnThumb2.VisibleIndex = 3;
             this.gridColumnThumb2.Width = 62;
+            // 
+            // repositoryItemPictureEdit1
+            // 
+            this.repositoryItemPictureEdit1.Name = "repositoryItemPictureEdit1";
+            this.repositoryItemPictureEdit1.PictureStoreMode = DevExpress.XtraEditors.Controls.PictureStoreMode.ByteArray;
+            this.repositoryItemPictureEdit1.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
             // 
             // partNameCol
             // 
@@ -972,17 +972,6 @@
             this.splitContainerControl1.SplitterPosition = 591;
             this.splitContainerControl1.TabIndex = 5;
             // 
-            // progressPanel1
-            // 
-            this.progressPanel1.Appearance.BackColor = System.Drawing.Color.Transparent;
-            this.progressPanel1.Appearance.Options.UseBackColor = true;
-            this.progressPanel1.BarAnimationElementThickness = 2;
-            this.progressPanel1.Location = new System.Drawing.Point(935, 105);
-            this.progressPanel1.Name = "progressPanel1";
-            this.progressPanel1.Size = new System.Drawing.Size(246, 66);
-            this.progressPanel1.TabIndex = 1;
-            this.progressPanel1.Text = "progressPanel1";
-            // 
             // popupContainerPDFViewer
             // 
             this.popupContainerPDFViewer.Controls.Add(this.pdfViewer1);
@@ -1000,7 +989,18 @@
             this.pdfViewer1.TabIndex = 0;
             this.pdfViewer1.ZoomMode = DevExpress.XtraPdfViewer.PdfZoomMode.FitToVisible;
             // 
-            // Form1
+            // progressPanel1
+            // 
+            this.progressPanel1.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.progressPanel1.Appearance.Options.UseBackColor = true;
+            this.progressPanel1.BarAnimationElementThickness = 2;
+            this.progressPanel1.Location = new System.Drawing.Point(935, 105);
+            this.progressPanel1.Name = "progressPanel1";
+            this.progressPanel1.Size = new System.Drawing.Size(246, 66);
+            this.progressPanel1.TabIndex = 1;
+            this.progressPanel1.Text = "progressPanel1";
+            // 
+            // Nesting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1009,9 +1009,9 @@
             this.Controls.Add(this.splitContainerControl1);
             this.Controls.Add(this.ribbonControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "Nesting";
             this.Ribbon = this.ribbonControl1;
-            this.Text = "RadanMaster";
+            this.Text = "Nesting";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);

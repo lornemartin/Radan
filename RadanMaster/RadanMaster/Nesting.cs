@@ -38,7 +38,7 @@ using File = System.IO.File;
 
 namespace RadanMaster
 {
-    public partial class Form1 : RibbonForm
+    public partial class Nesting : RibbonForm
     {
         RadanMaster.DAL.RadanMasterContext dbContext { get; set; }
         string radanProjectName { get; set; }
@@ -53,7 +53,7 @@ namespace RadanMaster
 
         RefreshHelper helper;
 
-        public Form1()
+        public Nesting()
         {
             try
             {
