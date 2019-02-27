@@ -112,7 +112,8 @@ namespace RadanMaster
                 logger.Info("dbContext loaded.");
                 logger.Info("Test2");
 
-                this.Text = dbContext.Database.Connection.Database.ToString();
+                //this.Text = dbContext.Database.Connection.Database.ToString();
+
 
                 orderItemsBindingSource.DataSource = dbContext.OrderItems.Local.ToBindingList();
                 nestsBindingSource.DataSource = null;

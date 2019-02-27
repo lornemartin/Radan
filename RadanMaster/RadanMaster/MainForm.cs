@@ -23,5 +23,11 @@ namespace RadanMaster
             Nesting nestingForm = new Nesting();
             nestingForm.ShowDialog();
         }
+
+        private void buttonAllItems_Click(object sender, EventArgs e)
+        {
+            AllItems allitemsForm = new AllItems();
+            allitemsForm.ShowDialog();
+        }
     }
 }
