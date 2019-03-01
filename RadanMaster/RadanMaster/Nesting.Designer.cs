@@ -58,6 +58,7 @@
             this.colOrderIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colHasBends = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateCompleted = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOperations = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.displayItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
@@ -207,7 +208,8 @@
             this.colNotes,
             this.colOrderIsComplete,
             this.colHasBends,
-            this.colDateCompleted});
+            this.colDateCompleted,
+            this.colOperations});
             gridFormatRule1.ApplyToRow = true;
             gridFormatRule1.Column = this.colIsInProject;
             gridFormatRule1.Name = "frmtIsInProject";
@@ -429,6 +431,13 @@
             this.colDateCompleted.Name = "colDateCompleted";
             this.colDateCompleted.Visible = true;
             this.colDateCompleted.VisibleIndex = 18;
+            // 
+            // colOperations
+            // 
+            this.colOperations.Caption = "Operations";
+            this.colOperations.FieldName = "Ops";
+            this.colOperations.Name = "colOperations";
+            this.colOperations.UnboundType = DevExpress.Data.UnboundColumnType.String;
             // 
             // repositoryItemLookUpEdit1
             // 
@@ -1011,6 +1020,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Nesting";
             this.Ribbon = this.ribbonControl1;
+            this.ShowInTaskbar = false;
             this.Text = "Nesting";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -1140,5 +1150,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEdit1;
         private DevExpress.XtraEditors.PopupContainerControl popupContainerPDFViewer;
         private DevExpress.XtraPdfViewer.PdfViewer pdfViewer1;
+        private DevExpress.XtraGrid.Columns.GridColumn colOperations;
     }
 }

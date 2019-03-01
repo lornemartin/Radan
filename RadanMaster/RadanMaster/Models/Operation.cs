@@ -11,5 +11,8 @@ namespace RadanMaster.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
+
+        public Part Part { get; set; }
+        public int PartID { get; set; }
     }
 }

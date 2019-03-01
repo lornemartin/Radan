@@ -35,6 +35,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.XtraBars.Native;
 using VaultAccess;
 using File = System.IO.File;
+using DevExpress.XtraGrid;
 
 namespace RadanMaster
 {
@@ -126,7 +127,7 @@ namespace RadanMaster
                 progressPanel1.Hide();
 
                 // load grid layout from file
-                string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\ItemsGridLayout.xml";
+                string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\NestingGridLayout.xml";
                 if (System.IO.File.Exists(SettingsFilePath))
                 {
                     gridControlItems.ForceInitialize();
@@ -134,8 +135,10 @@ namespace RadanMaster
                 }
 
                 // load collapsed/expanded state of gridview
-                helper = new RefreshHelper(gridViewItems, "ID");
+                helper = new RefreshHelper(gridViewItems, "ID","NestingGridExpansion.xml");
                 helper.LoadViewInfo();
+
+                gridViewItems.SetRowCellValue(GridControl.AutoFilterRowHandle, gridViewItems.Columns["Ops"], "Laser");
             }
             catch (Exception ex)
             {
@@ -1512,6 +1515,15 @@ namespace RadanMaster
                     //    calcItem.IsComplete = false;
                 }
             }
+            if (e.Column.FieldName == "Ops")
+            {
+
+                OrderItem item = (OrderItem)e.Row;
+                if (item.Part.Operations.Count > 0)
+                    e.Value = item.Part.Operations.FirstOrDefault().Name;
+                else
+                    e.Value = "None";
+            }
         }
 
         private void barButtonItemConnectToRadan_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -2159,7 +2171,7 @@ namespace RadanMaster
             groupAndFilterSettings.SaveSettingsToFile();
 
             // save the layout 
-            string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\ItemsGridLayout.xml";
+            string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\NestingGridLayout.xml";
             gridControlItems.MainView.SaveLayoutToXml(SettingsFilePath, OptionsLayoutBase.FullLayout);
 
             //save the expanded/contracted state of grouped rows

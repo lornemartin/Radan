@@ -23,11 +23,13 @@ namespace RadanMaster
 
         private GridView view;
         private string keyFieldName;
+        private string fileName;
 
-        public RefreshHelper(GridView view, string keyFieldName)
+        public RefreshHelper(GridView view, string keyFieldName,string fileName)
         {
             this.view = view;
             this.keyFieldName = keyFieldName;
+            this.fileName = fileName;
         }
 
         protected int FindParentRowHandle(RowInfo rowInfo, int rowHandle)
@@ -68,7 +70,7 @@ namespace RadanMaster
                 }
             }
 
-            string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\ExapandedRows.xml";
+            string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\" + fileName;
             var serializer = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(RowInfo) });
             using (FileStream stream = new FileStream(SettingsFilePath, FileMode.Create))
             {
@@ -78,7 +80,7 @@ namespace RadanMaster
 
         public void LoadExpansionViewInfo()
         {
-            string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\ExapandedRows.xml";
+            string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\" + fileName;
             ArrayList list = new ArrayList();
             var serializer = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(RowInfo) });
             using (FileStream stream = new FileStream(SettingsFilePath, FileMode.Open))

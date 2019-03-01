@@ -9,12 +9,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
 using System.Data.Entity;
+using RadanMaster.Models;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using System.IO;
+using DevExpress.XtraPdfViewer;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.Utils;
 
 namespace RadanMaster
 {
     public partial class AllItems : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         RadanMaster.DAL.RadanMasterContext dbContext { get; set; }
+
+        RefreshHelper helper;
 
         public AllItems()
         {
@@ -30,6 +38,204 @@ namespace RadanMaster
             dbContext.Operations.Load();
 
             gridControlAllItems.DataSource = dbContext.OrderItems.Local.ToBindingList();
+
+            // load grid layout from file
+            string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\AllItemsGridLayout.xml";
+            if (System.IO.File.Exists(SettingsFilePath))
+            {
+                gridControlAllItems.ForceInitialize();
+                gridControlAllItems.MainView.RestoreLayoutFromXml(SettingsFilePath);
+            }
+
+            // load collapsed/expanded state of gridview
+            helper = new RefreshHelper(gridViewAllItems, "ID", "AllItemsGridExpansion.xml");
+            helper.LoadViewInfo();
+        }
+
+        private void gridViewAllItems_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
+        {
+            if (e.Column.FieldName == "calcQtyNested")
+            {
+                //int origQtyNested = 0;
+
+                //if (rPrj == null)
+                //    e.Value = "??";
+                //else
+                //{
+                //    int totalNested = 0;
+                //    OrderItem calcItem = (OrderItem)e.Row;
+                //    origQtyNested = calcItem.QtyNested;
+
+                //    if (calcItem.RadanIDNumber != 0)
+                //    {
+                //        int radanID = calcItem.RadanIDNumber;
+
+                //        foreach (RadanPart radanPart in rPrj.Parts.Part)
+                //        {
+                //            if (radanPart.Bin == radanID.ToString())
+                //            {
+                //                totalNested += radanPart.Made;
+                //            }
+                //        }
+                //    }
+
+                //    e.Value = calcItem.QtyNested += totalNested;
+
+                //    // for some reason e.Value gets written to calcItem.QtyNested.
+                //    //    because this event fires multiple times, the quantity nested gets incremented multiple times.
+                //    //    This is not what we want so the following line is a work around.
+                //    calcItem.QtyNested = origQtyNested;
+
+                //    if ((int)e.Value >= calcItem.QtyRequired)
+                //        calcItem.IsComplete = true;
+                //    else
+                //        calcItem.IsComplete = false;
+                //}
+            }
+
+            if (e.Column.FieldName == "calcRemaining")
+            {
+                //int origQtyNested = 0;
+
+                //if (rPrj == null)
+                //    e.Value = "??";
+                //else
+                //{
+                //    int totalNested = 0;
+                //    OrderItem calcItem = (OrderItem)e.Row;
+                //    origQtyNested = calcItem.QtyNested;
+
+                //    if (calcItem.RadanIDNumber != 0)
+                //    {
+                //        int radanID = calcItem.RadanIDNumber;
+
+                //        foreach (RadanPart radanPart in rPrj.Parts.Part)
+                //        {
+                //            if (radanPart.Bin == radanID.ToString())
+                //            {
+                //                totalNested += radanPart.Made;
+                //            }
+                //        }
+                //    }
+
+                //    e.Value = calcItem.QtyRequired - (calcItem.QtyNested += totalNested);
+
+                //    // for some reason e.Value gets written to calcItem.QtyNested.
+                //    //    because this event fires multiple times, the quantity nested gets incremented multiple times.
+                //    //    This is not what we want so the following line is a work around.
+                //    calcItem.QtyNested = origQtyNested;
+
+                //    //if ((int)e.Value >= calcItem.QtyRequired)
+                //    //    calcItem.IsComplete = true;
+                //    //else
+                //    //    calcItem.IsComplete = false;
+                //}
+            }
+
+            if (e.Column.FieldName == "Ops")
+            {
+                
+                OrderItem item = (OrderItem)e.Row;
+                if (item.Part.Operations.Count > 0)
+                    e.Value = item.Part.Operations.FirstOrDefault().Name;
+                else
+                    e.Value = "None";
+            }
+        }
+
+        private void gridControlAllItems_MouseMove(object sender, MouseEventArgs e)
+        {
+            GridHitInfo info = gridViewAllItems.CalcHitInfo(e.Location);
+            GridViewInfo viewInfo = gridViewAllItems.GetViewInfo() as GridViewInfo;
+            GridCellInfo cellInfo = viewInfo.GetGridCellInfo(info);
+
+            if (cellInfo != null)
+            {
+                if (cellInfo.Column.Caption == "Part Number")
+                {
+                    int handle = cellInfo.RowHandle;
+                    OrderItem item = (OrderItem)gridViewAllItems.GetRow(handle);
+                    if (item.Part.Files.Count > 0)
+                    {
+                        Stream stream = new MemoryStream(item.Part.Files.FirstOrDefault().Content);
+                        pdfViewerAllItems.LoadDocument(stream);
+                        pdfViewerAllItems.CurrentPageNumber = 1;
+                        pdfViewerAllItems.ZoomMode = PdfZoomMode.FitToVisible;
+
+                        Point popupPoint = new Point(e.X + 5, e.Y + 5);
+                        if (popupPoint.Y + popupControlContainerAllItems.Height > gridControlAllItems.Height)
+                            popupPoint.Y = gridControlAllItems.Height - popupControlContainerAllItems.Height;
+                        popupControlContainerAllItems.Location = popupPoint;
+                        popupControlContainerAllItems.Show();
+                    }
+                    else
+                    {
+                        popupControlContainerAllItems.Hide();
+                    }
+                }
+                else
+                {
+                    popupControlContainerAllItems.Hide();
+                }
+
+            }
+            else
+            {
+                popupControlContainerAllItems.Hide();
+            }
+
+            
+        }
+
+        
+
+        private void gridViewAllItems_RowDeleted(object sender, DevExpress.Data.RowDeletedEventArgs e)
+        {
+            dbContext.SaveChanges();
+        }
+
+        private void gridViewAllItems_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
+        {
+            dbContext.SaveChanges();
+        }
+
+        private void gridViewAllItems_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            bool canDelete = true;
+            if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control)
+            {
+                GridView view = sender as GridView;
+                int numRows = view.SelectedRowsCount;
+                if (MessageBox.Show("Delete " + numRows + " row(s)?", "Confirmation", MessageBoxButtons.YesNo) !=
+                  DialogResult.Yes)
+                    return;
+
+                List<int> rowHandleList = view.GetSelectedRows().ToList();
+                foreach (int rowHandle in rowHandleList)
+                {
+                    object o = view.GetRow(rowHandle);
+                    OrderItem itemToDelete = (OrderItem)o;
+                    if (itemToDelete.IsInProject == true)
+                    {
+                        MessageBox.Show("Cannot delete items that are currently in a Radan project.  Please change your selection and try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        canDelete = false;
+                        break;
+                    }
+                }
+
+                if (canDelete)
+                    view.DeleteSelectedRows();
+            }
+        }
+
+        private void AllItems_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // save the layout 
+            string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\AllItemsGridLayout.xml";
+            gridControlAllItems.MainView.SaveLayoutToXml(SettingsFilePath, OptionsLayoutBase.FullLayout);
+
+            //save the expanded/contracted state of grouped rows
+            helper.SaveViewInfo();
         }
     }
 }
