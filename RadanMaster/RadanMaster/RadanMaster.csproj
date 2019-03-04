@@ -149,9 +149,13 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902271959595_InitialCreate.cs" />
-    <Compile Include="Migrations\201902271959595_InitialCreate.Designer.cs">
-      <DependentUpon>201902271959595_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201903041512054_InitialCreate.cs" />
+    <Compile Include="Migrations\201903041512054_InitialCreate.Designer.cs">
+      <DependentUpon>201903041512054_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903041521137_current.cs" />
+    <Compile Include="Migrations\201903041521137_current.Designer.cs">
+      <DependentUpon>201903041521137_current.cs</DependentUpon>
     </Compile>
     <Compile Include="Nesting.cs">
       <SubType>Form</SubType>
@@ -202,8 +206,11 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902271959595_InitialCreate.resx">
-      <DependentUpon>201902271959595_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903041512054_InitialCreate.resx">
+      <DependentUpon>201903041512054_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903041521137_current.resx">
+      <DependentUpon>201903041521137_current.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nesting.resx">
       <DependentUpon>Nesting.cs</DependentUpon>
