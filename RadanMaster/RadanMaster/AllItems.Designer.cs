@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.ribbonPageHome = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -53,14 +52,16 @@
             this.colIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
-            this.popupControlContainerAllItems = new DevExpress.XtraBars.PopupControlContainer(this.components);
+            this.popupControlContainerAllItems = new DevExpress.XtraBars.PopupControlContainer();
             this.pdfViewerAllItems = new DevExpress.XtraPdfViewer.PdfViewer();
+            this.entityServerModeSource1 = new DevExpress.Data.Linq.EntityServerModeSource();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlAllItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewAllItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupControlContainerAllItems)).BeginInit();
             this.popupControlContainerAllItems.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.entityServerModeSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbon
@@ -97,7 +98,6 @@
             // 
             // gridControlAllItems
             // 
-            this.gridControlAllItems.DataSource = typeof(RadanMaster.Models.OrderItem);
             this.gridControlAllItems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridControlAllItems.Location = new System.Drawing.Point(0, 143);
             this.gridControlAllItems.MainView = this.gridViewAllItems;
@@ -311,6 +311,11 @@
             this.pdfViewerAllItems.Size = new System.Drawing.Size(482, 403);
             this.pdfViewerAllItems.TabIndex = 0;
             // 
+            // entityServerModeSource1
+            // 
+            this.entityServerModeSource1.ElementType = typeof(RadanMaster.Models.OrderItem);
+            this.entityServerModeSource1.KeyExpression = "ID";
+            // 
             // AllItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -333,6 +338,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupControlContainerAllItems)).EndInit();
             this.popupControlContainerAllItems.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.entityServerModeSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -366,5 +372,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colIsStock;
         private DevExpress.XtraBars.PopupControlContainer popupControlContainerAllItems;
         private DevExpress.XtraPdfViewer.PdfViewer pdfViewerAllItems;
+        private DevExpress.Data.Linq.EntityServerModeSource entityServerModeSource1;
     }
 }
