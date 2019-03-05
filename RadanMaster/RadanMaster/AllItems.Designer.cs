@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.ribbonPageHome = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -52,7 +53,7 @@
             this.colIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
-            this.popupControlContainerAllItems = new DevExpress.XtraBars.PopupControlContainer();
+            this.popupControlContainerAllItems = new DevExpress.XtraBars.PopupControlContainer(this.components);
             this.pdfViewerAllItems = new DevExpress.XtraPdfViewer.PdfViewer();
             this.entityServerModeSource1 = new DevExpress.Data.Linq.EntityServerModeSource();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -133,13 +134,16 @@
             this.colNotes});
             this.gridViewAllItems.GridControl = this.gridControlAllItems;
             this.gridViewAllItems.Name = "gridViewAllItems";
+            this.gridViewAllItems.OptionsBehavior.Editable = false;
             this.gridViewAllItems.OptionsSelection.MultiSelect = true;
+            this.gridViewAllItems.OptionsView.AllowHtmlDrawHeaders = true;
             this.gridViewAllItems.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colThickness, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gridViewAllItems.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridViewAllItems_RowDeleted);
             this.gridViewAllItems.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gridViewAllItems_RowUpdated);
             this.gridViewAllItems.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.gridViewAllItems_CustomUnboundColumnData);
             this.gridViewAllItems.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridViewAllItems_KeyDown_1);
+            this.gridViewAllItems.DoubleClick += new System.EventHandler(this.gridViewAllItems_DoubleClick);
             // 
             // colID
             // 
@@ -167,6 +171,8 @@
             this.colCategory.Caption = "Category";
             this.colCategory.FieldName = "Part.CategoryName";
             this.colCategory.Name = "colCategory";
+            this.colCategory.OptionsColumn.AllowGroup = DevExpress.Utils.DefaultBoolean.True;
+            this.colCategory.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
             this.colCategory.Visible = true;
             this.colCategory.VisibleIndex = 2;
             this.colCategory.Width = 108;
@@ -203,6 +209,11 @@
             this.OperationCol.Caption = "Operation";
             this.OperationCol.FieldName = "Ops";
             this.OperationCol.Name = "OperationCol";
+            this.OperationCol.OptionsColumn.AllowGroup = DevExpress.Utils.DefaultBoolean.True;
+            this.OperationCol.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.True;
+            this.OperationCol.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
+            this.OperationCol.OptionsColumn.ImmediateUpdateRowPosition = DevExpress.Utils.DefaultBoolean.True;
+            this.OperationCol.OptionsColumn.Printable = DevExpress.Utils.DefaultBoolean.True;
             this.OperationCol.UnboundType = DevExpress.Data.UnboundColumnType.String;
             this.OperationCol.Visible = true;
             this.OperationCol.VisibleIndex = 8;

@@ -221,9 +221,11 @@
             this.gridViewItems.FormatRules.Add(gridFormatRule1);
             this.gridViewItems.GridControl = this.gridControlItems;
             this.gridViewItems.Name = "gridViewItems";
+            this.gridViewItems.OptionsEditForm.ShowOnDoubleClick = DevExpress.Utils.DefaultBoolean.True;
             this.gridViewItems.OptionsEditForm.ShowOnF2Key = DevExpress.Utils.DefaultBoolean.True;
             this.gridViewItems.OptionsLayout.StoreAppearance = true;
             this.gridViewItems.OptionsSelection.MultiSelect = true;
+            this.gridViewItems.OptionsView.AllowHtmlDrawHeaders = true;
             this.gridViewItems.OptionsView.RowAutoHeight = true;
             this.gridViewItems.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridViewItems_RowClick);
             this.gridViewItems.CustomDrawGroupRow += new DevExpress.XtraGrid.Views.Base.RowObjectCustomDrawEventHandler(this.gridViewItems_CustomDrawGroupRow);

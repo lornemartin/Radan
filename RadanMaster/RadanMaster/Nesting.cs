@@ -46,7 +46,7 @@ namespace RadanMaster
         RadanProject rPrj { get; set; }
         string symFolder { get; set; }
         RadanInterface radInterface { get; set; }
-        BindingList<DisplayItem> DisplayItems { get; set; }
+        //BindingList<DisplayItem> DisplayItems { get; set; }
         GroupAndFilterSettings groupAndFilterSettings { get; set; }
 
         private static readonly log4net.ILog logger =

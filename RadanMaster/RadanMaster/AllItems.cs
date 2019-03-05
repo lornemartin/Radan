@@ -38,8 +38,15 @@ namespace RadanMaster
             //dbContext.Operations.Load();
 
             //gridControlAllItems.DataSource = dbContext.OrderItems.Local.ToBindingList();
+            List<DisplayItem> displayItems = new List<DisplayItem>();
 
-            entityServerModeSource1.QueryableSource = dbContext.OrderItems;
+            foreach(OrderItem oItem in dbContext.OrderItems)
+            {
+                DisplayItem dItem = new DisplayItem(oItem);
+                displayItems.Add(dItem);
+            }
+
+            entityServerModeSource1.QueryableSource = (IQueryable)displayItems;
             entityServerModeSource1.KeyExpression = "ID";
             gridControlAllItems.DataSource = entityServerModeSource1;
 
@@ -139,22 +146,25 @@ namespace RadanMaster
                 {
                     int handle = cellInfo.RowHandle;
                     OrderItem item = (OrderItem)gridViewAllItems.GetRow(handle);
-                    if (item.Part.Files.Count > 0)
+                    if (item != null)
                     {
-                        Stream stream = new MemoryStream(item.Part.Files.FirstOrDefault().Content);
-                        pdfViewerAllItems.LoadDocument(stream);
-                        pdfViewerAllItems.CurrentPageNumber = 1;
-                        pdfViewerAllItems.ZoomMode = PdfZoomMode.FitToVisible;
+                        if (item.Part.Files.Count > 0)
+                        {
+                            Stream stream = new MemoryStream(item.Part.Files.FirstOrDefault().Content);
+                            pdfViewerAllItems.LoadDocument(stream);
+                            pdfViewerAllItems.CurrentPageNumber = 1;
+                            pdfViewerAllItems.ZoomMode = PdfZoomMode.FitToVisible;
 
-                        Point popupPoint = new Point(e.X + 5, e.Y + 5);
-                        if (popupPoint.Y + popupControlContainerAllItems.Height > gridControlAllItems.Height)
-                            popupPoint.Y = gridControlAllItems.Height - popupControlContainerAllItems.Height;
-                        popupControlContainerAllItems.Location = popupPoint;
-                        popupControlContainerAllItems.Show();
-                    }
-                    else
-                    {
-                        popupControlContainerAllItems.Hide();
+                            Point popupPoint = new Point(e.X + 5, e.Y + 5);
+                            if (popupPoint.Y + popupControlContainerAllItems.Height > gridControlAllItems.Height)
+                                popupPoint.Y = gridControlAllItems.Height - popupControlContainerAllItems.Height;
+                            popupControlContainerAllItems.Location = popupPoint;
+                            popupControlContainerAllItems.Show();
+                        }
+                        else
+                        {
+                            popupControlContainerAllItems.Hide();
+                        }
                     }
                 }
                 else
@@ -210,6 +220,19 @@ namespace RadanMaster
                 if (canDelete)
                     view.DeleteSelectedRows();
             }
+            //if (e.KeyCode == Keys.F2)
+            //{
+            //    GridView view = sender as GridView;
+            //    int numRows = view.SelectedRowsCount;
+
+            //    List<int> rowHandleList = view.GetSelectedRows().ToList();
+            //    foreach (int rowHandle in rowHandleList)
+            //    {
+            //        object o = view.GetRow(rowHandle);
+            //        OrderItem itemToDelete = (OrderItem)o;
+
+            //    }
+            //}
         }
 
         private void AllItems_FormClosing(object sender, FormClosingEventArgs e)
@@ -220,6 +243,29 @@ namespace RadanMaster
 
             //save the expanded/contracted state of grouped rows
             helper.SaveViewInfo();
+        }
+
+        
+
+        private void gridViewAllItems_DoubleClick(object sender, EventArgs e)
+        {
+            GridView view = sender as GridView;
+            int numRows = view.SelectedRowsCount;
+
+            List<int> rowHandleList = view.GetSelectedRows().ToList();
+            foreach (int rowHandle in rowHandleList)
+            {
+                object o = view.GetRow(rowHandle);
+                OrderItem itemToEdit = (OrderItem)o;
+                //itemToEdit.QtyNested = 0;
+                //dbContext.SaveChanges();
+                //gridViewAllItems.RefreshData();
+
+                EditOrderitem editForm = new EditOrderitem(itemToEdit, dbContext);
+                editForm.ShowDialog();
+                gridViewAllItems.RefreshData();
+            }
+                
         }
     }
 }
