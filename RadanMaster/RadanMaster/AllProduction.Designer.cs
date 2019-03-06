@@ -105,6 +105,7 @@
             this.gridControlAllProduction.TabIndex = 2;
             this.gridControlAllProduction.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewAllProduction});
+            this.gridControlAllProduction.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridControlAllProduction_KeyDown);
             this.gridControlAllProduction.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gridControlAllProduction_MouseMove);
             // 
             // entityServerModeSource2
@@ -132,6 +133,10 @@
             this.colIsBatch});
             this.gridViewAllProduction.GridControl = this.gridControlAllProduction;
             this.gridViewAllProduction.Name = "gridViewAllProduction";
+            this.gridViewAllProduction.OptionsSelection.MultiSelect = true;
+            this.gridViewAllProduction.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridViewAllProduction_RowDeleted);
+            this.gridViewAllProduction.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gridViewAllProduction_RowUpdated);
+            this.gridViewAllProduction.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridViewAllProduction_KeyDown);
             // 
             // colQtyRequired
             // 

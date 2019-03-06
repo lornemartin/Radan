@@ -13,6 +13,7 @@ using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using DevExpress.XtraPdfViewer;
 using RadanMaster.Models;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace RadanMaster
 {
@@ -122,6 +123,58 @@ namespace RadanMaster
             }
 
 
+        }
+
+        private void gridControlAllProduction_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        private void gridViewAllProduction_RowDeleted(object sender, DevExpress.Data.RowDeletedEventArgs e)
+        {
+            dbContext.SaveChanges();
+            entityServerModeSource2.Reload();
+            gridViewAllProduction.RefreshData();
+        }
+
+        private void gridViewAllProduction_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
+        {
+            dbContext.SaveChanges();
+            gridViewAllProduction.RefreshData();
+        }
+
+        private void gridViewAllProduction_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool canDelete = true;
+            if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control)
+            {
+                GridView view = sender as GridView;
+                int numRows = view.SelectedRowsCount;
+                if (MessageBox.Show("Delete " + numRows + " row(s)?", "Confirmation", MessageBoxButtons.YesNo) !=
+                  DialogResult.Yes)
+                    return;
+
+                List<int> rowHandleList = view.GetSelectedRows().ToList();
+                foreach (int rowHandle in rowHandleList)
+                {
+                    dynamic o = gridViewAllProduction.GetRow(rowHandle);
+                    int itemIndex = o.ID;
+                    OrderItem itemToDelete = dbContext.OrderItems.FirstOrDefault(it => it.ID == itemIndex);
+
+                    if (itemToDelete.IsInProject == true)
+                    {
+                        MessageBox.Show("Cannot delete items that are currently in a Radan project.  Please change your selection and try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        canDelete = false;
+                        break;
+                    }
+                }
+
+                if (canDelete)
+                {
+                    view.DeleteSelectedRows();
+                    dbContext.SaveChanges();
+                }
+            }
         }
     }
 }
