@@ -38,15 +38,8 @@ namespace RadanMaster
             //dbContext.Operations.Load();
 
             //gridControlAllItems.DataSource = dbContext.OrderItems.Local.ToBindingList();
-            List<DisplayItem> displayItems = new List<DisplayItem>();
 
-            foreach(OrderItem oItem in dbContext.OrderItems)
-            {
-                DisplayItem dItem = new DisplayItem(oItem);
-                displayItems.Add(dItem);
-            }
-
-            entityServerModeSource1.QueryableSource = (IQueryable)displayItems;
+            entityServerModeSource1.QueryableSource = dbContext.OrderItems;
             entityServerModeSource1.KeyExpression = "ID";
             gridControlAllItems.DataSource = entityServerModeSource1;
 

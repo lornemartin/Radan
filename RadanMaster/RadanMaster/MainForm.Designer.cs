@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnNesting = new System.Windows.Forms.Button();
             this.buttonAllItems = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnNesting
@@ -53,11 +54,22 @@
             this.buttonAllItems.UseVisualStyleBackColor = true;
             this.buttonAllItems.Click += new System.EventHandler(this.buttonAllItems_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(148, 201);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1194, 570);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonAllItems);
             this.Controls.Add(this.btnNesting);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -71,5 +83,6 @@
 
         private System.Windows.Forms.Button btnNesting;
         private System.Windows.Forms.Button buttonAllItems;
+        private System.Windows.Forms.Button button1;
     }
 }

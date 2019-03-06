@@ -29,5 +29,11 @@ namespace RadanMaster
             AllItems allitemsForm = new AllItems();
             allitemsForm.ShowDialog();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AllProduction testForm = new AllProduction();
+            testForm.ShowDialog();
+        }
     }
 }

@@ -136,6 +136,12 @@
     <Compile Include="AllItems.Designer.cs">
       <DependentUpon>AllItems.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllProduction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllProduction.Designer.cs">
+      <DependentUpon>AllProduction.cs</DependentUpon>
+    </Compile>
     <Compile Include="AppSettings\AppSettings.cs" />
     <Compile Include="DailySchedule\AggregateLineItem.cs" />
     <Compile Include="DailySchedule\AppSettings.cs" />
@@ -192,6 +198,12 @@
     <Compile Include="SplashScreen2.Designer.cs">
       <DependentUpon>SplashScreen2.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WaitForm1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AllItems.resx">
       <DependentUpon>AllItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllProduction.resx">
+      <DependentUpon>AllProduction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditOrderitem.resx">
       <DependentUpon>EditOrderitem.cs</DependentUpon>
@@ -241,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SplashScreen2.resx">
       <DependentUpon>SplashScreen2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WaitForm1.resx">
       <DependentUpon>WaitForm1.cs</DependentUpon>

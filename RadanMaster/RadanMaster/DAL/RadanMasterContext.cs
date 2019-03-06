@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
 
 namespace RadanMaster.DAL
 {
@@ -11,6 +12,7 @@ namespace RadanMaster.DAL
     {
         public RadanMasterContext() : base("RadanMasterContext")
         {
+            Database.SetInitializer<RadanMasterContext>(null);
         }
 
         public DbSet<Part> Parts { get; set; }
@@ -21,7 +23,13 @@ namespace RadanMaster.DAL
         public DbSet<RadanID> RadanIDs { get; set; }
         public DbSet<Operation> Operations { get; set; }
         public DbSet<Material> Materials { get; set; }
-        public DbSet<File>Files { get; set; }
+        public DbSet<File> Files { get; set; }
     }
-
 }
+        
+        
+
+        
+
+    
+        
