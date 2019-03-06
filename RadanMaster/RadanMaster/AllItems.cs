@@ -213,19 +213,7 @@ namespace RadanMaster
                 if (canDelete)
                     view.DeleteSelectedRows();
             }
-            //if (e.KeyCode == Keys.F2)
-            //{
-            //    GridView view = sender as GridView;
-            //    int numRows = view.SelectedRowsCount;
-
-            //    List<int> rowHandleList = view.GetSelectedRows().ToList();
-            //    foreach (int rowHandle in rowHandleList)
-            //    {
-            //        object o = view.GetRow(rowHandle);
-            //        OrderItem itemToDelete = (OrderItem)o;
-
-            //    }
-            //}
+            
         }
 
         private void AllItems_FormClosing(object sender, FormClosingEventArgs e)

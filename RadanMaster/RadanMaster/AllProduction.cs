@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using DevExpress.XtraBars;
 using System.IO;
 using DevExpress.Utils;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using DevExpress.XtraPdfViewer;
+using RadanMaster.Models;
 
 namespace RadanMaster
 {
@@ -65,6 +68,60 @@ namespace RadanMaster
 
             //save the expanded/contracted state of grouped rows
             helper.SaveViewInfo();
+        }
+
+        private void gridControlAllProduction_MouseMove(object sender, MouseEventArgs e)
+        {
+            GridHitInfo info = gridViewAllProduction.CalcHitInfo(e.Location);
+            GridViewInfo viewInfo = gridViewAllProduction.GetViewInfo() as GridViewInfo;
+            GridCellInfo cellInfo = viewInfo.GetGridCellInfo(info);
+
+            if (cellInfo != null)
+            {
+                if (cellInfo.Column.Caption == "Name")
+                {
+                    int handle = cellInfo.RowHandle;
+
+                    dynamic o = gridViewAllProduction.GetRow(handle);
+                    int itemIndex = o.ID;
+                    OrderItem item = dbContext.OrderItems.FirstOrDefault(it => it.ID == itemIndex);
+                    if (item != null)
+                    {
+                        int partIndex = item.PartID;
+                        Part prt = dbContext.Parts.FirstOrDefault(p => p.ID == partIndex);
+                        if (prt.Files.Count > 0)
+                        {
+                            int fileIndex = prt.Files.FirstOrDefault().FileId;
+                            Models.File file = dbContext.Files.FirstOrDefault(f => f.FileId == fileIndex);
+                            Stream stream = new MemoryStream(file.Content);
+                            pdfViewerAllProduction.LoadDocument(stream);
+                            pdfViewerAllProduction.CurrentPageNumber = 1;
+                            pdfViewerAllProduction.ZoomMode = PdfZoomMode.FitToVisible;
+
+                            Point popupPoint = new Point(e.X + 5, e.Y + 5);
+                            if (popupPoint.Y + popupContainerControlAllProduction.Height > gridControlAllProduction.Height)
+                                popupPoint.Y = gridControlAllProduction.Height - popupContainerControlAllProduction.Height;
+                            popupContainerControlAllProduction.Location = popupPoint;
+                            popupContainerControlAllProduction.Show();
+                        }
+                        else
+                        {
+                            popupContainerControlAllProduction.Hide();
+                        }
+                    }
+                }
+                else
+                {
+                    popupContainerControlAllProduction.Hide();
+                }
+
+            }
+            else
+            {
+                popupContainerControlAllProduction.Hide();
+            }
+
+
         }
     }
 }

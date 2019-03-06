@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -50,10 +51,14 @@
             this.colNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsBatch = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.popupContainerControlAllProduction = new DevExpress.XtraEditors.PopupContainerControl();
+            this.pdfViewerAllProduction = new DevExpress.XtraPdfViewer.PdfViewer();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlAllProduction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entityServerModeSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewAllProduction)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupContainerControlAllProduction)).BeginInit();
+            this.popupContainerControlAllProduction.SuspendLayout();
             this.SuspendLayout();
             // 
             // ribbon
@@ -100,6 +105,7 @@
             this.gridControlAllProduction.TabIndex = 2;
             this.gridControlAllProduction.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewAllProduction});
+            this.gridControlAllProduction.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gridControlAllProduction_MouseMove);
             // 
             // entityServerModeSource2
             // 
@@ -262,11 +268,28 @@
             this.colIsBatch.VisibleIndex = 14;
             this.colIsBatch.Width = 20;
             // 
+            // popupContainerControlAllProduction
+            // 
+            this.popupContainerControlAllProduction.Controls.Add(this.pdfViewerAllProduction);
+            this.popupContainerControlAllProduction.Location = new System.Drawing.Point(209, 104);
+            this.popupContainerControlAllProduction.Name = "popupContainerControlAllProduction";
+            this.popupContainerControlAllProduction.Size = new System.Drawing.Size(494, 451);
+            this.popupContainerControlAllProduction.TabIndex = 5;
+            // 
+            // pdfViewerAllProduction
+            // 
+            this.pdfViewerAllProduction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pdfViewerAllProduction.Location = new System.Drawing.Point(0, 0);
+            this.pdfViewerAllProduction.Name = "pdfViewerAllProduction";
+            this.pdfViewerAllProduction.Size = new System.Drawing.Size(494, 451);
+            this.pdfViewerAllProduction.TabIndex = 0;
+            // 
             // AllProduction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1243, 619);
+            this.Controls.Add(this.popupContainerControlAllProduction);
             this.Controls.Add(this.gridControlAllProduction);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
@@ -280,6 +303,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControlAllProduction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entityServerModeSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewAllProduction)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupContainerControlAllProduction)).EndInit();
+            this.popupContainerControlAllProduction.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -309,5 +334,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colNotes;
         private DevExpress.XtraGrid.Columns.GridColumn colIsComplete;
         private DevExpress.XtraGrid.Columns.GridColumn colIsBatch;
+        private DevExpress.XtraEditors.PopupContainerControl popupContainerControlAllProduction;
+        private DevExpress.XtraPdfViewer.PdfViewer pdfViewerAllProduction;
     }
 }
