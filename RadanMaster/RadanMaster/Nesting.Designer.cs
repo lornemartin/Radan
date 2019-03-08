@@ -415,8 +415,6 @@
             this.colOrderIsComplete.Caption = "Order Is Complete";
             this.colOrderIsComplete.FieldName = "Order.IsComplete";
             this.colOrderIsComplete.Name = "colOrderIsComplete";
-            this.colOrderIsComplete.Visible = true;
-            this.colOrderIsComplete.VisibleIndex = 16;
             // 
             // colHasBends
             // 
@@ -424,7 +422,7 @@
             this.colHasBends.FieldName = "Part.HasBends";
             this.colHasBends.Name = "colHasBends";
             this.colHasBends.Visible = true;
-            this.colHasBends.VisibleIndex = 17;
+            this.colHasBends.VisibleIndex = 16;
             // 
             // colDateCompleted
             // 
@@ -432,7 +430,7 @@
             this.colDateCompleted.FieldName = "Order.DateCompleted";
             this.colDateCompleted.Name = "colDateCompleted";
             this.colDateCompleted.Visible = true;
-            this.colDateCompleted.VisibleIndex = 18;
+            this.colDateCompleted.VisibleIndex = 17;
             // 
             // colOperations
             // 

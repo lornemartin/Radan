@@ -14,6 +14,8 @@ using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using DevExpress.XtraPdfViewer;
 using RadanMaster.Models;
 using DevExpress.XtraGrid.Views.Grid;
+using static DevExpress.DataAccess.Native.ExpressionEditor.ExpressionEditorController.ErrorInfo;
+using DevExpress.XtraGrid;
 
 namespace RadanMaster
 {
@@ -71,6 +73,63 @@ namespace RadanMaster
             helper.SaveViewInfo();
         }
 
+
+
+        //private void gridControlAllProduction_MouseMove(object sender, MouseEventArgs e)
+        //{
+        //    GridHitInfo info = gridViewAllProduction.CalcHitInfo(e.Location);
+        //    GridViewInfo viewInfo = gridViewAllProduction.GetViewInfo() as GridViewInfo;
+        //    GridCellInfo cellInfo = viewInfo.GetGridCellInfo(info);
+
+        //    if (cellInfo != null)
+        //    {
+        //        if (cellInfo.Column.Caption == "Name")
+        //        {
+        //            int handle = cellInfo.RowHandle;
+
+        //            dynamic o = gridViewAllProduction.GetRow(handle);
+        //            int itemIndex = o.ID;
+        //            OrderItem item = dbContext.OrderItems.FirstOrDefault(it => it.ID == itemIndex);
+        //            if (item != null)
+        //            {
+        //                int partIndex = item.PartID;
+        //                Part prt = dbContext.Parts.FirstOrDefault(p => p.ID == partIndex);
+        //                if (prt.Files.Count > 0)
+        //                {
+        //                    int fileIndex = prt.Files.FirstOrDefault().FileId;
+        //                    Models.File file = dbContext.Files.FirstOrDefault(f => f.FileId == fileIndex);
+        //                    Stream stream = new MemoryStream(file.Content);
+        //                    pdfViewerAllProduction.LoadDocument(stream);
+        //                    pdfViewerAllProduction.CurrentPageNumber = 1;
+        //                    pdfViewerAllProduction.ZoomMode = PdfZoomMode.FitToVisible;
+
+        //                    Point popupPoint = new Point(e.X + 5, e.Y + 5);
+        //                    if (popupPoint.Y + popupContainerControlAllProduction.Height > gridControlAllProduction.Height)
+        //                        popupPoint.Y = gridControlAllProduction.Height - popupContainerControlAllProduction.Height;
+        //                    popupContainerControlAllProduction.Location = popupPoint;
+        //                    popupContainerControlAllProduction.Show();
+        //                }
+        //                else
+        //                {
+        //                    popupContainerControlAllProduction.Hide();
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            popupContainerControlAllProduction.Hide();
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        popupContainerControlAllProduction.Hide();
+        //    }
+
+
+        //}
+
+
         private void gridControlAllProduction_MouseMove(object sender, MouseEventArgs e)
         {
             GridHitInfo info = gridViewAllProduction.CalcHitInfo(e.Location);
@@ -125,30 +184,14 @@ namespace RadanMaster
 
         }
 
-        private void gridControlAllProduction_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-        }
-
-        private void gridViewAllProduction_RowDeleted(object sender, DevExpress.Data.RowDeletedEventArgs e)
-        {
-            dbContext.SaveChanges();
-            entityServerModeSource2.Reload();
-            gridViewAllProduction.RefreshData();
-        }
-
-        private void gridViewAllProduction_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
-        {
-            dbContext.SaveChanges();
-            gridViewAllProduction.RefreshData();
-        }
-
-        private void gridViewAllProduction_KeyDown(object sender, KeyEventArgs e)
+        private void gridControlAllProduction_ProcessGridKey(object sender, KeyEventArgs e)
         {
             bool canDelete = true;
+
             if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control)
             {
-                GridView view = sender as GridView;
+                GridControl control = sender as GridControl;
+                GridView view = (GridView) control.MainView;
                 int numRows = view.SelectedRowsCount;
                 if (MessageBox.Show("Delete " + numRows + " row(s)?", "Confirmation", MessageBoxButtons.YesNo) !=
                   DialogResult.Yes)
@@ -171,10 +214,39 @@ namespace RadanMaster
 
                 if (canDelete)
                 {
-                    view.DeleteSelectedRows();
+                    //view.DeleteSelectedRows();
+                    //dbContext.SaveChanges();
+
+                    foreach (int rowHandle in rowHandleList)
+                    {
+                        dynamic o = gridViewAllProduction.GetRow(rowHandle);
+                        int itemIndex = o.ID;
+
+                        OrderItem item = dbContext.OrderItems.FirstOrDefault(it => it.ID == itemIndex);
+                        if (item != null)
+                        {
+                            dbContext.OrderItems.Remove(item);
+                        }
+                    }
                     dbContext.SaveChanges();
+                    entityServerModeSource2.Reload();
+                    gridViewAllProduction.RefreshData();
                 }
             }
         }
+    }
+
+    public class OrderItemWrapper
+    {
+        public int ID { get; set; }
+        public object item;
+
+        public OrderItemWrapper(OrderItem oItem)
+        {
+            ID = oItem.ID;
+            item = oItem;
+        }
+
+        
     }
 }
