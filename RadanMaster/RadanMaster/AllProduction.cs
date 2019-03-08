@@ -30,25 +30,27 @@ namespace RadanMaster
             dbContext = new RadanMaster.DAL.RadanMasterContext();
 
             entityServerModeSource2.QueryableSource = from orderitem in dbContext.OrderItems
-                                                      select new
+                                                      select new DisplayItemWrapper
                                                       {
-                                                          orderitem.ID,
-                                                          orderitem.QtyRequired,
-                                                          orderitem.QtyNested,
-                                                          orderitem.Part.CategoryName,
-                                                          orderitem.Part.FileName,
-                                                          orderitem.Part.Description,
-                                                          orderitem.Part.IsStock,
-                                                          orderitem.Part.Thickness,
-                                                          orderitem.Order.OrderNumber,
-                                                          orderitem.Part.StructuralCode,
-                                                          orderitem.Part.Operations.FirstOrDefault().Name,
-                                                          orderitem.Order.ScheduleName,
-                                                          orderitem.Order.BatchName,
-                                                          orderitem.Notes,
-                                                          orderitem.Order.IsComplete,
-                                                          orderitem.Order.IsBatch
+                                                          ID = orderitem.ID,
+                                                          QtyRequired = orderitem.QtyRequired,
+                                                          QtyNested = orderitem.QtyNested,
+                                                          CategoryName = orderitem.Part.CategoryName,
+                                                          FileName = orderitem.Part.FileName,
+                                                          Description = orderitem.Part.Description,
+                                                          IsStock = orderitem.Part.IsStock,
+                                                          Thickness = orderitem.Part.Thickness,
+                                                          OrderNumber = orderitem.Order.OrderNumber,
+                                                          StructuralCode = orderitem.Part.StructuralCode,
+                                                          Name = orderitem.Part.Operations.FirstOrDefault().Name,
+                                                          ScheduleName = orderitem.Order.ScheduleName,
+                                                          BatchName = orderitem.Order.BatchName,
+                                                          Notes = orderitem.Notes,
+                                                          IsComplete = orderitem.Order.IsComplete,
+                                                          IsBatch = orderitem.Order.IsBatch,
+                                                          item = orderitem
                                                       };
+
             // load grid layout from file
             string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\AllProductionGridLayout.xml";
             if (System.IO.File.Exists(SettingsFilePath))
@@ -141,10 +143,10 @@ namespace RadanMaster
                 if (cellInfo.Column.Caption == "Name")
                 {
                     int handle = cellInfo.RowHandle;
+                    object o = gridViewAllProduction.GetRow(handle);
+                    DisplayItemWrapper temp = (DisplayItemWrapper) o;
+                    OrderItem item = (OrderItem) temp.item;
 
-                    dynamic o = gridViewAllProduction.GetRow(handle);
-                    int itemIndex = o.ID;
-                    OrderItem item = dbContext.OrderItems.FirstOrDefault(it => it.ID == itemIndex);
                     if (item != null)
                     {
                         int partIndex = item.PartID;
@@ -200,9 +202,9 @@ namespace RadanMaster
                 List<int> rowHandleList = view.GetSelectedRows().ToList();
                 foreach (int rowHandle in rowHandleList)
                 {
-                    dynamic o = gridViewAllProduction.GetRow(rowHandle);
-                    int itemIndex = o.ID;
-                    OrderItem itemToDelete = dbContext.OrderItems.FirstOrDefault(it => it.ID == itemIndex);
+                    object o = gridViewAllProduction.GetRow(rowHandle);
+                    DisplayItemWrapper temp = (DisplayItemWrapper)o;
+                    OrderItem itemToDelete = (OrderItem)temp.item;
 
                     if (itemToDelete.IsInProject == true)
                     {
@@ -214,18 +216,15 @@ namespace RadanMaster
 
                 if (canDelete)
                 {
-                    //view.DeleteSelectedRows();
-                    //dbContext.SaveChanges();
-
                     foreach (int rowHandle in rowHandleList)
                     {
-                        dynamic o = gridViewAllProduction.GetRow(rowHandle);
-                        int itemIndex = o.ID;
+                        object o = gridViewAllProduction.GetRow(rowHandle);
+                        DisplayItemWrapper temp = (DisplayItemWrapper)o;
+                        OrderItem itemToDelete = (OrderItem)temp.item;
 
-                        OrderItem item = dbContext.OrderItems.FirstOrDefault(it => it.ID == itemIndex);
-                        if (item != null)
+                        if (itemToDelete != null)
                         {
-                            dbContext.OrderItems.Remove(item);
+                            dbContext.OrderItems.Remove(itemToDelete);
                         }
                     }
                     dbContext.SaveChanges();
@@ -236,17 +235,4 @@ namespace RadanMaster
         }
     }
 
-    public class OrderItemWrapper
-    {
-        public int ID { get; set; }
-        public object item;
-
-        public OrderItemWrapper(OrderItem oItem)
-        {
-            ID = oItem.ID;
-            item = oItem;
-        }
-
-        
-    }
 }
