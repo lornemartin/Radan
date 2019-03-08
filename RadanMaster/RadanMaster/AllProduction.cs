@@ -233,6 +233,31 @@ namespace RadanMaster
                 }
             }
         }
+
+        private void gridViewAllProduction_DoubleClick(object sender, EventArgs e)
+        {
+            GridView view = sender as GridView;
+            int numRows = view.SelectedRowsCount;
+
+            List<int> rowHandleList = view.GetSelectedRows().ToList();
+            foreach (int rowHandle in rowHandleList)
+            {
+                object o = gridViewAllProduction.GetRow(rowHandle);
+                DisplayItemWrapper temp = (DisplayItemWrapper)o;
+                OrderItem itemToEdit = (OrderItem)temp.item;
+
+
+                //object o = view.GetRow(rowHandle);
+                //OrderItem itemToEdit = (OrderItem)o;
+                
+
+                EditOrderitem editForm = new EditOrderitem(itemToEdit, dbContext);
+                editForm.ShowDialog();
+                dbContext.SaveChanges();
+                entityServerModeSource2.Reload();
+                gridViewAllProduction.RefreshData();
+            }
+        }
     }
 
 }

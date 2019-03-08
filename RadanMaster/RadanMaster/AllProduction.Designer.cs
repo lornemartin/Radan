@@ -133,7 +133,12 @@
             this.colIsBatch});
             this.gridViewAllProduction.GridControl = this.gridControlAllProduction;
             this.gridViewAllProduction.Name = "gridViewAllProduction";
+            this.gridViewAllProduction.OptionsBehavior.Editable = false;
+            this.gridViewAllProduction.OptionsEditForm.ShowOnDoubleClick = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewAllProduction.OptionsEditForm.ShowOnEnterKey = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewAllProduction.OptionsEditForm.ShowOnF2Key = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAllProduction.OptionsSelection.MultiSelect = true;
+            this.gridViewAllProduction.DoubleClick += new System.EventHandler(this.gridViewAllProduction_DoubleClick);
             // 
             // colQtyRequired
             // 
