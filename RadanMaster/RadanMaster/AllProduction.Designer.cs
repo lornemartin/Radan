@@ -55,6 +55,7 @@
             this.colIsBatch = new DevExpress.XtraGrid.Columns.GridColumn();
             this.popupContainerControlAllProduction = new DevExpress.XtraEditors.PopupContainerControl();
             this.pdfViewerAllProduction = new DevExpress.XtraPdfViewer.PdfViewer();
+            this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlAllProduction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entityServerModeSource2)).BeginInit();
@@ -133,6 +134,7 @@
             // gridViewAllProduction
             // 
             this.gridViewAllProduction.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colID,
             this.colQtyRequired,
             this.colQtyNested,
             this.colCategory,
@@ -163,7 +165,7 @@
             this.colQtyRequired.FieldName = "QtyRequired";
             this.colQtyRequired.Name = "colQtyRequired";
             this.colQtyRequired.Visible = true;
-            this.colQtyRequired.VisibleIndex = 0;
+            this.colQtyRequired.VisibleIndex = 1;
             this.colQtyRequired.Width = 70;
             // 
             // colQtyNested
@@ -172,7 +174,7 @@
             this.colQtyNested.FieldName = "QtyNested";
             this.colQtyNested.Name = "colQtyNested";
             this.colQtyNested.Visible = true;
-            this.colQtyNested.VisibleIndex = 1;
+            this.colQtyNested.VisibleIndex = 2;
             this.colQtyNested.Width = 56;
             // 
             // colCategory
@@ -181,7 +183,7 @@
             this.colCategory.FieldName = "CategoryName";
             this.colCategory.Name = "colCategory";
             this.colCategory.Visible = true;
-            this.colCategory.VisibleIndex = 2;
+            this.colCategory.VisibleIndex = 3;
             this.colCategory.Width = 56;
             // 
             // colFileName
@@ -190,7 +192,7 @@
             this.colFileName.FieldName = "FileName";
             this.colFileName.Name = "colFileName";
             this.colFileName.Visible = true;
-            this.colFileName.VisibleIndex = 3;
+            this.colFileName.VisibleIndex = 4;
             this.colFileName.Width = 165;
             // 
             // colDescription
@@ -199,7 +201,7 @@
             this.colDescription.FieldName = "Description";
             this.colDescription.Name = "colDescription";
             this.colDescription.Visible = true;
-            this.colDescription.VisibleIndex = 4;
+            this.colDescription.VisibleIndex = 5;
             this.colDescription.Width = 292;
             // 
             // colIsStock
@@ -208,7 +210,7 @@
             this.colIsStock.FieldName = "IsStock";
             this.colIsStock.Name = "colIsStock";
             this.colIsStock.Visible = true;
-            this.colIsStock.VisibleIndex = 7;
+            this.colIsStock.VisibleIndex = 8;
             this.colIsStock.Width = 84;
             // 
             // colThickness
@@ -217,7 +219,7 @@
             this.colThickness.FieldName = "Thickness";
             this.colThickness.Name = "colThickness";
             this.colThickness.Visible = true;
-            this.colThickness.VisibleIndex = 5;
+            this.colThickness.VisibleIndex = 6;
             this.colThickness.Width = 38;
             // 
             // colOrderNumber
@@ -226,7 +228,7 @@
             this.colOrderNumber.FieldName = "OrderNumber";
             this.colOrderNumber.Name = "colOrderNumber";
             this.colOrderNumber.Visible = true;
-            this.colOrderNumber.VisibleIndex = 8;
+            this.colOrderNumber.VisibleIndex = 9;
             this.colOrderNumber.Width = 84;
             // 
             // colStructCode
@@ -235,7 +237,7 @@
             this.colStructCode.FieldName = "StructuralCode";
             this.colStructCode.Name = "colStructCode";
             this.colStructCode.Visible = true;
-            this.colStructCode.VisibleIndex = 6;
+            this.colStructCode.VisibleIndex = 7;
             this.colStructCode.Width = 84;
             // 
             // colOperation
@@ -244,7 +246,7 @@
             this.colOperation.FieldName = "Name";
             this.colOperation.Name = "colOperation";
             this.colOperation.Visible = true;
-            this.colOperation.VisibleIndex = 9;
+            this.colOperation.VisibleIndex = 10;
             this.colOperation.Width = 84;
             // 
             // colSchedName
@@ -253,7 +255,7 @@
             this.colSchedName.FieldName = "ScheduleName";
             this.colSchedName.Name = "colSchedName";
             this.colSchedName.Visible = true;
-            this.colSchedName.VisibleIndex = 10;
+            this.colSchedName.VisibleIndex = 11;
             this.colSchedName.Width = 84;
             // 
             // colBatchName
@@ -262,7 +264,7 @@
             this.colBatchName.FieldName = "BatchName";
             this.colBatchName.Name = "colBatchName";
             this.colBatchName.Visible = true;
-            this.colBatchName.VisibleIndex = 11;
+            this.colBatchName.VisibleIndex = 12;
             this.colBatchName.Width = 84;
             // 
             // colNotes
@@ -271,7 +273,7 @@
             this.colNotes.FieldName = "Notes";
             this.colNotes.Name = "colNotes";
             this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 12;
+            this.colNotes.VisibleIndex = 13;
             this.colNotes.Width = 263;
             // 
             // colIsComplete
@@ -280,7 +282,7 @@
             this.colIsComplete.FieldName = "IsComplete";
             this.colIsComplete.Name = "colIsComplete";
             this.colIsComplete.Visible = true;
-            this.colIsComplete.VisibleIndex = 13;
+            this.colIsComplete.VisibleIndex = 14;
             this.colIsComplete.Width = 43;
             // 
             // colIsBatch
@@ -289,7 +291,7 @@
             this.colIsBatch.FieldName = "IsBatch";
             this.colIsBatch.Name = "colIsBatch";
             this.colIsBatch.Visible = true;
-            this.colIsBatch.VisibleIndex = 14;
+            this.colIsBatch.VisibleIndex = 15;
             this.colIsBatch.Width = 20;
             // 
             // popupContainerControlAllProduction
@@ -307,6 +309,14 @@
             this.pdfViewerAllProduction.Name = "pdfViewerAllProduction";
             this.pdfViewerAllProduction.Size = new System.Drawing.Size(494, 451);
             this.pdfViewerAllProduction.TabIndex = 0;
+            // 
+            // colID
+            // 
+            this.colID.Caption = "gridColumn1";
+            this.colID.FieldName = "ID";
+            this.colID.Name = "colID";
+            this.colID.Visible = true;
+            this.colID.VisibleIndex = 0;
             // 
             // AllProduction
             // 
@@ -362,5 +372,6 @@
         private DevExpress.XtraPdfViewer.PdfViewer pdfViewerAllProduction;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
+        private DevExpress.XtraGrid.Columns.GridColumn colID;
     }
 }
