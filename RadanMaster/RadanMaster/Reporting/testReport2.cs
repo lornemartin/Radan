@@ -12,9 +12,9 @@ namespace RadanMaster.Reporting
     {
         DAL.RadanMasterContext dbContext { get; set; }
 
-        public testReport2(DAL.RadanMasterContext ctx)
+        public testReport2()
         {
-            dbContext = ctx;
+            dbContext = new RadanMaster.DAL.RadanMasterContext();
             InitializeComponent();
 
         }
@@ -64,7 +64,8 @@ namespace RadanMaster.Reporting
             XRControl control = (XRControl)sender;
             int orderItemID = (int) this.GetCurrentColumnValue("ID");
 
-
+            Models.OrderItem oItem = new Models.OrderItem();
+            oItem = dbContext.OrderItems.
 
             //Models.OrderItem oItem = dbContext.OrderItems
             

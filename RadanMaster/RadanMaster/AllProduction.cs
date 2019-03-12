@@ -272,7 +272,7 @@ namespace RadanMaster
             //Reporting.testReport2 testReport2 = new Reporting.testReport2();
             //testReport2.ShowPreview();
 
-            Reporting.testReport1 testReport = new Reporting.testReport1();
+            Reporting.testReport2 testReport = new Reporting.testReport2();
             testReport.ShowPreview();
         }
     }

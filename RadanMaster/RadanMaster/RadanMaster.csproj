@@ -199,17 +199,17 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefreshHelperClass.cs" />
-    <Compile Include="Reporting\testReport1.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reporting\testReport1.Designer.cs">
-      <DependentUpon>testReport1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reporting\testReport2.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporting\testReport2.Designer.cs">
       <DependentUpon>testReport2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\testReport1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporting\testReport1.Designer.cs">
+      <DependentUpon>testReport1.cs</DependentUpon>
     </Compile>
     <Compile Include="SplashScreen1.cs">
       <SubType>Form</SubType>
@@ -276,11 +276,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Reporting\testReport1.resx">
-      <DependentUpon>testReport1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reporting\testReport2.resx">
       <DependentUpon>testReport2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\testReport1.resx">
+      <DependentUpon>testReport1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SplashScreen1.resx">
       <DependentUpon>SplashScreen1.cs</DependentUpon>
