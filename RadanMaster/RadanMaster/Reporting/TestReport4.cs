@@ -23,11 +23,11 @@ namespace RadanMaster.Reporting
 
         private void Detail1_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
-            
+
             XRControl control = (XRControl)sender;
 
-            int orderItemID = (int)DetailReport.GetCurrentColumnValue("ID");
-            //var v = this.GetCurrentColumnValue("ID");
+            int orderItemID = (int)DetailReport.GetCurrentColumnValue("[ID]");
+
             Models.OrderItem oItem = new Models.OrderItem();
             oItem = dbContext.OrderItems.FirstOrDefault(o => o.ID == orderItemID);
 
@@ -68,6 +68,11 @@ namespace RadanMaster.Reporting
         }
 
         private void DetailReport3_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            DetailReport3.FilterString = "[OrderNumber] = 'A405496'";
+        }
+
+        private void DetailReport_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
             DetailReport3.FilterString = "[OrderNumber] = 'A405496'";
         }

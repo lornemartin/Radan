@@ -14,6 +14,7 @@ namespace RadanMaster.Models
         public int QtyRequired { get; set; }
         public int QtyNested { get; set; }
         public string CategoryName { get; set; }
+        public int CategoryIcon { get; set; }
         public string FileName { get; set; }
         public string Description { get; set; }
         public bool IsStock { get; set; }
@@ -24,6 +25,7 @@ namespace RadanMaster.Models
         public string Name { get; set; }    // first op name
         public string ScheduleName { get; set; }
         public string BatchName { get; set; }
+        public string ProductName { get; set; }
         public string Notes { get; set; }
         public bool IsComplete { get; set; }
         public bool IsBatch { get; set; }
