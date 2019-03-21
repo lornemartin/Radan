@@ -289,6 +289,7 @@ namespace RadanMaster
             //testReport.ShowPreview();
 
             Reporting.TestReport7 testReport = new Reporting.TestReport7();
+            testReport.Parameters["OrderNumber"].Value = "A123456";
             testReport.ShowPreview();
         }
 

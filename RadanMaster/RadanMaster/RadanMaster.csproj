@@ -225,18 +225,6 @@
     <Compile Include="Reporting\TestReport4.Designer.cs">
       <DependentUpon>TestReport4.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reporting\TestReport51.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reporting\TestReport51.Designer.cs">
-      <DependentUpon>TestReport51.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reporting\TestReport6.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reporting\TestReport6.Designer.cs">
-      <DependentUpon>TestReport6.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reporting\TestReport7.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -319,12 +307,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reporting\TestReport4.resx">
       <DependentUpon>TestReport4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reporting\TestReport51.resx">
-      <DependentUpon>TestReport51.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reporting\TestReport6.resx">
-      <DependentUpon>TestReport6.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporting\TestReport7.resx">
       <DependentUpon>TestReport7.cs</DependentUpon>
