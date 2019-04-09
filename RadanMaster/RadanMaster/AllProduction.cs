@@ -288,8 +288,11 @@ namespace RadanMaster
             //Reporting.testReport2 testReport = new Reporting.testReport2();
             //testReport.ShowPreview();
 
-            Reporting.TestReport7 testReport = new Reporting.TestReport7();
-            testReport.Parameters["OrderNumber"].Value = "A123456";
+            //Reporting.TestReport7 testReport = new Reporting.TestReport7();
+            //testReport.Parameters["OrderNumber"].Value = "A123456";
+            //testReport.ShowPreview();
+
+            Reporting.TestReport12 testReport = new Reporting.TestReport12();
             testReport.ShowPreview();
         }
 

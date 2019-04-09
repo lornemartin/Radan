@@ -201,35 +201,41 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefreshHelperClass.cs" />
-    <Compile Include="Reporting\testReport2.cs">
+    <Compile Include="Reporting\TestReport10.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reporting\testReport2.Designer.cs">
-      <DependentUpon>testReport2.cs</DependentUpon>
+    <Compile Include="Reporting\TestReport10.Designer.cs">
+      <DependentUpon>TestReport10.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reporting\testReport1.cs">
+    <Compile Include="Reporting\TestReport11.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reporting\testReport1.Designer.cs">
-      <DependentUpon>testReport1.cs</DependentUpon>
+    <Compile Include="Reporting\TestReport11.Designer.cs">
+      <DependentUpon>TestReport11.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reporting\TestReport3.cs">
+    <Compile Include="Reporting\TestReport12.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reporting\TestReport3.Designer.cs">
-      <DependentUpon>TestReport3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reporting\TestReport4.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reporting\TestReport4.Designer.cs">
-      <DependentUpon>TestReport4.cs</DependentUpon>
+    <Compile Include="Reporting\TestReport12.Designer.cs">
+      <DependentUpon>TestReport12.cs</DependentUpon>
     </Compile>
     <Compile Include="Reporting\TestReport7.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reporting\TestReport7.Designer.cs">
       <DependentUpon>TestReport7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\TestReport8.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporting\TestReport8.Designer.cs">
+      <DependentUpon>TestReport8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\TestReport9.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporting\TestReport9.Designer.cs">
+      <DependentUpon>TestReport9.cs</DependentUpon>
     </Compile>
     <Compile Include="SplashScreen1.cs">
       <SubType>Form</SubType>
@@ -296,20 +302,23 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Reporting\testReport2.resx">
-      <DependentUpon>testReport2.cs</DependentUpon>
+    <EmbeddedResource Include="Reporting\TestReport10.resx">
+      <DependentUpon>TestReport10.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reporting\testReport1.resx">
-      <DependentUpon>testReport1.cs</DependentUpon>
+    <EmbeddedResource Include="Reporting\TestReport11.resx">
+      <DependentUpon>TestReport11.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reporting\TestReport3.resx">
-      <DependentUpon>TestReport3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reporting\TestReport4.resx">
-      <DependentUpon>TestReport4.cs</DependentUpon>
+    <EmbeddedResource Include="Reporting\TestReport12.resx">
+      <DependentUpon>TestReport12.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporting\TestReport7.resx">
       <DependentUpon>TestReport7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\TestReport8.resx">
+      <DependentUpon>TestReport8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\TestReport9.resx">
+      <DependentUpon>TestReport9.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SplashScreen1.resx">
       <DependentUpon>SplashScreen1.cs</DependentUpon>

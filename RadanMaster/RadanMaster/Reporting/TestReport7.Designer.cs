@@ -105,34 +105,14 @@
             DevExpress.DataAccess.Sql.ColumnExpression columnExpression34 = new DevExpress.DataAccess.Sql.ColumnExpression();
             DevExpress.DataAccess.Sql.Column column35 = new DevExpress.DataAccess.Sql.Column();
             DevExpress.DataAccess.Sql.ColumnExpression columnExpression35 = new DevExpress.DataAccess.Sql.ColumnExpression();
-            DevExpress.DataAccess.Sql.SelectQuery selectQuery4 = new DevExpress.DataAccess.Sql.SelectQuery();
-            DevExpress.DataAccess.Sql.Column column36 = new DevExpress.DataAccess.Sql.Column();
-            DevExpress.DataAccess.Sql.ColumnExpression columnExpression36 = new DevExpress.DataAccess.Sql.ColumnExpression();
-            DevExpress.DataAccess.Sql.Table table9 = new DevExpress.DataAccess.Sql.Table();
-            DevExpress.DataAccess.Sql.Column column37 = new DevExpress.DataAccess.Sql.Column();
-            DevExpress.DataAccess.Sql.ColumnExpression columnExpression37 = new DevExpress.DataAccess.Sql.ColumnExpression();
-            DevExpress.DataAccess.Sql.Column column38 = new DevExpress.DataAccess.Sql.Column();
-            DevExpress.DataAccess.Sql.ColumnExpression columnExpression38 = new DevExpress.DataAccess.Sql.ColumnExpression();
-            DevExpress.DataAccess.Sql.Column column39 = new DevExpress.DataAccess.Sql.Column();
-            DevExpress.DataAccess.Sql.ColumnExpression columnExpression39 = new DevExpress.DataAccess.Sql.ColumnExpression();
-            DevExpress.DataAccess.Sql.Column column40 = new DevExpress.DataAccess.Sql.Column();
-            DevExpress.DataAccess.Sql.ColumnExpression columnExpression40 = new DevExpress.DataAccess.Sql.ColumnExpression();
-            DevExpress.DataAccess.Sql.Column column41 = new DevExpress.DataAccess.Sql.Column();
-            DevExpress.DataAccess.Sql.ColumnExpression columnExpression41 = new DevExpress.DataAccess.Sql.ColumnExpression();
-            DevExpress.DataAccess.Sql.Column column42 = new DevExpress.DataAccess.Sql.Column();
-            DevExpress.DataAccess.Sql.ColumnExpression columnExpression42 = new DevExpress.DataAccess.Sql.ColumnExpression();
-            DevExpress.DataAccess.Sql.Column column43 = new DevExpress.DataAccess.Sql.Column();
-            DevExpress.DataAccess.Sql.ColumnExpression columnExpression43 = new DevExpress.DataAccess.Sql.ColumnExpression();
-            DevExpress.DataAccess.Sql.Column column44 = new DevExpress.DataAccess.Sql.Column();
-            DevExpress.DataAccess.Sql.ColumnExpression columnExpression44 = new DevExpress.DataAccess.Sql.ColumnExpression();
+            DevExpress.DataAccess.Sql.CustomSqlQuery customSqlQuery1 = new DevExpress.DataAccess.Sql.CustomSqlQuery();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestReport7));
             DevExpress.DataAccess.Sql.MasterDetailInfo masterDetailInfo1 = new DevExpress.DataAccess.Sql.MasterDetailInfo();
             DevExpress.DataAccess.Sql.RelationColumnInfo relationColumnInfo1 = new DevExpress.DataAccess.Sql.RelationColumnInfo();
             DevExpress.DataAccess.Sql.MasterDetailInfo masterDetailInfo2 = new DevExpress.DataAccess.Sql.MasterDetailInfo();
             DevExpress.DataAccess.Sql.RelationColumnInfo relationColumnInfo2 = new DevExpress.DataAccess.Sql.RelationColumnInfo();
             DevExpress.DataAccess.Sql.MasterDetailInfo masterDetailInfo3 = new DevExpress.DataAccess.Sql.MasterDetailInfo();
             DevExpress.DataAccess.Sql.RelationColumnInfo relationColumnInfo3 = new DevExpress.DataAccess.Sql.RelationColumnInfo();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestReport7));
-            DevExpress.XtraReports.Parameters.DynamicListLookUpSettings dynamicListLookUpSettings1 = new DevExpress.XtraReports.Parameters.DynamicListLookUpSettings();
             this.sqlDataSource1 = new DevExpress.DataAccess.Sql.SqlDataSource(this.components);
             this.Title = new DevExpress.XtraReports.UI.XRControlStyle();
             this.GroupCaption1 = new DevExpress.XtraReports.UI.XRControlStyle();
@@ -186,7 +166,6 @@
             this.tableRow7 = new DevExpress.XtraReports.UI.XRTableRow();
             this.tableCell12 = new DevExpress.XtraReports.UI.XRTableCell();
             this.pictureBox1 = new DevExpress.XtraReports.UI.XRPictureBox();
-            this.OrderNumber = new DevExpress.XtraReports.Parameters.Parameter();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table3)).BeginInit();
@@ -350,66 +329,29 @@
             selectQuery3.MetaSerializable = "<Meta X=\"100\" Y=\"30\" Width=\"100\" Height=\"190\" />";
             selectQuery3.Name = "OrderItems";
             selectQuery3.Tables.Add(table8);
-            columnExpression36.ColumnName = "ID";
-            table9.Name = "Orders";
-            columnExpression36.Table = table9;
-            column36.Expression = columnExpression36;
-            columnExpression37.ColumnName = "OrderNumber";
-            columnExpression37.Table = table9;
-            column37.Expression = columnExpression37;
-            columnExpression38.ColumnName = "ScheduleName";
-            columnExpression38.Table = table9;
-            column38.Expression = columnExpression38;
-            columnExpression39.ColumnName = "BatchName";
-            columnExpression39.Table = table9;
-            column39.Expression = columnExpression39;
-            columnExpression40.ColumnName = "EntryDate";
-            columnExpression40.Table = table9;
-            column40.Expression = columnExpression40;
-            columnExpression41.ColumnName = "DueDate";
-            columnExpression41.Table = table9;
-            column41.Expression = columnExpression41;
-            columnExpression42.ColumnName = "IsComplete";
-            columnExpression42.Table = table9;
-            column42.Expression = columnExpression42;
-            columnExpression43.ColumnName = "IsBatch";
-            columnExpression43.Table = table9;
-            column43.Expression = columnExpression43;
-            columnExpression44.ColumnName = "DateCompleted";
-            columnExpression44.Table = table9;
-            column44.Expression = columnExpression44;
-            selectQuery4.Columns.Add(column36);
-            selectQuery4.Columns.Add(column37);
-            selectQuery4.Columns.Add(column38);
-            selectQuery4.Columns.Add(column39);
-            selectQuery4.Columns.Add(column40);
-            selectQuery4.Columns.Add(column41);
-            selectQuery4.Columns.Add(column42);
-            selectQuery4.Columns.Add(column43);
-            selectQuery4.Columns.Add(column44);
-            selectQuery4.MetaSerializable = "<Meta X=\"-20\" Y=\"30\" Width=\"100\" Height=\"190\" />";
-            selectQuery4.Name = "Orders";
-            selectQuery4.Tables.Add(table9);
+            customSqlQuery1.MetaSerializable = "<Meta X=\"490\" Y=\"20\" Width=\"100\" Height=\"190\" />";
+            customSqlQuery1.Name = "Orders";
+            customSqlQuery1.Sql = resources.GetString("customSqlQuery1.Sql");
             this.sqlDataSource1.Queries.AddRange(new DevExpress.DataAccess.Sql.SqlQuery[] {
             selectQuery1,
             selectQuery2,
             selectQuery3,
-            selectQuery4});
-            masterDetailInfo1.DetailQueryName = "OrderItems";
-            relationColumnInfo1.NestedKeyColumn = "OrderID";
-            relationColumnInfo1.ParentKeyColumn = "ID";
+            customSqlQuery1});
+            masterDetailInfo1.DetailQueryName = "Parts";
+            relationColumnInfo1.NestedKeyColumn = "ID";
+            relationColumnInfo1.ParentKeyColumn = "PartID";
             masterDetailInfo1.KeyColumns.Add(relationColumnInfo1);
-            masterDetailInfo1.MasterQueryName = "Orders";
-            masterDetailInfo2.DetailQueryName = "Parts";
-            relationColumnInfo2.NestedKeyColumn = "ID";
-            relationColumnInfo2.ParentKeyColumn = "PartID";
+            masterDetailInfo1.MasterQueryName = "OrderItems";
+            masterDetailInfo2.DetailQueryName = "Files";
+            relationColumnInfo2.NestedKeyColumn = "Part_ID";
+            relationColumnInfo2.ParentKeyColumn = "ID";
             masterDetailInfo2.KeyColumns.Add(relationColumnInfo2);
-            masterDetailInfo2.MasterQueryName = "OrderItems";
-            masterDetailInfo3.DetailQueryName = "Files";
-            relationColumnInfo3.NestedKeyColumn = "Part_ID";
+            masterDetailInfo2.MasterQueryName = "Parts";
+            masterDetailInfo3.DetailQueryName = "OrderItems";
+            relationColumnInfo3.NestedKeyColumn = "OrderID";
             relationColumnInfo3.ParentKeyColumn = "ID";
             masterDetailInfo3.KeyColumns.Add(relationColumnInfo3);
-            masterDetailInfo3.MasterQueryName = "Parts";
+            masterDetailInfo3.MasterQueryName = "Orders";
             this.sqlDataSource1.Relations.AddRange(new DevExpress.DataAccess.Sql.MasterDetailInfo[] {
             masterDetailInfo1,
             masterDetailInfo2,
@@ -551,7 +493,6 @@
             // 
             this.ReportHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.label1});
-            this.ReportHeader.Expanded = false;
             this.ReportHeader.HeightF = 60F;
             this.ReportHeader.Name = "ReportHeader";
             // 
@@ -880,18 +821,6 @@
             this.pictureBox1.SizeF = new System.Drawing.SizeF(73.95834F, 2.916584F);
             this.pictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.Squeeze;
             // 
-            // OrderNumber
-            // 
-            this.OrderNumber.Description = "The order number of the order to print the report for";
-            dynamicListLookUpSettings1.DataMember = "Orders";
-            dynamicListLookUpSettings1.DataSource = this.sqlDataSource1;
-            dynamicListLookUpSettings1.DisplayMember = "OrderNumber";
-            dynamicListLookUpSettings1.SortMember = null;
-            dynamicListLookUpSettings1.ValueMember = "OrderNumber";
-            this.OrderNumber.LookUpSettings = dynamicListLookUpSettings1;
-            this.OrderNumber.MultiValue = true;
-            this.OrderNumber.Name = "OrderNumber";
-            // 
             // TestReport7
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
@@ -905,9 +834,8 @@
             this.sqlDataSource1});
             this.DataMember = "OrderItems";
             this.DataSource = this.sqlDataSource1;
+            this.FilterString = "[Orders.OrderNumber] = [A123456]";
             this.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.Parameters.AddRange(new DevExpress.XtraReports.Parameters.Parameter[] {
-            this.OrderNumber});
             this.StyleSheet.AddRange(new DevExpress.XtraReports.UI.XRControlStyle[] {
             this.Title,
             this.GroupCaption1,
@@ -984,6 +912,5 @@
         private DevExpress.XtraReports.UI.XRTable table4;
         private DevExpress.XtraReports.UI.XRTableRow tableRow6;
         private DevExpress.XtraReports.UI.XRTableCell tableCell11;
-        private DevExpress.XtraReports.Parameters.Parameter OrderNumber;
     }
 }

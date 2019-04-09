@@ -31,45 +31,45 @@ namespace RadanMaster.Reporting
 
         private void DetailReport1_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
-            //XRControl control = (XRControl)sender;
+            XRControl control = (XRControl)sender;
 
-            //int orderItemID = (int)DetailReport.GetCurrentColumnValue("ID");
+            int orderItemID = (int)DetailReport.GetCurrentColumnValue("ID");
 
-            //Models.OrderItem oItem = new Models.OrderItem();
-            //oItem = dbContext.OrderItems.FirstOrDefault(o => o.ID == orderItemID);
+            Models.OrderItem oItem = new Models.OrderItem();
+            oItem = dbContext.OrderItems.FirstOrDefault(o => o.ID == orderItemID);
 
-            //int partID = oItem.PartID;
-            //Models.Part prt = new Models.Part();
-            //prt = dbContext.Parts.FirstOrDefault(p => p.ID == partID);
+            int partID = oItem.PartID;
+            Models.Part prt = new Models.Part();
+            prt = dbContext.Parts.FirstOrDefault(p => p.ID == partID);
 
-            //if (prt.Files.Count > 0)
-            //{
-            //    int fileID = prt.Files.FirstOrDefault().FileId;
-            //    Models.File fileItem = new Models.File();
-            //    fileItem = dbContext.Files.FirstOrDefault(f => f.FileId == fileID);
+            if (prt.Files.Count > 0)
+            {
+                int fileID = prt.Files.FirstOrDefault().FileId;
+                Models.File fileItem = new Models.File();
+                fileItem = dbContext.Files.FirstOrDefault(f => f.FileId == fileID);
 
-            //    if (fileItem.Content != null)
-            //    {
-            //        if (fileItem.Content != null)
-            //        {
-            //            PdfViewer pdfViewer = new PdfViewer();
-            //            Stream stream = new MemoryStream(fileItem.Content);
+                if (fileItem.Content != null)
+                {
+                    if (fileItem.Content != null)
+                    {
+                        PdfViewer pdfViewer = new PdfViewer();
+                        Stream stream = new MemoryStream(fileItem.Content);
 
-            //            pdfViewer.LoadDocument(stream);
-            //            Bitmap bitmap = pdfViewer.CreateBitmap(1, 950);
+                        pdfViewer.LoadDocument(stream);
+                        Bitmap bitmap = pdfViewer.CreateBitmap(1, 950);
 
-            //            pdfViewer.CloseDocument();
-            //            pdfViewer.Dispose();
-            //            pictureBox1.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(bitmap);
-            //        }
+                        pdfViewer.CloseDocument();
+                        pdfViewer.Dispose();
+                        pictureBox1.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(bitmap);
+                    }
 
-            //        //PdfViewer pdfViewer2 = new PdfViewer();
-            //        //pdfViewer2.LoadDocument(stream);
-            //        //bitmap = pdfViewer2.CreateBitmap(1, 950);
-            //        //bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
-            //        //xrPictureBox2.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(bitmap);
-            //    }
-            //}
+                    //PdfViewer pdfViewer2 = new PdfViewer();
+                    //pdfViewer2.LoadDocument(stream);
+                    //bitmap = pdfViewer2.CreateBitmap(1, 950);
+                    //bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    //xrPictureBox2.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(bitmap);
+                }
+            }
         }
     }
 }
