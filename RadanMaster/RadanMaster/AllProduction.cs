@@ -285,14 +285,16 @@ namespace RadanMaster
 
         private void barButtonItem1_ItemClick(object sender, ItemClickEventArgs e)
         {
-            //Reporting.testReport2 testReport = new Reporting.testReport2();
-            //testReport.ShowPreview();
+            
 
             //Reporting.TestReport7 testReport = new Reporting.TestReport7();
             //testReport.Parameters["OrderNumber"].Value = "A123456";
             //testReport.ShowPreview();
 
-            Reporting.TestReport12 testReport = new Reporting.TestReport12();
+            //Reporting.TestReport12 testReport = new Reporting.TestReport12();
+            //testReport.ShowPreview();
+
+            Reporting.OrderItemsBySchedule testReport = new Reporting.OrderItemsBySchedule();
             testReport.ShowPreview();
         }
 
