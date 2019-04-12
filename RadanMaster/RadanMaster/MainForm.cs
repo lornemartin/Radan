@@ -24,12 +24,6 @@ namespace RadanMaster
             nestingForm.ShowDialog();
         }
 
-        private void buttonAllItems_Click(object sender, EventArgs e)
-        {
-            AllItems allitemsForm = new AllItems();
-            allitemsForm.ShowDialog();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             AllProduction testForm = new AllProduction();

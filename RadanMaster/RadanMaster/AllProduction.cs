@@ -285,19 +285,21 @@ namespace RadanMaster
 
         private void barButtonItem1_ItemClick(object sender, ItemClickEventArgs e)
         {
-            
-
-            //Reporting.TestReport7 testReport = new Reporting.TestReport7();
-            //testReport.Parameters["OrderNumber"].Value = "A123456";
-            //testReport.ShowPreview();
-
-            //Reporting.TestReport12 testReport = new Reporting.TestReport12();
-            //testReport.ShowPreview();
-
             Reporting.OrderItemsBySchedule testReport = new Reporting.OrderItemsBySchedule();
             testReport.ShowPreview();
         }
 
+        private void barButtonItem2_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Reporting.OrderItemByScheduleGroupedByPart report = new Reporting.OrderItemByScheduleGroupedByPart();
+            report.ShowPreview();
+        }
+
+        private void barButtonItem3_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Reporting.TestReport3 report = new Reporting.TestReport3();
+            report.ShowPreview();
+        }
     }
 
 }

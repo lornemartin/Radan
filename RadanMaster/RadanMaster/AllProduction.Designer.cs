@@ -50,6 +50,7 @@
             this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -61,7 +62,6 @@
             this.colQtyRequired = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQtyNested = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCategoryIcon = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemImageComboBox2 = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.colFileName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDescription = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsStock = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -76,16 +76,18 @@
             this.colIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsBatch = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemImageEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemImageEdit();
+            this.repositoryItemImageComboBox2 = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.popupContainerControlAllProduction = new DevExpress.XtraEditors.PopupContainerControl();
             this.pdfViewerAllProduction = new DevExpress.XtraPdfViewer.PdfViewer();
+            this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlAllProduction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entityServerModeSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewAllProduction)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupContainerControlAllProduction)).BeginInit();
             this.popupContainerControlAllProduction.SuspendLayout();
             this.SuspendLayout();
@@ -134,9 +136,11 @@
             this.ribbon.ExpandCollapseItem.Id = 0;
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbon.ExpandCollapseItem,
-            this.barButtonItem1});
+            this.barButtonItem1,
+            this.barButtonItem2,
+            this.barButtonItem3});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 2;
+            this.ribbon.MaxItemId = 4;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -145,10 +149,17 @@
             // 
             // barButtonItem1
             // 
-            this.barButtonItem1.Caption = "barButtonItem1";
+            this.barButtonItem1.Caption = "Order Items by Schedule";
             this.barButtonItem1.Id = 1;
             this.barButtonItem1.Name = "barButtonItem1";
             this.barButtonItem1.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem1_ItemClick);
+            // 
+            // barButtonItem2
+            // 
+            this.barButtonItem2.Caption = "Group By Part";
+            this.barButtonItem2.Id = 2;
+            this.barButtonItem2.Name = "barButtonItem2";
+            this.barButtonItem2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick);
             // 
             // ribbonPage1
             // 
@@ -166,8 +177,10 @@
             // ribbonPageGroup2
             // 
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem1);
+            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem2);
+            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem3);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
-            this.ribbonPageGroup2.Text = "ribbonPageGroup2";
+            this.ribbonPageGroup2.Text = "Reports";
             // 
             // ribbonStatusBar
             // 
@@ -267,20 +280,6 @@
             this.colCategoryIcon.Visible = true;
             this.colCategoryIcon.VisibleIndex = 1;
             this.colCategoryIcon.Width = 70;
-            // 
-            // repositoryItemImageComboBox2
-            // 
-            this.repositoryItemImageComboBox2.AllowDropDownWhenReadOnly = DevExpress.Utils.DefaultBoolean.True;
-            this.repositoryItemImageComboBox2.AutoHeight = false;
-            this.repositoryItemImageComboBox2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemImageComboBox2.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Product", ((short)(0)), 0),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Assembly", ((short)(1)), 1),
-            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Part", ((short)(1)), 2)});
-            this.repositoryItemImageComboBox2.LargeImages = this.imageCollection1;
-            this.repositoryItemImageComboBox2.Name = "repositoryItemImageComboBox2";
-            this.repositoryItemImageComboBox2.SmallImages = this.imageCollection1;
             // 
             // colFileName
             // 
@@ -406,29 +405,49 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemImageEdit1.Name = "repositoryItemImageEdit1";
             // 
+            // repositoryItemImageComboBox2
+            // 
+            this.repositoryItemImageComboBox2.AllowDropDownWhenReadOnly = DevExpress.Utils.DefaultBoolean.True;
+            this.repositoryItemImageComboBox2.AutoHeight = false;
+            this.repositoryItemImageComboBox2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemImageComboBox2.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Product", ((short)(0)), 0),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Assembly", ((short)(1)), 1),
+            new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Part", ((short)(1)), 2)});
+            this.repositoryItemImageComboBox2.LargeImages = this.imageCollection1;
+            this.repositoryItemImageComboBox2.Name = "repositoryItemImageComboBox2";
+            this.repositoryItemImageComboBox2.SmallImages = this.imageCollection1;
+            // 
             // popupContainerControlAllProduction
             // 
             this.popupContainerControlAllProduction.Controls.Add(this.pdfViewerAllProduction);
-            this.popupContainerControlAllProduction.Location = new System.Drawing.Point(209, 104);
+            this.popupContainerControlAllProduction.Location = new System.Drawing.Point(358, 122);
             this.popupContainerControlAllProduction.Name = "popupContainerControlAllProduction";
             this.popupContainerControlAllProduction.Size = new System.Drawing.Size(494, 451);
             this.popupContainerControlAllProduction.TabIndex = 5;
             // 
             // pdfViewerAllProduction
             // 
-            this.pdfViewerAllProduction.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pdfViewerAllProduction.Location = new System.Drawing.Point(0, 0);
+            this.pdfViewerAllProduction.Location = new System.Drawing.Point(138, 52);
             this.pdfViewerAllProduction.Name = "pdfViewerAllProduction";
             this.pdfViewerAllProduction.Size = new System.Drawing.Size(494, 451);
             this.pdfViewerAllProduction.TabIndex = 0;
+            // 
+            // barButtonItem3
+            // 
+            this.barButtonItem3.Caption = "TestReport";
+            this.barButtonItem3.Id = 3;
+            this.barButtonItem3.Name = "barButtonItem3";
+            this.barButtonItem3.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem3_ItemClick);
             // 
             // AllProduction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1243, 619);
-            this.Controls.Add(this.popupContainerControlAllProduction);
             this.Controls.Add(this.gridControlAllProduction);
+            this.Controls.Add(this.popupContainerControlAllProduction);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
             this.Name = "AllProduction";
@@ -443,8 +462,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControlAllProduction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entityServerModeSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewAllProduction)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupContainerControlAllProduction)).EndInit();
             this.popupContainerControlAllProduction.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -487,5 +506,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colCategoryIcon;
         private DevExpress.Utils.ImageCollection imageCollection1;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox repositoryItemImageComboBox2;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem2;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem3;
     }
 }

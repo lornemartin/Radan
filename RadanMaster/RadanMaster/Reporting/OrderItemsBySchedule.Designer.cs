@@ -942,23 +942,23 @@
             this.tableCell17.StylePriority.UseTextAlignment = false;
             this.tableCell17.Text = "Qty Required";
             this.tableCell17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.tableCell17.Weight = 0.41655710073617791D;
+            this.tableCell17.Weight = 0.25469813040257461D;
             // 
             // tableCell18
             // 
             this.tableCell18.Name = "tableCell18";
             this.tableCell18.StyleName = "DetailCaption2";
             this.tableCell18.StylePriority.UseTextAlignment = false;
-            this.tableCell18.Text = "Qty Nested";
+            this.tableCell18.Text = "Qty Made";
             this.tableCell18.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.tableCell18.Weight = 0.36110170804537262D;
+            this.tableCell18.Weight = 0.22260366261413483D;
             // 
             // tableCell19
             // 
             this.tableCell19.Name = "tableCell19";
             this.tableCell19.StyleName = "DetailCaption2";
             this.tableCell19.Text = "Notes";
-            this.tableCell19.Weight = 0.22234121469350962D;
+            this.tableCell19.Weight = 0.52269823045835073D;
             // 
             // tableRow6
             // 
@@ -979,7 +979,7 @@
             this.tableCell20.StylePriority.UseBorders = false;
             this.tableCell20.StylePriority.UseTextAlignment = false;
             this.tableCell20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.tableCell20.Weight = 0.41655710073617791D;
+            this.tableCell20.Weight = 0.25469813040257461D;
             // 
             // tableCell21
             // 
@@ -989,7 +989,7 @@
             this.tableCell21.StyleName = "DetailData2";
             this.tableCell21.StylePriority.UseTextAlignment = false;
             this.tableCell21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.tableCell21.Weight = 0.36110170804537262D;
+            this.tableCell21.Weight = 0.22260366261413483D;
             // 
             // tableCell22
             // 
@@ -997,7 +997,7 @@
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Notes]")});
             this.tableCell22.Name = "tableCell22";
             this.tableCell22.StyleName = "DetailData2";
-            this.tableCell22.Weight = 0.22234121469350962D;
+            this.tableCell22.Weight = 0.52269823045835073D;
             // 
             // DetailReport1
             // 

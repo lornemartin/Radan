@@ -30,37 +30,26 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnNesting = new System.Windows.Forms.Button();
-            this.buttonAllItems = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnNesting
             // 
-            this.btnNesting.Location = new System.Drawing.Point(137, 64);
+            this.btnNesting.Location = new System.Drawing.Point(553, 47);
             this.btnNesting.Name = "btnNesting";
-            this.btnNesting.Size = new System.Drawing.Size(75, 23);
+            this.btnNesting.Size = new System.Drawing.Size(201, 98);
             this.btnNesting.TabIndex = 0;
             this.btnNesting.Text = "Nesting";
             this.btnNesting.UseVisualStyleBackColor = true;
             this.btnNesting.Click += new System.EventHandler(this.btnNesting_Click);
             // 
-            // buttonAllItems
-            // 
-            this.buttonAllItems.Location = new System.Drawing.Point(137, 127);
-            this.buttonAllItems.Name = "buttonAllItems";
-            this.buttonAllItems.Size = new System.Drawing.Size(75, 23);
-            this.buttonAllItems.TabIndex = 0;
-            this.buttonAllItems.Text = "All Items";
-            this.buttonAllItems.UseVisualStyleBackColor = true;
-            this.buttonAllItems.Click += new System.EventHandler(this.buttonAllItems_Click);
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(148, 201);
+            this.button1.Location = new System.Drawing.Point(300, 47);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(194, 98);
             this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
+            this.button1.Text = "All Production";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -70,7 +59,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1194, 570);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.buttonAllItems);
             this.Controls.Add(this.btnNesting);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
@@ -82,7 +70,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnNesting;
-        private System.Windows.Forms.Button buttonAllItems;
         private System.Windows.Forms.Button button1;
     }
 }
