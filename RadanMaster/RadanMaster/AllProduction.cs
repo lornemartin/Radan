@@ -297,7 +297,7 @@ namespace RadanMaster
 
         private void barButtonItem3_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Reporting.TestReport3 report = new Reporting.TestReport3();
+            Reporting.TestReport2 report = new Reporting.TestReport2();
             report.ShowPreview();
         }
     }

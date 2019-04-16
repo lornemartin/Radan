@@ -207,18 +207,6 @@
     <Compile Include="Reporting\OrderItemsBySchedule.Designer.cs">
       <DependentUpon>OrderItemsBySchedule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reporting\TestReport1.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reporting\TestReport1.Designer.cs">
-      <DependentUpon>TestReport1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Reporting\TestReport12.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reporting\TestReport12.Designer.cs">
-      <DependentUpon>TestReport12.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reporting\TestReport2.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -298,12 +286,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reporting\OrderItemsBySchedule.resx">
       <DependentUpon>OrderItemsBySchedule.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reporting\TestReport1.resx">
-      <DependentUpon>TestReport1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reporting\TestReport12.resx">
-      <DependentUpon>TestReport12.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporting\TestReport2.resx">
       <DependentUpon>TestReport2.cs</DependentUpon>
