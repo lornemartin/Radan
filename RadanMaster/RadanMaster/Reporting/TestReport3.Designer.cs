@@ -552,6 +552,7 @@
             this.DetailReport.DataSource = this.sqlDataSource1;
             this.DetailReport.Level = 0;
             this.DetailReport.Name = "DetailReport";
+            this.DetailReport.PageBreak = DevExpress.XtraReports.UI.PageBreak.AfterBand;
             // 
             // GroupHeader3
             // 
@@ -712,13 +713,13 @@
             this.label4.Name = "label4";
             this.label4.SizeF = new System.Drawing.SizeF(33.46234F, 14.88444F);
             this.label4.StyleName = "GrandTotalCaption2";
-            this.label4.Text = "MAX";
+            this.label4.Text = "SUM";
             // 
             // label5
             // 
             this.label5.CanGrow = false;
             this.label5.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumMax([QtyNested])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([QtyNested])")});
             this.label5.LocationFloat = new DevExpress.Utils.PointFloat(423.0528F, 11.5F);
             this.label5.Name = "label5";
             this.label5.SizeF = new System.Drawing.SizeF(226.9472F, 14.88444F);
@@ -743,6 +744,7 @@
             this.sqlDataSource1});
             this.DataMember = "Parts";
             this.DataSource = this.sqlDataSource1;
+            this.FilterString = "[IsStock] = False";
             this.Font = new System.Drawing.Font("Arial", 9.75F);
             this.StyleSheet.AddRange(new DevExpress.XtraReports.UI.XRControlStyle[] {
             this.Title,

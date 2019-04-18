@@ -51,6 +51,8 @@
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -79,7 +81,7 @@
             this.repositoryItemImageComboBox2 = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.popupContainerControlAllProduction = new DevExpress.XtraEditors.PopupContainerControl();
             this.pdfViewerAllProduction = new DevExpress.XtraPdfViewer.PdfViewer();
-            this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
+            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -90,6 +92,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupContainerControlAllProduction)).BeginInit();
             this.popupContainerControlAllProduction.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
             this.SuspendLayout();
             // 
             // colCategory
@@ -99,7 +102,7 @@
             this.colCategory.FieldName = "CategoryName";
             this.colCategory.Name = "colCategory";
             this.colCategory.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
-            this.colCategory.SortMode = DevExpress.XtraGrid.ColumnSortMode.DisplayText;
+            this.colCategory.SortMode = DevExpress.XtraGrid.ColumnSortMode.Custom;
             this.colCategory.Visible = true;
             this.colCategory.VisibleIndex = 0;
             this.colCategory.Width = 59;
@@ -138,9 +141,10 @@
             this.ribbon.ExpandCollapseItem,
             this.barButtonItem1,
             this.barButtonItem2,
-            this.barButtonItem3});
+            this.barButtonItem3,
+            this.barButtonItem4});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 4;
+            this.ribbon.MaxItemId = 5;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -161,6 +165,20 @@
             this.barButtonItem2.Name = "barButtonItem2";
             this.barButtonItem2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick);
             // 
+            // barButtonItem3
+            // 
+            this.barButtonItem3.Caption = "TestReport";
+            this.barButtonItem3.Id = 3;
+            this.barButtonItem3.Name = "barButtonItem3";
+            this.barButtonItem3.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem3_ItemClick);
+            // 
+            // barButtonItem4
+            // 
+            this.barButtonItem4.Caption = "barButtonItem4";
+            this.barButtonItem4.Id = 4;
+            this.barButtonItem4.Name = "barButtonItem4";
+            this.barButtonItem4.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem4_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -179,6 +197,7 @@
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem1);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem2);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem3);
+            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem4);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "Reports";
             // 
@@ -249,7 +268,7 @@
             this.colID.FieldName = "ID";
             this.colID.Name = "colID";
             this.colID.Visible = true;
-            this.colID.VisibleIndex = 2;
+            this.colID.VisibleIndex = 1;
             this.colID.Width = 63;
             // 
             // colQtyRequired
@@ -258,7 +277,7 @@
             this.colQtyRequired.FieldName = "QtyRequired";
             this.colQtyRequired.Name = "colQtyRequired";
             this.colQtyRequired.Visible = true;
-            this.colQtyRequired.VisibleIndex = 3;
+            this.colQtyRequired.VisibleIndex = 2;
             this.colQtyRequired.Width = 59;
             // 
             // colQtyNested
@@ -267,18 +286,18 @@
             this.colQtyNested.FieldName = "QtyNested";
             this.colQtyNested.Name = "colQtyNested";
             this.colQtyNested.Visible = true;
-            this.colQtyNested.VisibleIndex = 4;
+            this.colQtyNested.VisibleIndex = 3;
             this.colQtyNested.Width = 46;
             // 
             // colCategoryIcon
             // 
             this.colCategoryIcon.Caption = "CategoryIcon";
-            this.colCategoryIcon.FieldName = "CategoryIcon";
+            this.colCategoryIcon.FieldName = "calculatedIconValue";
             this.colCategoryIcon.Name = "colCategoryIcon";
-            this.colCategoryIcon.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
             this.colCategoryIcon.SortMode = DevExpress.XtraGrid.ColumnSortMode.Custom;
-            this.colCategoryIcon.Visible = true;
-            this.colCategoryIcon.VisibleIndex = 1;
+            this.colCategoryIcon.UnboundExpression = "Iif([CategoryName] = \'Product\', 1, [CategoryName] = \'Assembly\', 2, [CategoryName]" +
+    " = \'Part\', 3, 0)";
+            this.colCategoryIcon.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
             this.colCategoryIcon.Width = 70;
             // 
             // colFileName
@@ -287,7 +306,7 @@
             this.colFileName.FieldName = "FileName";
             this.colFileName.Name = "colFileName";
             this.colFileName.Visible = true;
-            this.colFileName.VisibleIndex = 5;
+            this.colFileName.VisibleIndex = 16;
             this.colFileName.Width = 140;
             // 
             // colDescription
@@ -296,7 +315,7 @@
             this.colDescription.FieldName = "Description";
             this.colDescription.Name = "colDescription";
             this.colDescription.Visible = true;
-            this.colDescription.VisibleIndex = 6;
+            this.colDescription.VisibleIndex = 4;
             this.colDescription.Width = 249;
             // 
             // colIsStock
@@ -305,7 +324,7 @@
             this.colIsStock.FieldName = "IsStock";
             this.colIsStock.Name = "colIsStock";
             this.colIsStock.Visible = true;
-            this.colIsStock.VisibleIndex = 9;
+            this.colIsStock.VisibleIndex = 7;
             this.colIsStock.Width = 71;
             // 
             // colThickness
@@ -314,7 +333,7 @@
             this.colThickness.FieldName = "Thickness";
             this.colThickness.Name = "colThickness";
             this.colThickness.Visible = true;
-            this.colThickness.VisibleIndex = 7;
+            this.colThickness.VisibleIndex = 5;
             this.colThickness.Width = 31;
             // 
             // colOrderNumber
@@ -323,7 +342,7 @@
             this.colOrderNumber.FieldName = "OrderNumber";
             this.colOrderNumber.Name = "colOrderNumber";
             this.colOrderNumber.Visible = true;
-            this.colOrderNumber.VisibleIndex = 10;
+            this.colOrderNumber.VisibleIndex = 8;
             this.colOrderNumber.Width = 71;
             // 
             // colStructCode
@@ -332,7 +351,7 @@
             this.colStructCode.FieldName = "StructuralCode";
             this.colStructCode.Name = "colStructCode";
             this.colStructCode.Visible = true;
-            this.colStructCode.VisibleIndex = 8;
+            this.colStructCode.VisibleIndex = 6;
             this.colStructCode.Width = 71;
             // 
             // colProductName
@@ -341,7 +360,7 @@
             this.colProductName.FieldName = "ProductName";
             this.colProductName.Name = "colProductName";
             this.colProductName.Visible = true;
-            this.colProductName.VisibleIndex = 11;
+            this.colProductName.VisibleIndex = 9;
             this.colProductName.Width = 79;
             // 
             // colOperation
@@ -350,7 +369,7 @@
             this.colOperation.FieldName = "Name";
             this.colOperation.Name = "colOperation";
             this.colOperation.Visible = true;
-            this.colOperation.VisibleIndex = 12;
+            this.colOperation.VisibleIndex = 10;
             this.colOperation.Width = 68;
             // 
             // colSchedName
@@ -359,7 +378,7 @@
             this.colSchedName.FieldName = "ScheduleName";
             this.colSchedName.Name = "colSchedName";
             this.colSchedName.Visible = true;
-            this.colSchedName.VisibleIndex = 13;
+            this.colSchedName.VisibleIndex = 11;
             this.colSchedName.Width = 68;
             // 
             // colBatchName
@@ -368,7 +387,7 @@
             this.colBatchName.FieldName = "BatchName";
             this.colBatchName.Name = "colBatchName";
             this.colBatchName.Visible = true;
-            this.colBatchName.VisibleIndex = 14;
+            this.colBatchName.VisibleIndex = 12;
             this.colBatchName.Width = 68;
             // 
             // colNotes
@@ -377,7 +396,7 @@
             this.colNotes.FieldName = "Notes";
             this.colNotes.Name = "colNotes";
             this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 15;
+            this.colNotes.VisibleIndex = 13;
             this.colNotes.Width = 218;
             // 
             // colIsComplete
@@ -386,7 +405,7 @@
             this.colIsComplete.FieldName = "IsComplete";
             this.colIsComplete.Name = "colIsComplete";
             this.colIsComplete.Visible = true;
-            this.colIsComplete.VisibleIndex = 16;
+            this.colIsComplete.VisibleIndex = 14;
             this.colIsComplete.Width = 34;
             // 
             // colIsBatch
@@ -395,7 +414,7 @@
             this.colIsBatch.FieldName = "IsBatch";
             this.colIsBatch.Name = "colIsBatch";
             this.colIsBatch.Visible = true;
-            this.colIsBatch.VisibleIndex = 17;
+            this.colIsBatch.VisibleIndex = 15;
             this.colIsBatch.Width = 42;
             // 
             // repositoryItemImageEdit1
@@ -434,13 +453,6 @@
             this.pdfViewerAllProduction.Size = new System.Drawing.Size(494, 451);
             this.pdfViewerAllProduction.TabIndex = 0;
             // 
-            // barButtonItem3
-            // 
-            this.barButtonItem3.Caption = "TestReport";
-            this.barButtonItem3.Id = 3;
-            this.barButtonItem3.Name = "barButtonItem3";
-            this.barButtonItem3.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem3_ItemClick);
-            // 
             // AllProduction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -466,6 +478,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupContainerControlAllProduction)).EndInit();
             this.popupContainerControlAllProduction.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -508,5 +521,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox repositoryItemImageComboBox2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem4;
+        private DevExpress.Utils.Behaviors.BehaviorManager behaviorManager1;
     }
 }
