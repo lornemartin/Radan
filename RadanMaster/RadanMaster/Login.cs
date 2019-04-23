@@ -13,7 +13,8 @@ namespace RadanMaster
 {
     public partial class Login : DevExpress.XtraEditors.XtraForm
     {
-        bool loggedIn = false;
+
+        public Models.User currentUser { get; set; }
 
         RadanMaster.DAL.RadanMasterContext dbContext { get; set; }
         public Login()
@@ -30,7 +31,11 @@ namespace RadanMaster
             bool success = evaluateLogin();
 
             if (success)
+            {
+                currentUser = usr;
+                DialogResult = DialogResult.OK;
                 this.Close();
+            }
         }
 
         private bool evaluateLogin()
@@ -46,7 +51,7 @@ namespace RadanMaster
                 }
                 else
                 {
-                    loggedIn = true;
+                    //loggedIn = true;
                     return true;
                 }
             }

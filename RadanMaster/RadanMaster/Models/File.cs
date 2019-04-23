@@ -17,5 +17,6 @@ namespace RadanMaster.Models
         public byte[] Content { get; set; }
         public FileType FileType { get; set; }
         public Part Part { get; set; }
+        public DateTime CreationDate { get; set; }
     }
 }

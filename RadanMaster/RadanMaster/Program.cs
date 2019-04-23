@@ -23,6 +23,7 @@ namespace RadanMaster
 
             BonusSkins.Register();
             SkinManager.EnableFormSkins();
+
             Application.Run(new MainForm());
         }
     }

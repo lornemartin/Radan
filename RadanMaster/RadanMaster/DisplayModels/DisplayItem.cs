@@ -29,6 +29,7 @@ namespace RadanMaster.Models
         public string Notes { get; set; }
         public bool IsComplete { get; set; }
         public bool IsBatch { get; set; }
+        public string PlantID { get; set; }
         public object item;
     }
 

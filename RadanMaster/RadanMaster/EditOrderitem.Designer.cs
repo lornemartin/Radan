@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataLayoutControl1 = new DevExpress.XtraDataLayout.DataLayoutControl();
             this.textEditQtyReqd = new DevExpress.XtraEditors.TextEdit();
             this.mainRibbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -40,22 +41,24 @@
             this.mainRibbonPage = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.mainRibbonPageGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.textEditQtyDone = new DevExpress.XtraEditors.TextEdit();
-            this.textEditNotes = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
+            this.textEditNotes = new DevExpress.XtraEditors.MemoEdit();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).BeginInit();
             this.dataLayoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textEditQtyReqd.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainRibbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditQtyDone.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEditNotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditNotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             this.SuspendLayout();
             // 
@@ -173,15 +176,6 @@
             this.textEditQtyDone.StyleController = this.dataLayoutControl1;
             this.textEditQtyDone.TabIndex = 5;
             // 
-            // textEditNotes
-            // 
-            this.textEditNotes.Location = new System.Drawing.Point(63, 36);
-            this.textEditNotes.MenuManager = this.mainRibbonControl;
-            this.textEditNotes.Name = "textEditNotes";
-            this.textEditNotes.Size = new System.Drawing.Size(715, 20);
-            this.textEditNotes.StyleController = this.dataLayoutControl1;
-            this.textEditNotes.TabIndex = 6;
-            // 
             // layoutControlGroup1
             // 
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -224,6 +218,16 @@
             this.layoutControlItem2.Text = "Qty Done";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(48, 13);
             // 
+            // textEditNotes
+            // 
+            this.textEditNotes.Location = new System.Drawing.Point(63, 36);
+            this.textEditNotes.MenuManager = this.mainRibbonControl;
+            this.textEditNotes.Name = "textEditNotes";
+            this.textEditNotes.Properties.LinesCount = 5;
+            this.textEditNotes.Size = new System.Drawing.Size(715, 404);
+            this.textEditNotes.StyleController = this.dataLayoutControl1;
+            this.textEditNotes.TabIndex = 6;
+            // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.textEditNotes;
@@ -249,11 +253,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.textEditQtyReqd.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainRibbonControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditQtyDone.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEditNotes.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditNotes.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -275,9 +280,10 @@
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
         private DevExpress.XtraEditors.TextEdit textEditQtyReqd;
         private DevExpress.XtraEditors.TextEdit textEditQtyDone;
-        private DevExpress.XtraEditors.TextEdit textEditNotes;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraEditors.MemoEdit textEditNotes;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.Utils.Behaviors.BehaviorManager behaviorManager1;
     }
 }

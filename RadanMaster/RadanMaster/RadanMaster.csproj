@@ -82,6 +82,15 @@
     <Reference Include="DevExpress.Sparkline.v18.2.Core" />
     <Reference Include="DevExpress.Utils.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v18.2.UI, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Core.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Grid.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 18.2\Components\Bin\Framework\DevExpress.Xpf.Grid.v18.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Printing.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress 18.2\Components\Bin\Framework\DevExpress.Xpf.Printing.v18.2.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Xpo.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraCharts.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraDialogs.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -159,20 +168,25 @@
     <Compile Include="DailySchedule\ProcessPDF.cs" />
     <Compile Include="DAL\ObserveableListSource.cs" />
     <Compile Include="DAL\RadanMasterContext.cs" />
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903041512054_InitialCreate.cs" />
-    <Compile Include="Migrations\201903041512054_InitialCreate.Designer.cs">
-      <DependentUpon>201903041512054_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201904231235565_InitialCreate.cs" />
+    <Compile Include="Migrations\201904231235565_InitialCreate.Designer.cs">
+      <DependentUpon>201904231235565_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903041521137_current.cs" />
-    <Compile Include="Migrations\201903041521137_current.Designer.cs">
-      <DependentUpon>201903041521137_current.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Privilege.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\User2.cs" />
     <Compile Include="Nesting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -258,14 +272,14 @@
     <EmbeddedResource Include="EditOrderitem.resx">
       <DependentUpon>EditOrderitem.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903041512054_InitialCreate.resx">
-      <DependentUpon>201903041512054_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903041521137_current.resx">
-      <DependentUpon>201903041521137_current.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904231235565_InitialCreate.resx">
+      <DependentUpon>201904231235565_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nesting.resx">
       <DependentUpon>Nesting.cs</DependentUpon>

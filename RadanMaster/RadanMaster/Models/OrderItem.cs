@@ -26,6 +26,8 @@ namespace RadanMaster.Models
         public RadanID RadanID {get; set; }
         public int RadanIDNumber { get; set; }
 
+        public string ProductName { get; set; }
+
         public virtual ICollection<Nest> AssociatedNests { get; set; }
     }
 }

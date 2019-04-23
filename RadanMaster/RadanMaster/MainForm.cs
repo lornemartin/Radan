@@ -13,9 +13,19 @@ namespace RadanMaster
 {
     public partial class MainForm : DevExpress.XtraEditors.XtraForm
     {
+        Models.User currentUser { get; set; }
+
         public MainForm()
         {
             InitializeComponent();
+            btnAllProduction.Enabled = false;
+            btnNesting.Enabled = false;
+        }
+
+        private void RefreshForm()
+        {
+            btnAllProduction.Enabled = currentUser.hasAccess(btnAllProduction.Name);
+            btnNesting.Enabled = currentUser.hasAccess(btnNesting.Name);
         }
 
         private void btnNesting_Click(object sender, EventArgs e)
@@ -26,8 +36,27 @@ namespace RadanMaster
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AllProduction testForm = new AllProduction();
-            testForm.ShowDialog();
+            try
+            {
+                AllProduction testForm = new AllProduction();
+                testForm.ShowDialog();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private void barButtonItemLogin_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Login loginForm = new Login();
+            var result = loginForm.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+                currentUser = loginForm.currentUser;
+                RefreshForm();
+            }
         }
     }
 }

@@ -24,6 +24,8 @@ namespace RadanMaster.DAL
         public DbSet<Operation> Operations { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<File> Files { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Privilege> Privileges { get; set; }
     }
 }
         
