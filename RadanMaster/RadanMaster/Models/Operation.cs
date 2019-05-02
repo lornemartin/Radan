@@ -9,10 +9,16 @@ namespace RadanMaster.Models
     public class Operation
     {
         public int ID { get; set; }
+        public int qtyRequired { get; set; }
+        public int qtyDone { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
 
         public Part Part { get; set; }
         public int PartID { get; set; }
+
+        public bool isFinalOp { get; set; }
+
+        public virtual ICollection<OperationPerformed> OperationPerformeds { get; set; }
     }
 }
