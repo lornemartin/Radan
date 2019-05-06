@@ -29,5 +29,6 @@ namespace RadanMaster.Models
         public string ProductName { get; set; }
 
         public virtual ICollection<Nest> AssociatedNests { get; set; }
+        public virtual ICollection<OrderItemOperation> orderOps { get; set; }
     }
 }

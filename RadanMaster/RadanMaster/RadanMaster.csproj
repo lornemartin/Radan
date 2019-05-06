@@ -196,7 +196,12 @@
     <Compile Include="Migrations\201904231654190_addedNotesToOpsPerformed.Designer.cs">
       <DependentUpon>201904231654190_addedNotesToOpsPerformed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905061917376_AddedOrderItemOperationTable.cs" />
+    <Compile Include="Migrations\201905061917376_AddedOrderItemOperationTable.Designer.cs">
+      <DependentUpon>201905061917376_AddedOrderItemOperationTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\OperationPerformed.cs" />
+    <Compile Include="Models\OrderItemOperation.cs" />
     <Compile Include="Models\Privilege.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\User2.cs" />
@@ -307,6 +312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904231654190_addedNotesToOpsPerformed.resx">
       <DependentUpon>201904231654190_addedNotesToOpsPerformed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905061917376_AddedOrderItemOperationTable.resx">
+      <DependentUpon>201905061917376_AddedOrderItemOperationTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nesting.resx">
       <DependentUpon>Nesting.cs</DependentUpon>

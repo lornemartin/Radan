@@ -34,7 +34,7 @@ namespace RadanMaster
 
             dbContext.Parts.Load();
             dbContext.Operations.Load();
-            gridControlOperations.DataSource = dbContext.Operations.Local.ToBindingList().Where(p => p.PartID == itemToEdit.PartID).ToList();
+            gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
         }
 
         private void bbiSaveAndClose_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -46,7 +46,7 @@ namespace RadanMaster
             textEditQtyDone.Focus();        // take focus away from operations grid to force data update if needed
 
             gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = dbContext.Operations.Local.ToBindingList().Where(p => p.PartID == itemToEdit.PartID).ToList();
+            gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
 
             dbContext.SaveChanges();
 
@@ -66,8 +66,6 @@ namespace RadanMaster
         private void btnAddOperation_Click(object sender, EventArgs e)
         {
             Models.Operation newOp = new Models.Operation();
-            newOp.qtyRequired = itemToEdit.QtyRequired;
-            newOp.qtyDone = 0;
             newOp.Part = itemToEdit.Part;
             newOp.PartID = itemToEdit.PartID;
             newOp.Location = "";
@@ -78,7 +76,7 @@ namespace RadanMaster
             itemToEdit.Part.Operations.Add(newOp);
 
             gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = dbContext.Operations.Local.ToBindingList().Where(p => p.PartID == itemToEdit.PartID).ToList();
+            gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
         }
 
         private void btnRemoveOperation_Click(object sender, EventArgs e)
@@ -90,7 +88,7 @@ namespace RadanMaster
             dbContext.Operations.Remove(opToRemove);
 
             gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = dbContext.Operations.Local.ToBindingList().Where(p => p.PartID == itemToEdit.PartID).ToList();
+            gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
 
         }
     }
