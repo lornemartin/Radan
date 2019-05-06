@@ -34,7 +34,7 @@ namespace RadanMaster
 
             dbContext.Parts.Load();
             dbContext.Operations.Load();
-            gridControlOperations.DataSource = dbContext.Operations.Local.ToBindingList().Where(p => p.PartID == itemToEdit.PartID);
+            gridControlOperations.DataSource = dbContext.Operations.Local.ToBindingList().Where(p => p.PartID == itemToEdit.PartID).ToList();
         }
 
         private void bbiSaveAndClose_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -43,19 +43,10 @@ namespace RadanMaster
             itemToEdit.QtyNested = int.Parse(textEditQtyDone.Text);
             itemToEdit.Notes = textEditNotes.Text;
 
-            //int dataRowCount = gridViewOperations.DataRowCount;
-            DevExpress.XtraGrid.Columns.GridColumn col = gridViewOperations.Columns.ColumnByFieldName("isFinalOp");
-
-            int i = 0;
-            foreach(Models.Operation op in itemToEdit.Part.Operations)
-            {
-                //Models.Operation oper = dbContext.Operations.Where(o => o.ID == op.ID).FirstOrDefault();
-                op.isFinalOp = (bool) gridViewOperations.GetRowCellValue(i, col);
-                i++;
-            }
+            textEditQtyDone.Focus();        // take focus away from operations grid to force data update if needed
 
             gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = dbContext.Operations.Local.ToBindingList().Where(p => p.PartID == itemToEdit.PartID);
+            gridControlOperations.DataSource = dbContext.Operations.Local.ToBindingList().Where(p => p.PartID == itemToEdit.PartID).ToList();
 
             dbContext.SaveChanges();
 
@@ -69,10 +60,7 @@ namespace RadanMaster
 
         private void EditOrderitem_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'radanMaster2DataSet.Operations' table. You can move, or remove it, as needed.
-            //this.operationsTableAdapter.Fill(this.radanMaster2DataSet.Operations);
            
-            //this.operationsTableAdapter.Fill(this.radanMaster2DataSet.Operations);
         }
 
         private void btnAddOperation_Click(object sender, EventArgs e)
@@ -87,12 +75,10 @@ namespace RadanMaster
             newOp.Name = "";
 
             dbContext.Operations.Add(newOp);
-
-            Models.Part prt = dbContext.Parts.Where(p => p.ID == itemToEdit.PartID).FirstOrDefault();
-            prt.Operations.Add(newOp);
+            itemToEdit.Part.Operations.Add(newOp);
 
             gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = dbContext.Operations.Local.ToBindingList().Where(p => p.PartID == itemToEdit.PartID);
+            gridControlOperations.DataSource = dbContext.Operations.Local.ToBindingList().Where(p => p.PartID == itemToEdit.PartID).ToList();
         }
 
         private void btnRemoveOperation_Click(object sender, EventArgs e)
@@ -104,7 +90,7 @@ namespace RadanMaster
             dbContext.Operations.Remove(opToRemove);
 
             gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = dbContext.Operations.Local.ToBindingList().Where(p => p.PartID == itemToEdit.PartID);
+            gridControlOperations.DataSource = dbContext.Operations.Local.ToBindingList().Where(p => p.PartID == itemToEdit.PartID).ToList();
 
         }
     }
