@@ -22,6 +22,8 @@ namespace RadanMaster
     {
         Models.OrderItem itemToEdit { get; set; }
         DAL.RadanMasterContext dbContext { get; set; }
+        bool updateAll { get; set; }
+
 
         public EditOrderitem(Models.OrderItem oItem, DAL.RadanMasterContext ctx)
         {
@@ -34,7 +36,10 @@ namespace RadanMaster
 
             dbContext.Parts.Load();
             dbContext.Operations.Load();
-            gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
+            dbContext.OrderItemOperations.Load();
+
+            //gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
+            gridControlOperations.DataSource = itemToEdit.orderOps.ToList();
         }
 
         private void bbiSaveAndClose_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -45,8 +50,36 @@ namespace RadanMaster
 
             textEditQtyDone.Focus();        // take focus away from operations grid to force data update if needed
 
+
+            if (updateAll)
+            {
+                // find other open order items that should be updated...
+                List<Models.OrderItem> openOrderItems = new List<Models.OrderItem>();
+                openOrderItems = dbContext.OrderItems.Where(o => o.PartID == itemToEdit.PartID)
+                                                     .Where(o => o.IsComplete == false).ToList();
+
+                List<Models.Operation> itemOps = new List<Models.Operation>();
+
+
+                foreach (Models.OrderItemOperation itemOp in itemToEdit.orderOps.ToList())
+                {
+                    foreach (Models.OrderItem item in openOrderItems.ToList())
+                    {
+                        Models.OrderItemOperation newItemOp = new Models.OrderItemOperation();
+                        newItemOp.qtyRequired = item.QtyRequired;
+                        newItemOp.qtyDone = 0;
+                        newItemOp.operation = itemOp.operation;
+
+                        Models.OrderItemOperation testOp = item.orderOps.Where(o => o.operation.Name == itemOp.operation.Name).FirstOrDefault();
+                        if (testOp == null)
+                            item.orderOps.Add(newItemOp);
+                    }
+                }
+            }
+
             gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
+            //gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
+            gridControlOperations.DataSource = itemToEdit.orderOps.ToList();
 
             dbContext.SaveChanges();
 
@@ -60,35 +93,63 @@ namespace RadanMaster
 
         private void EditOrderitem_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         private void btnAddOperation_Click(object sender, EventArgs e)
         {
-            Models.Operation newOp = new Models.Operation();
-            newOp.Part = itemToEdit.Part;
-            newOp.PartID = itemToEdit.PartID;
-            newOp.Location = "";
-            newOp.isFinalOp = false;
-            newOp.Name = "";
+            DialogResult result = MessageBox.Show("Did you want to add this operation to all open order items or only to this item?", "Apply To All?", MessageBoxButtons.YesNoCancel);
 
-            dbContext.Operations.Add(newOp);
-            itemToEdit.Part.Operations.Add(newOp);
+            if (result != DialogResult.Cancel)
+            {
+                Models.Operation newOp = new Models.Operation();
+                newOp.Part = itemToEdit.Part;
+                newOp.PartID = itemToEdit.PartID;
+                newOp.Location = "";
+                newOp.isFinalOp = false;
+                newOp.Name = "";
 
-            gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
+                dbContext.Operations.Add(newOp);
+                itemToEdit.Part.Operations.Add(newOp);
+
+                Models.OrderItemOperation itemOp = new Models.OrderItemOperation();
+
+
+                dbContext.OrderItemOperations.Add(itemOp);
+
+                itemOp.operation = newOp;
+                itemOp.qtyRequired = itemToEdit.QtyRequired;
+                itemOp.qtyDone = 0;
+                itemToEdit.orderOps.Add(itemOp);
+
+                if (result == DialogResult.No)
+                {
+                    updateAll = true;
+
+                }
+                else
+                {
+                    updateAll = true;
+
+                }
+
+                gridControlOperations.DataSource = null;
+                //gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
+                gridControlOperations.DataSource = itemToEdit.orderOps.ToList();
+            }
         }
 
         private void btnRemoveOperation_Click(object sender, EventArgs e)
         {
             int selectedRow = gridViewOperations.GetSelectedRows().FirstOrDefault();
 
-            Models.Operation opToRemove = gridViewOperations.GetRow(selectedRow) as Models.Operation;
+            Models.OrderItemOperation opToRemove = gridViewOperations.GetRow(selectedRow) as Models.OrderItemOperation;
 
-            dbContext.Operations.Remove(opToRemove);
+            dbContext.OrderItemOperations.Remove(opToRemove);
 
             gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
+            //gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
+            gridControlOperations.DataSource = itemToEdit.orderOps.ToList();
 
         }
     }

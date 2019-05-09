@@ -41,6 +41,7 @@
             this.colLocation = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPartID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colisFinalOp = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.mainRibbonControl = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.bbiSave = new DevExpress.XtraBars.BarButtonItem();
             this.bbiSaveAndClose = new DevExpress.XtraBars.BarButtonItem();
@@ -63,11 +64,11 @@
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
             this.operationsTableAdapter = new RadanMaster.RadanMaster2DataSetTableAdapters.OperationsTableAdapter();
-            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).BeginInit();
             this.dataLayoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOperations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOperations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainRibbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditQtyReqd.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditQtyDone.Properties)).BeginInit();
@@ -81,7 +82,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataLayoutControl1
@@ -173,7 +173,7 @@
             // 
             // colName
             // 
-            this.colName.FieldName = "Name";
+            this.colName.FieldName = "operation.Name";
             this.colName.Name = "colName";
             this.colName.Visible = true;
             this.colName.VisibleIndex = 2;
@@ -181,7 +181,7 @@
             // 
             // colLocation
             // 
-            this.colLocation.FieldName = "Location";
+            this.colLocation.FieldName = "operation.Location";
             this.colLocation.Name = "colLocation";
             this.colLocation.Visible = true;
             this.colLocation.VisibleIndex = 3;
@@ -195,11 +195,16 @@
             // colisFinalOp
             // 
             this.colisFinalOp.ColumnEdit = this.repositoryItemCheckEdit1;
-            this.colisFinalOp.FieldName = "isFinalOp";
+            this.colisFinalOp.FieldName = "operation.isFinalOp";
             this.colisFinalOp.Name = "colisFinalOp";
             this.colisFinalOp.Visible = true;
             this.colisFinalOp.VisibleIndex = 4;
             this.colisFinalOp.Width = 122;
+            // 
+            // repositoryItemCheckEdit1
+            // 
+            this.repositoryItemCheckEdit1.AutoHeight = false;
+            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
             // 
             // mainRibbonControl
             // 
@@ -396,11 +401,6 @@
             // 
             this.operationsTableAdapter.ClearBeforeFill = true;
             // 
-            // repositoryItemCheckEdit1
-            // 
-            this.repositoryItemCheckEdit1.AutoHeight = false;
-            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
-            // 
             // EditOrderitem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -416,6 +416,7 @@
             this.dataLayoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOperations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOperations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainRibbonControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditQtyReqd.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textEditQtyDone.Properties)).EndInit();
@@ -429,7 +430,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

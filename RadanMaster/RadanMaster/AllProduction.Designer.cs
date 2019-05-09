@@ -266,11 +266,14 @@
             this.colIsComplete,
             this.colIsBatch});
             this.gridViewAllProduction.GridControl = this.gridControlAllProduction;
+            this.gridViewAllProduction.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "QtyRequired", this.colQtyRequired, "({0:0.##})")});
             this.gridViewAllProduction.Name = "gridViewAllProduction";
             this.gridViewAllProduction.OptionsBehavior.Editable = false;
             this.gridViewAllProduction.OptionsEditForm.ShowOnDoubleClick = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAllProduction.OptionsEditForm.ShowOnEnterKey = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAllProduction.OptionsEditForm.ShowOnF2Key = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewAllProduction.OptionsMenu.ShowGroupSummaryEditorItem = true;
             this.gridViewAllProduction.OptionsSelection.MultiSelect = true;
             this.gridViewAllProduction.PrintInitialize += new DevExpress.XtraGrid.Views.Base.PrintInitializeEventHandler(this.gridViewAllProduction_PrintInitialize);
             this.gridViewAllProduction.DoubleClick += new System.EventHandler(this.gridViewAllProduction_DoubleClick);
