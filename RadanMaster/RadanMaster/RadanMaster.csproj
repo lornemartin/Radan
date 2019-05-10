@@ -154,6 +154,12 @@
     <Compile Include="AddItemDialog\AddItem.Designer.cs">
       <DependentUpon>AddItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddOperationCompleted.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddOperationCompleted.Designer.cs">
+      <DependentUpon>AddOperationCompleted.cs</DependentUpon>
+    </Compile>
     <Compile Include="AllProduction.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,28 +186,13 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904231235565_InitialCreate.cs" />
-    <Compile Include="Migrations\201904231235565_InitialCreate.Designer.cs">
-      <DependentUpon>201904231235565_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904231631372_AddedOperationsPerformed.cs" />
-    <Compile Include="Migrations\201904231631372_AddedOperationsPerformed.Designer.cs">
-      <DependentUpon>201904231631372_AddedOperationsPerformed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904231635408_TweakedOps.cs" />
-    <Compile Include="Migrations\201904231635408_TweakedOps.Designer.cs">
-      <DependentUpon>201904231635408_TweakedOps.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904231654190_addedNotesToOpsPerformed.cs" />
-    <Compile Include="Migrations\201904231654190_addedNotesToOpsPerformed.Designer.cs">
-      <DependentUpon>201904231654190_addedNotesToOpsPerformed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905061917376_AddedOrderItemOperationTable.cs" />
-    <Compile Include="Migrations\201905061917376_AddedOrderItemOperationTable.Designer.cs">
-      <DependentUpon>201905061917376_AddedOrderItemOperationTable.cs</DependentUpon>
+    <Compile Include="Migrations\201905101423399_InitialCreate.cs" />
+    <Compile Include="Migrations\201905101423399_InitialCreate.Designer.cs">
+      <DependentUpon>201905101423399_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\OperationPerformed.cs" />
     <Compile Include="Models\OrderItemOperation.cs" />
+    <Compile Include="Models\OrderItemOperationPerformed.cs" />
     <Compile Include="Models\Privilege.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\User2.cs" />
@@ -289,6 +280,9 @@
     <EmbeddedResource Include="AddItemDialog\AddItem.resx">
       <DependentUpon>AddItem.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddOperationCompleted.resx">
+      <DependentUpon>AddOperationCompleted.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AllProduction.resx">
       <DependentUpon>AllProduction.cs</DependentUpon>
     </EmbeddedResource>
@@ -301,20 +295,8 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904231235565_InitialCreate.resx">
-      <DependentUpon>201904231235565_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904231631372_AddedOperationsPerformed.resx">
-      <DependentUpon>201904231631372_AddedOperationsPerformed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904231635408_TweakedOps.resx">
-      <DependentUpon>201904231635408_TweakedOps.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904231654190_addedNotesToOpsPerformed.resx">
-      <DependentUpon>201904231654190_addedNotesToOpsPerformed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905061917376_AddedOrderItemOperationTable.resx">
-      <DependentUpon>201905061917376_AddedOrderItemOperationTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905101423399_InitialCreate.resx">
+      <DependentUpon>201905101423399_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nesting.resx">
       <DependentUpon>Nesting.cs</DependentUpon>

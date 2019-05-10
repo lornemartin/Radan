@@ -38,7 +38,7 @@ namespace RadanMaster
         {
             try
             {
-                AllProduction testForm = new AllProduction();
+                AllProduction testForm = new AllProduction(currentUser);
                 testForm.ShowDialog();
             }
             catch(Exception ex)

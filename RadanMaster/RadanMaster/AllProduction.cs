@@ -28,10 +28,12 @@ namespace RadanMaster
     {
         RadanMaster.DAL.RadanMasterContext dbContext { get; set; }
         RefreshHelper helper;
+        Models.User currentUser { get; set; }
 
-        public AllProduction()
+        public AllProduction(Models.User curUser)
         {
             InitializeComponent();
+            currentUser = curUser;
             dbContext = new RadanMaster.DAL.RadanMasterContext();
 
             entityServerModeSource2.QueryableSource = from orderitem in dbContext.OrderItems
@@ -208,7 +210,7 @@ namespace RadanMaster
                 //OrderItem itemToEdit = (OrderItem)o;
                 
 
-                EditOrderitem editForm = new EditOrderitem(itemToEdit, dbContext);
+                EditOrderitem editForm = new EditOrderitem(itemToEdit, dbContext,currentUser);
                 editForm.ShowDialog();
                 dbContext.SaveChanges();
                 entityServerModeSource2.Reload();

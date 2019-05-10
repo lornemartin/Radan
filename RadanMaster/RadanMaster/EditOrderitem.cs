@@ -15,6 +15,7 @@ using DevExpress.XtraLayout;
 using System.Data.Entity;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace RadanMaster
 {
@@ -23,10 +24,12 @@ namespace RadanMaster
         Models.OrderItem itemToEdit { get; set; }
         DAL.RadanMasterContext dbContext { get; set; }
         bool updateAll { get; set; }
+        Models.User currentUser { get; set; }
 
 
-        public EditOrderitem(Models.OrderItem oItem, DAL.RadanMasterContext ctx)
+        public EditOrderitem(Models.OrderItem oItem, DAL.RadanMasterContext ctx,Models.User curUser)
         {
+            currentUser = curUser;
             dbContext = ctx;
             itemToEdit = oItem;
             InitializeComponent();
@@ -38,8 +41,7 @@ namespace RadanMaster
             dbContext.Operations.Load();
             dbContext.OrderItemOperations.Load();
 
-            //gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
-            gridControlOperations.DataSource = itemToEdit.orderOps.ToList();
+            gridControlOperations.DataSource = itemToEdit.orderItemOps.ToList();
         }
 
         private void bbiSaveAndClose_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -61,7 +63,7 @@ namespace RadanMaster
                 List<Models.Operation> itemOps = new List<Models.Operation>();
 
 
-                foreach (Models.OrderItemOperation itemOp in itemToEdit.orderOps.ToList())
+                foreach (Models.OrderItemOperation itemOp in itemToEdit.orderItemOps.ToList())
                 {
                     foreach (Models.OrderItem item in openOrderItems.ToList())
                     {
@@ -70,16 +72,15 @@ namespace RadanMaster
                         newItemOp.qtyDone = 0;
                         newItemOp.operation = itemOp.operation;
 
-                        Models.OrderItemOperation testOp = item.orderOps.Where(o => o.operation.Name == itemOp.operation.Name).FirstOrDefault();
+                        Models.OrderItemOperation testOp = item.orderItemOps.Where(o => o.operation.Name == itemOp.operation.Name).FirstOrDefault();
                         if (testOp == null)
-                            item.orderOps.Add(newItemOp);
+                            item.orderItemOps.Add(newItemOp);
                     }
                 }
             }
 
             gridControlOperations.DataSource = null;
-            //gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
-            gridControlOperations.DataSource = itemToEdit.orderOps.ToList();
+            gridControlOperations.DataSource = itemToEdit.orderItemOps.ToList();
 
             dbContext.SaveChanges();
 
@@ -120,7 +121,7 @@ namespace RadanMaster
                 itemOp.operation = newOp;
                 itemOp.qtyRequired = itemToEdit.QtyRequired;
                 itemOp.qtyDone = 0;
-                itemToEdit.orderOps.Add(itemOp);
+                itemToEdit.orderItemOps.Add(itemOp);
 
                 if (result == DialogResult.No)
                 {
@@ -134,8 +135,7 @@ namespace RadanMaster
                 }
 
                 gridControlOperations.DataSource = null;
-                //gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
-                gridControlOperations.DataSource = itemToEdit.orderOps.ToList();
+                gridControlOperations.DataSource = itemToEdit.orderItemOps.ToList();
             }
         }
 
@@ -148,9 +148,26 @@ namespace RadanMaster
             dbContext.OrderItemOperations.Remove(opToRemove);
 
             gridControlOperations.DataSource = null;
-            //gridControlOperations.DataSource = dbContext.OrderItemOperations.Local.ToBindingList().Where(p => p.operation.PartID == itemToEdit.PartID).ToList();
-            gridControlOperations.DataSource = itemToEdit.orderOps.ToList();
+            gridControlOperations.DataSource = itemToEdit.orderItemOps.ToList();
 
+        }
+
+        private void gridViewOperations_DoubleClick(object sender, EventArgs e)
+        {
+            GridView view = sender as GridView;
+            int numRows = view.SelectedRowsCount;
+            Models.OrderItemOperation opToEdit = new Models.OrderItemOperation();
+
+            List<int> rowHandleList = view.GetSelectedRows().ToList();
+            foreach (int rowHandle in rowHandleList)
+            {
+                object o = gridViewOperations.GetRow(rowHandle);
+                opToEdit = (Models.OrderItemOperation)o;
+            }
+
+            //EditOrderitem editForm = new EditOrderitem(itemToEdit, dbContext, currentUser);
+            AddOperationCompleted addOperationCompletedDialog = new AddOperationCompleted(currentUser,opToEdit,itemToEdit.Part);
+            addOperationCompletedDialog.ShowDialog();
         }
     }
 }

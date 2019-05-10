@@ -149,6 +149,7 @@
             this.gridViewOperations.Name = "gridViewOperations";
             this.gridViewOperations.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
             this.gridViewOperations.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.True;
+            this.gridViewOperations.DoubleClick += new System.EventHandler(this.gridViewOperations_DoubleClick);
             // 
             // colID
             // 
