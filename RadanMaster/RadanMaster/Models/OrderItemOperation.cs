@@ -13,7 +13,10 @@ namespace RadanMaster.Models
         public int qtyDone { get; set; }
         
         public Operation operation { get; set; }
-        public int operationID { get; set; }
+        public int? operationID { get; set; }
+
+        public OrderItem orderItem { get; set; }
+        public int? orderItemID { get; set; }
 
         public virtual ICollection<OperationPerformed> OperationPerformeds { get; set; }
     }

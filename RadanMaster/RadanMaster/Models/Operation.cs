@@ -14,7 +14,9 @@ namespace RadanMaster.Models
 
         public Part Part { get; set; }
         public int PartID { get; set; }
-
+        
         public bool isFinalOp { get; set; }
+
+        public virtual ICollection<OrderItemOperation> OrderItemOperations { get; set; }
     }
 }

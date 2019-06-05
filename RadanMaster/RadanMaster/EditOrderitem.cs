@@ -30,6 +30,7 @@ namespace RadanMaster
         public EditOrderitem(Models.OrderItem oItem, DAL.RadanMasterContext ctx,Models.User curUser)
         {
             currentUser = curUser;
+            //dbContext = new DAL.RadanMasterContext();
             dbContext = ctx;
             itemToEdit = oItem;
             InitializeComponent();
@@ -166,7 +167,7 @@ namespace RadanMaster
             }
 
             //EditOrderitem editForm = new EditOrderitem(itemToEdit, dbContext, currentUser);
-            AddOperationCompleted addOperationCompletedDialog = new AddOperationCompleted(currentUser,opToEdit,itemToEdit.Part);
+            AddOperationCompleted addOperationCompletedDialog = new AddOperationCompleted(currentUser,opToEdit,itemToEdit.Part,dbContext);
             addOperationCompletedDialog.ShowDialog();
         }
     }

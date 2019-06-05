@@ -186,9 +186,13 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905101423399_InitialCreate.cs" />
-    <Compile Include="Migrations\201905101423399_InitialCreate.Designer.cs">
-      <DependentUpon>201905101423399_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201905141330236_InitialCreate.cs" />
+    <Compile Include="Migrations\201905141330236_InitialCreate.Designer.cs">
+      <DependentUpon>201905141330236_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905141447363_tweakedOrderItemOperation.cs" />
+    <Compile Include="Migrations\201905141447363_tweakedOrderItemOperation.Designer.cs">
+      <DependentUpon>201905141447363_tweakedOrderItemOperation.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\OperationPerformed.cs" />
     <Compile Include="Models\OrderItemOperation.cs" />
@@ -295,8 +299,11 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905101423399_InitialCreate.resx">
-      <DependentUpon>201905101423399_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905141330236_InitialCreate.resx">
+      <DependentUpon>201905141330236_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905141447363_tweakedOrderItemOperation.resx">
+      <DependentUpon>201905141447363_tweakedOrderItemOperation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nesting.resx">
       <DependentUpon>Nesting.cs</DependentUpon>
