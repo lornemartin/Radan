@@ -49,6 +49,7 @@ namespace RadanMaster.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         nestName = c.String(),
                         nestPath = c.String(),
+                        Thumbnail = c.Binary(),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -64,6 +65,7 @@ namespace RadanMaster.Migrations
                         DueDate = c.DateTime(nullable: false),
                         IsComplete = c.Boolean(nullable: false),
                         IsBatch = c.Boolean(nullable: false),
+                        DateCompleted = c.DateTime(),
                     })
                 .PrimaryKey(t => t.ID);
             

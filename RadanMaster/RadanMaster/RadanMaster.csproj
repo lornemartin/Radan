@@ -15,7 +15,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -117,21 +117,9 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupAndFilterSettings.cs" />
-    <Compile Include="Migrations\201812121321175_InitialCreate.cs" />
-    <Compile Include="Migrations\201812121321175_InitialCreate.Designer.cs">
-      <DependentUpon>201812121321175_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812271330252_AddedNestThumbnail.cs" />
-    <Compile Include="Migrations\201812271330252_AddedNestThumbnail.Designer.cs">
-      <DependentUpon>201812271330252_AddedNestThumbnail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901081454259_Add Orders.DateCompletedField.cs" />
-    <Compile Include="Migrations\201901081454259_Add Orders.DateCompletedField.Designer.cs">
-      <DependentUpon>201901081454259_Add Orders.DateCompletedField.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901081650573_allow nullable.cs" />
-    <Compile Include="Migrations\201901081650573_allow nullable.Designer.cs">
-      <DependentUpon>201901081650573_allow nullable.cs</DependentUpon>
+    <Compile Include="Migrations\201906131640230_InitialCreate.cs" />
+    <Compile Include="Migrations\201906131640230_InitialCreate.Designer.cs">
+      <DependentUpon>201906131640230_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DisplayModels\DisplayItem.cs" />
@@ -168,17 +156,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812121321175_InitialCreate.resx">
-      <DependentUpon>201812121321175_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812271330252_AddedNestThumbnail.resx">
-      <DependentUpon>201812271330252_AddedNestThumbnail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901081454259_Add Orders.DateCompletedField.resx">
-      <DependentUpon>201901081454259_Add Orders.DateCompletedField.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901081650573_allow nullable.resx">
-      <DependentUpon>201901081650573_allow nullable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906131640230_InitialCreate.resx">
+      <DependentUpon>201906131640230_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
