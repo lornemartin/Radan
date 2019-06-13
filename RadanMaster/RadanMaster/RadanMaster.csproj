@@ -154,12 +154,6 @@
     <Compile Include="AddItemDialog\AddItem.Designer.cs">
       <DependentUpon>AddItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddOperationCompleted.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddOperationCompleted.Designer.cs">
-      <DependentUpon>AddOperationCompleted.cs</DependentUpon>
-    </Compile>
     <Compile Include="AllProduction.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -186,20 +180,14 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905141330236_InitialCreate.cs" />
-    <Compile Include="Migrations\201905141330236_InitialCreate.Designer.cs">
-      <DependentUpon>201905141330236_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905141447363_tweakedOrderItemOperation.cs" />
-    <Compile Include="Migrations\201905141447363_tweakedOrderItemOperation.Designer.cs">
-      <DependentUpon>201905141447363_tweakedOrderItemOperation.cs</DependentUpon>
+    <Compile Include="Migrations\201906131314099_InitialCreate.cs" />
+    <Compile Include="Migrations\201906131314099_InitialCreate.Designer.cs">
+      <DependentUpon>201906131314099_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\OperationPerformed.cs" />
     <Compile Include="Models\OrderItemOperation.cs" />
-    <Compile Include="Models\OrderItemOperationPerformed.cs" />
     <Compile Include="Models\Privilege.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\User2.cs" />
     <Compile Include="Nesting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,11 +209,6 @@
     <Compile Include="Models\RadanID.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RadanMaster2DataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RadanMaster2DataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="RefreshHelperClass.cs" />
     <Compile Include="Reporting\OrderItemByScheduleGroupedByPart.cs">
       <SubType>Component</SubType>
@@ -284,9 +267,6 @@
     <EmbeddedResource Include="AddItemDialog\AddItem.resx">
       <DependentUpon>AddItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddOperationCompleted.resx">
-      <DependentUpon>AddOperationCompleted.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AllProduction.resx">
       <DependentUpon>AllProduction.cs</DependentUpon>
     </EmbeddedResource>
@@ -299,11 +279,8 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905141330236_InitialCreate.resx">
-      <DependentUpon>201905141330236_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905141447363_tweakedOrderItemOperation.resx">
-      <DependentUpon>201905141447363_tweakedOrderItemOperation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906131314099_InitialCreate.resx">
+      <DependentUpon>201906131314099_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nesting.resx">
       <DependentUpon>Nesting.cs</DependentUpon>
@@ -372,17 +349,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="RadanMaster2DataSet.xsc">
-      <DependentUpon>RadanMaster2DataSet.xsd</DependentUpon>
-    </None>
-    <None Include="RadanMaster2DataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>RadanMaster2DataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="RadanMaster2DataSet.xss">
-      <DependentUpon>RadanMaster2DataSet.xsd</DependentUpon>
-    </None>
     <None Include="Resources\RadanMaster.ico" />
   </ItemGroup>
   <ItemGroup>

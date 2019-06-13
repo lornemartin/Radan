@@ -167,8 +167,6 @@ namespace RadanMaster
             }
 
             //EditOrderitem editForm = new EditOrderitem(itemToEdit, dbContext, currentUser);
-            AddOperationCompleted addOperationCompletedDialog = new AddOperationCompleted(currentUser,opToEdit,itemToEdit.Part,dbContext);
-            addOperationCompletedDialog.ShowDialog();
         }
     }
 }

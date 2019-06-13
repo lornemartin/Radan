@@ -14,6 +14,5 @@ namespace RadanMaster.Models
         public DateTime timePerformed { get; set; }
         public string Notes { get; set; }
 
-        public virtual ICollection<OrderItemOperationPerformed> OrderItemOperationPerformeds { get; set; }
     }
 }

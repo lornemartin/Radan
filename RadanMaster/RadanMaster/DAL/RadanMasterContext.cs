@@ -28,7 +28,6 @@ namespace RadanMaster.DAL
         public DbSet<Privilege> Privileges { get; set; }
         public DbSet<OperationPerformed> OperationPerformeds { get; set; }
         public DbSet<OrderItemOperation> OrderItemOperations { get; set; }
-        public DbSet<OrderItemOperationPerformed> OrderItemOperationPerformeds { get; set; }
     }
 }
         

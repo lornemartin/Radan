@@ -24,8 +24,21 @@ namespace RadanMaster
 
         private void RefreshForm()
         {
-            btnAllProduction.Enabled = currentUser.hasAccess(btnAllProduction.Name);
-            btnNesting.Enabled = currentUser.hasAccess(btnNesting.Name);
+            Models.Privilege p = currentUser.Privileges.Where(p1 => p1.buttonName == "btnAllProduction").FirstOrDefault();
+            if (p != null)
+            {
+                if (p.HasAccess)
+                    btnAllProduction.Enabled = true;
+            }
+
+            p = currentUser.Privileges.Where(p1 => p1.buttonName == "btnNesting").FirstOrDefault();
+            if (p != null)
+            {
+                if (p.HasAccess)
+                    btnNesting.Enabled = true;
+            }
+
+
         }
 
         private void btnNesting_Click(object sender, EventArgs e)

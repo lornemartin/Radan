@@ -63,7 +63,6 @@
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
-            this.operationsTableAdapter = new RadanMaster.RadanMaster2DataSetTableAdapters.OperationsTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).BeginInit();
             this.dataLayoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOperations)).BeginInit();
@@ -400,7 +399,6 @@
             // 
             // operationsTableAdapter
             // 
-            this.operationsTableAdapter.ClearBeforeFill = true;
             // 
             // EditOrderitem
             // 
@@ -459,7 +457,6 @@
         private DevExpress.XtraGrid.GridControl gridControlOperations;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewOperations;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
-        private RadanMaster2DataSetTableAdapters.OperationsTableAdapter operationsTableAdapter;
         private DevExpress.XtraGrid.Columns.GridColumn colID;
         private DevExpress.XtraGrid.Columns.GridColumn colName;
         private DevExpress.XtraGrid.Columns.GridColumn colLocation;
