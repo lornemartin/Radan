@@ -180,8 +180,13 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906191855137_AddOrderItemOperationPerformeds.cs" />
+    <Compile Include="Migrations\201906191855137_AddOrderItemOperationPerformeds.Designer.cs">
+      <DependentUpon>201906191855137_AddOrderItemOperationPerformeds.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\OperationPerformed.cs" />
     <Compile Include="Models\OrderItemOperation.cs" />
+    <Compile Include="Models\OrderItemOperationPerformed.cs" />
     <Compile Include="Models\Privilege.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Nesting.cs">
@@ -280,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906191855137_AddOrderItemOperationPerformeds.resx">
+      <DependentUpon>201906191855137_AddOrderItemOperationPerformeds.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nesting.resx">
       <DependentUpon>Nesting.cs</DependentUpon>
