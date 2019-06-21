@@ -184,6 +184,10 @@
     <Compile Include="Migrations\201906191945250_InitialCreate.Designer.cs">
       <DependentUpon>201906191945250_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906211513327_addedOpRelationShips.cs" />
+    <Compile Include="Migrations\201906211513327_addedOpRelationShips.Designer.cs">
+      <DependentUpon>201906211513327_addedOpRelationShips.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\OperationPerformed.cs" />
     <Compile Include="Models\OrderItemOperation.cs" />
     <Compile Include="Models\OrderItemOperationPerformed.cs" />
@@ -288,6 +292,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906191945250_InitialCreate.resx">
       <DependentUpon>201906191945250_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906211513327_addedOpRelationShips.resx">
+      <DependentUpon>201906211513327_addedOpRelationShips.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nesting.resx">
       <DependentUpon>Nesting.cs</DependentUpon>

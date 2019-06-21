@@ -21,34 +21,43 @@ namespace RadanMaster
 {
     public partial class EditOrderitem : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        Models.OrderItem itemToEdit { get; set; }
-        DAL.RadanMasterContext dbContext { get; set; }
+        Models.OrderItem ItemToEdit { get; set; }
         bool updateAll { get; set; }
         Models.User currentUser { get; set; }
+        DAL.RadanMasterContext dbContext { get; set; }
 
 
-        public EditOrderitem(Models.OrderItem oItem, DAL.RadanMasterContext ctx,Models.User curUser)
+        public EditOrderitem(Models.OrderItem item, Models.User curUser)
         {
             currentUser = curUser;
-            dbContext = ctx;
-            itemToEdit = oItem;
+            ItemToEdit = item;
+
             InitializeComponent();
-            textEditQtyReqd.Text = itemToEdit.QtyRequired.ToString();
-            textEditQtyDone.Text = itemToEdit.QtyNested.ToString();
-            textEditNotes.Text = itemToEdit.Notes;
+
+            
+        }
+
+        private void EditOrderitem_Load(object sender, EventArgs e)
+        {
+            dbContext = new DAL.RadanMasterContext();
+            textEditQtyReqd.Text = ItemToEdit.QtyRequired.ToString();
+            textEditQtyDone.Text = ItemToEdit.QtyNested.ToString();
+            textEditNotes.Text = ItemToEdit.Notes;
 
             dbContext.Parts.Load();
             dbContext.Operations.Load();
             dbContext.OrderItemOperations.Load();
 
-            gridControlOperations.DataSource = itemToEdit.orderItemOps.ToList();
+            gridControlOperations.DataSource = ItemToEdit.orderItemOps.ToList();
+
         }
 
         private void bbiSaveAndClose_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            itemToEdit.QtyRequired = int.Parse(textEditQtyReqd.Text);
-            itemToEdit.QtyNested = int.Parse(textEditQtyDone.Text);
-            itemToEdit.Notes = textEditNotes.Text;
+
+            ItemToEdit.QtyRequired = int.Parse(textEditQtyReqd.Text);
+            ItemToEdit.QtyNested = int.Parse(textEditQtyDone.Text);
+            ItemToEdit.Notes = textEditNotes.Text;
 
             textEditQtyDone.Focus();        // take focus away from operations grid to force data update if needed
 
@@ -57,13 +66,13 @@ namespace RadanMaster
             {
                 // find other open order items that should be updated...
                 List<Models.OrderItem> openOrderItems = new List<Models.OrderItem>();
-                openOrderItems = dbContext.OrderItems.Where(o => o.PartID == itemToEdit.PartID)
+                openOrderItems = dbContext.OrderItems.Where(o => o.PartID == ItemToEdit.PartID)
                                                      .Where(o => o.IsComplete == false).ToList();
 
                 List<Models.Operation> itemOps = new List<Models.Operation>();
 
 
-                foreach (Models.OrderItemOperation itemOp in itemToEdit.orderItemOps.ToList())
+                foreach (Models.OrderItemOperation itemOp in ItemToEdit.orderItemOps.ToList())
                 {
                     foreach (Models.OrderItem item in openOrderItems.ToList())
                     {
@@ -80,29 +89,31 @@ namespace RadanMaster
             }
 
             gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = itemToEdit.orderItemOps.ToList();
+            gridControlOperations.DataSource = ItemToEdit.orderItemOps.ToList();
 
             dbContext.SaveChanges();
 
             this.Close();
         }
+        
 
         private void bbiReset_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             this.Close();
         }
 
-        private void EditOrderitem_Load(object sender, EventArgs e)
-        {
 
-        }
 
         private void btnAddOperation_Click(object sender, EventArgs e)
         {
+
+
             DialogResult result = MessageBox.Show("Did you want to add this operation to all open order items or only to this item?", "Apply To All?", MessageBoxButtons.YesNoCancel);
 
             if (result != DialogResult.Cancel)
             {
+                Models.OrderItem itemToEdit = dbContext.OrderItems.Where(i => i.ID == ItemToEdit.ID).FirstOrDefault();
+
                 Models.Operation newOp = new Models.Operation();
                 newOp.Part = itemToEdit.Part;
                 newOp.PartID = itemToEdit.PartID;
@@ -137,10 +148,14 @@ namespace RadanMaster
                 gridControlOperations.DataSource = null;
                 gridControlOperations.DataSource = itemToEdit.orderItemOps.ToList();
             }
+
         }
 
         private void btnRemoveOperation_Click(object sender, EventArgs e)
         {
+
+            Models.OrderItem itemToEdit = dbContext.OrderItems.Where(i => i.ID == ItemToEdit.ID).FirstOrDefault();
+
             int selectedRow = gridViewOperations.GetSelectedRows().FirstOrDefault();
 
             Models.OrderItemOperation opToRemove = gridViewOperations.GetRow(selectedRow) as Models.OrderItemOperation;
@@ -149,7 +164,6 @@ namespace RadanMaster
 
             gridControlOperations.DataSource = null;
             gridControlOperations.DataSource = itemToEdit.orderItemOps.ToList();
-
         }
 
         private void gridViewOperations_DoubleClick(object sender, EventArgs e)
@@ -165,7 +179,7 @@ namespace RadanMaster
                 opToEdit = (Models.OrderItemOperation)o;
             }
 
-            OperationCompleted opForm = new OperationCompleted(opToEdit, dbContext, currentUser);
+            OperationCompleted opForm = new OperationCompleted(opToEdit, currentUser);
             opForm.Show();
         }
     }

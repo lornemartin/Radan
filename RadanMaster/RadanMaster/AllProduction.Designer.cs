@@ -492,6 +492,7 @@
             this.Text = "All Production";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AllProduction_FormClosing);
+            this.Load += new System.EventHandler(this.AllProduction_Load);
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
