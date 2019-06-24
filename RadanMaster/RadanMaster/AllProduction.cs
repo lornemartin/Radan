@@ -35,7 +35,7 @@ namespace RadanMaster
         {
             InitializeComponent();
             currentUser = curUser;
-            Globals.dbContext = new DAL.RadanMasterContext();
+            
         }
 
         private void AllProduction_Load(object sender, EventArgs e)

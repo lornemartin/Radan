@@ -189,6 +189,26 @@
     <Compile Include="Migrations\201906211513327_addedOpRelationShips.Designer.cs">
       <DependentUpon>201906211513327_addedOpRelationShips.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906241438532_AddedFieldToUsersTable.cs" />
+    <Compile Include="Migrations\201906241438532_AddedFieldToUsersTable.Designer.cs">
+      <DependentUpon>201906241438532_AddedFieldToUsersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906241557031_testingremoverelationships.cs" />
+    <Compile Include="Migrations\201906241557031_testingremoverelationships.Designer.cs">
+      <DependentUpon>201906241557031_testingremoverelationships.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906241601008_testingremoverelationships2.cs" />
+    <Compile Include="Migrations\201906241601008_testingremoverelationships2.Designer.cs">
+      <DependentUpon>201906241601008_testingremoverelationships2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906241604198_testingremoverelationships3.cs" />
+    <Compile Include="Migrations\201906241604198_testingremoverelationships3.Designer.cs">
+      <DependentUpon>201906241604198_testingremoverelationships3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906241626361_testingremoverelationships34.cs" />
+    <Compile Include="Migrations\201906241626361_testingremoverelationships34.Designer.cs">
+      <DependentUpon>201906241626361_testingremoverelationships34.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\OperationPerformed.cs" />
     <Compile Include="Models\OrderItemOperation.cs" />
     <Compile Include="Models\OrderItemOperationPerformed.cs" />
@@ -296,6 +316,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906211513327_addedOpRelationShips.resx">
       <DependentUpon>201906211513327_addedOpRelationShips.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906241438532_AddedFieldToUsersTable.resx">
+      <DependentUpon>201906241438532_AddedFieldToUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906241557031_testingremoverelationships.resx">
+      <DependentUpon>201906241557031_testingremoverelationships.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906241601008_testingremoverelationships2.resx">
+      <DependentUpon>201906241601008_testingremoverelationships2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906241604198_testingremoverelationships3.resx">
+      <DependentUpon>201906241604198_testingremoverelationships3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906241626361_testingremoverelationships34.resx">
+      <DependentUpon>201906241626361_testingremoverelationships34.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nesting.resx">
       <DependentUpon>Nesting.cs</DependentUpon>

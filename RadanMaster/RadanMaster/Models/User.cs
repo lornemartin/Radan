@@ -16,5 +16,6 @@ namespace RadanMaster.Models
         public string Password { get; set; }
 
         public virtual ICollection<Privilege> Privileges { get; set; }
+        public virtual ICollection<OperationPerformed> opsPerformed { get; set; }
     }
 }
