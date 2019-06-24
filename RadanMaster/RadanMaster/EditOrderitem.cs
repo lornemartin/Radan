@@ -24,7 +24,6 @@ namespace RadanMaster
         Models.OrderItem ItemToEdit { get; set; }
         bool updateAll { get; set; }
         Models.User currentUser { get; set; }
-        DAL.RadanMasterContext dbContext { get; set; }
 
 
         public EditOrderitem(Models.OrderItem item, Models.User curUser)
@@ -39,14 +38,13 @@ namespace RadanMaster
 
         private void EditOrderitem_Load(object sender, EventArgs e)
         {
-            dbContext = new DAL.RadanMasterContext();
             textEditQtyReqd.Text = ItemToEdit.QtyRequired.ToString();
             textEditQtyDone.Text = ItemToEdit.QtyNested.ToString();
             textEditNotes.Text = ItemToEdit.Notes;
 
-            dbContext.Parts.Load();
-            dbContext.Operations.Load();
-            dbContext.OrderItemOperations.Load();
+            Globals.dbContext.Parts.Load();
+            Globals.dbContext.Operations.Load();
+            Globals.dbContext.OrderItemOperations.Load();
 
             gridControlOperations.DataSource = ItemToEdit.orderItemOps.ToList();
 
@@ -66,7 +64,7 @@ namespace RadanMaster
             {
                 // find other open order items that should be updated...
                 List<Models.OrderItem> openOrderItems = new List<Models.OrderItem>();
-                openOrderItems = dbContext.OrderItems.Where(o => o.PartID == ItemToEdit.PartID)
+                openOrderItems = Globals.dbContext.OrderItems.Where(o => o.PartID == ItemToEdit.PartID)
                                                      .Where(o => o.IsComplete == false).ToList();
 
                 List<Models.Operation> itemOps = new List<Models.Operation>();
@@ -91,7 +89,7 @@ namespace RadanMaster
             gridControlOperations.DataSource = null;
             gridControlOperations.DataSource = ItemToEdit.orderItemOps.ToList();
 
-            dbContext.SaveChanges();
+            Globals.dbContext.SaveChanges();
 
             this.Close();
         }
@@ -112,7 +110,7 @@ namespace RadanMaster
 
             if (result != DialogResult.Cancel)
             {
-                Models.OrderItem itemToEdit = dbContext.OrderItems.Where(i => i.ID == ItemToEdit.ID).FirstOrDefault();
+                Models.OrderItem itemToEdit = Globals.dbContext.OrderItems.Where(i => i.ID == ItemToEdit.ID).FirstOrDefault();
 
                 Models.Operation newOp = new Models.Operation();
                 newOp.Part = itemToEdit.Part;
@@ -121,13 +119,13 @@ namespace RadanMaster
                 newOp.isFinalOp = false;
                 newOp.Name = "";
 
-                dbContext.Operations.Add(newOp);
+                Globals.dbContext.Operations.Add(newOp);
                 itemToEdit.Part.Operations.Add(newOp);
 
                 Models.OrderItemOperation itemOp = new Models.OrderItemOperation();
 
 
-                dbContext.OrderItemOperations.Add(itemOp);
+                Globals.dbContext.OrderItemOperations.Add(itemOp);
 
                 itemOp.operation = newOp;
                 itemOp.qtyRequired = itemToEdit.QtyRequired;
@@ -154,13 +152,13 @@ namespace RadanMaster
         private void btnRemoveOperation_Click(object sender, EventArgs e)
         {
 
-            Models.OrderItem itemToEdit = dbContext.OrderItems.Where(i => i.ID == ItemToEdit.ID).FirstOrDefault();
+            Models.OrderItem itemToEdit = Globals.dbContext.OrderItems.Where(i => i.ID == ItemToEdit.ID).FirstOrDefault();
 
             int selectedRow = gridViewOperations.GetSelectedRows().FirstOrDefault();
 
             Models.OrderItemOperation opToRemove = gridViewOperations.GetRow(selectedRow) as Models.OrderItemOperation;
 
-            dbContext.OrderItemOperations.Remove(opToRemove);
+            Globals.dbContext.OrderItemOperations.Remove(opToRemove);
 
             gridControlOperations.DataSource = null;
             gridControlOperations.DataSource = itemToEdit.orderItemOps.ToList();

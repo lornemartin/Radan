@@ -168,6 +168,7 @@
     <Compile Include="DailySchedule\ProcessPDF.cs" />
     <Compile Include="DAL\ObserveableListSource.cs" />
     <Compile Include="DAL\RadanMasterContext.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>

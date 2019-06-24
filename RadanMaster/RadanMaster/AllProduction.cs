@@ -29,18 +29,18 @@ namespace RadanMaster
     {
         RefreshHelper helper;
         Models.User currentUser { get; set; }
-        RadanMaster.DAL.RadanMasterContext dbContext;
+        
 
         public AllProduction(Models.User curUser)
         {
             InitializeComponent();
             currentUser = curUser;
-            dbContext = new DAL.RadanMasterContext();
+            Globals.dbContext = new DAL.RadanMasterContext();
         }
 
         private void AllProduction_Load(object sender, EventArgs e)
         {
-            entityServerModeSource2.QueryableSource = from orderitem in dbContext.OrderItems
+            entityServerModeSource2.QueryableSource = from orderitem in Globals.dbContext.OrderItems
                                                       select new DisplayItemWrapper
                                                       {
                                                           ID = orderitem.ID,
@@ -110,11 +110,11 @@ namespace RadanMaster
                     if (item != null)
                     {
                         int partIndex = item.PartID;
-                        Part prt = dbContext.Parts.FirstOrDefault(p => p.ID == partIndex);
+                        Part prt = Globals.dbContext.Parts.FirstOrDefault(p => p.ID == partIndex);
                         if (prt.Files.Count > 0)
                         {
                             int fileIndex = prt.Files.FirstOrDefault().FileId;
-                            Models.File file = dbContext.Files.FirstOrDefault(f => f.FileId == fileIndex);
+                            Models.File file = Globals.dbContext.Files.FirstOrDefault(f => f.FileId == fileIndex);
                             Stream stream = new MemoryStream(file.Content);
                             pdfViewerAllProduction.LoadDocument(stream);
                             pdfViewerAllProduction.CurrentPageNumber = 1;
@@ -184,10 +184,10 @@ namespace RadanMaster
 
                         if (itemToDelete != null)
                         {
-                            dbContext.OrderItems.Remove(itemToDelete);
+                            Globals.dbContext.OrderItems.Remove(itemToDelete);
                         }
                     }
-                    dbContext.SaveChanges();
+                    Globals.dbContext.SaveChanges();
                     entityServerModeSource2.Reload();
                     gridViewAllProduction.RefreshData();
                 }
@@ -210,7 +210,7 @@ namespace RadanMaster
 
                 EditOrderitem editForm = new EditOrderitem(itemToEdit, currentUser);
                 editForm.ShowDialog();
-                dbContext.SaveChanges();
+                Globals.dbContext.SaveChanges();
                 entityServerModeSource2.Reload();
                 gridViewAllProduction.RefreshData();
             }
@@ -257,15 +257,15 @@ namespace RadanMaster
             Privilege priv = new Privilege();
             priv.buttonName = "button1";
             priv.HasAccess = true;
-            dbContext.Privileges.Add(priv);
+            Globals.dbContext.Privileges.Add(priv);
 
             User usr1 = new User();
             usr1.UserName = "Admin";
             usr1.Privileges = new List<Privilege>();
             usr1.Privileges.Add(priv);
-            dbContext.Users.Add(usr1);
+            Globals.dbContext.Users.Add(usr1);
 
-            dbContext.SaveChanges();
+            Globals.dbContext.SaveChanges();
         }
 
         private void gridViewAllProduction_PrintInitialize(object sender, DevExpress.XtraGrid.Views.Base.PrintInitializeEventArgs e)
