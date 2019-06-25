@@ -33,6 +33,8 @@ namespace RadanMaster
 
         private void OperationCompleted_Load(object sender, EventArgs e)
         {
+            btnRecordOp.Enabled = false;
+
             Globals.dbContext.Parts.Load();
             Globals.dbContext.Operations.Load();
             Globals.dbContext.OrderItemOperations.Load();
@@ -42,9 +44,9 @@ namespace RadanMaster
             Globals.dbContext.OrderItemOperationPerformeds.Load();
             Globals.dbContext.OperationPerformeds.Load();
 
-            associatedOrderItemOps = new List<Models.OrderItemOperation>();
             associatedOrderItemOps = Globals.dbContext.OrderItemOperations.Where(o => o.orderItem.PartID == OrderItemOp.orderItem.PartID)
                                                                           .Where(o => o.operationID == OrderItemOp.operationID).ToList();
+                                                                          //.Where(o => o.qtyDone < o.qtyRequired).ToList();
             gridControlAssociatedOrderItems.DataSource = associatedOrderItemOps;
 
         }
@@ -73,24 +75,54 @@ namespace RadanMaster
 
             int qtyDone = 0;
             int.TryParse(TextEditQty.Text, out qtyDone);
-
             Models.OrderItemOperationPerformed itemOpPerformed = new Models.OrderItemOperationPerformed();
-            itemOpPerformed.qtyDone = qtyDone;
-
-            orderItemOp.OrderItemOperationPerformeds.Add(itemOpPerformed);
 
             Models.OperationPerformed opPerformed = new Models.OperationPerformed();
             opPerformed.qtyDone = qtyDone;
             opPerformed.timePerformed = DateTime.Now;
             opPerformed.usr = currentUser;
             opPerformed.OrderItemOperationsPerformed = new List<Models.OrderItemOperationPerformed>();
-            opPerformed.OrderItemOperationsPerformed.Add(itemOpPerformed);
+
+            int totalQtyLeftToDo = qtyDone;
+            foreach(Models.OrderItemOperation associatedOrderItemOp in associatedOrderItemOps)
+            {
+                if (associatedOrderItemOp.qtyDone < associatedOrderItemOp.qtyRequired)
+                {
+                    int itemQtyLeftToDo = associatedOrderItemOp.qtyRequired - associatedOrderItemOp.qtyDone;
+                    Models.OrderItemOperationPerformed orderItemOpPerformed = new Models.OrderItemOperationPerformed();
+                    if (totalQtyLeftToDo <= itemQtyLeftToDo)
+                    {
+                        orderItemOpPerformed = new Models.OrderItemOperationPerformed();
+                        orderItemOpPerformed.qtyDone = totalQtyLeftToDo;
+                        associatedOrderItemOp.qtyDone += totalQtyLeftToDo;
+                        associatedOrderItemOp.OrderItemOperationPerformeds.Add(orderItemOpPerformed);
+                        opPerformed.OrderItemOperationsPerformed.Add(orderItemOpPerformed);
+                        totalQtyLeftToDo -= totalQtyLeftToDo;
+                        break;
+                    }
+                    else
+                    {
+                        orderItemOpPerformed = new Models.OrderItemOperationPerformed();
+                        orderItemOpPerformed.qtyDone = itemQtyLeftToDo;
+                        associatedOrderItemOp.qtyDone = associatedOrderItemOp.qtyRequired;
+                        associatedOrderItemOp.OrderItemOperationPerformeds.Add(orderItemOpPerformed);
+                        opPerformed.OrderItemOperationsPerformed.Add(orderItemOpPerformed);
+                        totalQtyLeftToDo -= itemQtyLeftToDo;
+
+                    }
+                }
+            }
 
             Globals.dbContext.OperationPerformeds.Add(opPerformed);
             Globals.dbContext.SaveChanges();
 
+            btnRecordOp.Enabled = false;
+
         }
 
-
+        private void TextEditQty_EditValueChanged(object sender, EventArgs e)
+        {
+            btnRecordOp.Enabled = true;
+        }
     }
 }

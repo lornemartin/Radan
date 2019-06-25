@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201906241626361_testingremoverelationships34.Designer.cs">
       <DependentUpon>201906241626361_testingremoverelationships34.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906242047227_RestoredOrderItemOperationPerformedTable.cs" />
+    <Compile Include="Migrations\201906242047227_RestoredOrderItemOperationPerformedTable.Designer.cs">
+      <DependentUpon>201906242047227_RestoredOrderItemOperationPerformedTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\OperationPerformed.cs" />
     <Compile Include="Models\OrderItemOperation.cs" />
     <Compile Include="Models\OrderItemOperationPerformed.cs" />
@@ -331,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906241626361_testingremoverelationships34.resx">
       <DependentUpon>201906241626361_testingremoverelationships34.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906242047227_RestoredOrderItemOperationPerformedTable.resx">
+      <DependentUpon>201906242047227_RestoredOrderItemOperationPerformedTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nesting.resx">
       <DependentUpon>Nesting.cs</DependentUpon>

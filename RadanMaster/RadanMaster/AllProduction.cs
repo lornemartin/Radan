@@ -208,7 +208,11 @@ namespace RadanMaster
                 DisplayItemWrapper temp = (DisplayItemWrapper)o;
                 OrderItem itemToEdit = (OrderItem)temp.item;
 
+                Order order = Globals.dbContext.Orders.Where(ordr => ordr.ID == itemToEdit.OrderID).FirstOrDefault();
+
                 EditOrderitem editForm = new EditOrderitem(itemToEdit, currentUser);
+                string Title = itemToEdit.Part.FileName + "(" + itemToEdit.Part.Description + ")" + "--->" + order.BatchName;
+                editForm.Text = Title;
                 editForm.ShowDialog();
                 Globals.dbContext.SaveChanges();
                 entityServerModeSource2.Reload();

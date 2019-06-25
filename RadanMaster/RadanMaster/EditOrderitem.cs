@@ -45,6 +45,7 @@ namespace RadanMaster
             Globals.dbContext.Parts.Load();
             Globals.dbContext.Operations.Load();
             Globals.dbContext.OrderItemOperations.Load();
+            Globals.dbContext.Orders.Load();
 
             gridControlOperations.DataSource = ItemToEdit.orderItemOps.ToList();
 
@@ -178,6 +179,7 @@ namespace RadanMaster
             }
 
             OperationCompleted opForm = new OperationCompleted(opToEdit, currentUser);
+            opForm.Text = this.Text + "--->" + opToEdit.operation.Name;
             opForm.Show();
         }
     }

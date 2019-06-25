@@ -35,6 +35,9 @@
             this.gridViewOpsPerformed = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridControlOrderItemOpsPerformed = new DevExpress.XtraGrid.GridControl();
             this.gridViewOrderItemOpsPerformed = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColQtyDone = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColUser = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControlAssociatedOrderItems = new DevExpress.XtraGrid.GridControl();
             this.gridViewAssociatedOrderItems = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -88,6 +91,7 @@
             this.TextEditQty.Size = new System.Drawing.Size(206, 20);
             this.TextEditQty.StyleController = this.OperationCompletedlayoutControl1ConvertedLayout;
             this.TextEditQty.TabIndex = 5;
+            this.TextEditQty.EditValueChanged += new System.EventHandler(this.TextEditQty_EditValueChanged);
             // 
             // btnRecordOp
             // 
@@ -126,8 +130,38 @@
             // 
             // gridViewOrderItemOpsPerformed
             // 
+            this.gridViewOrderItemOpsPerformed.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColQtyDone,
+            this.gridColDate,
+            this.gridColUser});
             this.gridViewOrderItemOpsPerformed.GridControl = this.gridControlOrderItemOpsPerformed;
             this.gridViewOrderItemOpsPerformed.Name = "gridViewOrderItemOpsPerformed";
+            this.gridViewOrderItemOpsPerformed.OptionsBehavior.Editable = false;
+            this.gridViewOrderItemOpsPerformed.OptionsSelection.EnableAppearanceFocusedCell = false;
+            // 
+            // gridColQtyDone
+            // 
+            this.gridColQtyDone.Caption = "Qty Done";
+            this.gridColQtyDone.FieldName = "qtyDone";
+            this.gridColQtyDone.Name = "gridColQtyDone";
+            this.gridColQtyDone.Visible = true;
+            this.gridColQtyDone.VisibleIndex = 0;
+            // 
+            // gridColDate
+            // 
+            this.gridColDate.Caption = "Date Performed";
+            this.gridColDate.FieldName = "opPerformed.timePerformed";
+            this.gridColDate.Name = "gridColDate";
+            this.gridColDate.Visible = true;
+            this.gridColDate.VisibleIndex = 1;
+            // 
+            // gridColUser
+            // 
+            this.gridColUser.Caption = "Employee";
+            this.gridColUser.FieldName = "opPerformed.usr.UserName";
+            this.gridColUser.Name = "gridColUser";
+            this.gridColUser.Visible = true;
+            this.gridColUser.VisibleIndex = 2;
             // 
             // gridControlAssociatedOrderItems
             // 
@@ -150,6 +184,11 @@
             this.colBatch});
             this.gridViewAssociatedOrderItems.GridControl = this.gridControlAssociatedOrderItems;
             this.gridViewAssociatedOrderItems.Name = "gridViewAssociatedOrderItems";
+            this.gridViewAssociatedOrderItems.OptionsBehavior.Editable = false;
+            this.gridViewAssociatedOrderItems.OptionsEditForm.ShowOnDoubleClick = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewAssociatedOrderItems.OptionsEditForm.ShowOnEnterKey = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewAssociatedOrderItems.OptionsEditForm.ShowOnF2Key = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewAssociatedOrderItems.OptionsEditForm.ShowUpdateCancelPanel = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAssociatedOrderItems.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridViewAssociatedOrderItems_RowClick);
             // 
             // colID
@@ -313,5 +352,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colBatch;
         private DevExpress.XtraEditors.TextEdit TextEditQty;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColQtyDone;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColDate;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColUser;
     }
 }
