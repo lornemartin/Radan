@@ -17,5 +17,15 @@ namespace RadanMaster.Models
 
         public virtual ICollection<Privilege> Privileges { get; set; }
         public virtual ICollection<OperationPerformed> opsPerformed { get; set; }
+
+        public bool HasPermission(string btnText)
+        {
+            Models.Privilege privilege = Privileges.Where(p => p.buttonName == btnText).
+                                                    Where(p => p.HasAccess == true).FirstOrDefault();
+            if (privilege != null)
+                return true;
+            else
+                return false;
+        }
     }
 }

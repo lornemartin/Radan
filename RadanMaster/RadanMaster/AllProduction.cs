@@ -40,12 +40,23 @@ namespace RadanMaster
 
         private void AllProduction_Load(object sender, EventArgs e)
         {
+            Globals.dbContext.Parts.Load();
+            Globals.dbContext.Operations.Load();
+            Globals.dbContext.OrderItemOperations.Load();
+            Globals.dbContext.Orders.Load();
+            Globals.dbContext.OrderItems.Load();
+            Globals.dbContext.Parts.Load();
+            Globals.dbContext.OrderItemOperationPerformeds.Load();
+            Globals.dbContext.OperationPerformeds.Load();
+            Globals.dbContext.Users.Load();
+            Globals.dbContext.Privileges.Load();
+
             entityServerModeSource2.QueryableSource = from orderitem in Globals.dbContext.OrderItems
                                                       select new DisplayItemWrapper
                                                       {
                                                           ID = orderitem.ID,
                                                           QtyRequired = orderitem.QtyRequired,
-                                                          QtyNested = orderitem.QtyNested,
+                                                          QtyNested = orderitem.orderItemOps.OrderByDescending(o => o.ID).FirstOrDefault().qtyDone, // lastordefault doesn't work with EF
                                                           CategoryName = orderitem.Part.CategoryName,
                                                           CategoryIcon = 0,
                                                           FileName = orderitem.Part.FileName,
@@ -211,7 +222,16 @@ namespace RadanMaster
                 Order order = Globals.dbContext.Orders.Where(ordr => ordr.ID == itemToEdit.OrderID).FirstOrDefault();
 
                 EditOrderitem editForm = new EditOrderitem(itemToEdit, currentUser);
-                string Title = itemToEdit.Part.FileName + "(" + itemToEdit.Part.Description + ")" + "--->" + order.BatchName;
+                string fileName="",description="",batchName = "";
+                if (itemToEdit.Part != null)
+                {
+                    fileName = itemToEdit.Part.FileName;
+                    description = itemToEdit.Part.Description;
+                }
+                if(order!=null)
+                    batchName = order.BatchName;
+
+                string Title = fileName + "(" + description + ")" + "--->" + batchName;
                 editForm.Text = Title;
                 editForm.ShowDialog();
                 Globals.dbContext.SaveChanges();

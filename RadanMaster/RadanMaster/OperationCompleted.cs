@@ -35,15 +35,6 @@ namespace RadanMaster
         {
             btnRecordOp.Enabled = false;
 
-            Globals.dbContext.Parts.Load();
-            Globals.dbContext.Operations.Load();
-            Globals.dbContext.OrderItemOperations.Load();
-            Globals.dbContext.Orders.Load();
-            Globals.dbContext.OrderItems.Load();
-            Globals.dbContext.Parts.Load();
-            Globals.dbContext.OrderItemOperationPerformeds.Load();
-            Globals.dbContext.OperationPerformeds.Load();
-
             associatedOrderItemOps = Globals.dbContext.OrderItemOperations.Where(o => o.orderItem.PartID == OrderItemOp.orderItem.PartID)
                                                                           .Where(o => o.operationID == OrderItemOp.operationID).ToList();
                                                                           //.Where(o => o.qtyDone < o.qtyRequired).ToList();
@@ -108,9 +99,14 @@ namespace RadanMaster
                         associatedOrderItemOp.OrderItemOperationPerformeds.Add(orderItemOpPerformed);
                         opPerformed.OrderItemOperationsPerformed.Add(orderItemOpPerformed);
                         totalQtyLeftToDo -= itemQtyLeftToDo;
-
                     }
                 }
+            }
+
+            // if we've filled all the orders, we need to do something with the rest...
+            if(totalQtyLeftToDo > 0)
+            {
+                MessageBox.Show(totalQtyLeftToDo + " of these items could not be applied to a batch");
             }
 
             Globals.dbContext.OperationPerformeds.Add(opPerformed);
