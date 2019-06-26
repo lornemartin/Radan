@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.OperationCompletedlayoutControl1ConvertedLayout = new DevExpress.XtraLayout.LayoutControl();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.TextEditQty = new DevExpress.XtraEditors.TextEdit();
             this.btnRecordOp = new System.Windows.Forms.Button();
             this.gridControlOpsPerformed = new DevExpress.XtraGrid.GridControl();
@@ -57,11 +60,8 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.label1 = new System.Windows.Forms.Label();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.label2 = new System.Windows.Forms.Label();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.label3 = new System.Windows.Forms.Label();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.OperationCompletedlayoutControl1ConvertedLayout)).BeginInit();
             this.OperationCompletedlayoutControl1ConvertedLayout.SuspendLayout();
@@ -102,6 +102,33 @@
             this.OperationCompletedlayoutControl1ConvertedLayout.Root = this.layoutControlGroup1;
             this.OperationCompletedlayoutControl1ConvertedLayout.Size = new System.Drawing.Size(1023, 543);
             this.OperationCompletedlayoutControl1ConvertedLayout.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(12, 251);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(999, 20);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Operations Performed";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(513, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(498, 20);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Order Item Operations Performed";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(12, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(497, 20);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Associated Order Item Operations";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TextEditQty
             // 
@@ -251,12 +278,17 @@
             this.colProduct,
             this.colBatch});
             this.gridViewAssociatedOrderItems.GridControl = this.gridControlAssociatedOrderItems;
+            this.gridViewAssociatedOrderItems.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "qtyRequired", this.colQtyReqd, ""),
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "qtyDone", this.colQtyDone, "(Qty Done: SUM={0:0.##})")});
             this.gridViewAssociatedOrderItems.Name = "gridViewAssociatedOrderItems";
             this.gridViewAssociatedOrderItems.OptionsBehavior.Editable = false;
             this.gridViewAssociatedOrderItems.OptionsEditForm.ShowOnDoubleClick = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAssociatedOrderItems.OptionsEditForm.ShowOnEnterKey = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAssociatedOrderItems.OptionsEditForm.ShowOnF2Key = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAssociatedOrderItems.OptionsEditForm.ShowUpdateCancelPanel = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewAssociatedOrderItems.OptionsMenu.ShowGroupSummaryEditorItem = true;
+            this.gridViewAssociatedOrderItems.OptionsView.ShowFooter = true;
             this.gridViewAssociatedOrderItems.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridViewAssociatedOrderItems_RowClick);
             // 
             // colID
@@ -270,6 +302,8 @@
             this.colQtyReqd.Caption = "Qty Req\'d";
             this.colQtyReqd.FieldName = "qtyRequired";
             this.colQtyReqd.Name = "colQtyReqd";
+            this.colQtyReqd.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "qtyRequired", "SUM={0:0.##}")});
             this.colQtyReqd.Visible = true;
             this.colQtyReqd.VisibleIndex = 0;
             this.colQtyReqd.Width = 146;
@@ -279,9 +313,11 @@
             this.colQtyDone.Caption = "Qty Done";
             this.colQtyDone.FieldName = "qtyDone";
             this.colQtyDone.Name = "colQtyDone";
+            this.colQtyDone.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "qtyDone", "SUM={0:0.##}")});
             this.colQtyDone.Visible = true;
             this.colQtyDone.VisibleIndex = 1;
-            this.colQtyDone.Width = 116;
+            this.colQtyDone.Width = 150;
             // 
             // colName
             // 
@@ -290,7 +326,7 @@
             this.colName.Name = "colName";
             this.colName.Visible = true;
             this.colName.VisibleIndex = 2;
-            this.colName.Width = 404;
+            this.colName.Width = 238;
             // 
             // colProduct
             // 
@@ -299,7 +335,7 @@
             this.colProduct.Name = "colProduct";
             this.colProduct.Visible = true;
             this.colProduct.VisibleIndex = 3;
-            this.colProduct.Width = 448;
+            this.colProduct.Width = 247;
             // 
             // colBatch
             // 
@@ -308,7 +344,7 @@
             this.colBatch.Name = "colBatch";
             this.colBatch.Visible = true;
             this.colBatch.VisibleIndex = 4;
-            this.colBatch.Width = 393;
+            this.colBatch.Width = 255;
             // 
             // layoutControlGroup1
             // 
@@ -373,15 +409,6 @@
             this.layoutControlItem5.Text = "Qty Done:";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(50, 13);
             // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(12, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(497, 20);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Associated Order Item Operations";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.label1;
@@ -391,15 +418,6 @@
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(513, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(498, 20);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Order Item Operations Performed";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.label2;
@@ -408,15 +426,6 @@
             this.layoutControlItem7.Size = new System.Drawing.Size(502, 24);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(12, 251);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(999, 20);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Operations Performed";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // layoutControlItem8
             // 
