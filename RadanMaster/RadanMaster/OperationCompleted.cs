@@ -40,6 +40,8 @@ namespace RadanMaster
                                                                           //.Where(o => o.qtyDone < o.qtyRequired).ToList();
             gridControlAssociatedOrderItems.DataSource = associatedOrderItemOps;
 
+            opsPerformed = Globals.dbContext.OperationPerformeds.Where(op => op.OrderItemOperationsPerformed.FirstOrDefault().orderItemOperation.operationID == OrderItemOp.operationID).ToList();
+            gridControlOpsPerformed.DataSource = opsPerformed;
         }
 
         private void gridViewAssociatedOrderItems_RowClick(object sender, RowClickEventArgs e)

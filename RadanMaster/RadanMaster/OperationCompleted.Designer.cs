@@ -33,6 +33,11 @@
             this.btnRecordOp = new System.Windows.Forms.Button();
             this.gridControlOpsPerformed = new DevExpress.XtraGrid.GridControl();
             this.gridViewOpsPerformed = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumnQtyDone = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumnUser = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumnTime = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumnNotes = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemDateEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.gridControlOrderItemOpsPerformed = new DevExpress.XtraGrid.GridControl();
             this.gridViewOrderItemOpsPerformed = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColQtyDone = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -57,6 +62,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.TextEditQty.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOpsPerformed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOpsPerformed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOrderItemOpsPerformed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOrderItemOpsPerformed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlAssociatedOrderItems)).BeginInit();
@@ -108,6 +115,8 @@
             this.gridControlOpsPerformed.Location = new System.Drawing.Point(12, 251);
             this.gridControlOpsPerformed.MainView = this.gridViewOpsPerformed;
             this.gridControlOpsPerformed.Name = "gridControlOpsPerformed";
+            this.gridControlOpsPerformed.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemDateEdit1});
             this.gridControlOpsPerformed.Size = new System.Drawing.Size(999, 256);
             this.gridControlOpsPerformed.TabIndex = 3;
             this.gridControlOpsPerformed.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -115,8 +124,55 @@
             // 
             // gridViewOpsPerformed
             // 
+            this.gridViewOpsPerformed.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumnQtyDone,
+            this.gridColumnUser,
+            this.gridColumnTime,
+            this.gridColumnNotes});
             this.gridViewOpsPerformed.GridControl = this.gridControlOpsPerformed;
             this.gridViewOpsPerformed.Name = "gridViewOpsPerformed";
+            // 
+            // gridColumnQtyDone
+            // 
+            this.gridColumnQtyDone.Caption = "Qty Done";
+            this.gridColumnQtyDone.FieldName = "qtyDone";
+            this.gridColumnQtyDone.Name = "gridColumnQtyDone";
+            this.gridColumnQtyDone.Visible = true;
+            this.gridColumnQtyDone.VisibleIndex = 0;
+            // 
+            // gridColumnUser
+            // 
+            this.gridColumnUser.Caption = "User";
+            this.gridColumnUser.FieldName = "usr.UserName";
+            this.gridColumnUser.Name = "gridColumnUser";
+            this.gridColumnUser.Visible = true;
+            this.gridColumnUser.VisibleIndex = 1;
+            // 
+            // gridColumnTime
+            // 
+            this.gridColumnTime.Caption = "Date Performed";
+            this.gridColumnTime.ColumnEdit = this.repositoryItemDateEdit1;
+            this.gridColumnTime.FieldName = "timePerformed";
+            this.gridColumnTime.Name = "gridColumnTime";
+            this.gridColumnTime.Visible = true;
+            this.gridColumnTime.VisibleIndex = 2;
+            // 
+            // gridColumnNotes
+            // 
+            this.gridColumnNotes.Caption = "Notes";
+            this.gridColumnNotes.FieldName = "Notes";
+            this.gridColumnNotes.Name = "gridColumnNotes";
+            this.gridColumnNotes.Visible = true;
+            this.gridColumnNotes.VisibleIndex = 3;
+            // 
+            // repositoryItemDateEdit1
+            // 
+            this.repositoryItemDateEdit1.AutoHeight = false;
+            this.repositoryItemDateEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit1.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit1.Name = "repositoryItemDateEdit1";
             // 
             // gridControlOrderItemOpsPerformed
             // 
@@ -316,6 +372,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.TextEditQty.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOpsPerformed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOpsPerformed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOrderItemOpsPerformed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewOrderItemOpsPerformed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlAssociatedOrderItems)).EndInit();
@@ -355,5 +413,10 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColQtyDone;
         private DevExpress.XtraGrid.Columns.GridColumn gridColDate;
         private DevExpress.XtraGrid.Columns.GridColumn gridColUser;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnQtyDone;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnUser;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnTime;
+        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnNotes;
     }
 }
