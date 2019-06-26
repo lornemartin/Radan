@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataLayoutControl1 = new DevExpress.XtraDataLayout.DataLayoutControl();
+            this.btnRecordOp = new System.Windows.Forms.Button();
             this.btnRemoveOperation = new System.Windows.Forms.Button();
             this.btnAddOperation = new System.Windows.Forms.Button();
             this.gridControlOperations = new DevExpress.XtraGrid.GridControl();
@@ -62,9 +63,11 @@
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
-            this.btnRecordOp = new System.Windows.Forms.Button();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).BeginInit();
             this.dataLayoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOperations)).BeginInit();
@@ -82,8 +85,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             this.SuspendLayout();
             // 
             // dataLayoutControl1
@@ -104,11 +110,21 @@
             this.dataLayoutControl1.Size = new System.Drawing.Size(790, 452);
             this.dataLayoutControl1.TabIndex = 0;
             // 
+            // btnRecordOp
+            // 
+            this.btnRecordOp.Location = new System.Drawing.Point(12, 404);
+            this.btnRecordOp.Name = "btnRecordOp";
+            this.btnRecordOp.Size = new System.Drawing.Size(766, 36);
+            this.btnRecordOp.TabIndex = 10;
+            this.btnRecordOp.Text = "Operations Performed...";
+            this.btnRecordOp.UseVisualStyleBackColor = true;
+            this.btnRecordOp.Click += new System.EventHandler(this.btnRecordOp_Click);
+            // 
             // btnRemoveOperation
             // 
-            this.btnRemoveOperation.Location = new System.Drawing.Point(397, 396);
+            this.btnRemoveOperation.Location = new System.Drawing.Point(397, 350);
             this.btnRemoveOperation.Name = "btnRemoveOperation";
-            this.btnRemoveOperation.Size = new System.Drawing.Size(381, 20);
+            this.btnRemoveOperation.Size = new System.Drawing.Size(381, 23);
             this.btnRemoveOperation.TabIndex = 9;
             this.btnRemoveOperation.Text = "Remove Operation";
             this.btnRemoveOperation.UseVisualStyleBackColor = true;
@@ -116,7 +132,7 @@
             // 
             // btnAddOperation
             // 
-            this.btnAddOperation.Location = new System.Drawing.Point(12, 396);
+            this.btnAddOperation.Location = new System.Drawing.Point(12, 350);
             this.btnAddOperation.Name = "btnAddOperation";
             this.btnAddOperation.Size = new System.Drawing.Size(381, 20);
             this.btnAddOperation.TabIndex = 8;
@@ -126,7 +142,7 @@
             // 
             // gridControlOperations
             // 
-            this.gridControlOperations.Location = new System.Drawing.Point(12, 178);
+            this.gridControlOperations.Location = new System.Drawing.Point(12, 132);
             this.gridControlOperations.MainView = this.gridViewOperations;
             this.gridControlOperations.MenuManager = this.mainRibbonControl;
             this.gridControlOperations.Name = "gridControlOperations";
@@ -315,7 +331,7 @@
             this.textEditNotes.Location = new System.Drawing.Point(63, 36);
             this.textEditNotes.MenuManager = this.mainRibbonControl;
             this.textEditNotes.Name = "textEditNotes";
-            this.textEditNotes.Size = new System.Drawing.Size(715, 138);
+            this.textEditNotes.Size = new System.Drawing.Size(715, 92);
             this.textEditNotes.StyleController = this.dataLayoutControl1;
             this.textEditNotes.TabIndex = 6;
             // 
@@ -341,7 +357,9 @@
             this.layoutControlItem4,
             this.layoutControlItem5,
             this.layoutControlItem6,
-            this.layoutControlItem7});
+            this.layoutControlItem7,
+            this.emptySpaceItem1,
+            this.emptySpaceItem2});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "autoGeneratedGroup0";
             this.layoutControlGroup2.Size = new System.Drawing.Size(770, 432);
@@ -371,14 +389,14 @@
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.OptionsTableLayoutItem.RowIndex = 1;
-            this.layoutControlItem3.Size = new System.Drawing.Size(770, 142);
+            this.layoutControlItem3.Size = new System.Drawing.Size(770, 96);
             this.layoutControlItem3.Text = "Notes";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(48, 13);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.gridControlOperations;
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 166);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 120);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(770, 218);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -387,7 +405,7 @@
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.btnAddOperation;
-            this.layoutControlItem5.Location = new System.Drawing.Point(0, 384);
+            this.layoutControlItem5.Location = new System.Drawing.Point(0, 338);
             this.layoutControlItem5.Name = "layoutControlItem5";
             this.layoutControlItem5.Size = new System.Drawing.Size(385, 24);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -396,30 +414,38 @@
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.btnRemoveOperation;
-            this.layoutControlItem6.Location = new System.Drawing.Point(385, 384);
+            this.layoutControlItem6.Location = new System.Drawing.Point(385, 338);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(385, 24);
+            this.layoutControlItem6.Size = new System.Drawing.Size(385, 27);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
-            // 
-            // btnRecordOp
-            // 
-            this.btnRecordOp.Location = new System.Drawing.Point(12, 420);
-            this.btnRecordOp.Name = "btnRecordOp";
-            this.btnRecordOp.Size = new System.Drawing.Size(766, 20);
-            this.btnRecordOp.TabIndex = 10;
-            this.btnRecordOp.Text = "Record Operation Completed";
-            this.btnRecordOp.UseVisualStyleBackColor = true;
-            this.btnRecordOp.Click += new System.EventHandler(this.btnRecordOp_Click);
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.btnRecordOp;
-            this.layoutControlItem7.Location = new System.Drawing.Point(0, 408);
+            this.layoutControlItem7.Location = new System.Drawing.Point(0, 392);
+            this.layoutControlItem7.MinSize = new System.Drawing.Size(24, 24);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(770, 24);
+            this.layoutControlItem7.Size = new System.Drawing.Size(770, 40);
+            this.layoutControlItem7.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 362);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(385, 30);
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.AllowHotTrack = false;
+            this.emptySpaceItem2.Location = new System.Drawing.Point(385, 365);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(385, 27);
+            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // EditOrderitem
             // 
@@ -449,8 +475,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -493,5 +522,8 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
         private System.Windows.Forms.Button btnRecordOp;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+        private System.Windows.Forms.BindingSource bindingSource1;
     }
 }

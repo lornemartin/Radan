@@ -36,8 +36,8 @@
             this.gridColumnQtyDone = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnUser = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnTime = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumnNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemDateEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
+            this.gridColumnNotes = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControlOrderItemOpsPerformed = new DevExpress.XtraGrid.GridControl();
             this.gridViewOrderItemOpsPerformed = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColQtyDone = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -57,6 +57,12 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.label1 = new System.Windows.Forms.Label();
+            this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.label2 = new System.Windows.Forms.Label();
+            this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.label3 = new System.Windows.Forms.Label();
+            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.OperationCompletedlayoutControl1ConvertedLayout)).BeginInit();
             this.OperationCompletedlayoutControl1ConvertedLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextEditQty.Properties)).BeginInit();
@@ -74,10 +80,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             this.SuspendLayout();
             // 
             // OperationCompletedlayoutControl1ConvertedLayout
             // 
+            this.OperationCompletedlayoutControl1ConvertedLayout.Controls.Add(this.label3);
+            this.OperationCompletedlayoutControl1ConvertedLayout.Controls.Add(this.label2);
+            this.OperationCompletedlayoutControl1ConvertedLayout.Controls.Add(this.label1);
             this.OperationCompletedlayoutControl1ConvertedLayout.Controls.Add(this.TextEditQty);
             this.OperationCompletedlayoutControl1ConvertedLayout.Controls.Add(this.btnRecordOp);
             this.OperationCompletedlayoutControl1ConvertedLayout.Controls.Add(this.gridControlOpsPerformed);
@@ -112,12 +124,12 @@
             // 
             // gridControlOpsPerformed
             // 
-            this.gridControlOpsPerformed.Location = new System.Drawing.Point(12, 251);
+            this.gridControlOpsPerformed.Location = new System.Drawing.Point(12, 275);
             this.gridControlOpsPerformed.MainView = this.gridViewOpsPerformed;
             this.gridControlOpsPerformed.Name = "gridControlOpsPerformed";
             this.gridControlOpsPerformed.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemDateEdit1});
-            this.gridControlOpsPerformed.Size = new System.Drawing.Size(999, 256);
+            this.gridControlOpsPerformed.Size = new System.Drawing.Size(999, 232);
             this.gridControlOpsPerformed.TabIndex = 3;
             this.gridControlOpsPerformed.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOpsPerformed});
@@ -157,14 +169,6 @@
             this.gridColumnTime.Visible = true;
             this.gridColumnTime.VisibleIndex = 2;
             // 
-            // gridColumnNotes
-            // 
-            this.gridColumnNotes.Caption = "Notes";
-            this.gridColumnNotes.FieldName = "Notes";
-            this.gridColumnNotes.Name = "gridColumnNotes";
-            this.gridColumnNotes.Visible = true;
-            this.gridColumnNotes.VisibleIndex = 3;
-            // 
             // repositoryItemDateEdit1
             // 
             this.repositoryItemDateEdit1.AutoHeight = false;
@@ -174,12 +178,20 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemDateEdit1.Name = "repositoryItemDateEdit1";
             // 
+            // gridColumnNotes
+            // 
+            this.gridColumnNotes.Caption = "Notes";
+            this.gridColumnNotes.FieldName = "Notes";
+            this.gridColumnNotes.Name = "gridColumnNotes";
+            this.gridColumnNotes.Visible = true;
+            this.gridColumnNotes.VisibleIndex = 3;
+            // 
             // gridControlOrderItemOpsPerformed
             // 
-            this.gridControlOrderItemOpsPerformed.Location = new System.Drawing.Point(513, 12);
+            this.gridControlOrderItemOpsPerformed.Location = new System.Drawing.Point(513, 36);
             this.gridControlOrderItemOpsPerformed.MainView = this.gridViewOrderItemOpsPerformed;
             this.gridControlOrderItemOpsPerformed.Name = "gridControlOrderItemOpsPerformed";
-            this.gridControlOrderItemOpsPerformed.Size = new System.Drawing.Size(498, 235);
+            this.gridControlOrderItemOpsPerformed.Size = new System.Drawing.Size(498, 211);
             this.gridControlOrderItemOpsPerformed.TabIndex = 2;
             this.gridControlOrderItemOpsPerformed.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOrderItemOpsPerformed});
@@ -221,10 +233,10 @@
             // 
             // gridControlAssociatedOrderItems
             // 
-            this.gridControlAssociatedOrderItems.Location = new System.Drawing.Point(12, 12);
+            this.gridControlAssociatedOrderItems.Location = new System.Drawing.Point(12, 36);
             this.gridControlAssociatedOrderItems.MainView = this.gridViewAssociatedOrderItems;
             this.gridControlAssociatedOrderItems.Name = "gridControlAssociatedOrderItems";
-            this.gridControlAssociatedOrderItems.Size = new System.Drawing.Size(497, 235);
+            this.gridControlAssociatedOrderItems.Size = new System.Drawing.Size(497, 211);
             this.gridControlAssociatedOrderItems.TabIndex = 0;
             this.gridControlAssociatedOrderItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewAssociatedOrderItems});
@@ -307,7 +319,10 @@
             this.layoutControlItem2,
             this.layoutControlItem3,
             this.layoutControlItem4,
-            this.layoutControlItem5});
+            this.layoutControlItem5,
+            this.layoutControlItem6,
+            this.layoutControlItem7,
+            this.layoutControlItem8});
             this.layoutControlGroup1.Name = "Root";
             this.layoutControlGroup1.Size = new System.Drawing.Size(1023, 543);
             this.layoutControlGroup1.TextVisible = false;
@@ -315,27 +330,27 @@
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.gridControlAssociatedOrderItems;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(501, 239);
+            this.layoutControlItem1.Size = new System.Drawing.Size(501, 215);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.gridControlOrderItemOpsPerformed;
-            this.layoutControlItem2.Location = new System.Drawing.Point(501, 0);
+            this.layoutControlItem2.Location = new System.Drawing.Point(501, 24);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(502, 239);
+            this.layoutControlItem2.Size = new System.Drawing.Size(502, 215);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.gridControlOpsPerformed;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 239);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 263);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1003, 260);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1003, 236);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
@@ -357,6 +372,60 @@
             this.layoutControlItem5.Size = new System.Drawing.Size(263, 24);
             this.layoutControlItem5.Text = "Qty Done:";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(50, 13);
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(12, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(497, 20);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Associated Order Item Operations";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // layoutControlItem6
+            // 
+            this.layoutControlItem6.Control = this.label1;
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem6.Name = "layoutControlItem6";
+            this.layoutControlItem6.Size = new System.Drawing.Size(501, 24);
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem6.TextVisible = false;
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(513, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(498, 20);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Order Item Operations Performed";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // layoutControlItem7
+            // 
+            this.layoutControlItem7.Control = this.label2;
+            this.layoutControlItem7.Location = new System.Drawing.Point(501, 0);
+            this.layoutControlItem7.Name = "layoutControlItem7";
+            this.layoutControlItem7.Size = new System.Drawing.Size(502, 24);
+            this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem7.TextVisible = false;
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(12, 251);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(999, 20);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Operations Performed";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // layoutControlItem8
+            // 
+            this.layoutControlItem8.Control = this.label3;
+            this.layoutControlItem8.Location = new System.Drawing.Point(0, 239);
+            this.layoutControlItem8.Name = "layoutControlItem8";
+            this.layoutControlItem8.Size = new System.Drawing.Size(1003, 24);
+            this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem8.TextVisible = false;
             // 
             // OperationCompleted
             // 
@@ -384,6 +453,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -418,5 +490,11 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnTime;
         private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnNotes;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
     }
 }
