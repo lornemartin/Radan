@@ -202,7 +202,7 @@ namespace RadanMaster
 
             OperationCompleted opForm = new OperationCompleted(opToEdit, currentUser);
             opForm.Text = this.Text + "--->" + opToEdit.operation.Name;
-            opForm.Show();
+            opForm.ShowDialog();
         }
     }
 }

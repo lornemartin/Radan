@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.OperationCompletedlayoutControl1ConvertedLayout = new DevExpress.XtraLayout.LayoutControl();
+            this.pdfViewer1 = new DevExpress.XtraPdfViewer.PdfViewer();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -63,6 +65,7 @@
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.OperationCompletedlayoutControl1ConvertedLayout)).BeginInit();
             this.OperationCompletedlayoutControl1ConvertedLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextEditQty.Properties)).BeginInit();
@@ -83,10 +86,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             this.SuspendLayout();
             // 
             // OperationCompletedlayoutControl1ConvertedLayout
             // 
+            this.OperationCompletedlayoutControl1ConvertedLayout.Controls.Add(this.pdfViewer1);
             this.OperationCompletedlayoutControl1ConvertedLayout.Controls.Add(this.label3);
             this.OperationCompletedlayoutControl1ConvertedLayout.Controls.Add(this.label2);
             this.OperationCompletedlayoutControl1ConvertedLayout.Controls.Add(this.label1);
@@ -100,14 +105,21 @@
             this.OperationCompletedlayoutControl1ConvertedLayout.Name = "OperationCompletedlayoutControl1ConvertedLayout";
             this.OperationCompletedlayoutControl1ConvertedLayout.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(699, 212, 650, 400);
             this.OperationCompletedlayoutControl1ConvertedLayout.Root = this.layoutControlGroup1;
-            this.OperationCompletedlayoutControl1ConvertedLayout.Size = new System.Drawing.Size(1023, 543);
+            this.OperationCompletedlayoutControl1ConvertedLayout.Size = new System.Drawing.Size(1619, 543);
             this.OperationCompletedlayoutControl1ConvertedLayout.TabIndex = 1;
+            // 
+            // pdfViewer1
+            // 
+            this.pdfViewer1.Location = new System.Drawing.Point(1078, 12);
+            this.pdfViewer1.Name = "pdfViewer1";
+            this.pdfViewer1.Size = new System.Drawing.Size(529, 519);
+            this.pdfViewer1.TabIndex = 9;
             // 
             // label3
             // 
             this.label3.Location = new System.Drawing.Point(12, 251);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(999, 20);
+            this.label3.Size = new System.Drawing.Size(1062, 20);
             this.label3.TabIndex = 8;
             this.label3.Text = "Operations Performed";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -116,7 +128,7 @@
             // 
             this.label2.Location = new System.Drawing.Point(513, 12);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(498, 20);
+            this.label2.Size = new System.Drawing.Size(561, 20);
             this.label2.TabIndex = 7;
             this.label2.Text = "Order Item Operations Performed";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -134,16 +146,16 @@
             // 
             this.TextEditQty.Location = new System.Drawing.Point(65, 511);
             this.TextEditQty.Name = "TextEditQty";
-            this.TextEditQty.Size = new System.Drawing.Size(206, 20);
+            this.TextEditQty.Size = new System.Drawing.Size(361, 20);
             this.TextEditQty.StyleController = this.OperationCompletedlayoutControl1ConvertedLayout;
             this.TextEditQty.TabIndex = 5;
             this.TextEditQty.EditValueChanged += new System.EventHandler(this.TextEditQty_EditValueChanged);
             // 
             // btnRecordOp
             // 
-            this.btnRecordOp.Location = new System.Drawing.Point(275, 511);
+            this.btnRecordOp.Location = new System.Drawing.Point(430, 511);
             this.btnRecordOp.Name = "btnRecordOp";
-            this.btnRecordOp.Size = new System.Drawing.Size(736, 20);
+            this.btnRecordOp.Size = new System.Drawing.Size(644, 20);
             this.btnRecordOp.TabIndex = 4;
             this.btnRecordOp.Text = "Record Operation Done";
             this.btnRecordOp.UseVisualStyleBackColor = true;
@@ -156,7 +168,7 @@
             this.gridControlOpsPerformed.Name = "gridControlOpsPerformed";
             this.gridControlOpsPerformed.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemDateEdit1});
-            this.gridControlOpsPerformed.Size = new System.Drawing.Size(999, 232);
+            this.gridControlOpsPerformed.Size = new System.Drawing.Size(1062, 232);
             this.gridControlOpsPerformed.TabIndex = 3;
             this.gridControlOpsPerformed.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOpsPerformed});
@@ -218,7 +230,7 @@
             this.gridControlOrderItemOpsPerformed.Location = new System.Drawing.Point(513, 36);
             this.gridControlOrderItemOpsPerformed.MainView = this.gridViewOrderItemOpsPerformed;
             this.gridControlOrderItemOpsPerformed.Name = "gridControlOrderItemOpsPerformed";
-            this.gridControlOrderItemOpsPerformed.Size = new System.Drawing.Size(498, 211);
+            this.gridControlOrderItemOpsPerformed.Size = new System.Drawing.Size(561, 211);
             this.gridControlOrderItemOpsPerformed.TabIndex = 2;
             this.gridControlOrderItemOpsPerformed.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOrderItemOpsPerformed});
@@ -358,9 +370,10 @@
             this.layoutControlItem5,
             this.layoutControlItem6,
             this.layoutControlItem7,
-            this.layoutControlItem8});
+            this.layoutControlItem8,
+            this.layoutControlItem9});
             this.layoutControlGroup1.Name = "Root";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(1023, 543);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(1619, 543);
             this.layoutControlGroup1.TextVisible = false;
             // 
             // layoutControlItem1
@@ -377,7 +390,7 @@
             this.layoutControlItem2.Control = this.gridControlOrderItemOpsPerformed;
             this.layoutControlItem2.Location = new System.Drawing.Point(501, 24);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(502, 215);
+            this.layoutControlItem2.Size = new System.Drawing.Size(565, 215);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
@@ -386,16 +399,16 @@
             this.layoutControlItem3.Control = this.gridControlOpsPerformed;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 263);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1003, 236);
+            this.layoutControlItem3.Size = new System.Drawing.Size(1066, 236);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.btnRecordOp;
-            this.layoutControlItem4.Location = new System.Drawing.Point(263, 499);
+            this.layoutControlItem4.Location = new System.Drawing.Point(418, 499);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(740, 24);
+            this.layoutControlItem4.Size = new System.Drawing.Size(648, 24);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
@@ -405,7 +418,7 @@
             this.layoutControlItem5.CustomizationFormText = "Qty Donez:";
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 499);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(263, 24);
+            this.layoutControlItem5.Size = new System.Drawing.Size(418, 24);
             this.layoutControlItem5.Text = "Qty Done:";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(50, 13);
             // 
@@ -423,7 +436,7 @@
             this.layoutControlItem7.Control = this.label2;
             this.layoutControlItem7.Location = new System.Drawing.Point(501, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(502, 24);
+            this.layoutControlItem7.Size = new System.Drawing.Size(565, 24);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
@@ -432,15 +445,24 @@
             this.layoutControlItem8.Control = this.label3;
             this.layoutControlItem8.Location = new System.Drawing.Point(0, 239);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(1003, 24);
+            this.layoutControlItem8.Size = new System.Drawing.Size(1066, 24);
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.pdfViewer1;
+            this.layoutControlItem9.Location = new System.Drawing.Point(1066, 0);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(533, 523);
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem9.TextVisible = false;
             // 
             // OperationCompleted
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1023, 543);
+            this.ClientSize = new System.Drawing.Size(1619, 543);
             this.Controls.Add(this.OperationCompletedlayoutControl1ConvertedLayout);
             this.Name = "OperationCompleted";
             this.Text = "OperationCompleted";
@@ -465,6 +487,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -505,5 +528,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
+        private DevExpress.XtraPdfViewer.PdfViewer pdfViewer1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
     }
 }
