@@ -33,7 +33,7 @@ namespace RadanMaster
         {
             opManager.RefreshDataStructures();
 
-            gridControlAssociatedOrderItems.DataSource = opManager.GetAssociatedOrderItems();
+            gridControlAssociatedOrderItems.DataSource = opManager.GetAssociatedOrderItemOperations();
             gridControlOpsPerformed.DataSource = opManager.GetOperationsPerformed();
         }
 
@@ -60,7 +60,7 @@ namespace RadanMaster
                 }
             }
             opManager.RefreshDataStructures();
-            gridControlAssociatedOrderItems.DataSource = opManager.GetAssociatedOrderItems();
+            gridControlAssociatedOrderItems.DataSource = opManager.GetAssociatedOrderItemOperations();
             gridControlOpsPerformed.DataSource = opManager.GetOperationsPerformed();
         }
 
