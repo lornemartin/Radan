@@ -56,7 +56,7 @@ namespace RadanMaster
                 DialogResult result = MessageBox.Show("There are " + qtyOverBatchItemOps + " " + opName + " operations for part number " + partName + " that have not been applied to a batch item.  Did you want to apply them now?", "Operations not applied", MessageBoxButtons.YesNoCancel);
                 if (result == DialogResult.Yes)
                 {
-                    opManager.AssignUnfinishedOperations();
+                    opManager.AssignUnAssignedOperations();
                 }
             }
             opManager.RefreshDataStructures();

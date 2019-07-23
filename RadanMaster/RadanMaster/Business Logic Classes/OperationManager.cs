@@ -49,6 +49,12 @@ namespace RadanMaster
             return opsPerformed;
         }
 
+        public List<Models.OrderItemOperationPerformed> GetAssociatedOrderItemOperationPerformeds(Models.OrderItemOperation op)
+        {
+            List<Models.OrderItemOperationPerformed> opsPerformed = Globals.dbContext.OrderItemOperationPerformeds.Where(o => o.orderItemOperation.ID == op.ID).ToList();
+            return opsPerformed;
+        }
+
         public Stream GetPDFStream()
         {
             Models.Part p = OrderItemOp.operation.Part;
@@ -60,26 +66,76 @@ namespace RadanMaster
         {
             qtyOverBatchItemOps = 0;
             qtyUnAssignedBatchItemOps = 0;
-            opName = "test";
-            partName = "test";
+            opName = "";
+            partName = "";
+            
+            if (overBatchOrderItemOps != null)
+                qtyOverBatchItemOps = overBatchOrderItemOps.Sum(x => x.qtyDone);
 
-            return false;
+            if (unFinishedOrderItemOps != null)
+                qtyUnAssignedBatchItemOps = unFinishedOrderItemOps.Sum(x => x.qtyRequired);
+
+            if (qtyOverBatchItemOps > 0 && qtyUnAssignedBatchItemOps > 0)
+            {
+                opName = overBatchOrderItemOps.FirstOrDefault().operation.Name;
+                partName = overBatchOrderItemOps.FirstOrDefault().operation.Part.FileName;
+                return true;
+            }
+            else
+                return false;
         }
 
-        public void AssignUnfinishedOperations()
+        public void AssignUnAssignedOperations()
         {
 
         }
 
         public void RecordOperationCompleted(int count)
         {
+            List<Models.OrderItem> unassignedOrderItems = Globals.dbContext.OrderItems.Where(o => o.IsComplete == false)
+                                                                        .Where(o => o.Part.ID == OrderItemOp.orderItem.PartID).ToList();
+            int qtyToAllocate = count;
+            int qtyAllocatedRunningTotal = 0;
 
+            Models.OperationPerformed opPerformed = new Models.OperationPerformed();
+            opPerformed.qtyDone = qtyToAllocate;
+            opPerformed.timePerformed = DateTime.Now;
+            opPerformed.usr = currentUser;
+            opPerformed.Notes = "";
+            opPerformed.OrderItemOperationsPerformed = new List<Models.OrderItemOperationPerformed>();
+
+            foreach (Models.OrderItem orderItem in unassignedOrderItems.ToList())
+            {
+                if (orderItem.QtyRequired <= qtyToAllocate - qtyAllocatedRunningTotal)
+                {
+                    orderItem.QtyNested = orderItem.QtyRequired;
+                    qtyAllocatedRunningTotal += orderItem.QtyRequired;
+
+                    Models.OrderItemOperationPerformed orderItemOpPerformed = new Models.OrderItemOperationPerformed();
+                    orderItemOpPerformed.qtyDone = orderItem.QtyRequired;
+                    orderItemOpPerformed.orderItemOperation = OrderItemOp;
+                    orderItemOpPerformed.opPerformed = opPerformed;
+                    Globals.dbContext.OrderItemOperationPerformeds.Add(orderItemOpPerformed);
+
+                    opPerformed.OrderItemOperationsPerformed.Add(orderItemOpPerformed);
+                }
+            }
+
+            // if we still have some left to allocate after all open batches have been filled, we'll have to 
+            //  create a new opPerformed without linking it to an orderItem
+            if(qtyAllocatedRunningTotal < qtyToAllocate)
+            {
+                Models.OrderItemOperationPerformed orderItemOpPerformed = new Models.OrderItemOperationPerformed();
+                orderItemOpPerformed.qtyDone = qtyToAllocate - qtyAllocatedRunningTotal;
+                orderItemOpPerformed.orderItemOperation = null;
+                orderItemOpPerformed.opPerformed = opPerformed;
+                Globals.dbContext.OrderItemOperationPerformeds.Add(orderItemOpPerformed);
+
+                opPerformed.OrderItemOperationsPerformed.Add(orderItemOpPerformed);
+            }
+
+            Globals.dbContext.OperationPerformeds.Add(opPerformed);
+            Globals.dbContext.SaveChanges();
         }
-
-        public List<Models.OrderItemOperationPerformed> GetAssociatedOrderItemOperationPerformeds(Models.OrderItemOperation op)
-        {
-            return null;
-        }
-
     }
 }
