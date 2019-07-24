@@ -32,9 +32,12 @@ namespace RadanMaster
 
             // then find all the associated orderItemOperations that have not been applied to an order item yet
             overBatchOrderItemOps = Globals.dbContext.OrderItemOperations.Where(o => o.orderItemID == null)
-                                                                                                          .Where(o => o.operation.PartID == OrderItemOp.operation.PartID).ToList();
+                                                                         .Where(o => o.operation.PartID == OrderItemOp.operation.PartID).ToList();
             // now combine the two lists into one.
             associatedOrderItemOps.AddRange(overBatchOrderItemOps);
+
+            // find all the unfinishedOrderItemOps
+            unFinishedOrderItemOps = associatedOrderItemOps.Where(o => o.qtyDone < o.qtyRequired).ToList();
 
             opsPerformed = Globals.dbContext.OperationPerformeds.Where(op => op.OrderItemOperationsPerformed.FirstOrDefault().orderItemOperation.operationID == OrderItemOp.operationID).ToList();
         }
@@ -88,6 +91,42 @@ namespace RadanMaster
         public void AssignUnAssignedOperations()
         {
 
+            foreach (Models.OrderItemOperation unFinishedItemOperation in unFinishedOrderItemOps.ToList())
+            {
+                foreach (Models.OrderItemOperation overBatchItemOperation in overBatchOrderItemOps.ToList())
+                {
+                    Models.OrderItemOperationPerformed oiOpPerformed = overBatchItemOperation.OrderItemOperationPerformeds.FirstOrDefault();
+
+                    int qtyRemaining = unFinishedItemOperation.qtyRequired - unFinishedItemOperation.qtyDone;
+                    if (qtyRemaining >= overBatchItemOperation.qtyRequired) // if overBatchItemOp fits inside of unFinishedItemOp, things will be easy.
+                    {
+                        overBatchItemOperation.OrderItemOperationPerformeds.Clear();        // clear the orderItemOperationPerformed from the overBatchOrderItem
+                        Globals.dbContext.OrderItemOperations.Remove(overBatchItemOperation);       // remove the overBatchItem from the DB
+
+                        unFinishedItemOperation.OrderItemOperationPerformeds.Add(oiOpPerformed);    // add the orderItemOperationPerformed to the unFinishedOrderItem now
+                        unFinishedItemOperation.qtyDone += overBatchItemOperation.qtyDone;          // increment the qty done on the unFinishedItemOp
+                    }
+                    else        // if overBatchItemOp doesn't all fit inside of unFinishedItemOp, we'll have to split up the OrderItemOperationPerformed
+                    {
+                        // we'll modify the original opPerformed and keep it attached to the original unFinishedOp
+                        // modify the original 'over' orderItemOpPerformed
+                        oiOpPerformed.qtyDone = qtyRemaining;
+
+                        // modify the original 'over' orderItem
+                        overBatchItemOperation.qtyDone = qtyRemaining;
+
+                        //// create a new orderItemOpPerformed
+                        //Models.OrderItemOperationPerformed newOrderItemOpPerformed = new Models.OrderItemOperationPerformed();
+                        //newOrderItemOpPerformed.qtyDone = unFinishedItemOperation.qtyRemaining;
+                        //newOrderItemOpPerformed.orderItemOperation = remainingOrderItemOp;
+
+                        //// add the itemOpPerformed to the itemOp
+                        //remainingOrderItemOp.OrderItemOperationPerformeds.Add(newOrderItemOpPerformed);
+                    }
+                }
+            }
+
+            Globals.dbContext.SaveChanges();
         }
 
         public void RecordOperationCompleted(int count)
