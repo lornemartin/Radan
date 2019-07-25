@@ -11,13 +11,11 @@ namespace RadanMaster
     public class OperationManager
     {
         Models.OrderItemOperation OrderItemOp { get; set; }
+        int overBatchQty { get; set; }
         bool updateAll { get; set; }
         Models.User currentUser { get; set; }
         List<Models.OrderItemOperation> associatedOrderItemOps { get; set; }
-        List<Models.OrderItemOperationPerformed> itemOpsPerformed { get; set; }
         List<Models.OperationPerformed> opsPerformed { get; set; }
-        List<Models.OrderItemOperation> unFinishedOrderItemOps { get; set; }
-        List<Models.OrderItemOperation> overBatchOrderItemOps { get; set; }
 
         public OperationManager(Models.OrderItemOperation orderItemOp, Models.User usr)
         {
@@ -25,21 +23,17 @@ namespace RadanMaster
             OrderItemOp = orderItemOp;
         }
 
-        public void RefreshDataStructures()
+        public int RefreshDataStructures()
         {
             associatedOrderItemOps = Globals.dbContext.OrderItemOperations.Where(o => o.orderItem.PartID == OrderItemOp.orderItem.PartID)
                                                                          .Where(o => o.operationID == OrderItemOp.operationID).ToList();
 
-            // then find all the associated orderItemOperations that have not been applied to an order item yet
-            overBatchOrderItemOps = Globals.dbContext.OrderItemOperations.Where(o => o.orderItemID == null)
-                                                                         .Where(o => o.operation.PartID == OrderItemOp.operation.PartID).ToList();
-            // now combine the two lists into one.
-            associatedOrderItemOps.AddRange(overBatchOrderItemOps);
-
-            // find all the unfinishedOrderItemOps
-            unFinishedOrderItemOps = associatedOrderItemOps.Where(o => o.qtyDone < o.qtyRequired).ToList();
-
             opsPerformed = Globals.dbContext.OperationPerformeds.Where(op => op.OrderItemOperationsPerformed.FirstOrDefault().orderItemOperation.operationID == OrderItemOp.operationID).ToList();
+
+            overBatchQty = associatedOrderItemOps.Sum(x => x.qtyDone) - opsPerformed.Sum(x => x.qtyDone);
+
+            return overBatchQty;
+
         }
 
         public List<Models.OrderItemOperation> GetAssociatedOrderItemOperations()
@@ -65,113 +59,105 @@ namespace RadanMaster
         }
 
 
-        public bool HasUnassignedOperationsPerformed(out int qtyOverBatchItemOps, out int qtyUnAssignedBatchItemOps, out string opName, out string partName)
-        {
-            qtyOverBatchItemOps = 0;
-            qtyUnAssignedBatchItemOps = 0;
-            opName = "";
-            partName = "";
+        //public bool HasUnassignedOperationsPerformed(out int qtyOverBatchItemOps, out int qtyUnAssignedBatchItemOps, out string opName, out string partName)
+        //{
+        //    qtyOverBatchItemOps = 0;
+        //    qtyUnAssignedBatchItemOps = 0;
+        //    opName = "";
+        //    partName = "";
             
-            if (overBatchOrderItemOps != null)
-                qtyOverBatchItemOps = overBatchOrderItemOps.Sum(x => x.qtyDone);
+        //    if (overBatchOrderItemOps != null)
+        //        qtyOverBatchItemOps = overBatchOrderItemOps.Sum(x => x.qtyDone);
 
-            if (unFinishedOrderItemOps != null)
-                qtyUnAssignedBatchItemOps = unFinishedOrderItemOps.Sum(x => x.qtyRequired);
+        //    if (unFinishedOrderItemOps != null)
+        //        qtyUnAssignedBatchItemOps = unFinishedOrderItemOps.Sum(x => x.qtyRequired);
 
-            if (qtyOverBatchItemOps > 0 && qtyUnAssignedBatchItemOps > 0)
-            {
-                opName = overBatchOrderItemOps.FirstOrDefault().operation.Name;
-                partName = overBatchOrderItemOps.FirstOrDefault().operation.Part.FileName;
-                return true;
-            }
-            else
-                return false;
-        }
+        //    if (qtyOverBatchItemOps > 0 && qtyUnAssignedBatchItemOps > 0)
+        //    {
+        //        opName = overBatchOrderItemOps.FirstOrDefault().operation.Name;
+        //        partName = overBatchOrderItemOps.FirstOrDefault().operation.Part.FileName;
+        //        return true;
+        //    }
+        //    else
+        //        return false;
+        //}
 
-        public void AssignUnAssignedOperations()
-        {
+        //public void AssignUnAssignedOperations()
+        //{
 
-            foreach (Models.OrderItemOperation unFinishedItemOperation in unFinishedOrderItemOps.ToList())
-            {
-                foreach (Models.OrderItemOperation overBatchItemOperation in overBatchOrderItemOps.ToList())
-                {
-                    Models.OrderItemOperationPerformed oiOpPerformed = overBatchItemOperation.OrderItemOperationPerformeds.FirstOrDefault();
+        //    foreach (Models.OrderItemOperation unFinishedItemOperation in unFinishedOrderItemOps.ToList())
+        //    {
+        //        foreach (Models.OrderItemOperation overBatchItemOperation in overBatchOrderItemOps.ToList())
+        //        {
+        //            Models.OrderItemOperationPerformed oiOpPerformed = overBatchItemOperation.OrderItemOperationPerformeds.FirstOrDefault();
 
-                    int qtyRemaining = unFinishedItemOperation.qtyRequired - unFinishedItemOperation.qtyDone;
-                    if (qtyRemaining >= overBatchItemOperation.qtyRequired) // if overBatchItemOp fits inside of unFinishedItemOp, things will be easy.
-                    {
-                        overBatchItemOperation.OrderItemOperationPerformeds.Clear();        // clear the orderItemOperationPerformed from the overBatchOrderItem
-                        Globals.dbContext.OrderItemOperations.Remove(overBatchItemOperation);       // remove the overBatchItem from the DB
+        //            int qtyRemaining = unFinishedItemOperation.qtyRequired - unFinishedItemOperation.qtyDone;
+        //            if (qtyRemaining >= overBatchItemOperation.qtyRequired) // if overBatchItemOp fits inside of unFinishedItemOp, things will be easy.
+        //            {
+        //                overBatchItemOperation.OrderItemOperationPerformeds.Clear();        // clear the orderItemOperationPerformed from the overBatchOrderItem
+        //                Globals.dbContext.OrderItemOperations.Remove(overBatchItemOperation);       // remove the overBatchItem from the DB
 
-                        unFinishedItemOperation.OrderItemOperationPerformeds.Add(oiOpPerformed);    // add the orderItemOperationPerformed to the unFinishedOrderItem now
-                        unFinishedItemOperation.qtyDone += overBatchItemOperation.qtyDone;          // increment the qty done on the unFinishedItemOp
-                    }
-                    else        // if overBatchItemOp doesn't all fit inside of unFinishedItemOp, we'll have to split up the OrderItemOperationPerformed
-                    {
-                        // we'll modify the original opPerformed and keep it attached to the original unFinishedOp
-                        // modify the original 'over' orderItemOpPerformed
-                        oiOpPerformed.qtyDone = qtyRemaining;
+        //                unFinishedItemOperation.OrderItemOperationPerformeds.Add(oiOpPerformed);    // add the orderItemOperationPerformed to the unFinishedOrderItem now
+        //                unFinishedItemOperation.qtyDone += overBatchItemOperation.qtyDone;          // increment the qty done on the unFinishedItemOp
+        //            }
+        //            else        // if overBatchItemOp doesn't all fit inside of unFinishedItemOp, we'll have to split up the OrderItemOperationPerformed
+        //            {
+        //                // we'll modify the original opPerformed and keep it attached to the original unFinishedOp
+        //                // modify the original 'over' orderItemOpPerformed
+        //                oiOpPerformed.qtyDone = qtyRemaining;
 
-                        // modify the original 'over' orderItem
-                        overBatchItemOperation.qtyDone = qtyRemaining;
+        //                // modify the original 'over' orderItem
+        //                overBatchItemOperation.qtyDone = qtyRemaining;
 
-                        //// create a new orderItemOpPerformed
-                        //Models.OrderItemOperationPerformed newOrderItemOpPerformed = new Models.OrderItemOperationPerformed();
-                        //newOrderItemOpPerformed.qtyDone = unFinishedItemOperation.qtyRemaining;
-                        //newOrderItemOpPerformed.orderItemOperation = remainingOrderItemOp;
+        //                //// create a new orderItemOpPerformed
+        //                //Models.OrderItemOperationPerformed newOrderItemOpPerformed = new Models.OrderItemOperationPerformed();
+        //                //newOrderItemOpPerformed.qtyDone = unFinishedItemOperation.qtyRemaining;
+        //                //newOrderItemOpPerformed.orderItemOperation = remainingOrderItemOp;
 
-                        //// add the itemOpPerformed to the itemOp
-                        //remainingOrderItemOp.OrderItemOperationPerformeds.Add(newOrderItemOpPerformed);
-                    }
-                }
-            }
+        //                //// add the itemOpPerformed to the itemOp
+        //                //remainingOrderItemOp.OrderItemOperationPerformeds.Add(newOrderItemOpPerformed);
+        //            }
+        //        }
+        //    }
 
-            Globals.dbContext.SaveChanges();
-        }
+        //    Globals.dbContext.SaveChanges();
+        //}
 
         public void RecordOperationCompleted(int count)
         {
-            List<Models.OrderItem> unassignedOrderItems = Globals.dbContext.OrderItems.Where(o => o.IsComplete == false)
-                                                                        .Where(o => o.Part.ID == OrderItemOp.orderItem.PartID).ToList();
-            int qtyToAllocate = count;
-            int qtyAllocatedRunningTotal = 0;
+            int qtyLeftToRecord = count;
 
+            // first create the opPerformed record.
             Models.OperationPerformed opPerformed = new Models.OperationPerformed();
-            opPerformed.qtyDone = qtyToAllocate;
+            opPerformed.qtyDone = count;
             opPerformed.timePerformed = DateTime.Now;
             opPerformed.usr = currentUser;
             opPerformed.Notes = "";
-            opPerformed.OrderItemOperationsPerformed = new List<Models.OrderItemOperationPerformed>();
 
-            foreach (Models.OrderItem orderItem in unassignedOrderItems.ToList())
+            // then fill out the quantities done of the orderItemOps 
+            foreach(Models.OrderItemOperation op in associatedOrderItemOps)
             {
-                if (orderItem.QtyRequired <= qtyToAllocate - qtyAllocatedRunningTotal)
+                if(op.qtyDone < op.qtyRequired)
                 {
-                    orderItem.QtyNested = orderItem.QtyRequired;
-                    qtyAllocatedRunningTotal += orderItem.QtyRequired;
-
-                    Models.OrderItemOperationPerformed orderItemOpPerformed = new Models.OrderItemOperationPerformed();
-                    orderItemOpPerformed.qtyDone = orderItem.QtyRequired;
-                    orderItemOpPerformed.orderItemOperation = OrderItemOp;
-                    orderItemOpPerformed.opPerformed = opPerformed;
-                    Globals.dbContext.OrderItemOperationPerformeds.Add(orderItemOpPerformed);
-
-                    opPerformed.OrderItemOperationsPerformed.Add(orderItemOpPerformed);
+                    if(qtyLeftToRecord >= op.qtyRequired - op.qtyDone)  // if we have enough left to record to fill remaining orderItemOp...
+                    {
+                        qtyLeftToRecord -= op.qtyRequired - op.qtyDone;
+                        op.qtyDone = op.qtyRequired;
+                    }
+                    else              // we can only partially fill operation
+                    {
+                        op.qtyDone += qtyLeftToRecord;
+                        qtyLeftToRecord = 0;
+                        break;  // exit foreach loop, we don't have any more to record
+                    }
                 }
             }
 
-            // if we still have some left to allocate after all open batches have been filled, we'll have to 
-            //  create a new opPerformed without linking it to an orderItem
-            if(qtyAllocatedRunningTotal < qtyToAllocate)
-            {
-                Models.OrderItemOperationPerformed orderItemOpPerformed = new Models.OrderItemOperationPerformed();
-                orderItemOpPerformed.qtyDone = qtyToAllocate - qtyAllocatedRunningTotal;
-                orderItemOpPerformed.orderItemOperation = null;
-                orderItemOpPerformed.opPerformed = opPerformed;
-                Globals.dbContext.OrderItemOperationPerformeds.Add(orderItemOpPerformed);
-
-                opPerformed.OrderItemOperationsPerformed.Add(orderItemOpPerformed);
-            }
+            // if we have completed more than we have order items to record against, we need to track this.
+            if (qtyLeftToRecord > 0)
+                overBatchQty += qtyLeftToRecord;
+            else
+                overBatchQty = 0;
 
             Globals.dbContext.OperationPerformeds.Add(opPerformed);
             Globals.dbContext.SaveChanges();

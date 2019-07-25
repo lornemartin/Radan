@@ -31,7 +31,7 @@ namespace RadanMaster
 
         private void RefreshGridViews()
         {
-            opManager.RefreshDataStructures();
+            textBoxQtyExtra.Text = opManager.RefreshDataStructures().ToString();
 
             gridControlAssociatedOrderItems.DataSource = opManager.GetAssociatedOrderItemOperations();
             gridControlOpsPerformed.DataSource = opManager.GetOperationsPerformed();
@@ -46,19 +46,6 @@ namespace RadanMaster
             pdfViewer1.CurrentPageNumber = 1;
             pdfViewer1.ZoomMode = PdfZoomMode.FitToVisible;
 
-            opManager.RefreshDataStructures();
-
-            int qtyOverBatchItemOps = 0;
-            int qtyUnAssignedBatchItemOps = 0;
-            string opName = "", partName = "";
-            if (opManager.HasUnassignedOperationsPerformed(out qtyOverBatchItemOps, out qtyUnAssignedBatchItemOps, out opName, out partName))
-            {
-                DialogResult result = MessageBox.Show("There are " + qtyOverBatchItemOps + " " + opName + " operations for part number " + partName + " that have not been applied to a batch item.  Did you want to apply them now?", "Operations not applied", MessageBoxButtons.YesNoCancel);
-                if (result == DialogResult.Yes)
-                {
-                    opManager.AssignUnAssignedOperations();
-                }
-            }
             opManager.RefreshDataStructures();
             gridControlAssociatedOrderItems.DataSource = opManager.GetAssociatedOrderItemOperations();
             gridControlOpsPerformed.DataSource = opManager.GetOperationsPerformed();
@@ -78,9 +65,6 @@ namespace RadanMaster
             }
 
             List<Models.OrderItemOperationPerformed> orderItemOperationPerformeds = opManager.GetAssociatedOrderItemOperationPerformeds(orderItemOp);
-
-            gridControlOrderItemOpsPerformed.DataSource = orderItemOperationPerformeds;
-
         }
 
         private void btnRecordOp_Click(object sender, EventArgs e)
