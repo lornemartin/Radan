@@ -46,7 +46,6 @@ namespace RadanMaster
             Globals.dbContext.Orders.Load();
             Globals.dbContext.OrderItems.Load();
             Globals.dbContext.Parts.Load();
-            Globals.dbContext.OrderItemOperationPerformeds.Load();
             Globals.dbContext.OperationPerformeds.Load();
             Globals.dbContext.Users.Load();
             Globals.dbContext.Privileges.Load();

@@ -28,7 +28,7 @@ namespace RadanMaster
             associatedOrderItemOps = Globals.dbContext.OrderItemOperations.Where(o => o.orderItem.PartID == OrderItemOp.orderItem.PartID)
                                                                          .Where(o => o.operationID == OrderItemOp.operationID).ToList();
 
-            opsPerformed = Globals.dbContext.OperationPerformeds.Where(op => op.OrderItemOperationsPerformed.FirstOrDefault().orderItemOperation.operationID == OrderItemOp.operationID).ToList();
+            opsPerformed = Globals.dbContext.OperationPerformeds.Where(op => op.OrderItemOperations.FirstOrDefault().operationID == OrderItemOp.operationID).ToList();
 
             overBatchQty = associatedOrderItemOps.Sum(x => x.qtyDone) - opsPerformed.Sum(x => x.qtyDone);
 
@@ -43,12 +43,6 @@ namespace RadanMaster
 
         public List<Models.OperationPerformed> GetOperationsPerformed()
         {
-            return opsPerformed;
-        }
-
-        public List<Models.OrderItemOperationPerformed> GetAssociatedOrderItemOperationPerformeds(Models.OrderItemOperation op)
-        {
-            List<Models.OrderItemOperationPerformed> opsPerformed = Globals.dbContext.OrderItemOperationPerformeds.Where(o => o.orderItemOperation.ID == op.ID).ToList();
             return opsPerformed;
         }
 

@@ -63,8 +63,6 @@ namespace RadanMaster
                 object o = gridViewAssociatedOrderItems.GetRow(rowHandle);
                 orderItemOp = (Models.OrderItemOperation)o;
             }
-
-            List<Models.OrderItemOperationPerformed> orderItemOperationPerformeds = opManager.GetAssociatedOrderItemOperationPerformeds(orderItemOp);
         }
 
         private void btnRecordOp_Click(object sender, EventArgs e)
