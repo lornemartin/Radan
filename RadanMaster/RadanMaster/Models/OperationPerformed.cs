@@ -8,6 +8,10 @@ namespace RadanMaster.Models
 {
     public class OperationPerformed
     {
+        public OperationPerformed()
+        {
+            this.OrderItemOperations = new List<OrderItemOperation>();
+        }
         public int ID { get; set; }
         public int qtyDone { get; set; }
         public User usr { get; set; }

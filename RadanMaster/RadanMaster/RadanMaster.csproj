@@ -182,14 +182,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201906191945250_InitialCreate.cs" />
-    <Compile Include="Migrations\201906191945250_InitialCreate.Designer.cs">
-      <DependentUpon>201906191945250_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907251429221_RemoveOrderItemOperationPerformed.cs" />
-    <Compile Include="Migrations\201907251429221_RemoveOrderItemOperationPerformed.Designer.cs">
-      <DependentUpon>201907251429221_RemoveOrderItemOperationPerformed.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OperationPerformed.cs" />
     <Compile Include="Models\OrderItemOperation.cs" />
     <Compile Include="Models\Privilege.cs" />
@@ -201,7 +194,6 @@
       <DependentUpon>Nesting.cs</DependentUpon>
     </Compile>
     <Compile Include="GroupAndFilterSettings.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DisplayModels\DisplayItem.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\FileType.cs" />
@@ -290,12 +282,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906191945250_InitialCreate.resx">
-      <DependentUpon>201906191945250_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907251429221_RemoveOrderItemOperationPerformed.resx">
-      <DependentUpon>201907251429221_RemoveOrderItemOperationPerformed.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Nesting.resx">
       <DependentUpon>Nesting.cs</DependentUpon>

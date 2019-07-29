@@ -127,13 +127,16 @@ namespace RadanMaster
             opPerformed.timePerformed = DateTime.Now;
             opPerformed.usr = currentUser;
             opPerformed.Notes = "";
+            opPerformed.OrderItemOperations = new List<Models.OrderItemOperation>();
 
             // then fill out the quantities done of the orderItemOps 
             foreach(Models.OrderItemOperation op in associatedOrderItemOps)
             {
                 if(op.qtyDone < op.qtyRequired)
                 {
-                    if(qtyLeftToRecord >= op.qtyRequired - op.qtyDone)  // if we have enough left to record to fill remaining orderItemOp...
+                    opPerformed.OrderItemOperations.Add(op);    //link the operation to the operationPerformed
+
+                    if (qtyLeftToRecord >= op.qtyRequired - op.qtyDone)  // if we have enough left to record to fill remaining orderItemOp...
                     {
                         qtyLeftToRecord -= op.qtyRequired - op.qtyDone;
                         op.qtyDone = op.qtyRequired;

@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.OperationCompletedlayoutControl1ConvertedLayout = new DevExpress.XtraLayout.LayoutControl();
+            this.textBoxQtyExtra = new System.Windows.Forms.TextBox();
             this.pdfViewer1 = new DevExpress.XtraPdfViewer.PdfViewer();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -58,7 +59,6 @@
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.textBoxQtyExtra = new System.Windows.Forms.TextBox();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.OperationCompletedlayoutControl1ConvertedLayout)).BeginInit();
             this.OperationCompletedlayoutControl1ConvertedLayout.SuspendLayout();
@@ -97,6 +97,13 @@
             this.OperationCompletedlayoutControl1ConvertedLayout.Root = this.layoutControlGroup1;
             this.OperationCompletedlayoutControl1ConvertedLayout.Size = new System.Drawing.Size(1619, 543);
             this.OperationCompletedlayoutControl1ConvertedLayout.TabIndex = 1;
+            // 
+            // textBoxQtyExtra
+            // 
+            this.textBoxQtyExtra.Location = new System.Drawing.Point(86, 251);
+            this.textBoxQtyExtra.Name = "textBoxQtyExtra";
+            this.textBoxQtyExtra.Size = new System.Drawing.Size(988, 20);
+            this.textBoxQtyExtra.TabIndex = 6;
             // 
             // pdfViewer1
             // 
@@ -259,7 +266,7 @@
             // colQtyDone
             // 
             this.colQtyDone.Caption = "Qty Done";
-            this.colQtyDone.FieldName = "colQtyDone";
+            this.colQtyDone.FieldName = "qtyDone";
             this.colQtyDone.Name = "colQtyDone";
             this.colQtyDone.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "qtyDone", "SUM={0:0.##}")});
@@ -374,13 +381,6 @@
             this.layoutControlItem9.Size = new System.Drawing.Size(533, 523);
             this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem9.TextVisible = false;
-            // 
-            // textBoxQtyExtra
-            // 
-            this.textBoxQtyExtra.Location = new System.Drawing.Point(86, 251);
-            this.textBoxQtyExtra.Name = "textBoxQtyExtra";
-            this.textBoxQtyExtra.Size = new System.Drawing.Size(988, 20);
-            this.textBoxQtyExtra.TabIndex = 6;
             // 
             // layoutControlItem2
             // 

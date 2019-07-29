@@ -28,6 +28,11 @@ namespace RadanMaster.DAL
         public DbSet<Privilege> Privileges { get; set; }
         public DbSet<OperationPerformed> OperationPerformeds { get; set; }
         public DbSet<OrderItemOperation> OrderItemOperations { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
         
