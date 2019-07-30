@@ -33,6 +33,11 @@ namespace RadanMaster
         {
             textBoxQtyExtra.Text = opManager.RefreshDataStructures().ToString();
 
+            Globals.dbContext.Parts.Load();
+            Globals.dbContext.Operations.Load();
+            Globals.dbContext.OrderItemOperations.Load();
+            Globals.dbContext.Orders.Load();
+
             gridControlAssociatedOrderItems.DataSource = opManager.GetAssociatedOrderItemOperations();
             gridControlOpsPerformed.DataSource = opManager.GetOperationsPerformed();
         }
@@ -45,6 +50,17 @@ namespace RadanMaster
             pdfViewer1.LoadDocument(stream);
             pdfViewer1.CurrentPageNumber = 1;
             pdfViewer1.ZoomMode = PdfZoomMode.FitToVisible;
+
+            // check for extra items recorded previously
+            if (opManager.HasUnassignedOperationsPerformed())
+            {
+                DialogResult result = MessageBox.Show("There have been some of these items recorded previously that couldn't be matched up with a batch.  Should we assign them to a batch now?.", "Confirm", MessageBoxButtons.YesNoCancel);
+                
+                if(result == DialogResult.Yes)
+                {
+                    opManager.AssignUnAssignedOperations();
+                }
+            }
 
             opManager.RefreshDataStructures();
             gridControlAssociatedOrderItems.DataSource = opManager.GetAssociatedOrderItemOperations();
@@ -80,6 +96,20 @@ namespace RadanMaster
         private void TextEditQty_EditValueChanged(object sender, EventArgs e)
         {
             btnRecordOp.Enabled = true;
+        }
+
+        private void textBoxQtyExtra_TextChanged(object sender, EventArgs e)
+        {
+            if (int.Parse(textBoxQtyExtra.Text) < 0)
+            {
+                textBoxQtyExtra.BackColor = Color.Red;
+            }
+
+            else
+            {
+                textBoxQtyExtra.BackColor = Color.Green;
+
+            }
         }
     }
 }

@@ -59,7 +59,7 @@
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.labelQtyExtra = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.OperationCompletedlayoutControl1ConvertedLayout)).BeginInit();
             this.OperationCompletedlayoutControl1ConvertedLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextEditQty.Properties)).BeginInit();
@@ -77,7 +77,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.labelQtyExtra)).BeginInit();
             this.SuspendLayout();
             // 
             // OperationCompletedlayoutControl1ConvertedLayout
@@ -102,8 +102,10 @@
             // 
             this.textBoxQtyExtra.Location = new System.Drawing.Point(86, 251);
             this.textBoxQtyExtra.Name = "textBoxQtyExtra";
+            this.textBoxQtyExtra.ReadOnly = true;
             this.textBoxQtyExtra.Size = new System.Drawing.Size(988, 20);
             this.textBoxQtyExtra.TabIndex = 6;
+            this.textBoxQtyExtra.TextChanged += new System.EventHandler(this.textBoxQtyExtra_TextChanged);
             // 
             // pdfViewer1
             // 
@@ -313,7 +315,7 @@
             this.layoutControlItem6,
             this.layoutControlItem8,
             this.layoutControlItem9,
-            this.layoutControlItem2});
+            this.labelQtyExtra});
             this.layoutControlGroup1.Name = "Root";
             this.layoutControlGroup1.Size = new System.Drawing.Size(1619, 543);
             this.layoutControlGroup1.TextVisible = false;
@@ -382,14 +384,14 @@
             this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem9.TextVisible = false;
             // 
-            // layoutControlItem2
+            // labelQtyExtra
             // 
-            this.layoutControlItem2.Control = this.textBoxQtyExtra;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 239);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(1066, 24);
-            this.layoutControlItem2.Text = "Quantity Extra";
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(71, 13);
+            this.labelQtyExtra.Control = this.textBoxQtyExtra;
+            this.labelQtyExtra.Location = new System.Drawing.Point(0, 239);
+            this.labelQtyExtra.Name = "labelQtyExtra";
+            this.labelQtyExtra.Size = new System.Drawing.Size(1066, 24);
+            this.labelQtyExtra.Text = "Quantity Extra";
+            this.labelQtyExtra.TextSize = new System.Drawing.Size(71, 13);
             // 
             // OperationCompleted
             // 
@@ -417,7 +419,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.labelQtyExtra)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -453,6 +455,6 @@
         private DevExpress.XtraPdfViewer.PdfViewer pdfViewer1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
         private System.Windows.Forms.TextBox textBoxQtyExtra;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraLayout.LayoutControlItem labelQtyExtra;
     }
 }
