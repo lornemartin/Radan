@@ -32,8 +32,6 @@ namespace RadanMaster
             ItemToEdit = item;
 
             InitializeComponent();
-
-            
         }
 
         private void EditOrderitem_Load(object sender, EventArgs e)

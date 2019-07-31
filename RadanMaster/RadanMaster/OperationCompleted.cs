@@ -103,13 +103,43 @@ namespace RadanMaster
             if (int.Parse(textBoxQtyExtra.Text) < 0)
             {
                 textBoxQtyExtra.BackColor = Color.Red;
+                textBoxQtyExtra.ForeColor = Color.White;
             }
-
             else
             {
                 textBoxQtyExtra.BackColor = Color.Green;
-
+                textBoxQtyExtra.ForeColor = Color.White;
             }
         }
+
+        private void gridViewOpsPerformed_MouseDown(object sender, MouseEventArgs e)
+        {
+            GridView view = sender as GridView;
+            if (e.Button == MouseButtons.Right && view.CalcHitInfo(e.Location).HitTest == DevExpress.XtraGrid.Views.Grid.ViewInfo.GridHitTest.RowCell)
+                popupMenu1.ShowPopup(gridControlOpsPerformed.PointToScreen(e.Location));
+        }
+
+        private void barManager1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (e.Item.Caption == "Delete")
+            {
+                DialogResult result;
+                result = MessageBox.Show("Are you sure you want to remove this operation from the database?  This operation cannot be reversed!", "Warning!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+
+                if(result==DialogResult.Yes)
+                {
+                    object selectedRowData = gridViewOpsPerformed.GetRow(gridViewOpsPerformed.FocusedRowHandle);
+                    Models.OperationPerformed opToRemove = (Models.OperationPerformed)selectedRowData;
+
+                    opManager.RemoveOperationCompleted(opToRemove.ID);
+
+
+
+                }
+            }
+            opManager.RefreshDataStructures();
+            RefreshGridViews();
+        }
+
     }
 }
