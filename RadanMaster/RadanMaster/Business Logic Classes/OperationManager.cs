@@ -169,59 +169,62 @@ namespace RadanMaster
 
         public void RemoveOperationCompleted(int operationPerformedID)
         {
-            //List<Models.OrderItemOperation> orderItemOpsToModify = associatedOrderItemOps.Where(o => o.operationsPerformed.FirstOrDefault().ID == operationPerformedID).OrderByDescending
-            //                                                                                   (o => o.orderItem.Order.EntryDate.Date).ToList();
-            //List<Models.OrderItemOperation> orderItemOpsToModify = associatedOrderItemOps.Where(o => o.operationsPerformed.FirstOrDefault().ID == operationPerformedID).ToList();
-
             Models.OperationPerformed opToRemove = Globals.dbContext.OperationPerformeds.Where(o => o.ID == operationPerformedID).FirstOrDefault();
             List<Models.OrderItemOperation> orderItemOpsToModify = associatedOrderItemOps.Where(o => o.operationsPerformed.Contains(opToRemove)).OrderByDescending(o => o.ID).ToList();
 
-            //List<Models.OrderItemOperation> sortedOrderItemOpsToModify = orderItemOpsToModify.OrderBy(o => o.orderItemID.HasValue)
-            //                                                                                 .ThenBy(o => o.orderItem.Order.ID).ToList();
-
-
             int numToRemove = opToRemove.qtyDone;
 
-            //foreach (Models.OrderItemOperation itemOpToCheck in orderItemOpsToModify.ToList())
-            //{
-            //    do
-            //    {
-            //        if (numToRemove < itemOpToCheck.qtyDone)   
-            //        {
-            //            // only need to modify the records
-            //            itemOpToCheck.qtyDone -= numToRemove;
-            //            numToRemove = 0;
+            foreach (Models.OrderItemOperation itemOpToCheck in orderItemOpsToModify.ToList())
+            {
+                do
+                {
+                    if (numToRemove < itemOpToCheck.qtyDone)
+                    {
+                        // if operationPerformed to remove fits inside the first itemOperation
+                        //  but does not completely fill it,
+                        //  we only have to adjust the quantity done on the itemOperation, and 
+                        //  remove the link to the itemOperation
+                        //  and remove the operationPerformed
 
-            //            // remove the operationPerformed record
-            //            itemOpToCheck.operationsPerformed.Remove(opToRemove);
-            //            Globals.dbContext.OperationPerformeds.Remove(opToRemove);
+                        itemOpToCheck.qtyDone -= numToRemove;
+                        numToRemove = 0;
 
-            //            break; // all done
-            //        }
-            //        else
-            //        {
-            //            // remove the itemOpToCheck
-            //            numToRemove -= itemOpToCheck.qtyDone;
-            //            // remove orderItem if it's not linked to any orders.
-            //            if (itemOpToCheck.orderItem == null)
-            //            { 
-            //                Globals.dbContext.OrderItemOperations.Remove(itemOpToCheck);
+                        // remove the operationPerformed record
+                        itemOpToCheck.operationsPerformed.Remove(opToRemove);
+                        Globals.dbContext.OperationPerformeds.Remove(opToRemove);
 
-            //            if (numToRemove == 0)
-            //            {
-            //                // remove the operationPerformed record
-            //                itemOpToCheck.qtyDone -= opToRemove.qtyDone;
-            //                itemOpToCheck.operationsPerformed.Remove(opToRemove);
-            //                Globals.dbContext.OperationPerformeds.Remove(opToRemove);
-            //            }
-            //            }
+                        break; // all done
+                    }
 
-            //            continue;   // continue to next iteration of loop
-            //        }
-            //    } while (numToRemove < 0);
-            //}
+                    else
+                    {
+                        // if operationPerformed to remove fits exactly, or is bigger than
+                        //  the itemOpToCheck qtyDone,
+                        //  
+                        numToRemove -= itemOpToCheck.qtyDone;
+                        itemOpToCheck.qtyDone =0;
 
-            //Globals.dbContext.SaveChanges();
+                        // remove orderItemOp if it's not linked to any orders.
+                        if (itemOpToCheck.orderItem == null)
+                        {
+                            Globals.dbContext.OrderItemOperations.Remove(itemOpToCheck);
+                            
+                        }
+
+                        if (numToRemove == 0)
+                        {
+                            // remove the operationPerformed record
+                            itemOpToCheck.operationsPerformed.Remove(opToRemove);
+                            Globals.dbContext.OperationPerformeds.Remove(opToRemove);
+                        }
+
+
+                        continue;   // continue to next iteration of loop
+                    }
+                } while (numToRemove < 0);
+            }
+
+            Globals.dbContext.SaveChanges();
         }
     }
 }
