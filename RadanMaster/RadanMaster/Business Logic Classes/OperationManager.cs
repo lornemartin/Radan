@@ -170,58 +170,86 @@ namespace RadanMaster
         public void RemoveOperationCompleted(int operationPerformedID)
         {
             Models.OperationPerformed opToRemove = Globals.dbContext.OperationPerformeds.Where(o => o.ID == operationPerformedID).FirstOrDefault();
-            List<Models.OrderItemOperation> orderItemOpsToModify = associatedOrderItemOps.Where(o => o.operationsPerformed.Contains(opToRemove)).OrderByDescending(o => o.ID).ToList();
+
+
+            //List<Models.OrderItemOperation> orderItemOpsToModify = associatedOrderItemOps.Where(o => o.operationsPerformed.Contains(opToRemove)).OrderByDescending(o => o.ID).ToList();
+
+            //// make sure any orderItemOps that are not associated to an order are included in this list.
+            //List<Models.OrderItemOperation> overBatchOrderItemOps = associatedOrderItemOps.Where(o => o.orderItem == null).ToList();
+            //foreach(Models.OrderItemOperation overBatchOrderItemOp in overBatchOrderItemOps)
+            //{
+            //    if (!orderItemOpsToModify.Contains(overBatchOrderItemOp))
+            //        orderItemOpsToModify.Add(overBatchOrderItemOp);
+            //}
+
+            //// sort again after adding overBatch items.
+            //orderItemOpsToModify = orderItemOpsToModify.OrderByDescending(o => o.ID).ToList();
+
+            List<Models.OrderItemOperation> orderItemOpsToModify = associatedOrderItemOps.OrderByDescending(o => o.ID).ToList();
 
             int numToRemove = opToRemove.qtyDone;
-
+            int index = 0;
             foreach (Models.OrderItemOperation itemOpToCheck in orderItemOpsToModify.ToList())
             {
-                do
+                //// if there's no 
+                //if (itemOpToCheck.qtyDone == 0)
+                //    continue;
+
+                if (numToRemove < itemOpToCheck.qtyDone)
                 {
-                    if (numToRemove < itemOpToCheck.qtyDone)
+                    // if operationPerformed to remove fits inside the first itemOperation
+                    //  but does not completely fill it,
+                    //  we only have to adjust the quantity done on the itemOperation, and 
+                    //  remove the link to the itemOperation
+                    //  and remove the operationPerformed
+
+                    itemOpToCheck.qtyDone -= numToRemove;
+                    numToRemove = 0;
+
+                    // remove the operationPerformed record
+                    itemOpToCheck.operationsPerformed.Remove(opToRemove);
+                    Globals.dbContext.OperationPerformeds.Remove(opToRemove);
+
+                    break; // all done
+                }
+
+                else
+                {
+                    // if operationPerformed to remove fits exactly, or is bigger than
+                    //  the itemOpToCheck qtyDone,
+                    //  
+                    numToRemove -= itemOpToCheck.qtyDone;
+                    itemOpToCheck.qtyDone = 0;
+
+                    // remove orderItemOp if it's not linked to any orders.
+                    if (itemOpToCheck.orderItem == null)
                     {
-                        // if operationPerformed to remove fits inside the first itemOperation
-                        //  but does not completely fill it,
-                        //  we only have to adjust the quantity done on the itemOperation, and 
-                        //  remove the link to the itemOperation
-                        //  and remove the operationPerformed
+                        // if itemOpToCheck has a link to an operation performed, we need to copy this link over to a different itemOp that won't be removed
+                        if (itemOpToCheck.operationsPerformed.Count > 0)
+                        {
+                            //orderItemOpsToModify.ElementAtOrDefault(index + 1).operationsPerformed
+                            List<Models.OperationPerformed> associatedOps = itemOpToCheck.operationsPerformed.ToList();
 
-                        itemOpToCheck.qtyDone -= numToRemove;
-                        numToRemove = 0;
+                            foreach(Models.OperationPerformed associatedOp in associatedOps)
+                            {
+                                if(!orderItemOpsToModify.ElementAt(index +1).operationsPerformed.Contains(associatedOp))
+                                    orderItemOpsToModify.ElementAt(index + 1).operationsPerformed.Add(associatedOp);
+                            }
+                        }
 
+                        Globals.dbContext.OrderItemOperations.Remove(itemOpToCheck);
+                    }
+
+                    if (numToRemove == 0)
+                    {
                         // remove the operationPerformed record
                         itemOpToCheck.operationsPerformed.Remove(opToRemove);
                         Globals.dbContext.OperationPerformeds.Remove(opToRemove);
-
-                        break; // all done
                     }
 
-                    else
-                    {
-                        // if operationPerformed to remove fits exactly, or is bigger than
-                        //  the itemOpToCheck qtyDone,
-                        //  
-                        numToRemove -= itemOpToCheck.qtyDone;
-                        itemOpToCheck.qtyDone =0;
-
-                        // remove orderItemOp if it's not linked to any orders.
-                        if (itemOpToCheck.orderItem == null)
-                        {
-                            Globals.dbContext.OrderItemOperations.Remove(itemOpToCheck);
-                            
-                        }
-
-                        if (numToRemove == 0)
-                        {
-                            // remove the operationPerformed record
-                            itemOpToCheck.operationsPerformed.Remove(opToRemove);
-                            Globals.dbContext.OperationPerformeds.Remove(opToRemove);
-                        }
-
-
-                        continue;   // continue to next iteration of loop
-                    }
-                } while (numToRemove < 0);
+                    index++;
+                    continue;   // continue to next iteration of loop
+                }
             }
 
             Globals.dbContext.SaveChanges();

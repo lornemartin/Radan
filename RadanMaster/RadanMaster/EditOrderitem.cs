@@ -47,7 +47,7 @@ namespace RadanMaster
 
             btnAddOperation.Enabled = currentUser.HasPermission(btnAddOperation.Name);
             btnRemoveOperation.Enabled = currentUser.HasPermission(btnRemoveOperation.Name);
-            btnRecordOp.Enabled = currentUser.HasPermission(btnRecordOp.Name);
+            //btnRecordOp.Enabled = currentUser.HasPermission(btnRecordOp.Name);
 
             gridControlOperations.DataSource = ItemToEdit.orderItemOps.ToList();
 
@@ -186,6 +186,24 @@ namespace RadanMaster
         }
 
         private void btnRecordOp_Click(object sender, EventArgs e)
+        {
+            GridView view = gridViewOperations;
+            int numRows = view.SelectedRowsCount;
+            Models.OrderItemOperation opToEdit = new Models.OrderItemOperation();
+
+            List<int> rowHandleList = view.GetSelectedRows().ToList();
+            foreach (int rowHandle in rowHandleList)
+            {
+                object o = gridViewOperations.GetRow(rowHandle);
+                opToEdit = (Models.OrderItemOperation)o;
+            }
+
+            OperationCompleted opForm = new OperationCompleted(opToEdit, currentUser);
+            opForm.Text = this.Text + "--->" + opToEdit.operation.Name;
+            opForm.ShowDialog();
+        }
+
+        private void repositoryItemButtonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             GridView view = gridViewOperations;
             int numRows = view.SelectedRowsCount;
