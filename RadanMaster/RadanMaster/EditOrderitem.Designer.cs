@@ -440,6 +440,7 @@
             this.Controls.Add(this.mainRibbonControl);
             this.Name = "EditOrderitem";
             this.Ribbon = this.mainRibbonControl;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditOrderitem_FormClosing);
             this.Load += new System.EventHandler(this.EditOrderitem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataLayoutControl1)).EndInit();
             this.dataLayoutControl1.ResumeLayout(false);

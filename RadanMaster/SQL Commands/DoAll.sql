@@ -24,4 +24,5 @@ INSERT INTO [dbo].[Privileges] ([ID], [buttonName], [HasAccess], [User_UserID]) 
 INSERT INTO [dbo].[Privileges] ([ID], [buttonName], [HasAccess], [User_UserID]) VALUES (7, N'btnRemoveOperation', 0, 2)
 INSERT INTO [dbo].[Privileges] ([ID], [buttonName], [HasAccess], [User_UserID]) VALUES (8, N'btnRecordOp', 1, 2)
 INSERT INTO [dbo].[Privileges] ([ID], [buttonName], [HasAccess], [User_UserID]) VALUES (9, N'btnNesting', 1, 1)
+INSERT INTO [dbo].[Privileges] ([ID], [buttonName], [HasAccess], [User_UserID]) VALUES (10, N'RemoveOp', 1, 1)
 SET IDENTITY_INSERT [dbo].[Privileges] OFF

@@ -47,7 +47,7 @@ namespace RadanMaster
 
             btnAddOperation.Enabled = currentUser.HasPermission(btnAddOperation.Name);
             btnRemoveOperation.Enabled = currentUser.HasPermission(btnRemoveOperation.Name);
-            //btnRecordOp.Enabled = currentUser.HasPermission(btnRecordOp.Name);
+            // add code here to enable/disable operations buttons in gridview?
 
             gridControlOperations.DataSource = ItemToEdit.orderItemOps.ToList();
 
@@ -55,51 +55,24 @@ namespace RadanMaster
 
         private void bbiSaveAndClose_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-
             ItemToEdit.QtyRequired = int.Parse(textEditQtyReqd.Text);
             ItemToEdit.QtyNested = int.Parse(textEditQtyDone.Text);
             ItemToEdit.Notes = textEditNotes.Text;
 
             textEditQtyDone.Focus();        // take focus away from operations grid to force data update if needed
 
-
-            if (updateAll)
-            {
-                // find other open order items that should be updated...
-                List<Models.OrderItem> openOrderItems = new List<Models.OrderItem>();
-                openOrderItems = Globals.dbContext.OrderItems.Where(o => o.PartID == ItemToEdit.PartID)
-                                                     .Where(o => o.IsComplete == false).ToList();
-
-                List<Models.Operation> itemOps = new List<Models.Operation>();
-
-
-                foreach (Models.OrderItemOperation itemOp in ItemToEdit.orderItemOps.ToList())
-                {
-                    foreach (Models.OrderItem item in openOrderItems.ToList())
-                    {
-                        Models.OrderItemOperation newItemOp = new Models.OrderItemOperation();
-                        newItemOp.qtyRequired = item.QtyRequired;
-                        newItemOp.qtyDone = 0;
-                        newItemOp.operation = itemOp.operation;
-
-                        Models.OrderItemOperation testOp = item.orderItemOps.Where(o => o.operation.Name == itemOp.operation.Name).FirstOrDefault();
-                        if (testOp == null)
-                            item.orderItemOps.Add(newItemOp);
-                    }
-                }
-            }
-
-            gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = ItemToEdit.orderItemOps.ToList();
-
-            Globals.dbContext.SaveChanges();
-
-            this.Close();
+            SaveChanges();
         }
         
 
         private void bbiReset_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            ItemToEdit.QtyRequired = int.Parse(textEditQtyReqd.Text);
+            ItemToEdit.QtyNested = int.Parse(textEditQtyDone.Text);
+            ItemToEdit.Notes = textEditNotes.Text;
+
+            textEditQtyDone.Focus();        // take focus away from operations grid to force data update if needed
+
             this.Close();
         }
 
@@ -154,7 +127,6 @@ namespace RadanMaster
 
         private void btnRemoveOperation_Click(object sender, EventArgs e)
         {
-
             Models.OrderItem itemToEdit = Globals.dbContext.OrderItems.Where(i => i.ID == ItemToEdit.ID).FirstOrDefault();
 
             int selectedRow = gridViewOperations.GetSelectedRows().FirstOrDefault();
@@ -219,6 +191,50 @@ namespace RadanMaster
             OperationCompleted opForm = new OperationCompleted(opToEdit, currentUser);
             opForm.Text = this.Text + "--->" + opToEdit.operation.Name;
             opForm.ShowDialog();
+        }
+
+        private void SaveChanges()
+        {
+            
+
+
+            if (updateAll)
+            {
+                // find other open order items that should be updated...
+                List<Models.OrderItem> openOrderItems = new List<Models.OrderItem>();
+                openOrderItems = Globals.dbContext.OrderItems.Where(o => o.PartID == ItemToEdit.PartID)
+                                                     .Where(o => o.IsComplete == false).ToList();
+
+                List<Models.Operation> itemOps = new List<Models.Operation>();
+
+
+                foreach (Models.OrderItemOperation itemOp in ItemToEdit.orderItemOps.ToList())
+                {
+                    foreach (Models.OrderItem item in openOrderItems.ToList())
+                    {
+                        Models.OrderItemOperation newItemOp = new Models.OrderItemOperation();
+                        newItemOp.qtyRequired = item.QtyRequired;
+                        newItemOp.qtyDone = 0;
+                        newItemOp.operation = itemOp.operation;
+
+                        Models.OrderItemOperation testOp = item.orderItemOps.Where(o => o.operation.Name == itemOp.operation.Name).FirstOrDefault();
+                        if (testOp == null)
+                            item.orderItemOps.Add(newItemOp);
+                    }
+                }
+            }
+
+            gridControlOperations.DataSource = null;
+            gridControlOperations.DataSource = ItemToEdit.orderItemOps.ToList();
+
+            Globals.dbContext.SaveChanges();
+
+            this.Close();
+        }
+
+        private void EditOrderitem_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveChanges();
         }
     }
 }

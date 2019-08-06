@@ -29,7 +29,6 @@ namespace RadanMaster
 
             opsPerformed = Globals.dbContext.OperationPerformeds.Where(op => op.OrderItemOperations.FirstOrDefault().operationID == OrderItemOp.operationID).ToList();
 
-            //overBatchQty = associatedOrderItemOps.Sum(x => x.qtyDone) - opsPerformed.Sum(x => x.qtyDone);
             overBatchQty = associatedOrderItemOps.Sum(x => x.qtyDone) - associatedOrderItemOps.Sum(x => x.qtyRequired);
 
             return overBatchQty;
@@ -161,8 +160,6 @@ namespace RadanMaster
             else
                 overBatchQty = 0;
 
-
-
             Globals.dbContext.OperationPerformeds.Add(opPerformed);
             Globals.dbContext.SaveChanges();
         }
@@ -170,31 +167,12 @@ namespace RadanMaster
         public void RemoveOperationCompleted(int operationPerformedID)
         {
             Models.OperationPerformed opToRemove = Globals.dbContext.OperationPerformeds.Where(o => o.ID == operationPerformedID).FirstOrDefault();
-
-
-            //List<Models.OrderItemOperation> orderItemOpsToModify = associatedOrderItemOps.Where(o => o.operationsPerformed.Contains(opToRemove)).OrderByDescending(o => o.ID).ToList();
-
-            //// make sure any orderItemOps that are not associated to an order are included in this list.
-            //List<Models.OrderItemOperation> overBatchOrderItemOps = associatedOrderItemOps.Where(o => o.orderItem == null).ToList();
-            //foreach(Models.OrderItemOperation overBatchOrderItemOp in overBatchOrderItemOps)
-            //{
-            //    if (!orderItemOpsToModify.Contains(overBatchOrderItemOp))
-            //        orderItemOpsToModify.Add(overBatchOrderItemOp);
-            //}
-
-            //// sort again after adding overBatch items.
-            //orderItemOpsToModify = orderItemOpsToModify.OrderByDescending(o => o.ID).ToList();
-
             List<Models.OrderItemOperation> orderItemOpsToModify = associatedOrderItemOps.OrderByDescending(o => o.ID).ToList();
 
             int numToRemove = opToRemove.qtyDone;
             int index = 0;
             foreach (Models.OrderItemOperation itemOpToCheck in orderItemOpsToModify.ToList())
             {
-                //// if there's no 
-                //if (itemOpToCheck.qtyDone == 0)
-                //    continue;
-
                 if (numToRemove < itemOpToCheck.qtyDone)
                 {
                     // if operationPerformed to remove fits inside the first itemOperation
@@ -202,7 +180,6 @@ namespace RadanMaster
                     //  we only have to adjust the quantity done on the itemOperation, and 
                     //  remove the link to the itemOperation
                     //  and remove the operationPerformed
-
                     itemOpToCheck.qtyDone -= numToRemove;
                     numToRemove = 0;
 

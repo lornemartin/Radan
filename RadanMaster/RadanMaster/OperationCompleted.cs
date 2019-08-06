@@ -13,18 +13,22 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using System.IO;
 using DevExpress.XtraPdfViewer;
+using DevExpress.XtraBars;
 
 namespace RadanMaster
 {
     public partial class OperationCompleted : Form
     {
         OperationManager opManager { get; set; }
+        Models.User currentUser { get; set; }
 
         public OperationCompleted(Models.OrderItemOperation orderItemOp, Models.User curUser)
         {
             InitializeComponent();
 
             opManager = new OperationManager(orderItemOp, curUser);
+
+            currentUser = curUser;
 
             RefreshGridViews();
         }
@@ -114,6 +118,12 @@ namespace RadanMaster
 
         private void gridViewOpsPerformed_MouseDown(object sender, MouseEventArgs e)
         {
+            foreach (BarItemLink itm in popupMenu1.ItemLinks)
+            {
+                itm.Item.Enabled = currentUser.HasPermission("RemoveOp");
+                //itm.Item.Enabled = false;
+            }
+
             GridView view = sender as GridView;
             if (e.Button == MouseButtons.Right && view.CalcHitInfo(e.Location).HitTest == DevExpress.XtraGrid.Views.Grid.ViewInfo.GridHitTest.RowCell)
                 popupMenu1.ShowPopup(gridControlOpsPerformed.PointToScreen(e.Location));
@@ -121,6 +131,8 @@ namespace RadanMaster
 
         private void barManager1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            
+
             if (e.Item.Caption == "Delete")
             {
                 DialogResult result;
@@ -132,9 +144,6 @@ namespace RadanMaster
                     Models.OperationPerformed opToRemove = (Models.OperationPerformed)selectedRowData;
 
                     opManager.RemoveOperationCompleted(opToRemove.ID);
-
-
-
                 }
             }
             opManager.RefreshDataStructures();
