@@ -59,7 +59,10 @@ namespace RadanMaster
         public Stream GetPDFStream()
         {
             Models.Part p = OrderItemOp.operation.Part;
-            return new MemoryStream(p.Files.FirstOrDefault().Content);
+            if (p.Files.Count > 0)
+                return new MemoryStream(p.Files.FirstOrDefault().Content);
+            else
+                return null;
         }
 
         public bool HasUnassignedOperationsPerformed()

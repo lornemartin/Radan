@@ -40,6 +40,9 @@ namespace RadanMaster
                 case "Laser":
                     BackColor = Color.LightPink;
                     break;
+                case "Iron Worker":
+                    BackColor = Color.Cornsilk;
+                    break;
                 default:
                     BackColor = Color.RosyBrown;
                     break;
@@ -71,9 +74,12 @@ namespace RadanMaster
             btnRecordOp.Enabled = false;
 
             Stream stream = opManager.GetPDFStream();
-            pdfViewer1.LoadDocument(stream);
-            pdfViewer1.CurrentPageNumber = 1;
-            pdfViewer1.ZoomMode = PdfZoomMode.FitToVisible;
+            if (stream != null)
+            {
+                pdfViewer1.LoadDocument(stream);
+                pdfViewer1.CurrentPageNumber = 1;
+                pdfViewer1.ZoomMode = PdfZoomMode.FitToVisible;
+            }
 
             // check for extra items recorded previously
             if (opManager.HasUnassignedOperationsPerformed())
