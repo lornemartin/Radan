@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AllProduction));
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject13 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject15 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject16 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions5 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject17 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject18 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject19 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject20 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions6 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject21 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject22 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject23 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject24 = new DevExpress.Utils.SerializableAppearanceObject();
             this.colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemImageComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
@@ -64,7 +64,7 @@
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQtyRequired = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQtyNested = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCategoryIcon = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCategorySort = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFileName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDescription = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsStock = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -103,23 +103,22 @@
             this.colCategory.ColumnEdit = this.repositoryItemImageComboBox1;
             this.colCategory.FieldName = "CategoryName";
             this.colCategory.Name = "colCategory";
-            this.colCategory.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.True;
-            this.colCategory.SortMode = DevExpress.XtraGrid.ColumnSortMode.Custom;
+            this.colCategory.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.colCategory.Visible = true;
             this.colCategory.VisibleIndex = 0;
-            this.colCategory.Width = 59;
+            this.colCategory.Width = 37;
             // 
             // repositoryItemImageComboBox1
             // 
             this.repositoryItemImageComboBox1.AllowDropDownWhenReadOnly = DevExpress.Utils.DefaultBoolean.True;
             this.repositoryItemImageComboBox1.AutoHeight = false;
-            editorButtonImageOptions1.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions1.Image")));
-            editorButtonImageOptions2.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions2.Image")));
-            editorButtonImageOptions3.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions3.Image")));
+            editorButtonImageOptions4.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions4.Image")));
+            editorButtonImageOptions5.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions5.Image")));
+            editorButtonImageOptions6.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions6.Image")));
             this.repositoryItemImageComboBox1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Product", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", "Product", null, DevExpress.Utils.ToolTipAnchor.Default),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Assembly", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", "Assembly", null, DevExpress.Utils.ToolTipAnchor.Default),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Part", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", "Part", null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Product", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", "Product", null, DevExpress.Utils.ToolTipAnchor.Default),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Assembly", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject17, serializableAppearanceObject18, serializableAppearanceObject19, serializableAppearanceObject20, "", "Assembly", null, DevExpress.Utils.ToolTipAnchor.Default),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Part", -1, true, true, false, editorButtonImageOptions6, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject21, serializableAppearanceObject22, serializableAppearanceObject23, serializableAppearanceObject24, "", "Part", null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.repositoryItemImageComboBox1.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Assembly", "Assembly", 1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Part", "Part", 2),
@@ -250,7 +249,7 @@
             this.colQtyRequired,
             this.colQtyNested,
             this.colCategory,
-            this.colCategoryIcon,
+            this.colCategorySort,
             this.colFileName,
             this.colDescription,
             this.colIsStock,
@@ -270,11 +269,14 @@
             new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "QtyRequired", this.colQtyRequired, "({0:0.##})")});
             this.gridViewAllProduction.Name = "gridViewAllProduction";
             this.gridViewAllProduction.OptionsBehavior.Editable = false;
+            this.gridViewAllProduction.OptionsCustomization.AllowSort = false;
             this.gridViewAllProduction.OptionsEditForm.ShowOnDoubleClick = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAllProduction.OptionsEditForm.ShowOnEnterKey = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAllProduction.OptionsEditForm.ShowOnF2Key = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAllProduction.OptionsMenu.ShowGroupSummaryEditorItem = true;
             this.gridViewAllProduction.OptionsSelection.MultiSelect = true;
+            this.gridViewAllProduction.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCategorySort, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gridViewAllProduction.PrintInitialize += new DevExpress.XtraGrid.Views.Base.PrintInitializeEventHandler(this.gridViewAllProduction_PrintInitialize);
             this.gridViewAllProduction.DoubleClick += new System.EventHandler(this.gridViewAllProduction_DoubleClick);
             // 
@@ -284,8 +286,8 @@
             this.colID.FieldName = "ID";
             this.colID.Name = "colID";
             this.colID.Visible = true;
-            this.colID.VisibleIndex = 1;
-            this.colID.Width = 63;
+            this.colID.VisibleIndex = 2;
+            this.colID.Width = 37;
             // 
             // colQtyRequired
             // 
@@ -293,8 +295,8 @@
             this.colQtyRequired.FieldName = "QtyRequired";
             this.colQtyRequired.Name = "colQtyRequired";
             this.colQtyRequired.Visible = true;
-            this.colQtyRequired.VisibleIndex = 3;
-            this.colQtyRequired.Width = 59;
+            this.colQtyRequired.VisibleIndex = 4;
+            this.colQtyRequired.Width = 35;
             // 
             // colQtyNested
             // 
@@ -302,19 +304,19 @@
             this.colQtyNested.FieldName = "QtyNested";
             this.colQtyNested.Name = "colQtyNested";
             this.colQtyNested.Visible = true;
-            this.colQtyNested.VisibleIndex = 4;
-            this.colQtyNested.Width = 46;
+            this.colQtyNested.VisibleIndex = 5;
+            this.colQtyNested.Width = 26;
             // 
-            // colCategoryIcon
+            // colCategorySort
             // 
-            this.colCategoryIcon.Caption = "CategoryIcon";
-            this.colCategoryIcon.FieldName = "calculatedIconValue";
-            this.colCategoryIcon.Name = "colCategoryIcon";
-            this.colCategoryIcon.SortMode = DevExpress.XtraGrid.ColumnSortMode.Custom;
-            this.colCategoryIcon.UnboundExpression = "Iif([CategoryName] = \'Product\', 1, [CategoryName] = \'Assembly\', 2, [CategoryName]" +
+            this.colCategorySort.Caption = "Test";
+            this.colCategorySort.FieldName = "colCategorySort";
+            this.colCategorySort.Name = "colCategorySort";
+            this.colCategorySort.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value;
+            this.colCategorySort.UnboundExpression = "Iif([CategoryName] = \'Product\', 1, [CategoryName] = \'Assembly\', 2, [CategoryName]" +
     " = \'Part\', 3, 0)";
-            this.colCategoryIcon.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
-            this.colCategoryIcon.Width = 70;
+            this.colCategorySort.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            this.colCategorySort.Width = 45;
             // 
             // colFileName
             // 
@@ -322,8 +324,8 @@
             this.colFileName.FieldName = "FileName";
             this.colFileName.Name = "colFileName";
             this.colFileName.Visible = true;
-            this.colFileName.VisibleIndex = 2;
-            this.colFileName.Width = 140;
+            this.colFileName.VisibleIndex = 3;
+            this.colFileName.Width = 86;
             // 
             // colDescription
             // 
@@ -331,8 +333,8 @@
             this.colDescription.FieldName = "Description";
             this.colDescription.Name = "colDescription";
             this.colDescription.Visible = true;
-            this.colDescription.VisibleIndex = 5;
-            this.colDescription.Width = 249;
+            this.colDescription.VisibleIndex = 6;
+            this.colDescription.Width = 154;
             // 
             // colIsStock
             // 
@@ -340,8 +342,8 @@
             this.colIsStock.FieldName = "IsStock";
             this.colIsStock.Name = "colIsStock";
             this.colIsStock.Visible = true;
-            this.colIsStock.VisibleIndex = 8;
-            this.colIsStock.Width = 71;
+            this.colIsStock.VisibleIndex = 9;
+            this.colIsStock.Width = 42;
             // 
             // colThickness
             // 
@@ -349,8 +351,8 @@
             this.colThickness.FieldName = "Thickness";
             this.colThickness.Name = "colThickness";
             this.colThickness.Visible = true;
-            this.colThickness.VisibleIndex = 6;
-            this.colThickness.Width = 31;
+            this.colThickness.VisibleIndex = 7;
+            this.colThickness.Width = 20;
             // 
             // colOrderNumber
             // 
@@ -358,8 +360,8 @@
             this.colOrderNumber.FieldName = "OrderNumber";
             this.colOrderNumber.Name = "colOrderNumber";
             this.colOrderNumber.Visible = true;
-            this.colOrderNumber.VisibleIndex = 9;
-            this.colOrderNumber.Width = 71;
+            this.colOrderNumber.VisibleIndex = 10;
+            this.colOrderNumber.Width = 42;
             // 
             // colStructCode
             // 
@@ -367,8 +369,8 @@
             this.colStructCode.FieldName = "StructuralCode";
             this.colStructCode.Name = "colStructCode";
             this.colStructCode.Visible = true;
-            this.colStructCode.VisibleIndex = 7;
-            this.colStructCode.Width = 71;
+            this.colStructCode.VisibleIndex = 8;
+            this.colStructCode.Width = 42;
             // 
             // colProductName
             // 
@@ -376,8 +378,8 @@
             this.colProductName.FieldName = "ProductName";
             this.colProductName.Name = "colProductName";
             this.colProductName.Visible = true;
-            this.colProductName.VisibleIndex = 10;
-            this.colProductName.Width = 79;
+            this.colProductName.VisibleIndex = 11;
+            this.colProductName.Width = 48;
             // 
             // colOperation
             // 
@@ -385,8 +387,8 @@
             this.colOperation.FieldName = "Name";
             this.colOperation.Name = "colOperation";
             this.colOperation.Visible = true;
-            this.colOperation.VisibleIndex = 11;
-            this.colOperation.Width = 68;
+            this.colOperation.VisibleIndex = 12;
+            this.colOperation.Width = 41;
             // 
             // colSchedName
             // 
@@ -394,8 +396,8 @@
             this.colSchedName.FieldName = "ScheduleName";
             this.colSchedName.Name = "colSchedName";
             this.colSchedName.Visible = true;
-            this.colSchedName.VisibleIndex = 12;
-            this.colSchedName.Width = 68;
+            this.colSchedName.VisibleIndex = 13;
+            this.colSchedName.Width = 41;
             // 
             // colBatchName
             // 
@@ -403,8 +405,8 @@
             this.colBatchName.FieldName = "BatchName";
             this.colBatchName.Name = "colBatchName";
             this.colBatchName.Visible = true;
-            this.colBatchName.VisibleIndex = 13;
-            this.colBatchName.Width = 68;
+            this.colBatchName.VisibleIndex = 14;
+            this.colBatchName.Width = 41;
             // 
             // colNotes
             // 
@@ -412,8 +414,8 @@
             this.colNotes.FieldName = "Notes";
             this.colNotes.Name = "colNotes";
             this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 14;
-            this.colNotes.Width = 218;
+            this.colNotes.VisibleIndex = 15;
+            this.colNotes.Width = 136;
             // 
             // colPlantID
             // 
@@ -421,7 +423,8 @@
             this.colPlantID.FieldName = "PlantID";
             this.colPlantID.Name = "colPlantID";
             this.colPlantID.Visible = true;
-            this.colPlantID.VisibleIndex = 16;
+            this.colPlantID.VisibleIndex = 17;
+            this.colPlantID.Width = 45;
             // 
             // colIsComplete
             // 
@@ -429,8 +432,8 @@
             this.colIsComplete.FieldName = "IsComplete";
             this.colIsComplete.Name = "colIsComplete";
             this.colIsComplete.Visible = true;
-            this.colIsComplete.VisibleIndex = 15;
-            this.colIsComplete.Width = 34;
+            this.colIsComplete.VisibleIndex = 16;
+            this.colIsComplete.Width = 20;
             // 
             // colIsBatch
             // 
@@ -438,8 +441,8 @@
             this.colIsBatch.FieldName = "IsBatch";
             this.colIsBatch.Name = "colIsBatch";
             this.colIsBatch.Visible = true;
-            this.colIsBatch.VisibleIndex = 17;
-            this.colIsBatch.Width = 42;
+            this.colIsBatch.VisibleIndex = 18;
+            this.colIsBatch.Width = 58;
             // 
             // repositoryItemImageEdit1
             // 
@@ -541,7 +544,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colProductName;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox repositoryItemImageComboBox1;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageEdit repositoryItemImageEdit1;
-        private DevExpress.XtraGrid.Columns.GridColumn colCategoryIcon;
         private DevExpress.Utils.ImageCollection imageCollection1;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox repositoryItemImageComboBox2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
@@ -550,5 +552,6 @@
         private DevExpress.Utils.Behaviors.BehaviorManager behaviorManager1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private DevExpress.XtraGrid.Columns.GridColumn colPlantID;
+        private DevExpress.XtraGrid.Columns.GridColumn colCategorySort;
     }
 }
