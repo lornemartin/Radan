@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.components = new System.ComponentModel.Container();
             this.OperationCompletedlayoutControl1ConvertedLayout = new DevExpress.XtraLayout.LayoutControl();
             this.textBoxQtyExtra = new System.Windows.Forms.TextBox();
             this.pdfViewer1 = new DevExpress.XtraPdfViewer.PdfViewer();
@@ -52,6 +51,7 @@
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProduct = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBatch = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOrderDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -62,12 +62,12 @@
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.labelQtyExtra = new DevExpress.XtraLayout.LayoutControlItem();
             this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.OperationCompletedlayoutControl1ConvertedLayout)).BeginInit();
             this.OperationCompletedlayoutControl1ConvertedLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextEditQty.Properties)).BeginInit();
@@ -244,7 +244,8 @@
             this.colQtyDone,
             this.colName,
             this.colProduct,
-            this.colBatch});
+            this.colBatch,
+            this.colOrderDate});
             this.gridViewAssociatedOrderItems.GridControl = this.gridControlAssociatedOrderItems;
             this.gridViewAssociatedOrderItems.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "qtyRequired", this.colQtyReqd, ""),
@@ -258,6 +259,7 @@
             this.gridViewAssociatedOrderItems.OptionsMenu.ShowGroupSummaryEditorItem = true;
             this.gridViewAssociatedOrderItems.OptionsView.ShowFooter = true;
             this.gridViewAssociatedOrderItems.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridViewAssociatedOrderItems_RowClick);
+            this.gridViewAssociatedOrderItems.ColumnFilterChanged += new System.EventHandler(this.gridViewAssociatedOrderItems_ColumnFilterChanged);
             // 
             // colID
             // 
@@ -313,6 +315,14 @@
             this.colBatch.Visible = true;
             this.colBatch.VisibleIndex = 4;
             this.colBatch.Width = 255;
+            // 
+            // colOrderDate
+            // 
+            this.colOrderDate.Caption = "Order Date";
+            this.colOrderDate.FieldName = "orderItem.Order.EntryDate";
+            this.colOrderDate.Name = "colOrderDate";
+            this.colOrderDate.Visible = true;
+            this.colOrderDate.VisibleIndex = 5;
             // 
             // layoutControlGroup1
             // 
@@ -411,6 +421,12 @@
             this.popupMenu1.Manager = this.barManager1;
             this.popupMenu1.Name = "popupMenu1";
             // 
+            // barButtonItem1
+            // 
+            this.barButtonItem1.Caption = "Delete";
+            this.barButtonItem1.Id = 0;
+            this.barButtonItem1.Name = "barButtonItem1";
+            // 
             // barManager1
             // 
             this.barManager1.DockControls.Add(this.barDockControlTop);
@@ -454,12 +470,6 @@
             this.barDockControlRight.Location = new System.Drawing.Point(1619, 0);
             this.barDockControlRight.Manager = this.barManager1;
             this.barDockControlRight.Size = new System.Drawing.Size(0, 543);
-            // 
-            // barButtonItem1
-            // 
-            this.barButtonItem1.Caption = "Delete";
-            this.barButtonItem1.Id = 0;
-            this.barButtonItem1.Name = "barButtonItem1";
             // 
             // OperationCompleted
             // 
@@ -538,5 +548,6 @@
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private DevExpress.XtraGrid.Columns.GridColumn colOrderDate;
     }
 }

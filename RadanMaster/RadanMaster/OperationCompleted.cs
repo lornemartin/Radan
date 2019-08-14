@@ -26,11 +26,31 @@ namespace RadanMaster
         {
             InitializeComponent();
 
+            switch(orderItemOp.operation.Name)
+            {
+                case "Bandsaw":
+                    BackColor = Color.Aqua;
+                    break;
+                case "BrakePress":
+                    BackColor = Color.BlanchedAlmond;
+                    break;
+                case "Machine Shop":
+                    BackColor = Color.LightGreen;
+                    break;
+                case "Laser":
+                    BackColor = Color.LightPink;
+                    break;
+                default:
+                    BackColor = Color.RosyBrown;
+                    break;
+            }
+
             opManager = new OperationManager(orderItemOp, curUser);
 
             currentUser = curUser;
 
             RefreshGridViews();
+
         }
 
         private void RefreshGridViews()
@@ -150,5 +170,9 @@ namespace RadanMaster
             RefreshGridViews();
         }
 
+        private void gridViewAssociatedOrderItems_ColumnFilterChanged(object sender, EventArgs e)
+        {
+            RefreshGridViews();
+        }
     }
 }

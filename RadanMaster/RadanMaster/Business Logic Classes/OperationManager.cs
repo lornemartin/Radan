@@ -29,6 +29,17 @@ namespace RadanMaster
 
             opsPerformed = Globals.dbContext.OperationPerformeds.Where(op => op.OrderItemOperations.FirstOrDefault().operationID == OrderItemOp.operationID).ToList();
 
+            //List<Models.OperationPerformed> filteredOpsPerformed = new List<Models.OperationPerformed>();
+
+            //foreach (Models.OperationPerformed opPerformed in opsPerformed)
+            //{
+            //    if (associatedOrderItemOps.Contains(opPerformed.OrderItemOperations.First()))   // should be using user filtered list here....
+            //    {
+            //        filteredOpsPerformed.Add(opPerformed);
+            //    }
+            //}
+
+            //opsPerformed = filteredOpsPerformed;
             overBatchQty = associatedOrderItemOps.Sum(x => x.qtyDone) - associatedOrderItemOps.Sum(x => x.qtyRequired);
 
             return overBatchQty;

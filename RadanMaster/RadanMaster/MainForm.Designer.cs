@@ -36,6 +36,7 @@
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.barSubItem1 = new DevExpress.XtraBars.BarSubItem();
             this.barButtonItemLogin = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonLogout = new DevExpress.XtraBars.BarButtonItem();
             this.bar3 = new DevExpress.XtraBars.Bar();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -76,9 +77,10 @@
             this.barManager1.Form = this;
             this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.barSubItem1,
-            this.barButtonItemLogin});
+            this.barButtonItemLogin,
+            this.barButtonLogout});
             this.barManager1.MainMenu = this.bar2;
-            this.barManager1.MaxItemId = 3;
+            this.barManager1.MaxItemId = 5;
             this.barManager1.StatusBar = this.bar3;
             // 
             // bar2
@@ -98,7 +100,8 @@
             this.barSubItem1.Caption = "User";
             this.barSubItem1.Id = 0;
             this.barSubItem1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemLogin)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItemLogin),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonLogout)});
             this.barSubItem1.Name = "barSubItem1";
             // 
             // barButtonItemLogin
@@ -107,6 +110,13 @@
             this.barButtonItemLogin.Id = 2;
             this.barButtonItemLogin.Name = "barButtonItemLogin";
             this.barButtonItemLogin.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemLogin_ItemClick);
+            // 
+            // barButtonLogout
+            // 
+            this.barButtonLogout.Caption = "Logout";
+            this.barButtonLogout.Id = 4;
+            this.barButtonLogout.Name = "barButtonLogout";
+            this.barButtonLogout.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonLogout_ItemClick);
             // 
             // bar3
             // 
@@ -185,5 +195,6 @@
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
+        private DevExpress.XtraBars.BarButtonItem barButtonLogout;
     }
 }

@@ -20,6 +20,8 @@ namespace RadanMaster
             InitializeComponent();
             btnAllProduction.Enabled = false;
             btnNesting.Enabled = false;
+            barButtonItemLogin.Enabled = true;
+            barButtonLogout.Enabled = false;
         }
 
         private void RefreshForm()
@@ -68,8 +70,18 @@ namespace RadanMaster
             if(result == DialogResult.OK)
             {
                 currentUser = loginForm.currentUser;
+                barButtonItemLogin.Enabled = false;
+                barButtonLogout.Enabled = true;
                 RefreshForm();
             }
+        }
+
+        private void barButtonLogout_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            btnAllProduction.Enabled = false;
+            btnNesting.Enabled = false;
+            barButtonItemLogin.Enabled = true;
+            barButtonLogout.Enabled = false;
         }
     }
 }
