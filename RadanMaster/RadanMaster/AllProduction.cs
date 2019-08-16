@@ -22,6 +22,7 @@ using DevExpress.XtraReports.UI;
 using System.Data.Entity;
 using DevExpress.XtraPrinting;
 using System.Threading;
+using DevExpress.XtraBars.Ribbon;
 
 namespace RadanMaster
 {
@@ -297,7 +298,17 @@ namespace RadanMaster
             pb.PageSettings.Landscape = true;
         }
 
-       
+        private void ribbon_SelectedPageChanging(object sender, DevExpress.XtraBars.Ribbon.RibbonPageChangingEventArgs e)
+        {
+            if (e.Page.Text == "Nesting")
+            {
+                gridViewAllProduction.Columns.ColumnByFieldName("Thumbnail").Visible = true;
+            }
+            else
+            {
+                gridViewAllProduction.Columns.ColumnByFieldName("Thumbnail").Visible = false;
+            }
+        }
     }
 
 }

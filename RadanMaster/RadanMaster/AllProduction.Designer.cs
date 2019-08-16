@@ -57,6 +57,8 @@
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageNesting = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.gridControlAllProduction = new DevExpress.XtraGrid.GridControl();
             this.entityServerModeSource2 = new DevExpress.Data.Linq.EntityServerModeSource();
@@ -79,6 +81,7 @@
             this.colPlantID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsBatch = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colRadanSym = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemImageEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemImageEdit();
             this.repositoryItemImageComboBox2 = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.popupContainerControlAllProduction = new DevExpress.XtraEditors.PopupContainerControl();
@@ -148,9 +151,11 @@
             this.ribbon.MaxItemId = 6;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
-            this.ribbonPage1});
+            this.ribbonPage1,
+            this.ribbonPageNesting});
             this.ribbon.Size = new System.Drawing.Size(1243, 143);
             this.ribbon.StatusBar = this.ribbonStatusBar;
+            this.ribbon.SelectedPageChanging += new DevExpress.XtraBars.Ribbon.RibbonPageChangingEventHandler(this.ribbon_SelectedPageChanging);
             // 
             // barButtonItem1
             // 
@@ -210,6 +215,18 @@
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "Reports";
             // 
+            // ribbonPageNesting
+            // 
+            this.ribbonPageNesting.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup3});
+            this.ribbonPageNesting.Name = "ribbonPageNesting";
+            this.ribbonPageNesting.Text = "Nesting";
+            // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.Text = "ribbonPageGroup3";
+            // 
             // ribbonStatusBar
             // 
             this.ribbonStatusBar.Location = new System.Drawing.Point(0, 588);
@@ -262,7 +279,8 @@
             this.colNotes,
             this.colPlantID,
             this.colIsComplete,
-            this.colIsBatch});
+            this.colIsBatch,
+            this.colRadanSym});
             this.gridViewAllProduction.GridControl = this.gridControlAllProduction;
             this.gridViewAllProduction.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "QtyRequired", this.colQtyRequired, "({0:0.##})")});
@@ -274,7 +292,7 @@
             this.gridViewAllProduction.OptionsMenu.ShowGroupSummaryEditorItem = true;
             this.gridViewAllProduction.OptionsSelection.MultiSelect = true;
             this.gridViewAllProduction.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCategorySort, DevExpress.Data.ColumnSortOrder.Ascending)});
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colID, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gridViewAllProduction.PrintInitialize += new DevExpress.XtraGrid.Views.Base.PrintInitializeEventHandler(this.gridViewAllProduction_PrintInitialize);
             this.gridViewAllProduction.DoubleClick += new System.EventHandler(this.gridViewAllProduction_DoubleClick);
             // 
@@ -284,7 +302,7 @@
             this.colID.FieldName = "ID";
             this.colID.Name = "colID";
             this.colID.Visible = true;
-            this.colID.VisibleIndex = 1;
+            this.colID.VisibleIndex = 2;
             this.colID.Width = 37;
             // 
             // colQtyRequired
@@ -293,7 +311,7 @@
             this.colQtyRequired.FieldName = "QtyRequired";
             this.colQtyRequired.Name = "colQtyRequired";
             this.colQtyRequired.Visible = true;
-            this.colQtyRequired.VisibleIndex = 3;
+            this.colQtyRequired.VisibleIndex = 4;
             this.colQtyRequired.Width = 35;
             // 
             // colQtyNested
@@ -302,7 +320,7 @@
             this.colQtyNested.FieldName = "QtyNested";
             this.colQtyNested.Name = "colQtyNested";
             this.colQtyNested.Visible = true;
-            this.colQtyNested.VisibleIndex = 4;
+            this.colQtyNested.VisibleIndex = 5;
             this.colQtyNested.Width = 26;
             // 
             // colCategorySort
@@ -322,7 +340,7 @@
             this.colFileName.FieldName = "FileName";
             this.colFileName.Name = "colFileName";
             this.colFileName.Visible = true;
-            this.colFileName.VisibleIndex = 2;
+            this.colFileName.VisibleIndex = 3;
             this.colFileName.Width = 86;
             // 
             // colDescription
@@ -331,7 +349,7 @@
             this.colDescription.FieldName = "Description";
             this.colDescription.Name = "colDescription";
             this.colDescription.Visible = true;
-            this.colDescription.VisibleIndex = 5;
+            this.colDescription.VisibleIndex = 6;
             this.colDescription.Width = 154;
             // 
             // colIsStock
@@ -340,7 +358,7 @@
             this.colIsStock.FieldName = "IsStock";
             this.colIsStock.Name = "colIsStock";
             this.colIsStock.Visible = true;
-            this.colIsStock.VisibleIndex = 8;
+            this.colIsStock.VisibleIndex = 9;
             this.colIsStock.Width = 42;
             // 
             // colThickness
@@ -349,7 +367,7 @@
             this.colThickness.FieldName = "Thickness";
             this.colThickness.Name = "colThickness";
             this.colThickness.Visible = true;
-            this.colThickness.VisibleIndex = 6;
+            this.colThickness.VisibleIndex = 7;
             this.colThickness.Width = 20;
             // 
             // colOrderNumber
@@ -358,7 +376,7 @@
             this.colOrderNumber.FieldName = "OrderNumber";
             this.colOrderNumber.Name = "colOrderNumber";
             this.colOrderNumber.Visible = true;
-            this.colOrderNumber.VisibleIndex = 9;
+            this.colOrderNumber.VisibleIndex = 10;
             this.colOrderNumber.Width = 42;
             // 
             // colStructCode
@@ -367,7 +385,7 @@
             this.colStructCode.FieldName = "StructuralCode";
             this.colStructCode.Name = "colStructCode";
             this.colStructCode.Visible = true;
-            this.colStructCode.VisibleIndex = 7;
+            this.colStructCode.VisibleIndex = 8;
             this.colStructCode.Width = 42;
             // 
             // colProductName
@@ -376,7 +394,7 @@
             this.colProductName.FieldName = "ProductName";
             this.colProductName.Name = "colProductName";
             this.colProductName.Visible = true;
-            this.colProductName.VisibleIndex = 10;
+            this.colProductName.VisibleIndex = 11;
             this.colProductName.Width = 48;
             // 
             // colOperation
@@ -385,7 +403,7 @@
             this.colOperation.FieldName = "Name";
             this.colOperation.Name = "colOperation";
             this.colOperation.Visible = true;
-            this.colOperation.VisibleIndex = 11;
+            this.colOperation.VisibleIndex = 12;
             this.colOperation.Width = 41;
             // 
             // colSchedName
@@ -394,7 +412,7 @@
             this.colSchedName.FieldName = "ScheduleName";
             this.colSchedName.Name = "colSchedName";
             this.colSchedName.Visible = true;
-            this.colSchedName.VisibleIndex = 12;
+            this.colSchedName.VisibleIndex = 13;
             this.colSchedName.Width = 41;
             // 
             // colBatchName
@@ -403,7 +421,7 @@
             this.colBatchName.FieldName = "BatchName";
             this.colBatchName.Name = "colBatchName";
             this.colBatchName.Visible = true;
-            this.colBatchName.VisibleIndex = 13;
+            this.colBatchName.VisibleIndex = 14;
             this.colBatchName.Width = 41;
             // 
             // colNotes
@@ -412,7 +430,7 @@
             this.colNotes.FieldName = "Notes";
             this.colNotes.Name = "colNotes";
             this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 14;
+            this.colNotes.VisibleIndex = 15;
             this.colNotes.Width = 136;
             // 
             // colPlantID
@@ -421,7 +439,7 @@
             this.colPlantID.FieldName = "PlantID";
             this.colPlantID.Name = "colPlantID";
             this.colPlantID.Visible = true;
-            this.colPlantID.VisibleIndex = 16;
+            this.colPlantID.VisibleIndex = 17;
             this.colPlantID.Width = 45;
             // 
             // colIsComplete
@@ -430,7 +448,7 @@
             this.colIsComplete.FieldName = "IsComplete";
             this.colIsComplete.Name = "colIsComplete";
             this.colIsComplete.Visible = true;
-            this.colIsComplete.VisibleIndex = 15;
+            this.colIsComplete.VisibleIndex = 16;
             this.colIsComplete.Width = 20;
             // 
             // colIsBatch
@@ -439,8 +457,16 @@
             this.colIsBatch.FieldName = "IsBatch";
             this.colIsBatch.Name = "colIsBatch";
             this.colIsBatch.Visible = true;
-            this.colIsBatch.VisibleIndex = 17;
+            this.colIsBatch.VisibleIndex = 18;
             this.colIsBatch.Width = 58;
+            // 
+            // colRadanSym
+            // 
+            this.colRadanSym.Caption = "Symbol";
+            this.colRadanSym.FieldName = "Thumbnail";
+            this.colRadanSym.Name = "colRadanSym";
+            this.colRadanSym.Visible = true;
+            this.colRadanSym.VisibleIndex = 1;
             // 
             // repositoryItemImageEdit1
             // 
@@ -551,5 +577,8 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private DevExpress.XtraGrid.Columns.GridColumn colPlantID;
         private DevExpress.XtraGrid.Columns.GridColumn colCategorySort;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageNesting;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
+        private DevExpress.XtraGrid.Columns.GridColumn colRadanSym;
     }
 }
