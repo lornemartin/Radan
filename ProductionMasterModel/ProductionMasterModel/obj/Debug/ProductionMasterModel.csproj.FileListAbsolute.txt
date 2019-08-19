@@ -1,0 +1,12 @@
+C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\bin\Debug\ProductionMasterModel.dll.config
+C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\bin\Debug\ProductionMasterModel.dll
+C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\bin\Debug\ProductionMasterModel.pdb
+C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\bin\Debug\EntityFramework.dll
+C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\bin\Debug\EntityFramework.xml
+C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\obj\Debug\ProductionMasterModel.csprojAssemblyReference.cache
+C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\obj\Debug\ProductionMasterModel.csproj.CoreCompileInputs.cache
+C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\obj\Debug\ProductionMasterModel.csproj.CopyComplete
+C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\obj\Debug\ProductionMasterModel.dll
+C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\obj\Debug\ProductionMasterModel.pdb

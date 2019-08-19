@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RadanInterface2;
 using RadProject;
+using ProductionMasterModel;
 
 namespace RadanProjectInterface
 {
@@ -47,7 +48,7 @@ namespace RadanProjectInterface
             for (int i = 1; i <= 500; i++)
             {
                 
-                RadanID radanIDItem = (Globals.dbContext.RadanIDs.Where(r => r.RadanIDNumber == i).FirstOrDefault());
+                RadanID radanIDItem = (dbContext.RadanIDs.Where(r => r.RadanIDNumber == i).FirstOrDefault());
                 if (radanIDItem == null)
                 {
                     RadanID newRadanID = new RadanID();
