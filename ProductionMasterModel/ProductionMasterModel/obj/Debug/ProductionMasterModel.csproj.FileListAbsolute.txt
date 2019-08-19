@@ -5,7 +5,6 @@ C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\bi
 C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\bin\Debug\EntityFramework.xml
 C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\obj\Debug\ProductionMasterModel.csprojAssemblyReference.cache
 C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\obj\Debug\ProductionMasterModel.csproj.CoreCompileInputs.cache
 C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\obj\Debug\ProductionMasterModel.csproj.CopyComplete
 C:\Users\lorne\source\repos\Radan\ProductionMasterModel\ProductionMasterModel\obj\Debug\ProductionMasterModel.dll

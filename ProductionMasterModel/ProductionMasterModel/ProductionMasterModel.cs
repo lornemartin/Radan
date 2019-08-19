@@ -36,7 +36,7 @@ namespace ProductionMasterModel
 
             modelBuilder.Entity<Nest>()
                 .HasMany(e => e.OrderItems)
-                .WithMany(e => e.Nests)
+                .WithMany(e => e.AssociatedNests)
                 .Map(m => m.ToTable("NestOrderItems"));
 
             modelBuilder.Entity<OperationPerformed>()

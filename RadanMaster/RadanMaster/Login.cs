@@ -14,7 +14,7 @@ namespace RadanMaster
     public partial class Login : DevExpress.XtraEditors.XtraForm
     {
 
-        public Models.User currentUser { get; set; }
+        public ProductionMasterModel.User currentUser { get; set; }
 
         public Login()
         {
@@ -23,7 +23,7 @@ namespace RadanMaster
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            Models.User usr = Globals.dbContext.Users.Where(u => u.UserName == textEditUserName.Text).FirstOrDefault();
+            ProductionMasterModel.User usr = Globals.dbContext.Users.Where(u => u.UserName == textEditUserName.Text).FirstOrDefault();
 
             bool success = evaluateLogin();
 
@@ -37,7 +37,7 @@ namespace RadanMaster
 
         private bool evaluateLogin()
         {
-            Models.User usr = Globals.dbContext.Users.Where(u => u.UserName == textEditUserName.Text).FirstOrDefault();
+            ProductionMasterModel.User usr = Globals.dbContext.Users.Where(u => u.UserName == textEditUserName.Text).FirstOrDefault();
 
             if (usr != null)
             {

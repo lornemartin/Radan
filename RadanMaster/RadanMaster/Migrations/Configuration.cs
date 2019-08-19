@@ -5,14 +5,14 @@ namespace RadanMaster.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<RadanMaster.DAL.RadanMasterContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ProductionMasterModel.ProductionMasterModel>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(RadanMaster.DAL.RadanMasterContext context)
+        protected override void Seed(ProductionMasterModel.ProductionMasterModel context)
         {
             //  This method will be called after migrating to the latest version.
 

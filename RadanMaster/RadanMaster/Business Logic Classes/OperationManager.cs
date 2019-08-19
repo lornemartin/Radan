@@ -10,14 +10,14 @@ namespace RadanMaster
 {
     public class OperationManager
     {
-        Models.OrderItemOperation OrderItemOp { get; set; }
+        ProductionMasterModel.OrderItemOperation OrderItemOp { get; set; }
         int overBatchQty { get; set; }
         bool updateAll { get; set; }
-        Models.User currentUser { get; set; }
-        List<Models.OrderItemOperation> associatedOrderItemOps { get; set; }
-        List<Models.OperationPerformed> opsPerformed { get; set; }
+        ProductionMasterModel.User currentUser { get; set; }
+        List<ProductionMasterModel.OrderItemOperation> associatedOrderItemOps { get; set; }
+        List<ProductionMasterModel.OperationPerformed> opsPerformed { get; set; }
 
-        public OperationManager(Models.OrderItemOperation orderItemOp, Models.User usr)
+        public OperationManager(ProductionMasterModel.OrderItemOperation orderItemOp, ProductionMasterModel.User usr)
         {
             currentUser = usr;
             OrderItemOp = orderItemOp;
@@ -29,9 +29,9 @@ namespace RadanMaster
 
             opsPerformed = Globals.dbContext.OperationPerformeds.Where(op => op.OrderItemOperations.FirstOrDefault().operationID == OrderItemOp.operationID).ToList();
 
-            //List<Models.OperationPerformed> filteredOpsPerformed = new List<Models.OperationPerformed>();
+            //List<ProductionMasterModel.OperationPerformed> filteredOpsPerformed = new List<ProductionMasterModel.OperationPerformed>();
 
-            //foreach (Models.OperationPerformed opPerformed in opsPerformed)
+            //foreach (ProductionMasterModel.OperationPerformed opPerformed in opsPerformed)
             //{
             //    if (associatedOrderItemOps.Contains(opPerformed.OrderItemOperations.First()))   // should be using user filtered list here....
             //    {
@@ -46,19 +46,19 @@ namespace RadanMaster
 
         }
 
-        public List<Models.OrderItemOperation> GetAssociatedOrderItemOperations()
+        public List<ProductionMasterModel.OrderItemOperation> GetAssociatedOrderItemOperations()
         {
             return associatedOrderItemOps;
         }
 
-        public List<Models.OperationPerformed> GetOperationsPerformed()
+        public List<ProductionMasterModel.OperationPerformed> GetOperationsPerformed()
         {
             return opsPerformed;
         }
 
         public Stream GetPDFStream()
         {
-            Models.Part p = OrderItemOp.operation.Part;
+            ProductionMasterModel.Part p = OrderItemOp.Operation.Part;
             if (p.Files.Count > 0)
                 return new MemoryStream(p.Files.FirstOrDefault().Content);
             else
@@ -68,10 +68,10 @@ namespace RadanMaster
         public bool HasUnassignedOperationsPerformed()
         {
             // get a list of all associated order items that are not linked to an order item
-            List<Models.OrderItemOperation> overBatchItemOps = associatedOrderItemOps.Where(o => o.operationID == OrderItemOp.operationID)
+            List<ProductionMasterModel.OrderItemOperation> overBatchItemOps = associatedOrderItemOps.Where(o => o.operationID == OrderItemOp.operationID)
                                                                                      .Where(o => o.qtyRequired == 0).ToList();
 
-            List<Models.OrderItemOperation> inCompleteBatchItemOps = associatedOrderItemOps.Where(o => o.operationID == OrderItemOp.operationID)
+            List<ProductionMasterModel.OrderItemOperation> inCompleteBatchItemOps = associatedOrderItemOps.Where(o => o.operationID == OrderItemOp.operationID)
                                                                                            .Where(o => o.qtyDone < o.qtyRequired).ToList();
 
             int qtyExtra = overBatchItemOps.Sum(x => x.qtyDone);
@@ -84,23 +84,23 @@ namespace RadanMaster
         {
 
             // get a list of all associated order items that are not complete
-            List<Models.OrderItemOperation> overBatchItemOps = associatedOrderItemOps.Where(o => o.operationID == OrderItemOp.operationID)
+            List<ProductionMasterModel.OrderItemOperation> overBatchItemOps = associatedOrderItemOps.Where(o => o.operationID == OrderItemOp.operationID)
                                                                                      .Where(o => o.qtyRequired == 0).ToList();
 
-            List<Models.OrderItemOperation> inCompleteBatchItemOps = associatedOrderItemOps.Where(o => o.operationID == OrderItemOp.operationID)
+            List<ProductionMasterModel.OrderItemOperation> inCompleteBatchItemOps = associatedOrderItemOps.Where(o => o.operationID == OrderItemOp.operationID)
                                                                                            .Where(o => o.qtyDone < o.qtyRequired).ToList();
 
-            foreach (Models.OrderItemOperation overBatchItemOp in overBatchItemOps)
+            foreach (ProductionMasterModel.OrderItemOperation overBatchItemOp in overBatchItemOps)
             {
-                foreach (Models.OrderItemOperation inCompleteBatchItemOp in inCompleteBatchItemOps)
+                foreach (ProductionMasterModel.OrderItemOperation inCompleteBatchItemOp in inCompleteBatchItemOps)
                 {
                     if (overBatchItemOp.qtyDone <= inCompleteBatchItemOp.qtyRequired - inCompleteBatchItemOp.qtyDone)
                     {
                         // we can get rid of overBatchItemOp and move it all into the inCompleteBatchItem
 
                         inCompleteBatchItemOp.qtyDone += overBatchItemOp.qtyDone;
-                        if (!inCompleteBatchItemOp.operationsPerformed.Contains(overBatchItemOp.operationsPerformed.FirstOrDefault()))
-                            inCompleteBatchItemOp.operationsPerformed.Add(overBatchItemOp.operationsPerformed.FirstOrDefault());
+                        if (!inCompleteBatchItemOp.OperationPerformeds.Contains(overBatchItemOp.OperationPerformeds.FirstOrDefault()))
+                            inCompleteBatchItemOp.OperationPerformeds.Add(overBatchItemOp.OperationPerformeds.FirstOrDefault());
                         Globals.dbContext.OrderItemOperations.Remove(overBatchItemOp);
 
                         break;  // no further work needed on this overBatchItem
@@ -112,8 +112,8 @@ namespace RadanMaster
                         // and this inCompleteBatchItem will now be complete...
                         inCompleteBatchItemOp.qtyDone = inCompleteBatchItemOp.qtyRequired;
 
-                        if (!inCompleteBatchItemOp.operationsPerformed.Contains(overBatchItemOp.operationsPerformed.FirstOrDefault()))
-                            inCompleteBatchItemOp.operationsPerformed.Add(overBatchItemOp.operationsPerformed.FirstOrDefault());
+                        if (!inCompleteBatchItemOp.OperationPerformeds.Contains(overBatchItemOp.OperationPerformeds.FirstOrDefault()))
+                            inCompleteBatchItemOp.OperationPerformeds.Add(overBatchItemOp.OperationPerformeds.FirstOrDefault());
 
                         continue;   // continue on with next iteration of this loop to fill up all the incompleteOpItems
 
@@ -130,15 +130,15 @@ namespace RadanMaster
             int qtyLeftToRecord = count;
 
             // first create the opPerformed record.
-            Models.OperationPerformed opPerformed = new Models.OperationPerformed();
+            ProductionMasterModel.OperationPerformed opPerformed = new ProductionMasterModel.OperationPerformed();
             opPerformed.qtyDone = count;
             opPerformed.timePerformed = DateTime.Now;
-            opPerformed.usr = currentUser;
+            opPerformed.User = currentUser;
             opPerformed.Notes = "";
-            opPerformed.OrderItemOperations = new List<Models.OrderItemOperation>();
+            opPerformed.OrderItemOperations = new List<ProductionMasterModel.OrderItemOperation>();
 
             // then fill out the quantities done of the orderItemOps 
-            foreach (Models.OrderItemOperation op in associatedOrderItemOps)
+            foreach (ProductionMasterModel.OrderItemOperation op in associatedOrderItemOps)
             {
                 if (op.qtyDone < op.qtyRequired)
                 {
@@ -163,10 +163,10 @@ namespace RadanMaster
             {
                 overBatchQty = 0;
                 overBatchQty += qtyLeftToRecord;
-                Models.OrderItemOperation overBatchItem = new Models.OrderItemOperation();
-                overBatchItem.operation = OrderItemOp.operation;
-                overBatchItem.operationsPerformed.Add(opPerformed);
-                overBatchItem.orderItem = null;
+                ProductionMasterModel.OrderItemOperation overBatchItem = new ProductionMasterModel.OrderItemOperation();
+                overBatchItem.Operation = OrderItemOp.Operation;
+                overBatchItem.OperationPerformeds.Add(opPerformed);
+                overBatchItem.OrderItem = null;
                 overBatchItem.qtyRequired = 0;
                 overBatchItem.qtyDone = overBatchQty;
                 Globals.dbContext.OrderItemOperations.Add(overBatchItem);
@@ -180,12 +180,12 @@ namespace RadanMaster
 
         public void RemoveOperationCompleted(int operationPerformedID)
         {
-            Models.OperationPerformed opToRemove = Globals.dbContext.OperationPerformeds.Where(o => o.ID == operationPerformedID).FirstOrDefault();
-            List<Models.OrderItemOperation> orderItemOpsToModify = associatedOrderItemOps.OrderByDescending(o => o.ID).ToList();
+            ProductionMasterModel.OperationPerformed opToRemove = Globals.dbContext.OperationPerformeds.Where(o => o.ID == operationPerformedID).FirstOrDefault();
+            List<ProductionMasterModel.OrderItemOperation> orderItemOpsToModify = associatedOrderItemOps.OrderByDescending(o => o.ID).ToList();
 
             int numToRemove = opToRemove.qtyDone;
             int index = 0;
-            foreach (Models.OrderItemOperation itemOpToCheck in orderItemOpsToModify.ToList())
+            foreach (ProductionMasterModel.OrderItemOperation itemOpToCheck in orderItemOpsToModify.ToList())
             {
                 if (numToRemove < itemOpToCheck.qtyDone)
                 {
@@ -198,7 +198,7 @@ namespace RadanMaster
                     numToRemove = 0;
 
                     // remove the operationPerformed record
-                    itemOpToCheck.operationsPerformed.Remove(opToRemove);
+                    itemOpToCheck.OperationPerformeds.Remove(opToRemove);
                     Globals.dbContext.OperationPerformeds.Remove(opToRemove);
 
                     break; // all done
@@ -213,18 +213,18 @@ namespace RadanMaster
                     itemOpToCheck.qtyDone = 0;
 
                     // remove orderItemOp if it's not linked to any orders.
-                    if (itemOpToCheck.orderItem == null)
+                    if (itemOpToCheck.OrderItem == null)
                     {
                         // if itemOpToCheck has a link to an operation performed, we need to copy this link over to a different itemOp that won't be removed
-                        if (itemOpToCheck.operationsPerformed.Count > 0)
+                        if (itemOpToCheck.OperationPerformeds.Count > 0)
                         {
                             //orderItemOpsToModify.ElementAtOrDefault(index + 1).operationsPerformed
-                            List<Models.OperationPerformed> associatedOps = itemOpToCheck.operationsPerformed.ToList();
+                            List<ProductionMasterModel.OperationPerformed> associatedOps = itemOpToCheck.OperationPerformeds.ToList();
 
-                            foreach(Models.OperationPerformed associatedOp in associatedOps)
+                            foreach(ProductionMasterModel.OperationPerformed associatedOp in associatedOps)
                             {
-                                if(!orderItemOpsToModify.ElementAt(index +1).operationsPerformed.Contains(associatedOp))
-                                    orderItemOpsToModify.ElementAt(index + 1).operationsPerformed.Add(associatedOp);
+                                if(!orderItemOpsToModify.ElementAt(index +1).OperationPerformeds.Contains(associatedOp))
+                                    orderItemOpsToModify.ElementAt(index + 1).OperationPerformeds.Add(associatedOp);
                             }
                         }
 
@@ -234,7 +234,7 @@ namespace RadanMaster
                     if (numToRemove == 0)
                     {
                         // remove the operationPerformed record
-                        itemOpToCheck.operationsPerformed.Remove(opToRemove);
+                        itemOpToCheck.OperationPerformeds.Remove(opToRemove);
                         Globals.dbContext.OperationPerformeds.Remove(opToRemove);
                     }
 

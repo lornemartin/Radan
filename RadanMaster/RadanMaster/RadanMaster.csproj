@@ -135,6 +135,9 @@
     <Reference Include="PdfSharp.Charting">
       <HintPath>..\..\..\Vault Interface Projects\VaultItemProcessor\packages\PDFsharp-MigraDoc.1.50.4589-beta4\lib\net20\PdfSharp.Charting.dll</HintPath>
     </Reference>
+    <Reference Include="ProductionMasterModel">
+      <HintPath>..\..\ProductionMasterModel\ProductionMasterModel\bin\Debug\ProductionMasterModel.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -167,8 +170,6 @@
     <Compile Include="DailySchedule\DailyScheduleAggregate.cs" />
     <Compile Include="DailySchedule\ExportLineItem.cs" />
     <Compile Include="DailySchedule\ProcessPDF.cs" />
-    <Compile Include="DAL\ObserveableListSource.cs" />
-    <Compile Include="DAL\RadanMasterContext.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -183,10 +184,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\OperationPerformed.cs" />
-    <Compile Include="Models\OrderItemOperation.cs" />
-    <Compile Include="Models\Privilege.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Nesting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -195,16 +192,6 @@
     </Compile>
     <Compile Include="GroupAndFilterSettings.cs" />
     <Compile Include="DisplayModels\DisplayItem.cs" />
-    <Compile Include="Models\File.cs" />
-    <Compile Include="Models\FileType.cs" />
-    <Compile Include="Models\Material.cs" />
-    <Compile Include="Models\Nest.cs" />
-    <Compile Include="Models\NestedParts.cs" />
-    <Compile Include="Models\Operation.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\OrderItem.cs" />
-    <Compile Include="Models\Part.cs" />
-    <Compile Include="Models\RadanID.cs" />
     <Compile Include="OperationCompleted.cs">
       <SubType>Form</SubType>
     </Compile>

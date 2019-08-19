@@ -42,31 +42,31 @@ namespace RadanProjectInterface
 
         }
 
-        public int CalculateRadanID(OrderItem orderItem)
-        {
-            // loop through RadanID referene table, till we find an id in the range of 0 to 500 that is available
-            for (int i = 1; i <= 500; i++)
-            {
-                
-                RadanID radanIDItem = (dbContext.RadanIDs.Where(r => r.RadanIDNumber == i).FirstOrDefault());
-                if (radanIDItem == null)
-                {
-                    RadanID newRadanID = new RadanID();
-                    newRadanID.OrderItem = orderItem;
-                    newRadanID.OrderItemID = orderItem.ID;
-                    newRadanID.RadanIDNumber = i;
-                    dbContext.RadanIDs.Add(newRadanID);
-                    dbContext.SaveChanges();
-                    orderItem.RadanID = newRadanID;
-                    orderItem.RadanIDNumber = i;
-                    dbContext.SaveChanges();
-                    return i;
-                }
-            }
+        //public int CalculateRadanID(OrderItem orderItem)
+        //{
+        //    loop through RadanID referene table, till we find an id in the range of 0 to 500 that is available
+        //    for (int i = 1; i <= 500; i++)
+        //    {
+
+        //        RadanID radanIDItem = (dbContext.RadanIDs.Where(r => r.RadanIDNumber == i).FirstOrDefault());
+        //        if (radanIDItem == null)
+        //        {
+        //            RadanID newRadanID = new RadanID();
+        //            newRadanID.OrderItem = orderItem;
+        //            newRadanID.OrderItemID = orderItem.ID;
+        //            newRadanID.RadanIDNumber = i;
+        //            dbContext.RadanIDs.Add(newRadanID);
+        //            dbContext.SaveChanges();
+        //            orderItem.RadanID = newRadanID;
+        //            orderItem.RadanIDNumber = i;
+        //            dbContext.SaveChanges();
+        //            return i;
+        //        }
+        //    }
 
 
-            return -1;
-        }
+        //    return -1;
+        //}
 
     }
 

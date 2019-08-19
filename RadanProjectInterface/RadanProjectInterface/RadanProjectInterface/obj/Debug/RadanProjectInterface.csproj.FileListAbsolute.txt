@@ -9,3 +9,8 @@ C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\Ra
 C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\obj\Debug\RadanProjectInterface.csproj.CopyComplete
 C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\obj\Debug\RadanProjectInterface.dll
 C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\obj\Debug\RadanProjectInterface.pdb
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\ProductionMasterModel.dll
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\EntityFramework.dll
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\ProductionMasterModel.pdb
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\ProductionMasterModel.dll.config
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\EntityFramework.xml

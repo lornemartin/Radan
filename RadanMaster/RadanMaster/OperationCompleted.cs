@@ -20,13 +20,13 @@ namespace RadanMaster
     public partial class OperationCompleted : Form
     {
         OperationManager opManager { get; set; }
-        Models.User currentUser { get; set; }
+        ProductionMasterModel.User currentUser { get; set; }
 
-        public OperationCompleted(Models.OrderItemOperation orderItemOp, Models.User curUser)
+        public OperationCompleted(ProductionMasterModel.OrderItemOperation orderItemOp, ProductionMasterModel.User curUser)
         {
             InitializeComponent();
 
-            switch(orderItemOp.operation.Name)
+            switch(orderItemOp.Operation.Name)
             {
                 case "Bandsaw":
                     BackColor = Color.Aqua;
@@ -101,13 +101,13 @@ namespace RadanMaster
         {
             GridView view = sender as GridView;
             int numRows = view.SelectedRowsCount;
-            Models.OrderItemOperation orderItemOp = new Models.OrderItemOperation();
+            ProductionMasterModel.OrderItemOperation orderItemOp = new ProductionMasterModel.OrderItemOperation();
 
             List<int> rowHandleList = view.GetSelectedRows().ToList();
             foreach (int rowHandle in rowHandleList)
             {
                 object o = gridViewAssociatedOrderItems.GetRow(rowHandle);
-                orderItemOp = (Models.OrderItemOperation)o;
+                orderItemOp = (ProductionMasterModel.OrderItemOperation)o;
             }
         }
 
@@ -167,7 +167,7 @@ namespace RadanMaster
                 if(result==DialogResult.Yes)
                 {
                     object selectedRowData = gridViewOpsPerformed.GetRow(gridViewOpsPerformed.FocusedRowHandle);
-                    Models.OperationPerformed opToRemove = (Models.OperationPerformed)selectedRowData;
+                    ProductionMasterModel.OperationPerformed opToRemove = (ProductionMasterModel.OperationPerformed)selectedRowData;
 
                     opManager.RemoveOperationCompleted(opToRemove.ID);
                 }

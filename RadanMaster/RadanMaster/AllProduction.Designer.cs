@@ -279,7 +279,7 @@
             // 
             // entityServerModeSource2
             // 
-            this.entityServerModeSource2.ElementType = typeof(RadanMaster.Models.OrderItem);
+            this.entityServerModeSource2.ElementType = typeof(ProductionMasterModel.OrderItem);
             this.entityServerModeSource2.KeyExpression = "ID";
             // 
             // gridViewAllProduction

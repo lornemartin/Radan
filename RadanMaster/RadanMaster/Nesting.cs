@@ -36,12 +36,13 @@ using DevExpress.XtraBars.Native;
 using VaultAccess;
 using File = System.IO.File;
 using DevExpress.XtraGrid;
+using ProductionMasterModel;
 
 namespace RadanMaster
 {
     public partial class Nesting : RibbonForm
     {
-        RadanMaster.DAL.RadanMasterContext dbContext { get; set; }
+        ProductionMasterModel.ProductionMasterModel dbContext { get; set; }
         string radanProjectName { get; set; }
         RadanProject rPrj { get; set; }
         string symFolder { get; set; }
@@ -78,7 +79,7 @@ namespace RadanMaster
                 log4net.Config.XmlConfigurator.Configure(); // configure logging
                 logger.Info("Starting Program.");
 
-                dbContext = new DAL.RadanMasterContext();
+                dbContext = new ProductionMasterModel.ProductionMasterModel();
 
                 logger.Info("dbContext initialized.");
 
@@ -739,13 +740,13 @@ namespace RadanMaster
                         if (thumbnailCharArray != null)
                             thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
                         newMasterNest.Thumbnail = thumbnailByteArray;
-                        newMasterNest.NestedParts = new List<NestedParts>();
+                        newMasterNest.NestedParts = new List<NestedPart>();
 
                         foreach (NestsPartsMade nestedRadanPart in radanNest.PartsMade)
                         {
                             foreach(NestPartsMadeListItem partMade in nestedRadanPart.PartsListItems)
                             {
-                                NestedParts masterNestedPart = new NestedParts();
+                                NestedPart masterNestedPart = new NestedPart();
 
                                 //int radanPartID = (int)nestedRadanPart.PartsListItems[0].ID;
                                 int radanPartID = (int) partMade.ID;
@@ -849,7 +850,7 @@ namespace RadanMaster
                         {
                             if (associatedNest.NestedParts != null)
                             {
-                                foreach (NestedParts p in associatedNest.NestedParts)
+                                foreach (NestedPart p in associatedNest.NestedParts)
                                 {
                                     if (p.OrderItem == item && Path.GetDirectoryName(associatedNest.nestPath) == Path.GetDirectoryName(oldProjectName))
                                         totalNested += p.Qty;
@@ -1367,7 +1368,7 @@ namespace RadanMaster
                         DisplayNest displayNest = new DisplayNest();
                         displayNest.NestName = nest.nestName;
                         displayNest.NestPath = nest.nestPath;
-                        NestedParts nestedPart = nest.NestedParts.Where(np => np.OrderItem == selectedItem).FirstOrDefault();
+                        NestedPart nestedPart = nest.NestedParts.Where(np => np.OrderItem == selectedItem).FirstOrDefault();
                         displayNest.QtyOnNest = nestedPart.Qty;
                         displayNest.Thumbnail = nest.Thumbnail;
                         displayNests.Add(displayNest);
@@ -2103,10 +2104,10 @@ namespace RadanMaster
                     else
                     {
                         // find all the nested parts associated with this nest
-                        List<NestedParts> nestedPartsToRemove = nestToDelete.NestedParts.ToList();
+                        List<NestedPart> nestedPartsToRemove = nestToDelete.NestedParts.ToList();
 
                         // remove all the nested parts from the nest and from the db context
-                        foreach (NestedParts nestedPart in nestedPartsToRemove)
+                        foreach (NestedPart nestedPart in nestedPartsToRemove)
                         {
                             // find the order item associated to this nested part
                             OrderItem item = nestedPart.OrderItem;

@@ -11,9 +11,9 @@ namespace ProductionMasterModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OrderItem()
         {
-            NestedParts = new HashSet<NestedPart>();
-            OrderItemOperations = new HashSet<OrderItemOperation>();
-            Nests = new HashSet<Nest>();
+            NestedParts = new List<NestedPart>();
+            OrderItemOperations = new List<OrderItemOperation>();
+            AssociatedNests = new List<Nest>();
         }
 
         public int ID { get; set; }
@@ -49,6 +49,6 @@ namespace ProductionMasterModel
         public virtual RadanID RadanID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Nest> Nests { get; set; }
+        public virtual ICollection<Nest> AssociatedNests { get; set; }
     }
 }

@@ -28,18 +28,19 @@ using RadanProjectInterface;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using RadanInterface2;
+using ProductionMasterModel;
 
 namespace RadanMaster
 {
     public partial class AllProduction : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         RefreshHelper helper;
-        Models.User currentUser { get; set; }
+        ProductionMasterModel.User currentUser { get; set; }
         RadanProjectInterface.RadanProjectInterface radProjInterface { get; set; }
         RadanInterface RadInterface { get; set; }
         
 
-        public AllProduction(Models.User curUser)
+        public AllProduction(ProductionMasterModel.User curUser)
         {
             InitializeComponent();
             currentUser = curUser;
@@ -65,7 +66,7 @@ namespace RadanMaster
                                                       {
                                                           ID = orderitem.ID,
                                                           QtyRequired = orderitem.QtyRequired,
-                                                          QtyNested = orderitem.orderItemOps.OrderByDescending(o => o.ID).FirstOrDefault().qtyDone, // lastordefault doesn't work with EF
+                                                          QtyNested = orderitem.OrderItemOperations.OrderByDescending(o => o.ID).FirstOrDefault().qtyDone, // lastordefault doesn't work with EF
                                                           CategoryName = orderitem.Part.CategoryName,
                                                           CategoryIcon = 0,
                                                           FileName = orderitem.Part.FileName,
@@ -137,7 +138,7 @@ namespace RadanMaster
                         if (prt.Files.Count > 0)
                         {
                             int fileIndex = prt.Files.FirstOrDefault().FileId;
-                            Models.File file = Globals.dbContext.Files.FirstOrDefault(f => f.FileId == fileIndex);
+                            ProductionMasterModel.File file = Globals.dbContext.Files.FirstOrDefault(f => f.FileId == fileIndex);
                             Stream stream = new MemoryStream(file.Content);
                             pdfViewerAllProduction.LoadDocument(stream);
                             pdfViewerAllProduction.CurrentPageNumber = 1;

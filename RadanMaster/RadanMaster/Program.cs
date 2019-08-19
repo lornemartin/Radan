@@ -24,7 +24,7 @@ namespace RadanMaster
             BonusSkins.Register();
             SkinManager.EnableFormSkins();
 
-            Globals.dbContext = new DAL.RadanMasterContext();
+            Globals.dbContext = new ProductionMasterModel.ProductionMasterModel();
 
             Application.Run(new MainForm());
         }

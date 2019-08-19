@@ -9,6 +9,6 @@ namespace RadanMaster
     
     public static class Globals
     {
-        public static RadanMaster.DAL.RadanMasterContext dbContext = new DAL.RadanMasterContext();
+        public static ProductionMasterModel.ProductionMasterModel dbContext = new ProductionMasterModel.ProductionMasterModel();
     }
 }

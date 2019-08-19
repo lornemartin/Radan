@@ -13,7 +13,7 @@ namespace RadanMaster
 {
     public partial class MainForm : DevExpress.XtraEditors.XtraForm
     {
-        Models.User currentUser { get; set; }
+        ProductionMasterModel.User currentUser { get; set; }
 
         public MainForm()
         {
@@ -26,7 +26,7 @@ namespace RadanMaster
 
         private void RefreshForm()
         {
-            Models.Privilege p = currentUser.Privileges.Where(p1 => p1.buttonName == "btnAllProduction").FirstOrDefault();
+            ProductionMasterModel.Privilege p = currentUser.Privileges.Where(p1 => p1.buttonName == "btnAllProduction").FirstOrDefault();
             if (p != null)
             {
                 if (p.HasAccess)

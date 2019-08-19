@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using RadanMaster.Models;
+using ProductionMasterModel;
 
 namespace RadanMaster.AddItemDialog
 {
@@ -22,10 +23,10 @@ namespace RadanMaster.AddItemDialog
         public static bool checkForBends { get; set; }
         public static string notes { get; set; }
 
-        public AddItem(RadanMaster.DAL.RadanMasterContext ctx)
+        public AddItem(ProductionMasterModel.ProductionMasterModel ctx)
         {
             InitializeComponent();
-            List<RadanMaster.Models.Order> activeOrders = ctx.Orders.Where(o => o.IsComplete == false).ToList();
+            List<ProductionMasterModel.Order> activeOrders = ctx.Orders.Where(o => o.IsComplete == false).ToList();
             txtBoxQty.Text = qty;
             comboBoxOrderNum.Text = lastOrderNumber;
             foreach (Order o in activeOrders)

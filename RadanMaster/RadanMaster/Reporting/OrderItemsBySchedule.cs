@@ -11,12 +11,12 @@ namespace RadanMaster.Reporting
 {
     public partial class OrderItemsBySchedule : DevExpress.XtraReports.UI.XtraReport
     {
-        RadanMaster.DAL.RadanMasterContext dbContext { get; set; }
+        ProductionMasterModel.ProductionMasterModel dbContext { get; set; }
 
         public OrderItemsBySchedule()
         {
             InitializeComponent();
-            dbContext = new RadanMaster.DAL.RadanMasterContext();
+            dbContext = new ProductionMasterModel.ProductionMasterModel();
         }
 
         private void pictureBox1_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
@@ -26,17 +26,17 @@ namespace RadanMaster.Reporting
             {
                 int orderItemID = (int)DetailReport.GetCurrentColumnValue("ID");
 
-                Models.OrderItem oItem = new Models.OrderItem();
+                ProductionMasterModel.OrderItem oItem = new ProductionMasterModel.OrderItem();
                 oItem = dbContext.OrderItems.FirstOrDefault(o => o.ID == orderItemID);
 
                 int partID = oItem.PartID;
-                Models.Part prt = new Models.Part();
+                ProductionMasterModel.Part prt = new ProductionMasterModel.Part();
                 prt = dbContext.Parts.FirstOrDefault(p => p.ID == partID);
 
                 if (prt.Files.Count > 0)
                 {
                     int fileID = prt.Files.FirstOrDefault().FileId;
-                    Models.File fileItem = new Models.File();
+                    ProductionMasterModel.File fileItem = new ProductionMasterModel.File();
                     fileItem = dbContext.Files.FirstOrDefault(f => f.FileId == fileID);
 
                     if (fileItem.Content != null)

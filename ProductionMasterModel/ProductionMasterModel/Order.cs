@@ -11,7 +11,7 @@ namespace ProductionMasterModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
-            OrderItems = new HashSet<OrderItem>();
+            OrderItems = new List<OrderItem>();
         }
 
         public int ID { get; set; }

@@ -16,17 +16,18 @@ using System.Data.Entity;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
+using ProductionMasterModel;
 
 namespace RadanMaster
 {
     public partial class EditOrderitem : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        Models.OrderItem ItemToEdit { get; set; }
+        ProductionMasterModel.OrderItem ItemToEdit { get; set; }
         bool updateAll { get; set; }
-        Models.User currentUser { get; set; }
+        ProductionMasterModel.User currentUser { get; set; }
 
 
-        public EditOrderitem(Models.OrderItem item, Models.User curUser)
+        public EditOrderitem(ProductionMasterModel.OrderItem item, ProductionMasterModel.User curUser)
         {
             currentUser = curUser;
             ItemToEdit = item;
@@ -49,7 +50,7 @@ namespace RadanMaster
             btnRemoveOperation.Enabled = currentUser.HasPermission(btnRemoveOperation.Name);
             // add code here to enable/disable operations buttons in gridview?
 
-            gridControlOperations.DataSource = ItemToEdit.orderItemOps.ToList();
+            gridControlOperations.DataSource = ItemToEdit.OrderItemOperations.ToList();
 
         }
 
@@ -86,9 +87,9 @@ namespace RadanMaster
 
             if (result != DialogResult.Cancel)
             {
-                Models.OrderItem itemToEdit = Globals.dbContext.OrderItems.Where(i => i.ID == ItemToEdit.ID).FirstOrDefault();
+                ProductionMasterModel.OrderItem itemToEdit = Globals.dbContext.OrderItems.Where(i => i.ID == ItemToEdit.ID).FirstOrDefault();
 
-                Models.Operation newOp = new Models.Operation();
+                ProductionMasterModel.Operation newOp = new ProductionMasterModel.Operation();
                 newOp.Part = itemToEdit.Part;
                 newOp.PartID = itemToEdit.PartID;
                 newOp.Location = "";
@@ -98,15 +99,15 @@ namespace RadanMaster
                 Globals.dbContext.Operations.Add(newOp);
                 itemToEdit.Part.Operations.Add(newOp);
 
-                Models.OrderItemOperation itemOp = new Models.OrderItemOperation();
+                ProductionMasterModel.OrderItemOperation itemOp = new ProductionMasterModel.OrderItemOperation();
 
 
                 Globals.dbContext.OrderItemOperations.Add(itemOp);
 
-                itemOp.operation = newOp;
+                itemOp.Operation = newOp;
                 itemOp.qtyRequired = itemToEdit.QtyRequired;
                 itemOp.qtyDone = 0;
-                itemToEdit.orderItemOps.Add(itemOp);
+                itemToEdit.OrderItemOperations.Add(itemOp);
 
                 if (result == DialogResult.No)
                 {
@@ -120,40 +121,40 @@ namespace RadanMaster
                 }
 
                 gridControlOperations.DataSource = null;
-                gridControlOperations.DataSource = itemToEdit.orderItemOps.ToList();
+                gridControlOperations.DataSource = itemToEdit.OrderItemOperations.ToList();
             }
 
         }
 
         private void btnRemoveOperation_Click(object sender, EventArgs e)
         {
-            Models.OrderItem itemToEdit = Globals.dbContext.OrderItems.Where(i => i.ID == ItemToEdit.ID).FirstOrDefault();
+            ProductionMasterModel.OrderItem itemToEdit = Globals.dbContext.OrderItems.Where(i => i.ID == ItemToEdit.ID).FirstOrDefault();
 
             int selectedRow = gridViewOperations.GetSelectedRows().FirstOrDefault();
 
-            Models.OrderItemOperation opToRemove = gridViewOperations.GetRow(selectedRow) as Models.OrderItemOperation;
+            ProductionMasterModel.OrderItemOperation opToRemove = gridViewOperations.GetRow(selectedRow) as ProductionMasterModel.OrderItemOperation;
 
             Globals.dbContext.OrderItemOperations.Remove(opToRemove);
 
             gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = itemToEdit.orderItemOps.ToList();
+            gridControlOperations.DataSource = itemToEdit.OrderItemOperations.ToList();
         }
 
         private void gridViewOperations_DoubleClick(object sender, EventArgs e)
         {
             GridView view = sender as GridView;
             int numRows = view.SelectedRowsCount;
-            Models.OrderItemOperation opToEdit = new Models.OrderItemOperation();
+            ProductionMasterModel.OrderItemOperation opToEdit = new ProductionMasterModel.OrderItemOperation();
 
             List<int> rowHandleList = view.GetSelectedRows().ToList();
             foreach (int rowHandle in rowHandleList)
             {
                 object o = gridViewOperations.GetRow(rowHandle);
-                opToEdit = (Models.OrderItemOperation)o;
+                opToEdit = (ProductionMasterModel.OrderItemOperation)o;
             }
 
             OperationCompleted opForm = new OperationCompleted(opToEdit, currentUser);
-            opForm.Text = this.Text + "--->" + opToEdit.operation.Name;
+            opForm.Text = this.Text + "--->" + opToEdit.Operation.Name;
             opForm.Show();
         }
 
@@ -161,17 +162,17 @@ namespace RadanMaster
         {
             GridView view = gridViewOperations;
             int numRows = view.SelectedRowsCount;
-            Models.OrderItemOperation opToEdit = new Models.OrderItemOperation();
+            ProductionMasterModel.OrderItemOperation opToEdit = new ProductionMasterModel.OrderItemOperation();
 
             List<int> rowHandleList = view.GetSelectedRows().ToList();
             foreach (int rowHandle in rowHandleList)
             {
                 object o = gridViewOperations.GetRow(rowHandle);
-                opToEdit = (Models.OrderItemOperation)o;
+                opToEdit = (ProductionMasterModel.OrderItemOperation)o;
             }
 
             OperationCompleted opForm = new OperationCompleted(opToEdit, currentUser);
-            opForm.Text = this.Text + "--->" + opToEdit.operation.Name;
+            opForm.Text = this.Text + "--->" + opToEdit.Operation.Name;
             opForm.ShowDialog();
         }
 
@@ -179,17 +180,17 @@ namespace RadanMaster
         {
             GridView view = gridViewOperations;
             int numRows = view.SelectedRowsCount;
-            Models.OrderItemOperation opToEdit = new Models.OrderItemOperation();
+            ProductionMasterModel.OrderItemOperation opToEdit = new ProductionMasterModel.OrderItemOperation();
 
             List<int> rowHandleList = view.GetSelectedRows().ToList();
             foreach (int rowHandle in rowHandleList)
             {
                 object o = gridViewOperations.GetRow(rowHandle);
-                opToEdit = (Models.OrderItemOperation)o;
+                opToEdit = (ProductionMasterModel.OrderItemOperation)o;
             }
 
             OperationCompleted opForm = new OperationCompleted(opToEdit, currentUser);
-            opForm.Text = this.Text + "--->" + opToEdit.operation.Name;
+            opForm.Text = this.Text + "--->" + opToEdit.Operation.Name;
             opForm.ShowDialog();
         }
 
@@ -201,31 +202,31 @@ namespace RadanMaster
             if (updateAll)
             {
                 // find other open order items that should be updated...
-                List<Models.OrderItem> openOrderItems = new List<Models.OrderItem>();
+                List<ProductionMasterModel.OrderItem> openOrderItems = new List<ProductionMasterModel.OrderItem>();
                 openOrderItems = Globals.dbContext.OrderItems.Where(o => o.PartID == ItemToEdit.PartID)
                                                      .Where(o => o.IsComplete == false).ToList();
 
-                List<Models.Operation> itemOps = new List<Models.Operation>();
+                List<ProductionMasterModel.Operation> itemOps = new List<ProductionMasterModel.Operation>();
 
 
-                foreach (Models.OrderItemOperation itemOp in ItemToEdit.orderItemOps.ToList())
+                foreach (ProductionMasterModel.OrderItemOperation itemOp in ItemToEdit.OrderItemOperations.ToList())
                 {
-                    foreach (Models.OrderItem item in openOrderItems.ToList())
+                    foreach (ProductionMasterModel.OrderItem item in openOrderItems.ToList())
                     {
-                        Models.OrderItemOperation newItemOp = new Models.OrderItemOperation();
+                        ProductionMasterModel.OrderItemOperation newItemOp = new ProductionMasterModel.OrderItemOperation();
                         newItemOp.qtyRequired = item.QtyRequired;
                         newItemOp.qtyDone = 0;
-                        newItemOp.operation = itemOp.operation;
+                        newItemOp.Operation = itemOp.Operation;
 
-                        Models.OrderItemOperation testOp = item.orderItemOps.Where(o => o.operation.Name == itemOp.operation.Name).FirstOrDefault();
+                        ProductionMasterModel.OrderItemOperation testOp = item.OrderItemOperations.Where(o => o.Operation.Name == itemOp.Operation.Name).FirstOrDefault();
                         if (testOp == null)
-                            item.orderItemOps.Add(newItemOp);
+                            item.OrderItemOperations.Add(newItemOp);
                     }
                 }
             }
 
             gridControlOperations.DataSource = null;
-            gridControlOperations.DataSource = ItemToEdit.orderItemOps.ToList();
+            gridControlOperations.DataSource = ItemToEdit.OrderItemOperations.ToList();
 
             Globals.dbContext.SaveChanges();
 
