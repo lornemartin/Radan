@@ -30,6 +30,7 @@ namespace RadanMaster.Models
         public bool IsComplete { get; set; }
         public bool IsBatch { get; set; }
         public string PlantID { get; set; }
+        public byte[] Thumbnail { get; set; }
         public object item;
     }
 

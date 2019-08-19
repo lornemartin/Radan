@@ -42,7 +42,6 @@
             this.colQtyNested = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQtyRemaining = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnThumb2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemPictureEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
             this.partNameCol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.PartDescCol = new DevExpress.XtraGrid.Columns.GridColumn();
             this.thicknessCol = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -59,6 +58,7 @@
             this.colHasBends = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDateCompleted = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOperations = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemPictureEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemPictureEdit();
             this.repositoryItemLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.displayItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
@@ -124,12 +124,13 @@
             this.popupContainerPDFViewer = new DevExpress.XtraEditors.PopupContainerControl();
             this.pdfViewer1 = new DevExpress.XtraPdfViewer.PdfViewer();
             this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.displayItemBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
@@ -284,19 +285,12 @@
             // gridColumnThumb2
             // 
             this.gridColumnThumb2.Caption = "Thumbnail";
-            this.gridColumnThumb2.ColumnEdit = this.repositoryItemPictureEdit1;
             this.gridColumnThumb2.FieldName = "Part.Thumbnail";
             this.gridColumnThumb2.Name = "gridColumnThumb2";
             this.gridColumnThumb2.OptionsColumn.AllowEdit = false;
             this.gridColumnThumb2.Visible = true;
             this.gridColumnThumb2.VisibleIndex = 3;
             this.gridColumnThumb2.Width = 62;
-            // 
-            // repositoryItemPictureEdit1
-            // 
-            this.repositoryItemPictureEdit1.Name = "repositoryItemPictureEdit1";
-            this.repositoryItemPictureEdit1.PictureStoreMode = DevExpress.XtraEditors.Controls.PictureStoreMode.ByteArray;
-            this.repositoryItemPictureEdit1.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
             // 
             // partNameCol
             // 
@@ -438,6 +432,12 @@
             this.colOperations.FieldName = "Ops";
             this.colOperations.Name = "colOperations";
             this.colOperations.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            // 
+            // repositoryItemPictureEdit1
+            // 
+            this.repositoryItemPictureEdit1.Name = "repositoryItemPictureEdit1";
+            this.repositoryItemPictureEdit1.PictureStoreMode = DevExpress.XtraEditors.Controls.PictureStoreMode.ByteArray;
+            this.repositoryItemPictureEdit1.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
             // 
             // repositoryItemLookUpEdit1
             // 
@@ -1009,11 +1009,20 @@
             this.progressPanel1.TabIndex = 1;
             this.progressPanel1.Text = "progressPanel1";
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Location = new System.Drawing.Point(0, 143);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1600, 25);
+            this.toolStrip1.TabIndex = 7;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
             // Nesting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1600, 739);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainerControl1);
             this.Controls.Add(this.ribbonControl1);
@@ -1029,8 +1038,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemPictureEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.displayItemBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
@@ -1151,5 +1160,6 @@
         private DevExpress.XtraEditors.PopupContainerControl popupContainerPDFViewer;
         private DevExpress.XtraPdfViewer.PdfViewer pdfViewer1;
         private DevExpress.XtraGrid.Columns.GridColumn colOperations;
+        private System.Windows.Forms.ToolStrip toolStrip1;
     }
 }

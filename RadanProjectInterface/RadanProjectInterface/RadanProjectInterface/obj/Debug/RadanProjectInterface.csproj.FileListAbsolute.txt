@@ -1,0 +1,11 @@
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\obj\Debug\RadanProjectInterface.csprojAssemblyReference.cache
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\obj\Debug\RadanProjectInterface.csproj.CoreCompileInputs.cache
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\RadanProjectInterface.dll
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\RadanProjectInterface.pdb
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\RadanInterface2.dll
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\RadanProject.dll
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\RadanInterface2.pdb
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\RadanProject.pdb
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\obj\Debug\RadanProjectInterface.csproj.CopyComplete
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\obj\Debug\RadanProjectInterface.dll
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\obj\Debug\RadanProjectInterface.pdb

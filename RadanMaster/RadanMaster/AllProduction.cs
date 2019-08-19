@@ -23,6 +23,11 @@ using System.Data.Entity;
 using DevExpress.XtraPrinting;
 using System.Threading;
 using DevExpress.XtraBars.Ribbon;
+using DevExpress.Utils.Menu;
+using RadanProjectInterface;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Base;
+using RadanInterface2;
 
 namespace RadanMaster
 {
@@ -30,13 +35,17 @@ namespace RadanMaster
     {
         RefreshHelper helper;
         Models.User currentUser { get; set; }
+        RadanProjectInterface.RadanProjectInterface radProjInterface { get; set; }
+        RadanInterface RadInterface { get; set; }
         
 
         public AllProduction(Models.User curUser)
         {
             InitializeComponent();
             currentUser = curUser;
-            
+            radProjInterface = new RadanProjectInterface.RadanProjectInterface((string)AppSettings.AppSettings.Get("SymFilePath"));
+
+            setupView(ribbon.SelectedPage.Text);
         }
 
         private void AllProduction_Load(object sender, EventArgs e)
@@ -73,6 +82,7 @@ namespace RadanMaster
                                                           IsComplete = orderitem.Order.IsComplete,
                                                           IsBatch = orderitem.Order.IsBatch,
                                                           PlantID = orderitem.Part.PlantID,
+                                                          Thumbnail = orderitem.Part.Thumbnail,
                                                           item = orderitem,
                                                       };
 
@@ -89,7 +99,9 @@ namespace RadanMaster
             helper = new RefreshHelper(gridViewAllProduction, "ID", "AllProductionGridExpansion.xml");
             helper.LoadViewInfo();
 
-            //entityServerModeSource2.Reload();
+
+            setupView(ribbon.SelectedPage.Text);
+
             gridViewAllProduction.RefreshData();
 
         }
@@ -300,15 +312,113 @@ namespace RadanMaster
 
         private void ribbon_SelectedPageChanging(object sender, DevExpress.XtraBars.Ribbon.RibbonPageChangingEventArgs e)
         {
-            if (e.Page.Text == "Nesting")
+            setupView(e.Page.Text);
+        }
+
+        void setupView(string ribbonTitle)
+        {
+            ViewColumnFilterInfo viewFilterInfo = new ViewColumnFilterInfo(gridViewAllProduction.Columns["Name"],
+                new ColumnFilterInfo("[Name] = 'Laser'",""));
+
+            if (ribbonTitle == "Nesting")
             {
+                gridViewAllProduction.Columns["Name"].ClearFilter();
                 gridViewAllProduction.Columns.ColumnByFieldName("Thumbnail").Visible = true;
+                gridViewAllProduction.RowHeight = 80;
+                gridViewAllProduction.ActiveFilter.Add(viewFilterInfo);
+
+                string radanProjectName = (string)AppSettings.AppSettings.Get("RadanProjectPathAndFile");
+
+
+                txtBoxRadanProjectBrowse.EditValue = radanProjectName;
+
+                radProjInterface.SetSymFolder((string)AppSettings.AppSettings.Get("SymFilePath"));
+
+
+                RadInterface = new RadanInterface();
+                if (RadInterface.Initialize())
+                {
+                    toolStripStatusLabel.Text = "Connected to Radan";
+                }
+                else
+                {
+                    toolStripStatusLabel.Text = "Could not connect to Radan";
+                }
             }
             else
             {
                 gridViewAllProduction.Columns.ColumnByFieldName("Thumbnail").Visible = false;
+                gridViewAllProduction.RowHeight = -1;
+                gridViewAllProduction.Columns["Name"].ClearFilter();
+
+                toolStripStatusLabel.Text = "All Production";
+            }
+
+            gridViewAllProduction.RefreshData();
+            entityServerModeSource2.Reload();
+        }
+
+        private void gridViewItems_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
+        {
+            GridView view = sender as GridView;
+            if (e.MenuType == DevExpress.XtraGrid.Views.Grid.GridMenuType.Row)
+            {
+                List<int> selectedItemHandles = new List<int>();
+                selectedItemHandles = gridViewAllProduction.GetSelectedRows().ToList();
+
+                List<OrderItem> selectedItems = new List<OrderItem>();
+
+                foreach (int handle in selectedItemHandles)
+                {
+                    DisplayItemWrapper wrapper = (DisplayItemWrapper)gridViewAllProduction.GetRow(handle);
+                    selectedItems.Add((OrderItem) wrapper.item);
+                }
+
+                e.Menu.Items.Clear();
+                DXMenuItem updateItem = new DXMenuItem("Update Thumbnail", OnUpdateThumbnailClick);
+                updateItem.Tag = selectedItems;
+                e.Menu.Items.Add(updateItem);
+
+                //DXMenuItem convertItem = new DXMenuItem("Retrieve From Vault", OnRetrieveFromVaultClick);
+                //convertItem.Tag = selectedItems;
+                //e.Menu.Items.Add(convertItem);
             }
         }
+
+        void OnUpdateThumbnailClick(object sender, EventArgs e)
+        {
+            {
+                DXMenuItem menuItem = sender as DXMenuItem;
+
+                List<OrderItem> selectedItems = (List<OrderItem>)menuItem.Tag;
+
+                foreach (OrderItem item in selectedItems)
+                {
+
+                    item.Part.Thumbnail = radProjInterface.updateThumbnail(item.Part.FileName);
+
+                }
+
+                Globals.dbContext.SaveChanges();
+               
+                gridViewAllProduction.RefreshData();
+                entityServerModeSource2.Reload();
+            }
+        }
+
+        private void barButtonConnectToRadan_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (RadInterface.Initialize())
+            {
+                toolStripStatusLabel.Text = "Connected to Radan";
+            }
+            else
+            {
+                toolStripStatusLabel.Text = "Could not connect to Radan";
+            }
+        }
+
+        
     }
 
 }
