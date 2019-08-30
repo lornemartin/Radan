@@ -14,3 +14,6 @@ C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\Ra
 C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\ProductionMasterModel.pdb
 C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\ProductionMasterModel.dll.config
 C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\EntityFramework.xml
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\RadanProjectInterface.dll.config
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\lorne\source\repos\Radan\RadanProjectInterface\RadanProjectInterface\RadanProjectInterface\bin\Debug\EntityFramework.SqlServer.xml

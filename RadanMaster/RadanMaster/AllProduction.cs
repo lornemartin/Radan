@@ -467,7 +467,32 @@ namespace RadanMaster
 
                 SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
 
-                List<OrderItem> selectedOrderItems = null
+                List<OrderItem> selectedOrderItems = new List<OrderItem>();
+
+                Int32[] selectedRowHandles = gridViewAllProduction.GetSelectedRows();
+                for (int i = 0; i < selectedRowHandles.Length; i++)
+                {
+                    int selectedRowHandle = selectedRowHandles[i];
+                    if (selectedRowHandle >= 0)
+                    
+                    {
+                        
+                        DisplayItemWrapper dItem = (DisplayItemWrapper) gridViewAllProduction.GetRow(selectedRowHandle);
+
+                        OrderItem orderItem = Globals.dbContext.OrderItems.Where(oi => oi.Part.FileName == dItem.ProductName)
+                                                                  .Where(oi => oi.Order.OrderNumber == dItem.OrderNumber)
+                                                                  .Where(oi => oi.Order.BatchName == dItem.BatchName)
+                                                                  .Where(oi => oi.Order.ScheduleName == dItem.ScheduleName).FirstOrDefault();
+                        selectedOrderItems.Add(orderItem);
+
+                    }
+                }
+
+                radProjInterface.SendItemsToRadan(selectedOrderItems, txtBoxRadanProjectBrowse.EditValue.ToString());
+
+                SplashScreenManager.HideImage();
+            }
+        }
 
 
                 

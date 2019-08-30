@@ -198,78 +198,70 @@ namespace RadanProjectInterface
 
         }
 
-        private bool SendItemsToRadan(List<OrderItem> orderItems)
+        public bool SendItemsToRadan(List<OrderItem> orderItems, string projectName)
         {
             try
             {
+                if (RadInterface.IsProjectReady())
                 {
-                    if (RadInterface.IsProjectReady())
+                    string errMsg = "";
+                    if (RadInterface.getOpenProjectName(ref errMsg) == RadanProjectName)
                     {
-                        string errMsg = "";
-                        if (RadInterface.getOpenProjectName(ref errMsg) == RadanProjectName)
+                        //SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+
+                        if (saveRadan())
                         {
-                            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+                            RPrj = new RadanProject();
+                            RPrj = RPrj.LoadData(RadanProjectName);
 
-                            if (saveRadan())
+                            foreach (OrderItem item in orderItems)
                             {
-                                rPrj = new RadanProject();
-                                rPrj = rPrj.LoadData(radanProjectName);
+                                string partName = item.ProductName;
 
-                                for (int i = 0; i < gridViewItems.DataRowCount; i++)
-                                {
-                                    if (gridViewItems.IsRowSelected(i))
+                                string orderNumber = item.Order.OrderNumber;
+
+                                string batchName = item.Order.BatchName;
+
+                                string schedName = item.Order.ScheduleName;
+
+
+                                OrderItem orderItem = DbContext.OrderItems.Where(oi => oi.Part.FileName == partName)
+                                                                          .Where(oi => oi.Order.OrderNumber == orderNumber)
+                                                                          .Where(oi => oi.Order.BatchName == batchName)
+                                                                          .Where(oi => oi.Order.ScheduleName == schedName).FirstOrDefault();
+                                if (orderItem != null)
+                                    if (!masterItemToRadanPart(orderItem))
                                     {
-
-                                        string partName = gridViewItems.GetRowCellValue(i, "Part.FileName").ToString();
-                                        string orderNumber = "";
-                                        if (gridViewItems.GetRowCellValue(i, "Order.OrderNumber") != null)
-                                            orderNumber = gridViewItems.GetRowCellValue(i, "Order.OrderNumber").ToString();
-                                        string batchName = "";
-                                        if (gridViewItems.GetRowCellValue(i, "Order.BatchName") != null)
-                                            batchName = gridViewItems.GetRowCellValue(i, "Order.BatchName").ToString();
-                                        string schedName = null;
-                                        if (gridViewItems.GetRowCellValue(i, "Order.ScheduleName") != null)
-                                            schedName = gridViewItems.GetRowCellValue(i, "Order.ScheduleName").ToString();
-
-                                        OrderItem orderItem = dbContext.OrderItems.Where(oi => oi.Part.FileName == partName)
-                                                                                  .Where(oi => oi.Order.OrderNumber == orderNumber)
-                                                                                  .Where(oi => oi.Order.BatchName == batchName)
-                                                                                  .Where(oi => oi.Order.ScheduleName == schedName).FirstOrDefault();
-                                        if (orderItem != null)
-                                            if (!masterItemToRadanPart(orderItem))
-                                            {
-                                                MessageBox.Show("There are more than 500 items in the radan project, not all items have been entered into the project");
-                                                break;
-                                            }
+                                        MessageBox.Show("There are more than 500 items in the radan project, not all items have been entered into the project");
+                                        break;
                                     }
-                                }
-
                             }
 
-                            // need to open current project here...
-                            string errMessage = "";
-                            string prjName = radInterface.getOpenProjectName(ref errMessage);
-                            radInterface.LoadProject(prjName);
-
-                            string path = barEditRadanProject.EditValue.ToString();
-                            rPrj.SaveData(path);
-
-                            gridViewItems.RefreshData();
-
-                            SplashScreenManager.HideImage();
                         }
-                        else
-                        {
-                            MessageBox.Show("The Radan project that is open does not match the project in RadanMaster.");
-                        }
+
+                        // need to open current project here...
+                        string errMessage = "";
+                        string prjName = RadInterface.getOpenProjectName(ref errMessage);
+                        RadInterface.LoadProject(prjName);
+
+                        RPrj.SaveData(projectName);
+
+                        //gridViewItems.RefreshData();
+
+                        //SplashScreenManager.HideImage();
                     }
                     else
                     {
-                        MessageBox.Show("Radan Is Not Ready");
+                        MessageBox.Show("The Radan project that is open does not match the project in RadanMaster.");
                     }
-                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Radan Is Not Ready");
+                }
+                return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -394,7 +386,7 @@ namespace RadanProjectInterface
 
                 foreach (OrderItem item in selectedItems)
                 {
-                    RadanPart rPart = GetPartFromRadanProject(rPrj, item.Part.FileName, item.RadanIDNumber);
+                    RadanPart rPart = GetPartFromRadanProject(RPrj, item.Part.FileName, item.RadanIDNumber);
                     if (rPart != null)
                     {
                         if (rPart.Made == 0)
