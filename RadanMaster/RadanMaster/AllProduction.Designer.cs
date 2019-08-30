@@ -29,22 +29,23 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AllProduction));
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject13 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject15 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject16 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions5 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject17 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject18 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject19 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject20 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions6 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject21 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject22 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject23 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject24 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager = new DevExpress.XtraSplashScreen.SplashScreenManager(this, null, true, true);
             this.colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemImageComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
@@ -54,11 +55,23 @@
             this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonGroup1 = new DevExpress.XtraBars.BarButtonGroup();
+            this.txtBoxRadanProjectBrowse = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.barButtonRadanProjectBrowse = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonSendSelection = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonRetrieveSelection = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonUpdateFromRadan = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonNewRadanProject = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemRetreiveAll = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonConnectToRadan = new DevExpress.XtraBars.BarButtonItem();
+            this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageNesting = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.gridControlAllProduction = new DevExpress.XtraGrid.GridControl();
             this.entityServerModeSource2 = new DevExpress.Data.Linq.EntityServerModeSource();
             this.gridViewAllProduction = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -87,23 +100,12 @@
             this.popupContainerControlAllProduction = new DevExpress.XtraEditors.PopupContainerControl();
             this.pdfViewerAllProduction = new DevExpress.XtraPdfViewer.PdfViewer();
             this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
-            this.barButtonGroup1 = new DevExpress.XtraBars.BarButtonGroup();
-            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.txtBoxRadanProjectBrowse = new DevExpress.XtraBars.BarEditItem();
-            this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
-            this.barButtonRadanProjectBrowse = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonSendSelection = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonRetrieveSelection = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonUpdateFromRadan = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonNewRadanProject = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItemRetreiveAll = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonConnectToRadan = new DevExpress.XtraBars.BarButtonItem();
-            this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlAllProduction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entityServerModeSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewAllProduction)).BeginInit();
@@ -113,7 +115,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.popupContainerControlAllProduction)).BeginInit();
             this.popupContainerControlAllProduction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,13 +132,13 @@
             // 
             this.repositoryItemImageComboBox1.AllowDropDownWhenReadOnly = DevExpress.Utils.DefaultBoolean.True;
             this.repositoryItemImageComboBox1.AutoHeight = false;
-            editorButtonImageOptions4.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions4.Image")));
-            editorButtonImageOptions5.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions5.Image")));
-            editorButtonImageOptions6.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions6.Image")));
+            editorButtonImageOptions1.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions1.Image")));
+            editorButtonImageOptions2.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions2.Image")));
+            editorButtonImageOptions3.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions3.Image")));
             this.repositoryItemImageComboBox1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Product", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", "Product", null, DevExpress.Utils.ToolTipAnchor.Default),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Assembly", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject17, serializableAppearanceObject18, serializableAppearanceObject19, serializableAppearanceObject20, "", "Assembly", null, DevExpress.Utils.ToolTipAnchor.Default),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Part", -1, true, true, false, editorButtonImageOptions6, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject21, serializableAppearanceObject22, serializableAppearanceObject23, serializableAppearanceObject24, "", "Part", null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Product", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", "Product", null, DevExpress.Utils.ToolTipAnchor.Default),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Assembly", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", "Assembly", null, DevExpress.Utils.ToolTipAnchor.Default),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Part", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", "Part", null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.repositoryItemImageComboBox1.Items.AddRange(new DevExpress.XtraEditors.Controls.ImageComboBoxItem[] {
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Assembly", "Assembly", 1),
             new DevExpress.XtraEditors.Controls.ImageComboBoxItem("Part", "Part", 2),
@@ -221,6 +222,87 @@
             this.barButtonItem5.Name = "barButtonItem5";
             this.barButtonItem5.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem5_ItemClick);
             // 
+            // barButtonGroup1
+            // 
+            this.barButtonGroup1.Caption = "barButtonGroup1";
+            this.barButtonGroup1.Id = 7;
+            this.barButtonGroup1.Name = "barButtonGroup1";
+            // 
+            // txtBoxRadanProjectBrowse
+            // 
+            this.txtBoxRadanProjectBrowse.Caption = "Radan Project";
+            this.txtBoxRadanProjectBrowse.Edit = this.repositoryItemTextEdit1;
+            this.txtBoxRadanProjectBrowse.EditWidth = 300;
+            this.txtBoxRadanProjectBrowse.Id = 9;
+            this.txtBoxRadanProjectBrowse.Name = "txtBoxRadanProjectBrowse";
+            // 
+            // repositoryItemTextEdit1
+            // 
+            this.repositoryItemTextEdit1.AutoHeight = false;
+            this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
+            // 
+            // barButtonRadanProjectBrowse
+            // 
+            this.barButtonRadanProjectBrowse.Caption = "Browse";
+            this.barButtonRadanProjectBrowse.Id = 10;
+            this.barButtonRadanProjectBrowse.Name = "barButtonRadanProjectBrowse";
+            // 
+            // barButtonSendSelection
+            // 
+            this.barButtonSendSelection.Caption = "Send Selection";
+            this.barButtonSendSelection.Id = 11;
+            this.barButtonSendSelection.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSendSelection.ImageOptions.Image")));
+            this.barButtonSendSelection.Name = "barButtonSendSelection";
+            this.barButtonSendSelection.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonSendSelection.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonSendSelection_ItemClick);
+            // 
+            // barButtonRetrieveSelection
+            // 
+            this.barButtonRetrieveSelection.Caption = "Retrieve Selection";
+            this.barButtonRetrieveSelection.Id = 12;
+            this.barButtonRetrieveSelection.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonRetrieveSelection.ImageOptions.Image")));
+            this.barButtonRetrieveSelection.Name = "barButtonRetrieveSelection";
+            this.barButtonRetrieveSelection.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            // 
+            // barButtonUpdateFromRadan
+            // 
+            this.barButtonUpdateFromRadan.Caption = "Update From Radan";
+            this.barButtonUpdateFromRadan.Id = 13;
+            this.barButtonUpdateFromRadan.ImageOptions.Image = global::RadanMaster.Properties.Resources.refreshallpivottable_32x32;
+            this.barButtonUpdateFromRadan.Name = "barButtonUpdateFromRadan";
+            this.barButtonUpdateFromRadan.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            // 
+            // barButtonNewRadanProject
+            // 
+            this.barButtonNewRadanProject.Caption = "New Radan Project";
+            this.barButtonNewRadanProject.Id = 14;
+            this.barButtonNewRadanProject.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonNewRadanProject.ImageOptions.Image")));
+            this.barButtonNewRadanProject.Name = "barButtonNewRadanProject";
+            this.barButtonNewRadanProject.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            // 
+            // barButtonItemRetreiveAll
+            // 
+            this.barButtonItemRetreiveAll.Caption = "Retrieve All";
+            this.barButtonItemRetreiveAll.Id = 15;
+            this.barButtonItemRetreiveAll.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItemRetreiveAll.ImageOptions.Image")));
+            this.barButtonItemRetreiveAll.Name = "barButtonItemRetreiveAll";
+            this.barButtonItemRetreiveAll.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            // 
+            // barButtonConnectToRadan
+            // 
+            this.barButtonConnectToRadan.Caption = "Connect To Radan";
+            this.barButtonConnectToRadan.Id = 16;
+            this.barButtonConnectToRadan.ImageOptions.Image = global::RadanMaster.Properties.Resources.radan;
+            this.barButtonConnectToRadan.Name = "barButtonConnectToRadan";
+            this.barButtonConnectToRadan.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonConnectToRadan.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonConnectToRadan_ItemClick);
+            // 
+            // barStaticItem1
+            // 
+            this.barStaticItem1.Caption = "barStaticItem1";
+            this.barStaticItem1.Id = 17;
+            this.barStaticItem1.Name = "barStaticItem1";
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -256,6 +338,20 @@
             // 
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.Text = "ribbonPageGroup3";
+            // 
+            // ribbonPageGroup4
+            // 
+            this.ribbonPageGroup4.ItemLinks.Add(this.txtBoxRadanProjectBrowse);
+            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonRadanProjectBrowse);
+            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonSendSelection);
+            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonRetrieveSelection);
+            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonUpdateFromRadan);
+            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonNewRadanProject);
+            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonItemRetreiveAll);
+            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonConnectToRadan);
+            this.ribbonPageGroup4.ItemsLayout = DevExpress.XtraBars.Ribbon.RibbonPageGroupItemsLayout.OneRow;
+            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
+            this.ribbonPageGroup4.Text = "ribbonPageGroup4";
             // 
             // gridControlAllProduction
             // 
@@ -320,7 +416,10 @@
             this.gridViewAllProduction.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colID, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.gridViewAllProduction.PopupMenuShowing += new DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventHandler(this.gridViewItems_PopupMenuShowing);
+            this.gridViewAllProduction.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridViewAllProduction_RowDeleted);
+            this.gridViewAllProduction.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gridViewAllProduction_RowUpdated);
             this.gridViewAllProduction.PrintInitialize += new DevExpress.XtraGrid.Views.Base.PrintInitializeEventHandler(this.gridViewAllProduction_PrintInitialize);
+            this.gridViewAllProduction.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridViewAllProduction_KeyDown);
             this.gridViewAllProduction.DoubleClick += new System.EventHandler(this.gridViewAllProduction_DoubleClick);
             // 
             // colID
@@ -539,100 +638,6 @@
             this.pdfViewerAllProduction.Size = new System.Drawing.Size(494, 451);
             this.pdfViewerAllProduction.TabIndex = 0;
             // 
-            // barButtonGroup1
-            // 
-            this.barButtonGroup1.Caption = "barButtonGroup1";
-            this.barButtonGroup1.Id = 7;
-            this.barButtonGroup1.Name = "barButtonGroup1";
-            // 
-            // ribbonPageGroup4
-            // 
-            this.ribbonPageGroup4.ItemLinks.Add(this.txtBoxRadanProjectBrowse);
-            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonRadanProjectBrowse);
-            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonSendSelection);
-            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonRetrieveSelection);
-            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonUpdateFromRadan);
-            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonNewRadanProject);
-            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonItemRetreiveAll);
-            this.ribbonPageGroup4.ItemLinks.Add(this.barButtonConnectToRadan);
-            this.ribbonPageGroup4.ItemsLayout = DevExpress.XtraBars.Ribbon.RibbonPageGroupItemsLayout.OneRow;
-            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
-            this.ribbonPageGroup4.Text = "ribbonPageGroup4";
-            // 
-            // txtBoxRadanProjectBrowse
-            // 
-            this.txtBoxRadanProjectBrowse.Caption = "Radan Project";
-            this.txtBoxRadanProjectBrowse.Edit = this.repositoryItemTextEdit1;
-            this.txtBoxRadanProjectBrowse.EditWidth = 300;
-            this.txtBoxRadanProjectBrowse.Id = 9;
-            this.txtBoxRadanProjectBrowse.Name = "txtBoxRadanProjectBrowse";
-            // 
-            // repositoryItemTextEdit1
-            // 
-            this.repositoryItemTextEdit1.AutoHeight = false;
-            this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
-            // 
-            // barButtonRadanProjectBrowse
-            // 
-            this.barButtonRadanProjectBrowse.Caption = "Browse";
-            this.barButtonRadanProjectBrowse.Id = 10;
-            this.barButtonRadanProjectBrowse.Name = "barButtonRadanProjectBrowse";
-            // 
-            // barButtonSendSelection
-            // 
-            this.barButtonSendSelection.Caption = "Send Selection";
-            this.barButtonSendSelection.Id = 11;
-            this.barButtonSendSelection.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSendSelection.ImageOptions.Image")));
-            this.barButtonSendSelection.Name = "barButtonSendSelection";
-            this.barButtonSendSelection.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            // 
-            // barButtonRetrieveSelection
-            // 
-            this.barButtonRetrieveSelection.Caption = "Retrieve Selection";
-            this.barButtonRetrieveSelection.Id = 12;
-            this.barButtonRetrieveSelection.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonRetrieveSelection.ImageOptions.Image")));
-            this.barButtonRetrieveSelection.Name = "barButtonRetrieveSelection";
-            this.barButtonRetrieveSelection.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            // 
-            // barButtonUpdateFromRadan
-            // 
-            this.barButtonUpdateFromRadan.Caption = "Update From Radan";
-            this.barButtonUpdateFromRadan.Id = 13;
-            this.barButtonUpdateFromRadan.ImageOptions.Image = global::RadanMaster.Properties.Resources.refreshallpivottable_32x32;
-            this.barButtonUpdateFromRadan.Name = "barButtonUpdateFromRadan";
-            this.barButtonUpdateFromRadan.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            // 
-            // barButtonNewRadanProject
-            // 
-            this.barButtonNewRadanProject.Caption = "New Radan Project";
-            this.barButtonNewRadanProject.Id = 14;
-            this.barButtonNewRadanProject.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonNewRadanProject.ImageOptions.Image")));
-            this.barButtonNewRadanProject.Name = "barButtonNewRadanProject";
-            this.barButtonNewRadanProject.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            // 
-            // barButtonItemRetreiveAll
-            // 
-            this.barButtonItemRetreiveAll.Caption = "Retrieve All";
-            this.barButtonItemRetreiveAll.Id = 15;
-            this.barButtonItemRetreiveAll.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItemRetreiveAll.ImageOptions.Image")));
-            this.barButtonItemRetreiveAll.Name = "barButtonItemRetreiveAll";
-            this.barButtonItemRetreiveAll.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            // 
-            // barButtonConnectToRadan
-            // 
-            this.barButtonConnectToRadan.Caption = "Connect To Radan";
-            this.barButtonConnectToRadan.Id = 16;
-            this.barButtonConnectToRadan.ImageOptions.Image = global::RadanMaster.Properties.Resources.radan;
-            this.barButtonConnectToRadan.Name = "barButtonConnectToRadan";
-            this.barButtonConnectToRadan.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            this.barButtonConnectToRadan.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonConnectToRadan_ItemClick);
-            // 
-            // barStaticItem1
-            // 
-            this.barStaticItem1.Caption = "barStaticItem1";
-            this.barStaticItem1.Id = 17;
-            this.barStaticItem1.Name = "barStaticItem1";
-            // 
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -649,6 +654,10 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(86, 22);
             this.toolStripStatusLabel.Text = "toolStripLabel1";
+            // 
+            // splashScreenManager
+            // 
+            splashScreenManager.ClosingDelay = 500;
             // 
             // AllProduction
             // 
@@ -668,6 +677,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlAllProduction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entityServerModeSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewAllProduction)).EndInit();
@@ -677,7 +687,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.popupContainerControlAllProduction)).EndInit();
             this.popupContainerControlAllProduction.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

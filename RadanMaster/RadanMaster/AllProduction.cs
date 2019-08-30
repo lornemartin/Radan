@@ -29,6 +29,7 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using RadanInterface2;
 using ProductionMasterModel;
+using DevExpress.XtraSplashScreen;
 
 namespace RadanMaster
 {
@@ -44,7 +45,7 @@ namespace RadanMaster
         {
             InitializeComponent();
             currentUser = curUser;
-            radProjInterface = new RadanProjectInterface.RadanProjectInterface((string)AppSettings.AppSettings.Get("SymFilePath"));
+            radProjInterface = new RadanProjectInterface.RadanProjectInterface((string)AppSettings.AppSettings.Get("SymFilePath"),Globals.dbContext);
 
             setupView(ribbon.SelectedPage.Text);
         }
@@ -419,7 +420,57 @@ namespace RadanMaster
             }
         }
 
-        
+        private void gridViewAllProduction_RowUpdated(object sender, RowObjectEventArgs e)
+        {
+            Globals.dbContext.SaveChanges();
+        }
+
+        private void gridViewAllProduction_RowDeleted(object sender, DevExpress.Data.RowDeletedEventArgs e)
+        {
+            Globals.dbContext.SaveChanges();
+        }
+
+        private void gridViewAllProduction_KeyDown(object sender, KeyEventArgs e)
+        {
+            {
+                bool canDelete = true;
+                if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control)
+                {
+                    GridView view = sender as GridView;
+                    int numRows = view.SelectedRowsCount;
+                    if (MessageBox.Show("Delete " + numRows + " row(s)?", "Confirmation", MessageBoxButtons.YesNo) !=
+                      DialogResult.Yes)
+                        return;
+
+                    List<int> rowHandleList = view.GetSelectedRows().ToList();
+                    foreach (int rowHandle in rowHandleList)
+                    {
+                        object o = view.GetRow(rowHandle);
+                        OrderItem itemToDelete = (OrderItem)o;
+                        if (itemToDelete.IsInProject == true)
+                        {
+                            MessageBox.Show("Cannot delete items that are currently in a Radan project.  Please change your selection and try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            canDelete = false;
+                            break;
+                        }
+                    }
+
+                    if (canDelete)
+                        view.DeleteSelectedRows();
+                }
+            }
+        }
+
+        private void barButtonSendSelection_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            {
+
+                SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+
+                List<OrderItem> selectedOrderItems = null
+
+
+                
     }
 
 }
