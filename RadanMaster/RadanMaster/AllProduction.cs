@@ -88,6 +88,15 @@ namespace RadanMaster
                                                           item = orderitem,
                                                       };
 
+            // load all symbols for laser parts that don't have any...
+            List<Part> partsWithoutSymbols = new List<Part>();
+            partsWithoutSymbols = Globals.dbContext.Parts.Where(p => p.Operations.FirstOrDefault().Name == "Laser")
+                                                         .Where(p => p.Thumbnail == null).ToList();
+            foreach(Part p in partsWithoutSymbols)
+            {
+                p.Thumbnail = radProjInterface.updateThumbnail(p.FileName);
+            }
+            Globals.dbContext.SaveChanges();
 
             // load grid layout from file
             string SettingsFilePath = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)) + @"\RadanMaster\AllProductionGridLayout.xml";
