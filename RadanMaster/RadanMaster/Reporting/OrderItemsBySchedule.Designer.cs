@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             DevExpress.DataAccess.Sql.SelectQuery selectQuery1 = new DevExpress.DataAccess.Sql.SelectQuery();
             DevExpress.DataAccess.Sql.Column column1 = new DevExpress.DataAccess.Sql.Column();
             DevExpress.DataAccess.Sql.ColumnExpression columnExpression1 = new DevExpress.DataAccess.Sql.ColumnExpression();
@@ -134,9 +135,9 @@
             DevExpress.DataAccess.Sql.MasterDetailInfo masterDetailInfo3 = new DevExpress.DataAccess.Sql.MasterDetailInfo();
             DevExpress.DataAccess.Sql.RelationColumnInfo relationColumnInfo4 = new DevExpress.DataAccess.Sql.RelationColumnInfo();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderItemsBySchedule));
-            DevExpress.XtraReports.Parameters.DynamicListLookUpSettings dynamicListLookUpSettings1 = new DevExpress.XtraReports.Parameters.DynamicListLookUpSettings();
             DevExpress.DataAccess.EntityFramework.EFConnectionParameters efConnectionParameters1 = new DevExpress.DataAccess.EntityFramework.EFConnectionParameters();
-            this.sqlDataSource1 = new DevExpress.DataAccess.Sql.SqlDataSource();
+            DevExpress.XtraReports.Parameters.DynamicListLookUpSettings dynamicListLookUpSettings1 = new DevExpress.XtraReports.Parameters.DynamicListLookUpSettings();
+            this.sqlDataSource1 = new DevExpress.DataAccess.Sql.SqlDataSource(this.components);
             this.Title = new DevExpress.XtraReports.UI.XRControlStyle();
             this.GroupCaption1 = new DevExpress.XtraReports.UI.XRControlStyle();
             this.GroupData1 = new DevExpress.XtraReports.UI.XRControlStyle();
@@ -229,8 +230,8 @@
             this.xrPageBreak1 = new DevExpress.XtraReports.UI.XRPageBreak();
             this.xrPageBreak2 = new DevExpress.XtraReports.UI.XRPageBreak();
             this.xrPictureBox2 = new DevExpress.XtraReports.UI.XRPictureBox();
+            this.efDataSource1 = new DevExpress.DataAccess.EntityFramework.EFDataSource(this.components);
             this.ScheduleName = new DevExpress.XtraReports.Parameters.Parameter();
-            this.efDataSource1 = new DevExpress.DataAccess.EntityFramework.EFDataSource();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table3)).BeginInit();
@@ -241,7 +242,7 @@
             // 
             // sqlDataSource1
             // 
-            this.sqlDataSource1.ConnectionName = "RadanMasterContext";
+            this.sqlDataSource1.ConnectionName = "ProductionMasterModel";
             this.sqlDataSource1.Name = "sqlDataSource1";
             columnExpression1.ColumnName = "FileId";
             table6.Name = "Files";
@@ -903,7 +904,7 @@
             this.DetailReport.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
             this.Detail1,
             this.DetailReport1});
-            this.DetailReport.DataSource = this.efDataSource1;
+            this.DetailReport.DataSource = this.sqlDataSource1;
             this.DetailReport.Level = 0;
             this.DetailReport.Name = "DetailReport";
             // 
@@ -1005,7 +1006,7 @@
             this.DetailReport1.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
             this.Detail2,
             this.DetailReport2});
-            this.DetailReport1.DataSource = this.efDataSource1;
+            this.DetailReport1.DataSource = this.sqlDataSource1;
             this.DetailReport1.Level = 0;
             this.DetailReport1.Name = "DetailReport1";
             // 
@@ -1298,7 +1299,7 @@
             this.DetailReport2.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
             this.GroupHeader3,
             this.Detail3});
-            this.DetailReport2.DataSource = this.efDataSource1;
+            this.DetailReport2.DataSource = this.sqlDataSource1;
             this.DetailReport2.Level = 0;
             this.DetailReport2.Name = "DetailReport2";
             // 
@@ -1361,6 +1362,13 @@
             this.xrPictureBox2.SizeF = new System.Drawing.SizeF(650F, 775F);
             this.xrPictureBox2.Sizing = DevExpress.XtraPrinting.ImageSizeMode.ZoomImage;
             // 
+            // efDataSource1
+            // 
+            efConnectionParameters1.ConnectionStringName = "hwengwk02\\sqlexpress.RadanMaster5.dbo";
+            efConnectionParameters1.Source = typeof(ProductionMasterModel.ProductionMasterModel);
+            this.efDataSource1.ConnectionParameters = efConnectionParameters1;
+            this.efDataSource1.Name = "efDataSource1";
+            // 
             // ScheduleName
             // 
             this.ScheduleName.Description = "the name of the schedule to display";
@@ -1371,13 +1379,6 @@
             dynamicListLookUpSettings1.ValueMember = "ScheduleName";
             this.ScheduleName.LookUpSettings = dynamicListLookUpSettings1;
             this.ScheduleName.Name = "ScheduleName";
-            // 
-            // efDataSource1
-            // 
-            efConnectionParameters1.ConnectionStringName = "hwengwk02\\sqlexpress.RadanMaster5.dbo";
-            efConnectionParameters1.Source = typeof(ProductionMasterModel.ProductionMasterModel);
-            this.efDataSource1.ConnectionParameters = efConnectionParameters1;
-            this.efDataSource1.Name = "efDataSource1";
             // 
             // OrderItemsBySchedule
             // 
@@ -1393,7 +1394,7 @@
             this.sqlDataSource1,
             this.efDataSource1});
             this.DataMember = "Orders";
-            this.DataSource = this.efDataSource1;
+            this.DataSource = this.sqlDataSource1;
             this.FilterString = "[ScheduleName] = ?ScheduleName";
             this.Font = new System.Drawing.Font("Arial", 9.75F);
             this.Parameters.AddRange(new DevExpress.XtraReports.Parameters.Parameter[] {

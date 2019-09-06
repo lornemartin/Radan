@@ -301,18 +301,8 @@ namespace RadanMaster
         private void barButtonItem5_ItemClick(object sender, ItemClickEventArgs e)
         {
 
-            Privilege priv = new Privilege();
-            priv.buttonName = "button1";
-            priv.HasAccess = true;
-            Globals.dbContext.Privileges.Add(priv);
-
-            User usr1 = new User();
-            usr1.UserName = "Admin";
-            usr1.Privileges = new List<Privilege>();
-            usr1.Privileges.Add(priv);
-            Globals.dbContext.Users.Add(usr1);
-
-            Globals.dbContext.SaveChanges();
+            Reporting.XtraReport1 report = new Reporting.XtraReport1();
+            report.ShowPreview();
         }
 
         private void gridViewAllProduction_PrintInitialize(object sender, DevExpress.XtraGrid.Views.Base.PrintInitializeEventArgs e)

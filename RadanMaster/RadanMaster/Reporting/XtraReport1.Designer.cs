@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             DevExpress.DataAccess.EntityFramework.EFConnectionParameters efConnectionParameters1 = new DevExpress.DataAccess.EntityFramework.EFConnectionParameters();
+            DevExpress.XtraReports.Parameters.DynamicListLookUpSettings dynamicListLookUpSettings1 = new DevExpress.XtraReports.Parameters.DynamicListLookUpSettings();
+            DevExpress.XtraReports.Parameters.DynamicListLookUpSettings dynamicListLookUpSettings2 = new DevExpress.XtraReports.Parameters.DynamicListLookUpSettings();
             this.efDataSource1 = new DevExpress.DataAccess.EntityFramework.EFDataSource(this.components);
             this.Title = new DevExpress.XtraReports.UI.XRControlStyle();
             this.DetailCaption1 = new DevExpress.XtraReports.UI.XRControlStyle();
@@ -80,6 +82,8 @@
             this.tableRow4 = new DevExpress.XtraReports.UI.XRTableRow();
             this.tableCell20 = new DevExpress.XtraReports.UI.XRTableCell();
             this.pictureBox1 = new DevExpress.XtraReports.UI.XRPictureBox();
+            this.ScheduleParameter = new DevExpress.XtraReports.Parameters.Parameter();
+            this.parameter1 = new DevExpress.XtraReports.Parameters.Parameter();
             ((System.ComponentModel.ISupportInitialize)(this.efDataSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table2)).BeginInit();
@@ -453,7 +457,7 @@
             // 
             this.Detail2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.table3});
-            this.Detail2.HeightF = 98.5F;
+            this.Detail2.HeightF = 330.4583F;
             this.Detail2.Name = "Detail2";
             // 
             // panel1
@@ -513,15 +517,35 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.AnchorHorizontal = ((DevExpress.XtraReports.UI.HorizontalAnchorStyles)((DevExpress.XtraReports.UI.HorizontalAnchorStyles.Left | DevExpress.XtraReports.UI.HorizontalAnchorStyles.Right)));
-            this.pictureBox1.AnchorVertical = ((DevExpress.XtraReports.UI.VerticalAnchorStyles)((DevExpress.XtraReports.UI.VerticalAnchorStyles.Top | DevExpress.XtraReports.UI.VerticalAnchorStyles.Bottom)));
             this.pictureBox1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "ImageSource", "[Content]")});
+            this.pictureBox1.ImageAlignment = DevExpress.XtraPrinting.ImageAlignment.MiddleCenter;
             this.pictureBox1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.SizeF = new System.Drawing.SizeF(650F, 88.50002F);
+            this.pictureBox1.SizeF = new System.Drawing.SizeF(378.125F, 320.4583F);
             this.pictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.ZoomImage;
             this.pictureBox1.BeforePrint += new System.Drawing.Printing.PrintEventHandler(this.pictureBox1_BeforePrint);
+            // 
+            // ScheduleParameter
+            // 
+            this.ScheduleParameter.Description = "Name of Schedule";
+            dynamicListLookUpSettings1.DataMember = "Orders";
+            dynamicListLookUpSettings1.DataSource = this.efDataSource1;
+            dynamicListLookUpSettings1.DisplayMember = "ScheduleName";
+            dynamicListLookUpSettings1.ValueMember = "ScheduleName";
+            this.ScheduleParameter.LookUpSettings = dynamicListLookUpSettings1;
+            this.ScheduleParameter.MultiValue = true;
+            this.ScheduleParameter.Name = "ScheduleParameter";
+            // 
+            // parameter1
+            // 
+            dynamicListLookUpSettings2.DataMember = "OrderItems";
+            dynamicListLookUpSettings2.DataSource = this.efDataSource1;
+            dynamicListLookUpSettings2.DisplayMember = "Order.OrderItems.ID";
+            this.parameter1.LookUpSettings = dynamicListLookUpSettings2;
+            this.parameter1.Name = "parameter1";
+            this.parameter1.Type = typeof(short);
+            this.parameter1.ValueInfo = "0";
             // 
             // XtraReport1
             // 
@@ -535,7 +559,11 @@
             this.efDataSource1});
             this.DataMember = "OrderItems";
             this.DataSource = this.efDataSource1;
+            this.FilterString = "Not IsNullOrEmpty([Order.ScheduleName])";
             this.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.Parameters.AddRange(new DevExpress.XtraReports.Parameters.Parameter[] {
+            this.ScheduleParameter,
+            this.parameter1});
             this.StyleSheet.AddRange(new DevExpress.XtraReports.UI.XRControlStyle[] {
             this.Title,
             this.DetailCaption1,
@@ -606,5 +634,7 @@
         private DevExpress.XtraReports.UI.XRTableRow tableRow4;
         private DevExpress.XtraReports.UI.XRTableCell tableCell20;
         private DevExpress.XtraReports.UI.XRPictureBox pictureBox1;
+        private DevExpress.XtraReports.Parameters.Parameter ScheduleParameter;
+        private DevExpress.XtraReports.Parameters.Parameter parameter1;
     }
 }
