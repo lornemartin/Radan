@@ -43,15 +43,13 @@
             this.PageInfo = new DevExpress.XtraReports.UI.XRControlStyle();
             this.TopMargin = new DevExpress.XtraReports.UI.TopMarginBand();
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
-            this.ReportHeader = new DevExpress.XtraReports.UI.ReportHeaderBand();
-            this.Detail = new DevExpress.XtraReports.UI.DetailBand();
-            this.DetailReport = new DevExpress.XtraReports.UI.DetailReportBand();
             this.pageInfo1 = new DevExpress.XtraReports.UI.XRPageInfo();
             this.pageInfo2 = new DevExpress.XtraReports.UI.XRPageInfo();
+            this.ReportHeader = new DevExpress.XtraReports.UI.ReportHeaderBand();
             this.label1 = new DevExpress.XtraReports.UI.XRLabel();
+            this.Detail = new DevExpress.XtraReports.UI.DetailBand();
             this.table1 = new DevExpress.XtraReports.UI.XRTable();
             this.tableRow1 = new DevExpress.XtraReports.UI.XRTableRow();
-            this.tableRow2 = new DevExpress.XtraReports.UI.XRTableRow();
             this.tableCell1 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell2 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell3 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -61,6 +59,7 @@
             this.tableCell7 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell8 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell9 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.tableRow2 = new DevExpress.XtraReports.UI.XRTableRow();
             this.tableCell10 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell11 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell12 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -70,14 +69,15 @@
             this.tableCell16 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell17 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell18 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.DetailReport = new DevExpress.XtraReports.UI.DetailReportBand();
             this.Detail1 = new DevExpress.XtraReports.UI.DetailBand();
             this.DetailReport1 = new DevExpress.XtraReports.UI.DetailReportBand();
             this.GroupHeader1 = new DevExpress.XtraReports.UI.GroupHeaderBand();
-            this.Detail2 = new DevExpress.XtraReports.UI.DetailBand();
             this.panel1 = new DevExpress.XtraReports.UI.XRPanel();
             this.table2 = new DevExpress.XtraReports.UI.XRTable();
             this.tableRow3 = new DevExpress.XtraReports.UI.XRTableRow();
             this.tableCell19 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.Detail2 = new DevExpress.XtraReports.UI.DetailBand();
             this.table3 = new DevExpress.XtraReports.UI.XRTable();
             this.tableRow4 = new DevExpress.XtraReports.UI.XRTableRow();
             this.tableCell20 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -189,31 +189,6 @@
             this.pageInfo2});
             this.BottomMargin.Name = "BottomMargin";
             // 
-            // ReportHeader
-            // 
-            this.ReportHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-            this.label1});
-            this.ReportHeader.HeightF = 60F;
-            this.ReportHeader.Name = "ReportHeader";
-            // 
-            // Detail
-            // 
-            this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-            this.table1});
-            this.Detail.HeightF = 56F;
-            this.Detail.KeepTogether = true;
-            this.Detail.Name = "Detail";
-            // 
-            // DetailReport
-            // 
-            this.DetailReport.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
-            this.Detail1,
-            this.DetailReport1});
-            this.DetailReport.DataMember = "OrderItems.OrderItemOperations";
-            this.DetailReport.DataSource = this.efDataSource1;
-            this.DetailReport.Level = 0;
-            this.DetailReport.Name = "DetailReport";
-            // 
             // pageInfo1
             // 
             this.pageInfo1.LocationFloat = new DevExpress.Utils.PointFloat(6F, 6F);
@@ -231,6 +206,13 @@
             this.pageInfo2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
             this.pageInfo2.TextFormatString = "Page {0} of {1}";
             // 
+            // ReportHeader
+            // 
+            this.ReportHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.label1});
+            this.ReportHeader.HeightF = 60F;
+            this.ReportHeader.Name = "ReportHeader";
+            // 
             // label1
             // 
             this.label1.LocationFloat = new DevExpress.Utils.PointFloat(6F, 6F);
@@ -238,6 +220,14 @@
             this.label1.SizeF = new System.Drawing.SizeF(638F, 24.19433F);
             this.label1.StyleName = "Title";
             this.label1.Text = "Report Title";
+            // 
+            // Detail
+            // 
+            this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.table1});
+            this.Detail.HeightF = 56F;
+            this.Detail.KeepTogether = true;
+            this.Detail.Name = "Detail";
             // 
             // table1
             // 
@@ -262,21 +252,6 @@
             this.tableCell9});
             this.tableRow1.Name = "tableRow1";
             this.tableRow1.Weight = 0.5D;
-            // 
-            // tableRow2
-            // 
-            this.tableRow2.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
-            this.tableCell10,
-            this.tableCell11,
-            this.tableCell12,
-            this.tableCell13,
-            this.tableCell14,
-            this.tableCell15,
-            this.tableCell16,
-            this.tableCell17,
-            this.tableCell18});
-            this.tableRow2.Name = "tableRow2";
-            this.tableRow2.Weight = 0.5D;
             // 
             // tableCell1
             // 
@@ -348,6 +323,21 @@
             this.tableCell9.StyleName = "DetailCaption1";
             this.tableCell9.Text = "Part Structural Code";
             this.tableCell9.Weight = 0.15422214214618391D;
+            // 
+            // tableRow2
+            // 
+            this.tableRow2.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+            this.tableCell10,
+            this.tableCell11,
+            this.tableCell12,
+            this.tableCell13,
+            this.tableCell14,
+            this.tableCell15,
+            this.tableCell16,
+            this.tableCell17,
+            this.tableCell18});
+            this.tableRow2.Name = "tableRow2";
+            this.tableRow2.Weight = 0.5D;
             // 
             // tableCell10
             // 
@@ -429,6 +419,16 @@
             this.tableCell18.StyleName = "DetailData1";
             this.tableCell18.Weight = 0.15422214214618391D;
             // 
+            // DetailReport
+            // 
+            this.DetailReport.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
+            this.Detail1,
+            this.DetailReport1});
+            this.DetailReport.DataMember = "OrderItems.OrderItemOperations";
+            this.DetailReport.DataSource = this.efDataSource1;
+            this.DetailReport.Level = 0;
+            this.DetailReport.Name = "DetailReport";
+            // 
             // Detail1
             // 
             this.Detail1.HeightF = 0F;
@@ -452,13 +452,6 @@
             this.GroupHeader1.GroupUnion = DevExpress.XtraReports.UI.GroupUnion.WithFirstDetail;
             this.GroupHeader1.HeightF = 48F;
             this.GroupHeader1.Name = "GroupHeader1";
-            // 
-            // Detail2
-            // 
-            this.Detail2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-            this.table3});
-            this.Detail2.HeightF = 330.4583F;
-            this.Detail2.Name = "Detail2";
             // 
             // panel1
             // 
@@ -490,6 +483,13 @@
             this.tableCell19.StyleName = "DetailCaption3";
             this.tableCell19.Text = "Content";
             this.tableCell19.Weight = 1D;
+            // 
+            // Detail2
+            // 
+            this.Detail2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.table3});
+            this.Detail2.HeightF = 330.4583F;
+            this.Detail2.Name = "Detail2";
             // 
             // table3
             // 
@@ -532,9 +532,10 @@
             dynamicListLookUpSettings1.DataMember = "Orders";
             dynamicListLookUpSettings1.DataSource = this.efDataSource1;
             dynamicListLookUpSettings1.DisplayMember = "ScheduleName";
+            dynamicListLookUpSettings1.SortMember = "ScheduleName";
+            dynamicListLookUpSettings1.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
             dynamicListLookUpSettings1.ValueMember = "ScheduleName";
             this.ScheduleParameter.LookUpSettings = dynamicListLookUpSettings1;
-            this.ScheduleParameter.MultiValue = true;
             this.ScheduleParameter.Name = "ScheduleParameter";
             // 
             // parameter1
@@ -542,6 +543,7 @@
             dynamicListLookUpSettings2.DataMember = "OrderItems";
             dynamicListLookUpSettings2.DataSource = this.efDataSource1;
             dynamicListLookUpSettings2.DisplayMember = "Order.OrderItems.ID";
+            dynamicListLookUpSettings2.ValueMember = "ID";
             this.parameter1.LookUpSettings = dynamicListLookUpSettings2;
             this.parameter1.Name = "parameter1";
             this.parameter1.Type = typeof(short);
@@ -559,7 +561,7 @@
             this.efDataSource1});
             this.DataMember = "OrderItems";
             this.DataSource = this.efDataSource1;
-            this.FilterString = "Not IsNullOrEmpty([Order.ScheduleName])";
+            this.FilterString = "[Order.ScheduleName] = ?ScheduleParameter";
             this.Font = new System.Drawing.Font("Arial", 9.75F);
             this.Parameters.AddRange(new DevExpress.XtraReports.Parameters.Parameter[] {
             this.ScheduleParameter,
@@ -634,7 +636,7 @@
         private DevExpress.XtraReports.UI.XRTableRow tableRow4;
         private DevExpress.XtraReports.UI.XRTableCell tableCell20;
         private DevExpress.XtraReports.UI.XRPictureBox pictureBox1;
-        private DevExpress.XtraReports.Parameters.Parameter ScheduleParameter;
         private DevExpress.XtraReports.Parameters.Parameter parameter1;
+        public DevExpress.XtraReports.Parameters.Parameter ScheduleParameter;
     }
 }

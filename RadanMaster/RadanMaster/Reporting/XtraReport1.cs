@@ -21,7 +21,11 @@ namespace RadanMaster.Reporting
             XRControl control = (XRControl)sender;
             try
             {
+                string s = (string)DetailReport.GetCurrentColumnValue("[Part.FileName]");
                 int orderItemID = (int)DetailReport.GetCurrentColumnValue("ID");
+                string qty = (string)DetailReport.GetCurrentColumnValue("QtyRequired");
+
+                var v = DetailReport.GetCurrentRow();
 
                 ProductionMasterModel.OrderItem oItem = new ProductionMasterModel.OrderItem();
                 oItem = Globals.dbContext.OrderItems.FirstOrDefault(o => o.ID == orderItemID);
@@ -65,12 +69,11 @@ namespace RadanMaster.Reporting
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return;
             }
 
         }
     }
-
 }
