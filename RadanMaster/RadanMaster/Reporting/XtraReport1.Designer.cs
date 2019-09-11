@@ -488,7 +488,7 @@
             // 
             this.Detail2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.table3});
-            this.Detail2.HeightF = 330.4583F;
+            this.Detail2.HeightF = 546.7916F;
             this.Detail2.Name = "Detail2";
             // 
             // table3
@@ -522,7 +522,7 @@
             this.pictureBox1.ImageAlignment = DevExpress.XtraPrinting.ImageAlignment.MiddleCenter;
             this.pictureBox1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.SizeF = new System.Drawing.SizeF(378.125F, 320.4583F);
+            this.pictureBox1.SizeF = new System.Drawing.SizeF(640F, 536.7916F);
             this.pictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.ZoomImage;
             this.pictureBox1.BeforePrint += new System.Drawing.Printing.PrintEventHandler(this.pictureBox1_BeforePrint);
             // 
@@ -561,7 +561,6 @@
             this.efDataSource1});
             this.DataMember = "OrderItems";
             this.DataSource = this.efDataSource1;
-            this.FilterString = "[Order.ScheduleName] = ?ScheduleParameter";
             this.Font = new System.Drawing.Font("Arial", 9.75F);
             this.Parameters.AddRange(new DevExpress.XtraReports.Parameters.Parameter[] {
             this.ScheduleParameter,

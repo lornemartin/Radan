@@ -14,6 +14,7 @@ namespace RadanMaster.Reporting
         public XtraReport1()
         {
             InitializeComponent();
+            this.FilterString = "[Order.ScheduleName] = ?ScheduleParameter";
         }
 
         private void pictureBox1_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
@@ -21,14 +22,11 @@ namespace RadanMaster.Reporting
             XRControl control = (XRControl)sender;
             try
             {
-                string s = (string)DetailReport.GetCurrentColumnValue("[Part.FileName]");
-                int orderItemID = (int)DetailReport.GetCurrentColumnValue("ID");
                 string qty = (string)DetailReport.GetCurrentColumnValue("QtyRequired");
 
                 var v = DetailReport.GetCurrentRow();
-
-                ProductionMasterModel.OrderItem oItem = new ProductionMasterModel.OrderItem();
-                oItem = Globals.dbContext.OrderItems.FirstOrDefault(o => o.ID == orderItemID);
+                System.Reflection.PropertyInfo pi = v.GetType().GetProperty("OrderItem");
+                ProductionMasterModel.OrderItem oItem = (ProductionMasterModel.OrderItem)(pi.GetValue(v, null));
 
                 int partID = oItem.PartID;
                 ProductionMasterModel.Part prt = new ProductionMasterModel.Part();
