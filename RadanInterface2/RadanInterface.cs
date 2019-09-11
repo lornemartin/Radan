@@ -14,6 +14,8 @@ namespace RadanInterface2
 {
     public class RadanInterface
     {
+        //private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType); 
+
         XNamespace symNameSpace = "http://www.radan.com/ns/rcd";
         const string MATERIAL_ATT_NUMBER = "119";
         const string THICKNESS_ATT_NUMBER = "120";
@@ -443,21 +445,36 @@ namespace RadanInterface2
             }
             try
             {
-                // get a handle to a brand new set of attributes
-                int newHandle = rApp.Mac.att_new(SymFilePath);
+                string folderName = System.IO.Path.GetDirectoryName(SymFilePath);
+                string debugName = Path.Combine(folderName, "debug.log");
+                using (StreamWriter writer = new StreamWriter(debugName))
+                {
+                    // get a handle to a brand new set of attributes
+                    int newHandle = rApp.Mac.att_new(SymFilePath);
+                    writer.WriteLine("newHandle = " + newHandle);
 
-                // get a handle to the existing attributes
-                int oldhandle = rApp.Mac.att_load(SymFilePath, false);
+                    // get a handle to the existing attributes
+                    int oldHandle = rApp.Mac.att_load(SymFilePath, false);
+                    writer.WriteLine("oldHandle = " + oldHandle);
 
-                bool success1 = rApp.Mac.att_set_value(newHandle, 119, MaterialName);
-                bool success2 = rApp.Mac.att_set_value(newHandle, 120, MaterialThickness);
-                bool success3 = rApp.Mac.att_set_value(newHandle, 121, unitType);
-                bool success4 = rApp.Mac.att_set_value(newHandle, 200, partDesc);
+                    bool success1 = rApp.Mac.att_set_value(newHandle, 119, MaterialName);
+                    writer.WriteLine("Material success = " + MaterialName + " " + success1);
 
-                // merge the new attributes with the old.
-                bool success5 = rApp.Mac.att_update_file(SymFilePath, newHandle, true);
+                    bool success2 = rApp.Mac.att_set_value(newHandle, 120, MaterialThickness);
+                    writer.WriteLine("Material Thickness success = " + MaterialThickness + " " + success2);
 
-                return success1 && success2 && success3 && success3 && success4 & success5;
+                    bool success3 = rApp.Mac.att_set_value(newHandle, 121, unitType);
+                    writer.WriteLine("UnitType success = " + unitType + " " + success3);
+
+                    bool success4 = rApp.Mac.att_set_value(newHandle, 200, partDesc);
+                    writer.WriteLine("partDesc success = " + partDesc + " " + success4);
+
+                    // merge the new attributes with the old.
+                    bool success5 = rApp.Mac.att_update_file(SymFilePath, newHandle, true);
+                    writer.WriteLine("Attrib update success = " + success5);
+
+                    return success1 && success2 && success3 && success3 && success4 & success5;
+                }
             }
             catch (Exception x)
             {

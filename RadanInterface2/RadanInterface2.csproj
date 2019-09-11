@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\RadanMaster\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="radraft.interop">
       <HintPath>..\..\..\..\..\..\Program Files\Radan Software\Radan\bin\radraft.interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
