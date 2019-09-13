@@ -133,7 +133,8 @@ namespace RadanInterface2
                             {
                                 if (String.IsNullOrEmpty(MaterialName))
                                 {
-                                    MaterialName = rApp.Mac.ND_MATERIAL1;
+                                    // if material type can not be read, we will default to Steel, Mild
+                                    MaterialName = "Steel, Mild";
                                 }
                                 else
                                 {
