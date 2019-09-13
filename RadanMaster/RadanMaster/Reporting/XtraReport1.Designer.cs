@@ -85,6 +85,7 @@
             this.ScheduleParameter = new DevExpress.XtraReports.Parameters.Parameter();
             this.xrTableRow1 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableRow2 = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrPageBreak1 = new DevExpress.XtraReports.UI.XRPageBreak();
             ((System.ComponentModel.ISupportInitialize)(this.efDataSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table2)).BeginInit();
@@ -188,6 +189,7 @@
             this.BottomMargin.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.pageInfo1,
             this.pageInfo2});
+            this.BottomMargin.HeightF = 536.7916F;
             this.BottomMargin.Name = "BottomMargin";
             // 
             // pageInfo1
@@ -482,8 +484,9 @@
             // Detail2
             // 
             this.Detail2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrPageBreak1,
             this.table3});
-            this.Detail2.HeightF = 546.7916F;
+            this.Detail2.HeightF = 644.751F;
             this.Detail2.Name = "Detail2";
             // 
             // table3
@@ -553,6 +556,11 @@
             this.xrTableRow2.Name = "xrTableRow2";
             this.xrTableRow2.Weight = 0.5D;
             // 
+            // xrPageBreak1
+            // 
+            this.xrPageBreak1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 560.841F);
+            this.xrPageBreak1.Name = "xrPageBreak1";
+            // 
             // XtraReport1
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
@@ -567,6 +575,7 @@
             this.DataSource = this.efDataSource1;
             this.FilterString = resources.GetString("$this.FilterString");
             this.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.Margins = new System.Drawing.Printing.Margins(100, 100, 100, 537);
             this.Parameters.AddRange(new DevExpress.XtraReports.Parameters.Parameter[] {
             this.ScheduleParameter});
             this.StyleSheet.AddRange(new DevExpress.XtraReports.UI.XRControlStyle[] {
@@ -642,5 +651,6 @@
         public DevExpress.XtraReports.Parameters.Parameter ScheduleParameter;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow1;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow2;
+        private DevExpress.XtraReports.UI.XRPageBreak xrPageBreak1;
     }
 }

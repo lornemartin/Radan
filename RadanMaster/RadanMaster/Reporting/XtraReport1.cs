@@ -14,7 +14,6 @@ namespace RadanMaster.Reporting
         public XtraReport1()
         {
             InitializeComponent();
-            //this.FilterString = "[Order.ScheduleName] = ?ScheduleParameter && [Part].[Operations].[Name] = Bandsaw";
         }
 
         private void pictureBox1_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
@@ -59,7 +58,7 @@ namespace RadanMaster.Reporting
                             pdfViewer2.LoadDocument(stream2);
                             Bitmap bitmap2 = pdfViewer2.CreateBitmap(1, 950);
                             bitmap2.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                            //xrPictureBox2.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(bitmap2);
+                            xrPictureBox2.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(bitmap2);
 
                             pdfViewer2.CloseDocument();
                             pdfViewer2.Dispose();
