@@ -24,14 +24,24 @@ namespace RadanMaster.Reporting
             XRControl control = (XRControl)sender;
             try
             {
-                int orderItemID = (int)DetailReport.GetCurrentColumnValue("ID");
+                //    int orderItemID = (int)DetailReport.GetCurrentColumnValue("ID");
 
-                ProductionMasterModel.OrderItem oItem = new ProductionMasterModel.OrderItem();
-                oItem = dbContext.OrderItems.FirstOrDefault(o => o.ID == orderItemID);
+                //    ProductionMasterModel.OrderItem oItem = new ProductionMasterModel.OrderItem();
+                //    oItem = dbContext.OrderItems.FirstOrDefault(o => o.ID == orderItemID);
+
+                //    int partID = oItem.PartID;
+                //    ProductionMasterModel.Part prt = new ProductionMasterModel.Part();
+                //    prt = dbContext.Parts.FirstOrDefault(p => p.ID == partID);
+
+                string qty = (string)DetailReport.GetCurrentColumnValue("QtyRequired");
+
+                var v = DetailReport.GetCurrentRow();
+                System.Reflection.PropertyInfo pi = v.GetType().GetProperty("OrderItem");
+                ProductionMasterModel.OrderItem oItem = (ProductionMasterModel.OrderItem)(pi.GetValue(v, null));
 
                 int partID = oItem.PartID;
                 ProductionMasterModel.Part prt = new ProductionMasterModel.Part();
-                prt = dbContext.Parts.FirstOrDefault(p => p.ID == partID);
+                prt = Globals.dbContext.Parts.FirstOrDefault(p => p.ID == partID);
 
                 if (prt.Files.Count > 0)
                 {
