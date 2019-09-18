@@ -237,6 +237,12 @@
     <Compile Include="Reporting\XtraReport2.Designer.cs">
       <DependentUpon>XtraReport2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reporting\XtraReport3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporting\XtraReport3.Designer.cs">
+      <DependentUpon>XtraReport3.cs</DependentUpon>
+    </Compile>
     <Compile Include="SplashScreen1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -316,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reporting\XtraReport2.resx">
       <DependentUpon>XtraReport2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\XtraReport3.resx">
+      <DependentUpon>XtraReport3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SplashScreen1.resx">
       <DependentUpon>SplashScreen1.cs</DependentUpon>

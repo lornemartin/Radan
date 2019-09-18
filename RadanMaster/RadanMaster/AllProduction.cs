@@ -277,7 +277,7 @@ namespace RadanMaster
 
         private void barButtonItem3_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Reporting.TestReport3 report = new Reporting.TestReport3();
+            Reporting.TestReport2 report = new Reporting.TestReport2();
             report.ShowPreview();
         }
 
@@ -301,6 +301,12 @@ namespace RadanMaster
         private void barButtonItem5_ItemClick(object sender, ItemClickEventArgs e)
         {
 
+            Reporting.XtraReport3 report = new Reporting.XtraReport3();
+            report.ShowPreview();
+        }
+
+        private void barButtonItem6_ItemClick(object sender, ItemClickEventArgs e)
+        {
             Reporting.XtraReport1 report = new Reporting.XtraReport1();
             report.ShowPreview();
         }
@@ -493,8 +499,7 @@ namespace RadanMaster
             }
         }
 
-
-                
+        
     }
 
 }

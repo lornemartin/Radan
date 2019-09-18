@@ -102,6 +102,7 @@
             this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripLabel();
+            this.barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -178,9 +179,10 @@
             this.barButtonNewRadanProject,
             this.barButtonItemRetreiveAll,
             this.barButtonConnectToRadan,
-            this.barStaticItem1});
+            this.barStaticItem1,
+            this.barButtonItem6});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 18;
+            this.ribbon.MaxItemId = 19;
             this.ribbon.Name = "ribbon";
             this.ribbon.PageHeaderItemLinks.Add(this.barButtonGroup1);
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
@@ -327,6 +329,7 @@
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem3);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem4);
             this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem5);
+            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem6);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "Reports";
             // 
@@ -659,6 +662,13 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(86, 22);
             this.toolStripStatusLabel.Text = "toolStripLabel1";
             // 
+            // barButtonItem6
+            // 
+            this.barButtonItem6.Caption = "barButtonItem6";
+            this.barButtonItem6.Id = 18;
+            this.barButtonItem6.Name = "barButtonItem6";
+            this.barButtonItem6.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem6_ItemClick);
+            // 
             // AllProduction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -752,5 +762,6 @@
         private DevExpress.XtraBars.BarStaticItem barStaticItem1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripStatusLabel;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem6;
     }
 }
