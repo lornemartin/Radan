@@ -74,6 +74,10 @@
             this.tableCell15 = new DevExpress.XtraReports.UI.XRTableCell();
             this.tableCell16 = new DevExpress.XtraReports.UI.XRTableCell();
             this.label2 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrTableOfContents1 = new DevExpress.XtraReports.UI.XRTableOfContents();
+            this.xrTableOfContents2 = new DevExpress.XtraReports.UI.XRTableOfContents();
+            this.ReportFooter = new DevExpress.XtraReports.UI.ReportFooterBand();
             ((System.ComponentModel.ISupportInitialize)(this.efDataSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table2)).BeginInit();
@@ -198,14 +202,15 @@
             this.BottomMargin.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.pageInfo1,
             this.pageInfo2});
-            this.BottomMargin.HeightF = 300F;
+            this.BottomMargin.HeightF = 57.54166F;
             this.BottomMargin.Name = "BottomMargin";
             // 
             // ReportHeader
             // 
             this.ReportHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrTableOfContents1,
             this.label1});
-            this.ReportHeader.HeightF = 60F;
+            this.ReportHeader.HeightF = 196F;
             this.ReportHeader.Name = "ReportHeader";
             // 
             // GroupHeader1
@@ -213,6 +218,7 @@
             this.GroupHeader1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.table1});
             this.GroupHeader1.GroupFields.AddRange(new DevExpress.XtraReports.UI.GroupField[] {
+            new DevExpress.XtraReports.UI.GroupField("ProductName", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending),
             new DevExpress.XtraReports.UI.GroupField("Part.FileName", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)});
             this.GroupHeader1.GroupUnion = DevExpress.XtraReports.UI.GroupUnion.WithFirstDetail;
             this.GroupHeader1.HeightF = 27F;
@@ -222,11 +228,13 @@
             // GroupHeader2
             // 
             this.GroupHeader2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabel1,
             this.table2});
             this.GroupHeader2.GroupUnion = DevExpress.XtraReports.UI.GroupUnion.WithFirstDetail;
-            this.GroupHeader2.HeightF = 28F;
+            this.GroupHeader2.HeightF = 51.66723F;
             this.GroupHeader2.Level = 2;
             this.GroupHeader2.Name = "GroupHeader2";
+            this.GroupHeader2.RepeatEveryPage = true;
             // 
             // Detail
             // 
@@ -240,7 +248,7 @@
             this.GroupFooter1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.label2});
             this.GroupFooter1.GroupUnion = DevExpress.XtraReports.UI.GroupFooterUnion.WithLastDetail;
-            this.GroupFooter1.HeightF = 6F;
+            this.GroupFooter1.HeightF = 2.08F;
             this.GroupFooter1.Name = "GroupFooter1";
             // 
             // pageInfo1
@@ -301,7 +309,7 @@
             // 
             // table2
             // 
-            this.table2.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
+            this.table2.LocationFloat = new DevExpress.Utils.PointFloat(9.798024E-06F, 23F);
             this.table2.Name = "table2";
             this.table2.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.tableRow2});
@@ -468,6 +476,39 @@
             this.label2.StyleName = "GroupFooterBackground3";
             this.label2.StylePriority.UseBorders = false;
             // 
+            // xrLabel1
+            // 
+            this.xrLabel1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[ProductName]")});
+            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
+            this.xrLabel1.Multiline = true;
+            this.xrLabel1.Name = "xrLabel1";
+            this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
+            this.xrLabel1.SizeF = new System.Drawing.SizeF(241.6667F, 23F);
+            this.xrLabel1.Text = "xrLabel1";
+            // 
+            // xrTableOfContents1
+            // 
+            this.xrTableOfContents1.LevelDefault.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
+            this.xrTableOfContents1.LevelTitle.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
+            this.xrTableOfContents1.LevelTitle.Text = "Title";
+            this.xrTableOfContents1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 150F);
+            this.xrTableOfContents1.Name = "xrTableOfContents1";
+            // 
+            // xrTableOfContents2
+            // 
+            this.xrTableOfContents2.LevelDefault.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
+            this.xrTableOfContents2.LevelTitle.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
+            this.xrTableOfContents2.LevelTitle.Text = "Title";
+            this.xrTableOfContents2.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
+            this.xrTableOfContents2.Name = "xrTableOfContents2";
+            // 
+            // ReportFooter
+            // 
+            this.ReportFooter.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrTableOfContents2});
+            this.ReportFooter.Name = "ReportFooter";
+            // 
             // XtraReport2
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
@@ -477,14 +518,15 @@
             this.GroupHeader1,
             this.GroupHeader2,
             this.Detail,
-            this.GroupFooter1});
+            this.GroupFooter1,
+            this.ReportFooter});
             this.ComponentStorage.AddRange(new System.ComponentModel.IComponent[] {
             this.efDataSource1});
             this.DataMember = "OrderItems";
             this.DataSource = this.efDataSource1;
             this.FilterString = "[Order.ScheduleName] = ?parameterID";
             this.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.Margins = new System.Drawing.Printing.Margins(100, 100, 100, 300);
+            this.Margins = new System.Drawing.Printing.Margins(100, 100, 100, 58);
             this.Parameters.AddRange(new DevExpress.XtraReports.Parameters.Parameter[] {
             this.parameterID});
             this.StyleSheet.AddRange(new DevExpress.XtraReports.UI.XRControlStyle[] {
@@ -550,5 +592,9 @@
         private DevExpress.XtraReports.UI.XRTableCell tableCell16;
         private DevExpress.XtraReports.UI.GroupFooterBand GroupFooter1;
         private DevExpress.XtraReports.UI.XRLabel label2;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel1;
+        private DevExpress.XtraReports.UI.XRTableOfContents xrTableOfContents1;
+        private DevExpress.XtraReports.UI.XRTableOfContents xrTableOfContents2;
+        private DevExpress.XtraReports.UI.ReportFooterBand ReportFooter;
     }
 }

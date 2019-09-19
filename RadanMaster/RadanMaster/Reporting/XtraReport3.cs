@@ -23,7 +23,8 @@ namespace RadanMaster.Reporting
             try
             {
                 xrPictureBox1.ImageSource = null;
-                var v = DetailReport.GetCurrentRow();
+                var v = Report.GetCurrentRow();
+               
                 System.Reflection.PropertyInfo pi = v.GetType().GetProperty("Part");
                 ProductionMasterModel.Part part = (ProductionMasterModel.Part)(pi.GetValue(v, null));
 
@@ -77,26 +78,31 @@ namespace RadanMaster.Reporting
 
         private void CategoryInt_GetValue(object sender, GetValueEventArgs e)
         {
-            object p = e.GetColumnValue("Part");
+            object p1 = e.Row;
 
-            ProductionMasterModel.Part prt = (ProductionMasterModel.Part)p;
+            System.Reflection.PropertyInfo pi = p1.GetType().GetProperty("Part");
 
-            switch(prt.CategoryName)
+            if (pi != null)
             {
-                case "Product":
-                    e.Value = 0; ;
-                    break;
-                case "Assembly":
-                    e.Value = 1;
-                    break;
-                case "Part":
-                    e.Value = 2;
-                    break;
-                default:
-                    e.Value = 0;
-                    break;
-            }
 
+                ProductionMasterModel.Part prt = (ProductionMasterModel.Part)(pi.GetValue(p1, null));
+
+                switch (prt.CategoryName)
+                {
+                    case "Product":
+                        e.Value = 0; ;
+                        break;
+                    case "Assembly":
+                        e.Value = 1;
+                        break;
+                    case "Part":
+                        e.Value = 2;
+                        break;
+                    default:
+                        e.Value = 0;
+                        break;
+                }
+            }
             
         }
     }
