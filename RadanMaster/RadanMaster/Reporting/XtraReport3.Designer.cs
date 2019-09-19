@@ -294,7 +294,7 @@
             // 
             // table2
             // 
-            this.table2.LocationFloat = new DevExpress.Utils.PointFloat(10.00021F, 208.7496F);
+            this.table2.LocationFloat = new DevExpress.Utils.PointFloat(10.00013F, 0F);
             this.table2.Name = "table2";
             this.table2.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.tableRow2,
@@ -422,7 +422,7 @@
             // 
             // Detail1
             // 
-            this.Detail1.HeightF = 56F;
+            this.Detail1.HeightF = 171.0416F;
             this.Detail1.KeepTogether = true;
             this.Detail1.Name = "Detail1";
             // 
@@ -439,17 +439,12 @@
             // GroupHeader2
             // 
             this.GroupHeader2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-            this.table4,
-            this.table3,
-            this.table2,
             this.panel1});
             this.GroupHeader2.GroupFields.AddRange(new DevExpress.XtraReports.UI.GroupField[] {
             new DevExpress.XtraReports.UI.GroupField("Name", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)});
-            this.GroupHeader2.GroupUnion = DevExpress.XtraReports.UI.GroupUnion.WholePage;
-            this.GroupHeader2.HeightF = 392.7498F;
-            this.GroupHeader2.KeepTogether = true;
+            this.GroupHeader2.GroupUnion = DevExpress.XtraReports.UI.GroupUnion.WithFirstDetail;
+            this.GroupHeader2.HeightF = 228.1247F;
             this.GroupHeader2.Name = "GroupHeader2";
-            this.GroupHeader2.RepeatEveryPage = true;
             // 
             // panel1
             // 
@@ -457,7 +452,7 @@
             this.xrPictureBox1});
             this.panel1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
             this.panel1.Name = "panel1";
-            this.panel1.SizeF = new System.Drawing.SizeF(650F, 187.5833F);
+            this.panel1.SizeF = new System.Drawing.SizeF(650F, 189.7496F);
             this.panel1.StyleName = "DetailCaptionBackground3";
             // 
             // xrPictureBox1
@@ -471,18 +466,21 @@
             // Detail2
             // 
             this.Detail2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.table4,
+            this.table3,
+            this.table2,
             this.xrPageBreak1});
-            this.Detail2.HeightF = 60.54147F;
+            this.Detail2.HeightF = 224.8753F;
             this.Detail2.Name = "Detail2";
             // 
             // xrPageBreak1
             // 
-            this.xrPageBreak1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 39.24961F);
+            this.xrPageBreak1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 165F);
             this.xrPageBreak1.Name = "xrPageBreak1";
             // 
             // table4
             // 
-            this.table4.LocationFloat = new DevExpress.Utils.PointFloat(13.99999F, 320.7497F);
+            this.table4.LocationFloat = new DevExpress.Utils.PointFloat(13.99991F, 112F);
             this.table4.Name = "table4";
             this.table4.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.tableRow6});
@@ -530,7 +528,7 @@
             // 
             // table3
             // 
-            this.table3.LocationFloat = new DevExpress.Utils.PointFloat(10.00021F, 264.7497F);
+            this.table3.LocationFloat = new DevExpress.Utils.PointFloat(10.00013F, 56.00001F);
             this.table3.Name = "table3";
             this.table3.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.tableRow4,
