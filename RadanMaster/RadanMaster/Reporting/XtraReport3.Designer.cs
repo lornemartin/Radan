@@ -294,7 +294,7 @@
             // 
             // table2
             // 
-            this.table2.LocationFloat = new DevExpress.Utils.PointFloat(10.00016F, 75.37486F);
+            this.table2.LocationFloat = new DevExpress.Utils.PointFloat(10.00021F, 208.7496F);
             this.table2.Name = "table2";
             this.table2.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.tableRow2,
@@ -439,12 +439,17 @@
             // GroupHeader2
             // 
             this.GroupHeader2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.table4,
+            this.table3,
+            this.table2,
             this.panel1});
             this.GroupHeader2.GroupFields.AddRange(new DevExpress.XtraReports.UI.GroupField[] {
-            new DevExpress.XtraReports.UI.GroupField("Part.Files.Content", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)});
-            this.GroupHeader2.GroupUnion = DevExpress.XtraReports.UI.GroupUnion.WithFirstDetail;
-            this.GroupHeader2.HeightF = 352.2082F;
+            new DevExpress.XtraReports.UI.GroupField("Name", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)});
+            this.GroupHeader2.GroupUnion = DevExpress.XtraReports.UI.GroupUnion.WholePage;
+            this.GroupHeader2.HeightF = 392.7498F;
+            this.GroupHeader2.KeepTogether = true;
             this.GroupHeader2.Name = "GroupHeader2";
+            this.GroupHeader2.RepeatEveryPage = true;
             // 
             // panel1
             // 
@@ -466,22 +471,18 @@
             // Detail2
             // 
             this.Detail2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-            this.table3,
-            this.table2,
-            this.xrPageBreak1,
-            this.table4,
-            this.table5});
-            this.Detail2.HeightF = 222.083F;
+            this.xrPageBreak1});
+            this.Detail2.HeightF = 60.54147F;
             this.Detail2.Name = "Detail2";
             // 
             // xrPageBreak1
             // 
-            this.xrPageBreak1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 210.0829F);
+            this.xrPageBreak1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 39.24961F);
             this.xrPageBreak1.Name = "xrPageBreak1";
             // 
             // table4
             // 
-            this.table4.LocationFloat = new DevExpress.Utils.PointFloat(5.999947F, 10.00001F);
+            this.table4.LocationFloat = new DevExpress.Utils.PointFloat(13.99999F, 320.7497F);
             this.table4.Name = "table4";
             this.table4.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.tableRow6});
@@ -496,6 +497,8 @@
             // 
             // tableCell19
             // 
+            this.tableCell19.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.table5});
             this.tableCell19.Name = "tableCell19";
             this.tableCell19.StyleName = "DetailCaption3";
             this.tableCell19.Text = "Name";
@@ -503,12 +506,12 @@
             // 
             // table5
             // 
-            this.table5.LocationFloat = new DevExpress.Utils.PointFloat(1.999935F, 38.00001F);
+            this.table5.LocationFloat = new DevExpress.Utils.PointFloat(2.000013F, 28F);
             this.table5.Name = "table5";
             this.table5.OddStyleName = "DetailData3_Odd";
             this.table5.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.tableRow7});
-            this.table5.SizeF = new System.Drawing.SizeF(634F, 25F);
+            this.table5.SizeF = new System.Drawing.SizeF(624.0001F, 25F);
             // 
             // tableRow7
             // 
@@ -527,7 +530,7 @@
             // 
             // table3
             // 
-            this.table3.LocationFloat = new DevExpress.Utils.PointFloat(5.999947F, 131.3749F);
+            this.table3.LocationFloat = new DevExpress.Utils.PointFloat(10.00021F, 264.7497F);
             this.table3.Name = "table3";
             this.table3.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.tableRow4,

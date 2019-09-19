@@ -21,6 +21,9 @@ namespace RadanMaster.Reporting
             XRControl control = (XRControl)sender;
             try
             {
+                pictureBox1.ImageSource = null;
+                xrPictureBox2.ImageSource = null;
+
                 string qty = (string)DetailReport.GetCurrentColumnValue("QtyRequired");
 
                 var v = DetailReport.GetCurrentRow();

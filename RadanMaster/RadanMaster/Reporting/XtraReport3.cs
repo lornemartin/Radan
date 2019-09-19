@@ -22,6 +22,7 @@ namespace RadanMaster.Reporting
             XRControl control = (XRControl)sender;
             try
             {
+                xrPictureBox1.ImageSource = null;
                 var v = DetailReport.GetCurrentRow();
                 System.Reflection.PropertyInfo pi = v.GetType().GetProperty("Part");
                 ProductionMasterModel.Part part = (ProductionMasterModel.Part)(pi.GetValue(v, null));
