@@ -84,7 +84,6 @@ namespace RadanMaster.Reporting
 
             if (pi != null)
             {
-
                 ProductionMasterModel.Part prt = (ProductionMasterModel.Part)(pi.GetValue(p1, null));
 
                 switch (prt.CategoryName)
@@ -103,7 +102,6 @@ namespace RadanMaster.Reporting
                         break;
                 }
             }
-            
         }
     }
 }
