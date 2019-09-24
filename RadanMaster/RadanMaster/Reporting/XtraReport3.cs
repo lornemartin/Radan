@@ -74,6 +74,7 @@ namespace RadanMaster.Reporting
             {
                 return;
             }
+
         }
 
         private void CategoryInt_GetValue(object sender, GetValueEventArgs e)
