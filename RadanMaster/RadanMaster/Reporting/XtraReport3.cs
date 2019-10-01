@@ -7,6 +7,8 @@ using System.Linq;
 using DevExpress.XtraPdfViewer;
 using System.IO;
 using ProductionMasterModel;
+using DevExpress.DataAccess;
+using System.Collections.Generic;
 
 namespace RadanMaster.Reporting
 {
@@ -24,7 +26,7 @@ namespace RadanMaster.Reporting
             {
                 xrPictureBox1.ImageSource = null;
                 var v = Report.GetCurrentRow();
-               
+
                 System.Reflection.PropertyInfo pi = v.GetType().GetProperty("Part");
                 ProductionMasterModel.Part part = (ProductionMasterModel.Part)(pi.GetValue(v, null));
 
@@ -102,6 +104,66 @@ namespace RadanMaster.Reporting
                         e.Value = 0;
                         break;
                 }
+            }
+        }
+
+        private void GroupHeader2_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            // Retrieve the current row and get the "Country" member's value.
+            var v = (ProductionMasterModel.OrderItem)(GetCurrentRow());
+            string productName = v.ProductName;
+            string orderNumber = v.Order.OrderNumber;
+            
+
+            if (v.Part.CategoryName == "Product")
+            {
+                int itemQty = v.QtyRequired;
+
+                List<ProductionMasterModel.OrderItem> associatedItemsList = Globals.dbContext.OrderItems.Where(i => i.Order.OrderNumber == orderNumber)
+                                                                                                        .Where(i => i.ProductName == productName)
+                                                                                                        .Where(i => i.Part.CategoryName == "Part")
+                                                                                                        .Where(i => i.Part.IsStock == false)
+                                                                                                        .Where(i => i.Part.Operations.FirstOrDefault().Name == "Bandsaw").ToList();
+
+                XRTable table = new XRTable();
+                table.SizeF = new SizeF(300, 100);
+                table.BeginInit();
+                table.BorderWidth = 2;
+                table.Borders = DevExpress.XtraPrinting.BorderSide.All;
+
+
+                foreach (ProductionMasterModel.OrderItem associatedItem in associatedItemsList)
+                {
+
+                    //if (associatedItem.OrderItemOperations.FirstOrDefault().Operation.Name == "Bandsaw")
+                    //{
+                    if (associatedItem.Part.RequiresPDF == false)
+                    {
+                        table.BeginInit();
+                        XRTableRow row = new XRTableRow();
+
+                        XRTableCell qtyCell = new XRTableCell();
+                        qtyCell.WidthF = 100;
+                        qtyCell.Text = (associatedItem.QtyRequired * itemQty).ToString();
+                        XRTableCell nameCell = new XRTableCell();
+                        nameCell.WidthF = 500;
+                        nameCell.Text = associatedItem.Part.FileName;
+                        XRTableCell descCell = new XRTableCell();
+                        descCell.Text = associatedItem.Part.Description;
+                        descCell.WidthF = 500;
+
+                        row.Cells.Add(qtyCell);
+                        row.Cells.Add(nameCell);
+                        row.Cells.Add(descCell);
+
+
+                        table.Rows.Add(row);
+                    }
+                }
+                table.EndInit();
+
+                GroupHeader2.Controls.Clear();
+                GroupHeader2.Controls.Add(table);
             }
         }
     }

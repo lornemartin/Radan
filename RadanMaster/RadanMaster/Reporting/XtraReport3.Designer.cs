@@ -80,13 +80,10 @@
             this.xrPageBreak1 = new DevExpress.XtraReports.UI.XRPageBreak();
             this.GroupHeader3 = new DevExpress.XtraReports.UI.GroupHeaderBand();
             this.calculatedCategoryInt = new DevExpress.XtraReports.UI.CalculatedField();
-            this.DetailReport = new DevExpress.XtraReports.UI.DetailReportBand();
-            this.Detail1 = new DevExpress.XtraReports.UI.DetailBand();
             this.formattingRule3 = new DevExpress.XtraReports.UI.FormattingRule();
             this.formattingRule2 = new DevExpress.XtraReports.UI.FormattingRule();
             this.formattingRule1 = new DevExpress.XtraReports.UI.FormattingRule();
             this.GroupHeader2 = new DevExpress.XtraReports.UI.GroupHeaderBand();
-            this.xrLabel8 = new DevExpress.XtraReports.UI.XRLabel();
             ((System.ComponentModel.ISupportInitialize)(this.efDataSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
@@ -561,18 +558,6 @@
             this.calculatedCategoryInt.Name = "calculatedCategoryInt";
             this.calculatedCategoryInt.GetValue += new DevExpress.XtraReports.UI.GetValueEventHandler(this.CategoryInt_GetValue);
             // 
-            // DetailReport
-            // 
-            this.DetailReport.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
-            this.Detail1});
-            this.DetailReport.Level = 0;
-            this.DetailReport.Name = "DetailReport";
-            // 
-            // Detail1
-            // 
-            this.Detail1.HeightF = 68.01402F;
-            this.Detail1.Name = "Detail1";
-            // 
             // formattingRule3
             // 
             this.formattingRule3.DataMember = "OrderItems";
@@ -593,21 +578,11 @@
             // 
             // GroupHeader2
             // 
-            this.GroupHeader2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-            this.xrLabel8});
             this.GroupHeader2.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Visible", "Iif([OrderItems].[Part].[RequiresPDF] == True, False , True )")});
             this.GroupHeader2.HeightF = 523.4312F;
             this.GroupHeader2.Name = "GroupHeader2";
-            // 
-            // xrLabel8
-            // 
-            this.xrLabel8.LocationFloat = new DevExpress.Utils.PointFloat(180.2083F, 112.8474F);
-            this.xrLabel8.Multiline = true;
-            this.xrLabel8.Name = "xrLabel8";
-            this.xrLabel8.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
-            this.xrLabel8.SizeF = new System.Drawing.SizeF(320.8333F, 133.4167F);
-            this.xrLabel8.Text = "This should only show if there is no PDF to print.";
+            this.GroupHeader2.BeforePrint += new System.Drawing.Printing.PrintEventHandler(this.GroupHeader2_BeforePrint);
             // 
             // XtraReport3
             // 
@@ -619,7 +594,6 @@
             this.Detail,
             this.GroupFooter1,
             this.GroupHeader3,
-            this.DetailReport,
             this.GroupHeader2});
             this.CalculatedFields.AddRange(new DevExpress.XtraReports.UI.CalculatedField[] {
             this.calculatedField2,
@@ -702,12 +676,9 @@
         private DevExpress.XtraReports.UI.CalculatedField calculatedCategoryInt;
         private DevExpress.XtraReports.UI.XRLabel xrLabel3;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell2;
-        private DevExpress.XtraReports.UI.DetailReportBand DetailReport;
-        private DevExpress.XtraReports.UI.DetailBand Detail1;
         private DevExpress.XtraReports.UI.FormattingRule formattingRule1;
         private DevExpress.XtraReports.UI.FormattingRule formattingRule2;
         private DevExpress.XtraReports.UI.FormattingRule formattingRule3;
         private DevExpress.XtraReports.UI.GroupHeaderBand GroupHeader2;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel8;
     }
 }
