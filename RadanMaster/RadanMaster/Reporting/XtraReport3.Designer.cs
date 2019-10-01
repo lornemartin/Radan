@@ -82,11 +82,11 @@
             this.calculatedCategoryInt = new DevExpress.XtraReports.UI.CalculatedField();
             this.DetailReport = new DevExpress.XtraReports.UI.DetailReportBand();
             this.Detail1 = new DevExpress.XtraReports.UI.DetailBand();
-            this.xrLabel9 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel8 = new DevExpress.XtraReports.UI.XRLabel();
             this.formattingRule3 = new DevExpress.XtraReports.UI.FormattingRule();
             this.formattingRule2 = new DevExpress.XtraReports.UI.FormattingRule();
             this.formattingRule1 = new DevExpress.XtraReports.UI.FormattingRule();
+            this.GroupHeader2 = new DevExpress.XtraReports.UI.GroupHeaderBand();
+            this.xrLabel8 = new DevExpress.XtraReports.UI.XRLabel();
             ((System.ComponentModel.ISupportInitialize)(this.efDataSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
@@ -405,12 +405,15 @@
             this.xrTable1,
             this.xrPictureBox1,
             this.xrLabel1});
+            this.GroupHeader1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Visible", "Iif([OrderItems].[Part].[RequiresPDF] == False, False , True )")});
             this.GroupHeader1.GroupFields.AddRange(new DevExpress.XtraReports.UI.GroupField[] {
             new DevExpress.XtraReports.UI.GroupField("ProductName", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending),
             new DevExpress.XtraReports.UI.GroupField("calculatedCategoryInt", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending),
             new DevExpress.XtraReports.UI.GroupField("Part.FileName", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)});
             this.GroupHeader1.GroupUnion = DevExpress.XtraReports.UI.GroupUnion.WithFirstDetail;
             this.GroupHeader1.HeightF = 524.7083F;
+            this.GroupHeader1.Level = 1;
             this.GroupHeader1.Name = "GroupHeader1";
             // 
             // xrTable1
@@ -511,8 +514,6 @@
             // 
             // xrPictureBox1
             // 
-            this.xrPictureBox1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Visible", "Iif([OrderItems].[Part].[RequiresPDF] == False, False , True )")});
             this.xrPictureBox1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 22.99999F);
             this.xrPictureBox1.Name = "xrPictureBox1";
             this.xrPictureBox1.SizeF = new System.Drawing.SizeF(650F, 470.875F);
@@ -535,6 +536,7 @@
             this.GroupFooter1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.xrPageBreak1});
             this.GroupFooter1.HeightF = 29.58342F;
+            this.GroupFooter1.Level = 1;
             this.GroupFooter1.Name = "GroupFooter1";
             // 
             // xrPageBreak1
@@ -547,7 +549,7 @@
             this.GroupHeader3.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.table1});
             this.GroupHeader3.HeightF = 29.08335F;
-            this.GroupHeader3.Level = 1;
+            this.GroupHeader3.Level = 2;
             this.GroupHeader3.Name = "GroupHeader3";
             this.GroupHeader3.RepeatEveryPage = true;
             // 
@@ -568,33 +570,8 @@
             // 
             // Detail1
             // 
-            this.Detail1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-            this.xrLabel9,
-            this.xrLabel8});
             this.Detail1.HeightF = 68.01402F;
             this.Detail1.Name = "Detail1";
-            // 
-            // xrLabel9
-            // 
-            this.xrLabel9.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[OrderItems].[Part].[CategoryName]")});
-            this.xrLabel9.LocationFloat = new DevExpress.Utils.PointFloat(14.0001F, 9.999974F);
-            this.xrLabel9.Multiline = true;
-            this.xrLabel9.Name = "xrLabel9";
-            this.xrLabel9.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel9.SizeF = new System.Drawing.SizeF(100F, 23F);
-            this.xrLabel9.Text = "xrLabel9";
-            // 
-            // xrLabel8
-            // 
-            this.xrLabel8.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Visible", "Iif([OrderItems].[Part].[RequiresPDF] == False, True , False )")});
-            this.xrLabel8.LocationFloat = new DevExpress.Utils.PointFloat(135.9495F, 0F);
-            this.xrLabel8.Multiline = true;
-            this.xrLabel8.Name = "xrLabel8";
-            this.xrLabel8.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel8.SizeF = new System.Drawing.SizeF(339.7172F, 67.44429F);
-            this.xrLabel8.Text = "This should only print if there are items without drawings";
             // 
             // formattingRule3
             // 
@@ -614,6 +591,24 @@
             this.formattingRule1.Formatting.Visible = DevExpress.Utils.DefaultBoolean.True;
             this.formattingRule1.Name = "formattingRule1";
             // 
+            // GroupHeader2
+            // 
+            this.GroupHeader2.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabel8});
+            this.GroupHeader2.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Visible", "Iif([OrderItems].[Part].[RequiresPDF] == True, False , True )")});
+            this.GroupHeader2.HeightF = 523.4312F;
+            this.GroupHeader2.Name = "GroupHeader2";
+            // 
+            // xrLabel8
+            // 
+            this.xrLabel8.LocationFloat = new DevExpress.Utils.PointFloat(180.2083F, 112.8474F);
+            this.xrLabel8.Multiline = true;
+            this.xrLabel8.Name = "xrLabel8";
+            this.xrLabel8.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
+            this.xrLabel8.SizeF = new System.Drawing.SizeF(320.8333F, 133.4167F);
+            this.xrLabel8.Text = "This should only show if there is no PDF to print.";
+            // 
             // XtraReport3
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
@@ -624,7 +619,8 @@
             this.Detail,
             this.GroupFooter1,
             this.GroupHeader3,
-            this.DetailReport});
+            this.DetailReport,
+            this.GroupHeader2});
             this.CalculatedFields.AddRange(new DevExpress.XtraReports.UI.CalculatedField[] {
             this.calculatedField2,
             this.calculatedCategoryInt});
@@ -708,10 +704,10 @@
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell2;
         private DevExpress.XtraReports.UI.DetailReportBand DetailReport;
         private DevExpress.XtraReports.UI.DetailBand Detail1;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel8;
         private DevExpress.XtraReports.UI.FormattingRule formattingRule1;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel9;
         private DevExpress.XtraReports.UI.FormattingRule formattingRule2;
         private DevExpress.XtraReports.UI.FormattingRule formattingRule3;
+        private DevExpress.XtraReports.UI.GroupHeaderBand GroupHeader2;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel8;
     }
 }
