@@ -9,6 +9,7 @@ using System.IO;
 using ProductionMasterModel;
 using DevExpress.DataAccess;
 using System.Collections.Generic;
+using DevExpress.XtraLayout;
 
 namespace RadanMaster.Reporting
 {
@@ -109,7 +110,7 @@ namespace RadanMaster.Reporting
 
         private void GroupHeader2_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
-            // Retrieve the current row and get the "Country" member's value.
+            // print a parts list of all non-stock bandsaw parts that don't have drawings.  This list should be printed on the cover page of the order. 
             var v = (ProductionMasterModel.OrderItem)(GetCurrentRow());
             string productName = v.ProductName;
             string orderNumber = v.Order.OrderNumber;
@@ -123,47 +124,65 @@ namespace RadanMaster.Reporting
                                                                                                         .Where(i => i.ProductName == productName)
                                                                                                         .Where(i => i.Part.CategoryName == "Part")
                                                                                                         .Where(i => i.Part.IsStock == false)
-                                                                                                        .Where(i => i.Part.Operations.FirstOrDefault().Name == "Bandsaw").ToList();
-
-                XRTable table = new XRTable();
-                table.SizeF = new SizeF(300, 100);
-                table.BeginInit();
-                table.BorderWidth = 2;
-                table.Borders = DevExpress.XtraPrinting.BorderSide.All;
-
-
-                foreach (ProductionMasterModel.OrderItem associatedItem in associatedItemsList)
+                                                                                                        .Where(i => i.Part.Operations.FirstOrDefault().Name == "Bandsaw")
+                                                                                                        .Where(i => i.Part.RequiresPDF == false).ToList();
+                if (associatedItemsList.Count > 0)
                 {
 
-                    //if (associatedItem.OrderItemOperations.FirstOrDefault().Operation.Name == "Bandsaw")
-                    //{
-                    if (associatedItem.Part.RequiresPDF == false)
+                    XRLabel label = new XRLabel();
+                    label.WidthF = 500;
+                    label.Text = "Cut List of non-stock bandsaw parts without drawings.";
+                    label.TopF = 10;
+
+                    XRTable table = new XRTable();
+                    table.Rows.Clear();
+                    table.BeginInit();
+                    table.SizeF = new SizeF(750, 75);
+                    table.TopF = 50;
+                    table.BeginInit();
+                    table.BorderWidth = 2;
+                    table.Borders = DevExpress.XtraPrinting.BorderSide.All;
+
+
+                    foreach (ProductionMasterModel.OrderItem associatedItem in associatedItemsList)
                     {
-                        table.BeginInit();
+                        
                         XRTableRow row = new XRTableRow();
 
                         XRTableCell qtyCell = new XRTableCell();
-                        qtyCell.WidthF = 100;
+                        qtyCell.WidthF = 40;
                         qtyCell.Text = (associatedItem.QtyRequired * itemQty).ToString();
+
                         XRTableCell nameCell = new XRTableCell();
-                        nameCell.WidthF = 500;
+                        nameCell.WidthF = 217;
                         nameCell.Text = associatedItem.Part.FileName;
+
                         XRTableCell descCell = new XRTableCell();
                         descCell.Text = associatedItem.Part.Description;
-                        descCell.WidthF = 500;
+                        descCell.WidthF = 218;
+
+                        XRTableCell materialCell = new XRTableCell();
+                        materialCell.Text = associatedItem.Part.StructuralCode;
+                        materialCell.WidthF = 275;
 
                         row.Cells.Add(qtyCell);
                         row.Cells.Add(nameCell);
                         row.Cells.Add(descCell);
-
+                        row.Cells.Add(materialCell);
 
                         table.Rows.Add(row);
                     }
-                }
-                table.EndInit();
+                    table.EndInit();
 
-                GroupHeader2.Controls.Clear();
-                GroupHeader2.Controls.Add(table);
+                    GroupHeader2.Controls.Clear();
+                    GroupHeader2.Controls.Add(label);
+                    GroupHeader2.Controls.Add(table);
+                    
+                }
+                else
+                {
+                    GroupHeader2.Controls.Clear();
+                }
             }
         }
     }
