@@ -39,7 +39,7 @@ namespace RadanMaster
         ProductionMasterModel.User currentUser { get; set; }
         RadanProjectInterface.RadanProjectInterface radProjInterface { get; set; }
         RadanInterface RadInterface { get; set; }
-        
+        string RadanProjectName { get; set; }
 
         public AllProduction(ProductionMasterModel.User curUser)
         {
@@ -499,7 +499,19 @@ namespace RadanMaster
             }
         }
 
-        
+        private void barButtonRadanProjectBrowse_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            openFileDialogProject.Filter = "rpd files (*.rpd) | *.rpd";
+            DialogResult result = openFileDialogProject.ShowDialog();
+            if (result == DialogResult.OK) // Test result.
+            {
+                string path = openFileDialogProject.FileName;
+
+                RadanProjectName = openFileDialogProject.FileName;
+                txtBoxRadanProjectBrowse.EditValue = RadanProjectName;
+
+                
+            }
     }
 
 }

@@ -66,6 +66,7 @@
             this.barButtonItemRetreiveAll = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonConnectToRadan = new DevExpress.XtraBars.BarButtonItem();
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
+            this.barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -102,7 +103,7 @@
             this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripLabel();
-            this.barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
+            this.openFileDialogProject = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -252,6 +253,7 @@
             this.barButtonRadanProjectBrowse.Caption = "Browse";
             this.barButtonRadanProjectBrowse.Id = 10;
             this.barButtonRadanProjectBrowse.Name = "barButtonRadanProjectBrowse";
+            this.barButtonRadanProjectBrowse.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonRadanProjectBrowse_ItemClick);
             // 
             // barButtonSendSelection
             // 
@@ -308,6 +310,13 @@
             this.barStaticItem1.Caption = "barStaticItem1";
             this.barStaticItem1.Id = 17;
             this.barStaticItem1.Name = "barStaticItem1";
+            // 
+            // barButtonItem6
+            // 
+            this.barButtonItem6.Caption = "barButtonItem6";
+            this.barButtonItem6.Id = 18;
+            this.barButtonItem6.Name = "barButtonItem6";
+            this.barButtonItem6.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem6_ItemClick);
             // 
             // ribbonPage1
             // 
@@ -662,12 +671,9 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(86, 22);
             this.toolStripStatusLabel.Text = "toolStripLabel1";
             // 
-            // barButtonItem6
+            // openFileDialogProject
             // 
-            this.barButtonItem6.Caption = "barButtonItem6";
-            this.barButtonItem6.Id = 18;
-            this.barButtonItem6.Name = "barButtonItem6";
-            this.barButtonItem6.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem6_ItemClick);
+            this.openFileDialogProject.FileName = "openFileDialog1";
             // 
             // AllProduction
             // 
@@ -763,5 +769,6 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripStatusLabel;
         private DevExpress.XtraBars.BarButtonItem barButtonItem6;
+        private System.Windows.Forms.OpenFileDialog openFileDialogProject;
     }
 }
