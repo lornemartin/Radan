@@ -58,20 +58,6 @@ namespace RadanMaster.Reporting
 
                             xrPictureBox1.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(bitmap);
                             xrPictureBox1.BackColor = Color.AliceBlue;
-
-
-
-                            PdfViewer pdfViewer2 = new PdfViewer();
-                            Stream stream2 = new MemoryStream(fileItem.Content);
-
-                            pdfViewer2.LoadDocument(stream2);
-                            Bitmap bitmap2 = pdfViewer2.CreateBitmap(1, 950);
-
-                            pdfViewer2.CloseDocument();
-                            pdfViewer2.Dispose();
-
-                            bitmap2.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                            xrPictureBox2.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(bitmap2);
                         }
                     }
                 }
@@ -81,6 +67,55 @@ namespace RadanMaster.Reporting
                 return;
             }
 
+        }
+
+        private void xrPictureBox2_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            XRControl control = (XRControl)sender;
+            try
+            {
+                xrPictureBox1.ImageSource = null;
+                xrPictureBox2.ImageSource = null;
+
+                var v = Report.GetCurrentRow();
+
+                System.Reflection.PropertyInfo pi = v.GetType().GetProperty("Part");
+                ProductionMasterModel.Part part = (ProductionMasterModel.Part)(pi.GetValue(v, null));
+
+                int partID = part.ID;
+                ProductionMasterModel.Part prt = new ProductionMasterModel.Part();
+                prt = Globals.dbContext.Parts.FirstOrDefault(p => p.ID == partID);
+
+                if (prt.Files != null)
+                {
+                    if (prt.Files.Count > 0)
+                    {
+                        int fileID = prt.Files.FirstOrDefault().FileId;
+                        ProductionMasterModel.File fileItem = new ProductionMasterModel.File();
+                        fileItem = Globals.dbContext.Files.FirstOrDefault(f => f.FileId == fileID);
+
+                        if (fileItem.Content != null)
+                        {
+                            PdfViewer pdfViewer = new PdfViewer();
+                            Stream stream = new MemoryStream(fileItem.Content);
+
+                            pdfViewer.LoadDocument(stream);
+                            Bitmap bitmap = pdfViewer.CreateBitmap(1, 950);
+
+                            pdfViewer.CloseDocument();
+                            pdfViewer.Dispose();
+
+                            xrPictureBox2.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(bitmap);
+                            bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                            xrPictureBox2.BackColor = Color.AliceBlue;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         private void CategoryInt_GetValue(object sender, GetValueEventArgs e)
@@ -189,53 +224,6 @@ namespace RadanMaster.Reporting
             }
         }
 
-        private void xrPictureBox2_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
-        {
-            XRControl control = (XRControl)sender;
-            try
-            {
-                xrPictureBox1.ImageSource = null;
-                xrPictureBox2.ImageSource = null;
-
-                var v = Report.GetCurrentRow();
-
-                System.Reflection.PropertyInfo pi = v.GetType().GetProperty("Part");
-                ProductionMasterModel.Part part = (ProductionMasterModel.Part)(pi.GetValue(v, null));
-
-                int partID = part.ID;
-                ProductionMasterModel.Part prt = new ProductionMasterModel.Part();
-                prt = Globals.dbContext.Parts.FirstOrDefault(p => p.ID == partID);
-
-                if (prt.Files != null)
-                {
-                    if (prt.Files.Count > 0)
-                    {
-                        int fileID = prt.Files.FirstOrDefault().FileId;
-                        ProductionMasterModel.File fileItem = new ProductionMasterModel.File();
-                        fileItem = Globals.dbContext.Files.FirstOrDefault(f => f.FileId == fileID);
-
-                        if (fileItem.Content != null)
-                        {
-                            PdfViewer pdfViewer = new PdfViewer();
-                            Stream stream = new MemoryStream(fileItem.Content);
-
-                            pdfViewer.LoadDocument(stream);
-                            Bitmap bitmap = pdfViewer.CreateBitmap(1, 950);
-
-                            pdfViewer.CloseDocument();
-                            pdfViewer.Dispose();
-
-                            xrPictureBox2.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(bitmap);
-                            bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                            xrPictureBox2.BackColor = Color.AliceBlue;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return;
-            }
-        }
+       
     }
 }
