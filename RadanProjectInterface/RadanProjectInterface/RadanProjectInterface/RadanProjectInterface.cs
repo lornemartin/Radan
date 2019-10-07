@@ -74,6 +74,13 @@ namespace RadanProjectInterface
             return -1;
         }
 
+        public RadanProject LoadData(string radanProjectName)
+        {
+            RadanProjectName = radanProjectName;
+            RPrj = RadanProjectExtension.LoadData(RPrj, radanProjectName);
+            return RPrj;
+        }
+
         private bool masterItemToRadanPart(OrderItem oItem)
         {
             try
@@ -216,7 +223,7 @@ namespace RadanProjectInterface
 
                             foreach (OrderItem item in orderItems)
                             {
-                                string partName = item.ProductName;
+                                string partName = item.Part.FileName;
 
                                 string orderNumber = item.Order.OrderNumber;
 
@@ -373,7 +380,7 @@ namespace RadanProjectInterface
             }
         }
 
-        private bool RetrieveSelectedRadanPartToMasterList(List<OrderItem> selectedItems)
+        public bool RetrieveSelectedRadanPartToMasterList(List<OrderItem> selectedItems)
         {
             // this function had originally been set up to get the seleced rows inside the function,
             //  but I want to move that code outside of the function.
@@ -426,7 +433,7 @@ namespace RadanProjectInterface
             }
         }
 
-        private bool RetrieveAllRadanPartToMasterList()
+        public bool RetrieveAllRadanPartToMasterList()
         {
             // this function shouldn't be needed anymore if we do the calculating for the items form the calling function, we can call the above function and pass all the rows to it....
             return false;
@@ -807,7 +814,7 @@ namespace RadanProjectInterface
             }
         }
 
-        private bool saveRadan()
+        public bool saveRadan()
         {
             try
             {

@@ -38,6 +38,7 @@ namespace RadanMaster
         RefreshHelper helper;
         ProductionMasterModel.User currentUser { get; set; }
         RadanProjectInterface.RadanProjectInterface radProjInterface { get; set; }
+        //RadProject.RadanProject Rprj { get; set; }
         RadanInterface RadInterface { get; set; }
         string RadanProjectName { get; set; }
 
@@ -86,6 +87,7 @@ namespace RadanMaster
                                                           PlantID = orderitem.Part.PlantID,
                                                           Thumbnail = orderitem.Part.Thumbnail,
                                                           item = orderitem,
+                                                          IsInProject = orderitem.IsInProject,
                                                       };
 
             // load all symbols for laser parts that don't have any...
@@ -484,7 +486,7 @@ namespace RadanMaster
                         
                         DisplayItemWrapper dItem = (DisplayItemWrapper) gridViewAllProduction.GetRow(selectedRowHandle);
 
-                        OrderItem orderItem = Globals.dbContext.OrderItems.Where(oi => oi.Part.FileName == dItem.ProductName)
+                        OrderItem orderItem = Globals.dbContext.OrderItems.Where(oi => oi.Part.FileName == dItem.FileName)
                                                                   .Where(oi => oi.Order.OrderNumber == dItem.OrderNumber)
                                                                   .Where(oi => oi.Order.BatchName == dItem.BatchName)
                                                                   .Where(oi => oi.Order.ScheduleName == dItem.ScheduleName).FirstOrDefault();
@@ -499,6 +501,47 @@ namespace RadanMaster
             }
         }
 
+        private void barButtonRetrieveSelection_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (RadInterface.IsProjectReady())
+            {
+                string errMsg = "";
+                if (RadInterface.getOpenProjectName(ref errMsg) == RadanProjectName)
+                {
+                    SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+
+                    List<OrderItem> selectedItemList = new List<OrderItem>();
+                    if (radProjInterface.saveRadan())
+                    {
+                        int[] rows = gridViewAllProduction.GetSelectedRows();
+
+                        foreach (int i in rows)
+                        {
+                            DisplayItemWrapper displayItem = (DisplayItemWrapper)gridViewAllProduction.GetRow(i);
+                            OrderItem item = Globals.dbContext.OrderItems.Where(oi => oi.Part.FileName == displayItem.FileName).
+                                                                          Where(oi => oi.Order.OrderNumber == displayItem.OrderNumber).FirstOrDefault();
+                            selectedItemList.Add(item);
+                        }
+                        radProjInterface.RetrieveSelectedRadanPartToMasterList(selectedItemList);
+                        gridViewAllProduction.Invalidate();
+                        gridViewAllProduction.RefreshData();
+                        
+
+                    }
+                    SplashScreenManager.HideImage();
+                }
+
+                else
+                {
+                    MessageBox.Show("The Radan project that is open does not match the project in RadanMaster.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Radan Is Not Ready");
+            }
+        }
+
         private void barButtonRadanProjectBrowse_ItemClick(object sender, ItemClickEventArgs e)
         {
             openFileDialogProject.Filter = "rpd files (*.rpd) | *.rpd";
@@ -509,9 +552,11 @@ namespace RadanMaster
 
                 RadanProjectName = openFileDialogProject.FileName;
                 txtBoxRadanProjectBrowse.EditValue = RadanProjectName;
-
-                
+                radProjInterface.LoadData(path);
             }
+        }
+
+        
     }
 
 }

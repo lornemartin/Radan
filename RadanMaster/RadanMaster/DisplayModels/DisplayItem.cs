@@ -32,6 +32,7 @@ namespace RadanMaster.Models
         public string PlantID { get; set; }
         public byte[] Thumbnail { get; set; }
         public object item;
+        public bool IsInProject { get; set; }
     }
 
     class DisplayNest
