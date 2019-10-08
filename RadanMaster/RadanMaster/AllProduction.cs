@@ -498,6 +498,9 @@ namespace RadanMaster
                 radProjInterface.SendItemsToRadan(selectedOrderItems, txtBoxRadanProjectBrowse.EditValue.ToString());
 
                 SplashScreenManager.HideImage();
+
+                entityServerModeSource2.Reload();
+                gridViewAllProduction.RefreshData();
             }
         }
 
@@ -529,6 +532,9 @@ namespace RadanMaster
 
                     }
                     SplashScreenManager.HideImage();
+                    entityServerModeSource2.Reload();
+                    gridViewAllProduction.RefreshData();
+
                 }
 
                 else

@@ -254,6 +254,7 @@ namespace RadanProjectInterface
                         RPrj.SaveData(projectName);
 
                         //gridViewItems.RefreshData();
+                        
 
                         //SplashScreenManager.HideImage();
                     }
@@ -412,7 +413,6 @@ namespace RadanProjectInterface
                         {
                             rPart.Number = rPart.Made;
                         }
-                        //rPrj.SaveData(radanProjectName);
                     }
                 }
 
