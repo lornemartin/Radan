@@ -117,6 +117,8 @@ namespace RadanMaster
 
             gridViewAllProduction.RefreshData();
 
+            
+
         }
 
         private void AllProduction_FormClosing(object sender, FormClosingEventArgs e)
@@ -322,6 +324,16 @@ namespace RadanMaster
         private void ribbon_SelectedPageChanging(object sender, DevExpress.XtraBars.Ribbon.RibbonPageChangingEventArgs e)
         {
             setupView(e.Page.Text);
+        }
+
+        private void ribbon_SelectedPageChanged(object sender, EventArgs e)
+        {
+            string errMsg = "";
+            string path = RadInterface.getOpenProjectName(ref errMsg);
+            RadanProjectName = path;
+            txtBoxRadanProjectBrowse.EditValue = RadanProjectName;
+            radProjInterface.LoadData(path);
+
         }
 
         void setupView(string ribbonTitle)
@@ -562,7 +574,14 @@ namespace RadanMaster
             }
         }
 
-        
+        private void barButtonUpdateFromRadan_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if(!radProjInterface.SyncRadanToMaster())
+            {
+                MessageBox.Show("Sync with Radan Project was not successful" + "\n\n", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
     }
 
 }

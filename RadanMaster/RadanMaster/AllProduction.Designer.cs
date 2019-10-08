@@ -48,6 +48,7 @@
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject24 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression2 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            this.colIsInProject = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemImageComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
@@ -106,7 +107,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripLabel();
             this.openFileDialogProject = new System.Windows.Forms.OpenFileDialog();
-            this.colIsInProject = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -126,6 +126,13 @@
             // splashScreenManager
             // 
             splashScreenManager.ClosingDelay = 500;
+            // 
+            // colIsInProject
+            // 
+            this.colIsInProject.FieldName = "IsInProject";
+            this.colIsInProject.Name = "colIsInProject";
+            this.colIsInProject.Visible = true;
+            this.colIsInProject.VisibleIndex = 19;
             // 
             // colCategory
             // 
@@ -196,6 +203,7 @@
             this.repositoryItemTextEdit1});
             this.ribbon.Size = new System.Drawing.Size(1243, 143);
             this.ribbon.SelectedPageChanging += new DevExpress.XtraBars.Ribbon.RibbonPageChangingEventHandler(this.ribbon_SelectedPageChanging);
+            this.ribbon.SelectedPageChanged += new System.EventHandler(this.ribbon_SelectedPageChanged);
             // 
             // barButtonItem1
             // 
@@ -283,6 +291,7 @@
             this.barButtonUpdateFromRadan.ImageOptions.Image = global::RadanMaster.Properties.Resources.refreshallpivottable_32x32;
             this.barButtonUpdateFromRadan.Name = "barButtonUpdateFromRadan";
             this.barButtonUpdateFromRadan.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.barButtonUpdateFromRadan.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonUpdateFromRadan_ItemClick);
             // 
             // barButtonNewRadanProject
             // 
@@ -688,13 +697,6 @@
             // openFileDialogProject
             // 
             this.openFileDialogProject.FileName = "openFileDialog1";
-            // 
-            // colIsInProject
-            // 
-            this.colIsInProject.FieldName = "IsInProject";
-            this.colIsInProject.Name = "colIsInProject";
-            this.colIsInProject.Visible = true;
-            this.colIsInProject.VisibleIndex = 19;
             // 
             // AllProduction
             // 

@@ -306,7 +306,7 @@ namespace RadanProjectInterface
             return path;
         }
 
-        private bool SyncRadanToMaster()
+        public bool SyncRadanToMaster()
         {
             try
             {
@@ -373,10 +373,6 @@ namespace RadanProjectInterface
             }
             catch (Exception ex)
             {
-                //*************************************************************************************
-                // this should be moved out of radanProjectInterface, don't want any UI code in here.
-                //*************************************************************************************
-                MessageBox.Show("Sync with Radan Project was not successful" + "\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
