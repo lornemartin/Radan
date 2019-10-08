@@ -27,6 +27,7 @@ namespace RadanProjectInterface
         {
             SymFolder = symFolder;
             RadInterface = new RadanInterface();
+            RPrj = RPrj.LoadData(RadanProjectName);
             DbContext = ctx;
         }
 
@@ -849,6 +850,11 @@ namespace RadanProjectInterface
             {
                 return false;
             }
+        }
+
+        public RadanProject GetRPrj()
+        {
+            return RPrj;
         }
     }
 

@@ -30,6 +30,7 @@ using DevExpress.XtraGrid.Views.Base;
 using RadanInterface2;
 using ProductionMasterModel;
 using DevExpress.XtraSplashScreen;
+using RadProject;
 
 namespace RadanMaster
 {
@@ -38,7 +39,7 @@ namespace RadanMaster
         RefreshHelper helper;
         ProductionMasterModel.User currentUser { get; set; }
         RadanProjectInterface.RadanProjectInterface radProjInterface { get; set; }
-        //RadProject.RadanProject Rprj { get; set; }
+        RadProject.RadanProject RPrj { get; set; }
         RadanInterface RadInterface { get; set; }
         string RadanProjectName { get; set; }
 
@@ -47,7 +48,7 @@ namespace RadanMaster
             InitializeComponent();
             currentUser = curUser;
             radProjInterface = new RadanProjectInterface.RadanProjectInterface((string)AppSettings.AppSettings.Get("SymFilePath"),Globals.dbContext);
-
+            RPrj.LoadData(RadanProjectName);
             setupView(ribbon.SelectedPage.Text);
         }
 
@@ -117,8 +118,90 @@ namespace RadanMaster
 
             gridViewAllProduction.RefreshData();
 
-            
+        }
 
+        private void gridViewAllProduction_CustomUnboundColumnData(object sender, CustomColumnDataEventArgs e)
+        {
+            if (this.Text == "Nesting")
+            {
+                if (e.Column.FieldName == "calcQtyDone")
+                {
+                    int origQtyNested = 0;
+
+                    if (RPrj == null)
+                        e.Value = "??";
+                    else
+                    {
+                        int totalNested = 0;
+                        OrderItem calcItem = (OrderItem)e.Row;
+                        origQtyNested = calcItem.QtyNested;
+
+                        if (calcItem.RadanIDNumber != 0)
+                        {
+                            int radanID = calcItem.RadanIDNumber;
+
+                            foreach (RadanPart radanPart in RPrj.Parts.Part)
+                            {
+                                if (radanPart.Bin == radanID.ToString())
+                                {
+                                    totalNested += radanPart.Made;
+                                }
+                            }
+                        }
+
+                        e.Value = calcItem.QtyNested += totalNested;
+
+                        // for some reason e.Value gets written to calcItem.QtyNested.
+                        //    because this event fires multiple times, the quantity nested gets incremented multiple times.
+                        //    This is not what we want so the following line is a work around.
+                        calcItem.QtyNested = origQtyNested;
+
+                        if ((int)e.Value >= calcItem.QtyRequired)
+                            calcItem.IsComplete = true;
+                        else
+                            calcItem.IsComplete = false;
+                    }
+                }
+
+                if (e.Column.FieldName == "calcRemaining")
+                {
+                    int origQtyNested = 0;
+
+                    if (RPrj == null)
+                        e.Value = "??";
+                    else
+                    {
+                        int totalNested = 0;
+                        OrderItem calcItem = (OrderItem)e.Row;
+                        origQtyNested = calcItem.QtyNested;
+
+                        if (calcItem.RadanIDNumber != 0)
+                        {
+                            int radanID = calcItem.RadanIDNumber;
+
+                            foreach (RadanPart radanPart in RPrj.Parts.Part)
+                            {
+                                if (radanPart.Bin == radanID.ToString())
+                                {
+                                    totalNested += radanPart.Made;
+                                }
+                            }
+                        }
+
+                        e.Value = calcItem.QtyRequired - (calcItem.QtyNested += totalNested);
+
+                        // for some reason e.Value gets written to calcItem.QtyNested.
+                        //    because this event fires multiple times, the quantity nested gets incremented multiple times.
+                        //    This is not what we want so the following line is a work around.
+                        calcItem.QtyNested = origQtyNested;
+
+                        //if ((int)e.Value >= calcItem.QtyRequired)
+                        //    calcItem.IsComplete = true;
+                        //else
+                        //    calcItem.IsComplete = false;
+                    }
+                }
+            }
         }
 
         private void AllProduction_FormClosing(object sender, FormClosingEventArgs e)
@@ -323,6 +406,7 @@ namespace RadanMaster
 
         private void ribbon_SelectedPageChanging(object sender, DevExpress.XtraBars.Ribbon.RibbonPageChangingEventArgs e)
         {
+            this.Text = e.Page.Text;
             setupView(e.Page.Text);
         }
 
