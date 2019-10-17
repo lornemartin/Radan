@@ -45,7 +45,7 @@ namespace RadanMaster
 
         private void btnNesting_Click(object sender, EventArgs e)
         {
-            Nesting nestingForm = new Nesting();
+            Nesting2 nestingForm = new Nesting2(currentUser);
             nestingForm.ShowDialog();
         }
 

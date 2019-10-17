@@ -192,6 +192,12 @@
     </Compile>
     <Compile Include="GroupAndFilterSettings.cs" />
     <Compile Include="DisplayModels\DisplayItem.cs" />
+    <Compile Include="Nesting2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nesting2.Designer.cs">
+      <DependentUpon>Nesting2.cs</DependentUpon>
+    </Compile>
     <Compile Include="OperationCompleted.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -290,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Nesting.resx">
       <DependentUpon>Nesting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nesting2.resx">
+      <DependentUpon>Nesting2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OperationCompleted.resx">
       <DependentUpon>OperationCompleted.cs</DependentUpon>
