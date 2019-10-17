@@ -445,12 +445,14 @@
             new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "QtyRequired", this.colQtyRequired, "({0:0.##})")});
             this.gridViewAllProduction.Name = "gridViewAllProduction";
             this.gridViewAllProduction.OptionsBehavior.Editable = false;
+            this.gridViewAllProduction.OptionsCustomization.AllowMergedGrouping = DevExpress.Utils.DefaultBoolean.True;
             this.gridViewAllProduction.OptionsEditForm.ShowOnDoubleClick = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAllProduction.OptionsEditForm.ShowOnEnterKey = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAllProduction.OptionsEditForm.ShowOnF2Key = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewAllProduction.OptionsMenu.ShowGroupSummaryEditorItem = true;
             this.gridViewAllProduction.OptionsSelection.MultiSelect = true;
             this.gridViewAllProduction.OptionsView.RowAutoHeight = true;
+            this.gridViewAllProduction.OptionsView.ShowGroupPanelColumnsAsSingleRow = true;
             this.gridViewAllProduction.RowHeight = 80;
             this.gridViewAllProduction.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colID, DevExpress.Data.ColumnSortOrder.Ascending)});

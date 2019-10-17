@@ -48,7 +48,8 @@ namespace RadanMaster
             InitializeComponent();
             currentUser = curUser;
             radProjInterface = new RadanProjectInterface.RadanProjectInterface((string)AppSettings.AppSettings.Get("SymFilePath"),Globals.dbContext);
-            RPrj.LoadData(RadanProjectName);
+            RadanProjectName = (string)AppSettings.AppSettings.Get("RadanProjectPathAndFile");
+            RPrj = RPrj.LoadData(RadanProjectName);
             setupView(ribbon.SelectedPage.Text);
         }
 
@@ -122,8 +123,8 @@ namespace RadanMaster
 
         private void gridViewAllProduction_CustomUnboundColumnData(object sender, CustomColumnDataEventArgs e)
         {
-            if (this.Text == "Nesting")
-            {
+            //if (this.Text == "Nesting")
+            //{
                 if (e.Column.FieldName == "calcQtyDone")
                 {
                     int origQtyNested = 0;
@@ -133,7 +134,11 @@ namespace RadanMaster
                     else
                     {
                         int totalNested = 0;
-                        OrderItem calcItem = (OrderItem)e.Row;
+                        DisplayItemWrapper itemWrapper = (DisplayItemWrapper)e.Row;
+
+
+                        OrderItem calcItem = (OrderItem)itemWrapper.item;
+
                         origQtyNested = calcItem.QtyNested;
 
                         if (calcItem.RadanIDNumber != 0)
@@ -201,7 +206,7 @@ namespace RadanMaster
                         //    calcItem.IsComplete = false;
                     }
                 }
-            }
+            //}
         }
 
         private void AllProduction_FormClosing(object sender, FormClosingEventArgs e)
@@ -660,11 +665,18 @@ namespace RadanMaster
 
         private void barButtonUpdateFromRadan_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if(!radProjInterface.SyncRadanToMaster())
+            SplashScreenManager.ShowForm(this, typeof(WaitForm1), true, true, false);
+
+            if (!radProjInterface.SyncRadanToMaster())
             {
                 MessageBox.Show("Sync with Radan Project was not successful" + "\n\n", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            RPrj = radProjInterface.GetRPrj();
+            gridViewAllProduction.RefreshData();
+            entityServerModeSource2.Reload();
+
+            SplashScreenManager.HideImage();
         }
     }
 
