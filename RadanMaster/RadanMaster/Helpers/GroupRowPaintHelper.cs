@@ -13,7 +13,7 @@ namespace RadanMaster
 {
     public class GroupRowPaintHelper
     {
-        public static void CustomDrawSubjectColumnGroupRow(RowObjectCustomDrawEventArgs e, GridView view, DevExpress.LookAndFeel.UserLookAndFeel lookAndFeel, ImageList imgList)
+        public static void CustomDrawNameGroupRow(RowObjectCustomDrawEventArgs e, GridView view, DevExpress.LookAndFeel.UserLookAndFeel lookAndFeel, ImageList imgList)
         {
             var info = e.Info as GridGroupRowInfo;
             DrawGradientBackground(e, info);
@@ -63,6 +63,17 @@ namespace RadanMaster
             img = GetGroupRowCustomImage(imgList, imgIndex);
             var imgPos = CalcImgPosition(e, info);
             if (img == null) return imgPos;
+
+            //******************added by Lorne
+            int bmSize = 32;
+            Bitmap result = new Bitmap(32,32);
+            using (Graphics g = Graphics.FromImage(result))
+            {
+                g.DrawImage(img, 0, 0, 60,60);
+            }
+            img = result;
+            //*******************finish additions
+
             info.Cache.Paint.DrawImage(e.Cache.Graphics, img, imgPos);
             Point imageRightBottomCorner = new Point(imgPos.X + img.Width, imgPos.Y);
             return imageRightBottomCorner;

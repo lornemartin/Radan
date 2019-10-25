@@ -70,9 +70,6 @@
             this.barButtonConnectToRadan = new DevExpress.XtraBars.BarButtonItem();
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
             this.barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
-            this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageNesting = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -91,7 +88,6 @@
             this.colThickness = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOrderNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colStructCode = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOperation = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSchedName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBatchName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -99,6 +95,7 @@
             this.colPlantID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsComplete = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colIsBatch = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemImageEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemImageEdit();
             this.repositoryItemImageComboBox2 = new DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox();
             this.popupContainerControlNesting2 = new DevExpress.XtraEditors.PopupContainerControl();
@@ -132,7 +129,7 @@
             this.colIsInProject.FieldName = "IsInProject";
             this.colIsInProject.Name = "colIsInProject";
             this.colIsInProject.Visible = true;
-            this.colIsInProject.VisibleIndex = 19;
+            this.colIsInProject.VisibleIndex = 18;
             // 
             // colCategory
             // 
@@ -197,7 +194,6 @@
             this.ribbon.Name = "ribbon";
             this.ribbon.PageHeaderItemLinks.Add(this.barButtonGroup1);
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
-            this.ribbonPage1,
             this.ribbonPageNesting});
             this.ribbon.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1});
@@ -331,30 +327,6 @@
             this.barButtonItem6.Name = "barButtonItem6";
             this.barButtonItem6.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem6_ItemClick);
             // 
-            // ribbonPage1
-            // 
-            this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup1,
-            this.ribbonPageGroup2});
-            this.ribbonPage1.Name = "ribbonPage1";
-            this.ribbonPage1.Text = "All Production";
-            // 
-            // ribbonPageGroup1
-            // 
-            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
-            this.ribbonPageGroup1.Text = "ribbonPageGroup1";
-            // 
-            // ribbonPageGroup2
-            // 
-            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem1);
-            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem2);
-            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem3);
-            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem4);
-            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem5);
-            this.ribbonPageGroup2.ItemLinks.Add(this.barButtonItem6);
-            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
-            this.ribbonPageGroup2.Text = "Reports";
-            // 
             // ribbonPageNesting
             // 
             this.ribbonPageNesting.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -422,7 +394,6 @@
             this.colThickness,
             this.colOrderNumber,
             this.colStructCode,
-            this.colProductName,
             this.colOperation,
             this.colSchedName,
             this.colBatchName,
@@ -430,7 +401,8 @@
             this.colPlantID,
             this.colIsComplete,
             this.colIsBatch,
-            this.colIsInProject});
+            this.colIsInProject,
+            this.colProductName});
             gridFormatRule1.ApplyToRow = true;
             gridFormatRule1.Column = this.colIsInProject;
             gridFormatRule1.Name = "PartsInProject";
@@ -452,10 +424,12 @@
             this.gridViewNesting2.OptionsMenu.ShowGroupSummaryEditorItem = true;
             this.gridViewNesting2.OptionsSelection.MultiSelect = true;
             this.gridViewNesting2.OptionsView.RowAutoHeight = true;
+            this.gridViewNesting2.OptionsView.ShowGroupedColumns = true;
             this.gridViewNesting2.OptionsView.ShowGroupPanelColumnsAsSingleRow = true;
             this.gridViewNesting2.RowHeight = 80;
             this.gridViewNesting2.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colID, DevExpress.Data.ColumnSortOrder.Ascending)});
+            this.gridViewNesting2.CustomDrawGroupRow += new DevExpress.XtraGrid.Views.Base.RowObjectCustomDrawEventHandler(this.gridViewNesting2_CustomDrawGroupRow);
             this.gridViewNesting2.PopupMenuShowing += new DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventHandler(this.gridViewItems_PopupMenuShowing);
             this.gridViewNesting2.RowDeleted += new DevExpress.Data.RowDeletedEventHandler(this.gridViewNesting2_RowDeleted);
             this.gridViewNesting2.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gridViewNesting2_RowUpdated);
@@ -573,22 +547,13 @@
             this.colStructCode.VisibleIndex = 8;
             this.colStructCode.Width = 50;
             // 
-            // colProductName
-            // 
-            this.colProductName.Caption = "Product";
-            this.colProductName.FieldName = "ProductName";
-            this.colProductName.Name = "colProductName";
-            this.colProductName.Visible = true;
-            this.colProductName.VisibleIndex = 11;
-            this.colProductName.Width = 58;
-            // 
             // colOperation
             // 
             this.colOperation.Caption = "Operation";
             this.colOperation.FieldName = "Name";
             this.colOperation.Name = "colOperation";
             this.colOperation.Visible = true;
-            this.colOperation.VisibleIndex = 12;
+            this.colOperation.VisibleIndex = 11;
             this.colOperation.Width = 48;
             // 
             // colSchedName
@@ -597,7 +562,7 @@
             this.colSchedName.FieldName = "ScheduleName";
             this.colSchedName.Name = "colSchedName";
             this.colSchedName.Visible = true;
-            this.colSchedName.VisibleIndex = 13;
+            this.colSchedName.VisibleIndex = 12;
             this.colSchedName.Width = 48;
             // 
             // colBatchName
@@ -606,7 +571,7 @@
             this.colBatchName.FieldName = "BatchName";
             this.colBatchName.Name = "colBatchName";
             this.colBatchName.Visible = true;
-            this.colBatchName.VisibleIndex = 14;
+            this.colBatchName.VisibleIndex = 13;
             this.colBatchName.Width = 48;
             // 
             // colNotes
@@ -615,7 +580,7 @@
             this.colNotes.FieldName = "Notes";
             this.colNotes.Name = "colNotes";
             this.colNotes.Visible = true;
-            this.colNotes.VisibleIndex = 15;
+            this.colNotes.VisibleIndex = 14;
             this.colNotes.Width = 165;
             // 
             // colPlantID
@@ -624,7 +589,7 @@
             this.colPlantID.FieldName = "PlantID";
             this.colPlantID.Name = "colPlantID";
             this.colPlantID.Visible = true;
-            this.colPlantID.VisibleIndex = 17;
+            this.colPlantID.VisibleIndex = 16;
             this.colPlantID.Width = 54;
             // 
             // colIsComplete
@@ -633,7 +598,7 @@
             this.colIsComplete.FieldName = "IsComplete";
             this.colIsComplete.Name = "colIsComplete";
             this.colIsComplete.Visible = true;
-            this.colIsComplete.VisibleIndex = 16;
+            this.colIsComplete.VisibleIndex = 15;
             this.colIsComplete.Width = 22;
             // 
             // colIsBatch
@@ -642,8 +607,15 @@
             this.colIsBatch.FieldName = "IsBatch";
             this.colIsBatch.Name = "colIsBatch";
             this.colIsBatch.Visible = true;
-            this.colIsBatch.VisibleIndex = 18;
+            this.colIsBatch.VisibleIndex = 17;
             this.colIsBatch.Width = 95;
+            // 
+            // colProductName
+            // 
+            this.colProductName.FieldName = "ProductName";
+            this.colProductName.Name = "colProductName";
+            this.colProductName.Visible = true;
+            this.colProductName.VisibleIndex = 19;
             // 
             // repositoryItemImageEdit1
             // 
@@ -740,8 +712,6 @@
         #endregion
 
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
-        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
         private DevExpress.XtraGrid.GridControl gridControlNesting2;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewNesting2;
         private DevExpress.Data.Linq.EntityServerModeSource entityServerModeSource2;
@@ -763,9 +733,7 @@
         private DevExpress.XtraEditors.PopupContainerControl popupContainerControlNesting2;
         private DevExpress.XtraPdfViewer.PdfViewer pdfViewerNesting2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraGrid.Columns.GridColumn colID;
-        private DevExpress.XtraGrid.Columns.GridColumn colProductName;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageComboBox repositoryItemImageComboBox1;
         private DevExpress.XtraEditors.Repository.RepositoryItemImageEdit repositoryItemImageEdit1;
         private DevExpress.Utils.ImageCollection imageCollection1;
@@ -798,5 +766,6 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem6;
         private System.Windows.Forms.OpenFileDialog openFileDialogProject;
         private DevExpress.XtraGrid.Columns.GridColumn colIsInProject;
+        private DevExpress.XtraGrid.Columns.GridColumn colProductName;
     }
 }

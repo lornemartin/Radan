@@ -31,6 +31,8 @@ using RadanInterface2;
 using ProductionMasterModel;
 using DevExpress.XtraSplashScreen;
 using RadProject;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace RadanMaster
 {
@@ -47,7 +49,7 @@ namespace RadanMaster
         {
             InitializeComponent();
             currentUser = curUser;
-            radProjInterface = new RadanProjectInterface.RadanProjectInterface((string)AppSettings.AppSettings.Get("SymFilePath"),Globals.dbContext);
+            radProjInterface = new RadanProjectInterface.RadanProjectInterface((string)AppSettings.AppSettings.Get("SymFilePath"), Globals.dbContext);
             RadanProjectName = (string)AppSettings.AppSettings.Get("RadanProjectPathAndFile");
             RPrj = RPrj.LoadData(RadanProjectName);
             setupView(ribbon.SelectedPage.Text);
@@ -65,38 +67,103 @@ namespace RadanMaster
             Globals.dbContext.Users.Load();
             Globals.dbContext.Privileges.Load();
 
-            entityServerModeSource2.QueryableSource = from orderitem in Globals.dbContext.OrderItems
-                                                      select new DisplayItemWrapper
-                                                      {
-                                                          ID = orderitem.ID,
-                                                          QtyRequired = orderitem.QtyRequired,
-                                                          QtyNested = orderitem.OrderItemOperations.OrderByDescending(o => o.ID).FirstOrDefault().qtyDone, // lastordefault doesn't work with EF
-                                                          CategoryName = orderitem.Part.CategoryName,
-                                                          CategoryIcon = 0,
-                                                          FileName = orderitem.Part.FileName,
-                                                          Description = orderitem.Part.Description,
-                                                          IsStock = orderitem.Part.IsStock,
-                                                          Thickness = orderitem.Part.Thickness,
-                                                          OrderNumber = orderitem.Order.OrderNumber,
-                                                          StructuralCode = orderitem.Part.StructuralCode,
-                                                          ProductName = orderitem.ProductName,
-                                                          Name = orderitem.Part.Operations.FirstOrDefault().Name,
-                                                          ScheduleName = orderitem.Order.ScheduleName,
-                                                          BatchName = orderitem.Order.BatchName,
-                                                          Notes = orderitem.Notes,
-                                                          IsComplete = orderitem.Order.IsComplete,
-                                                          IsBatch = orderitem.Order.IsBatch,
-                                                          PlantID = orderitem.Part.PlantID,
-                                                          Thumbnail = orderitem.Part.Thumbnail,
-                                                          item = orderitem,
-                                                          IsInProject = orderitem.IsInProject,
-                                                      };
+            var result1 = from orderitem in Globals.dbContext.OrderItems
+                          select new NestingDisplayItemWrapper
+                          {
+                              ID = orderitem.ID,
+                              QtyRequired = orderitem.QtyRequired,
+                              QtyNested = orderitem.OrderItemOperations.OrderByDescending(o => o.ID).FirstOrDefault().qtyDone, // lastordefault doesn't work with EF
+                              CategoryName = orderitem.Part.CategoryName,
+                              CategoryIcon = 0,
+                              FileName = orderitem.Part.FileName,
+                              Description = orderitem.Part.Description,
+                              IsStock = orderitem.Part.IsStock,
+                              Thickness = orderitem.Part.Thickness,
+                              OrderNumber = orderitem.Order.OrderNumber,
+                              StructuralCode = orderitem.Part.StructuralCode,
+                              //ProductName = orderitem.ProductName,
+                              Name = orderitem.Part.Operations.FirstOrDefault().Name,
+                              ScheduleName = orderitem.Order.ScheduleName,
+                              BatchName = orderitem.Order.BatchName,
+                              Notes = orderitem.Notes,
+                              IsComplete = orderitem.Order.IsComplete,
+                              IsBatch = orderitem.Order.IsBatch,
+                              PlantID = orderitem.Part.PlantID,
+                              Thumbnail = orderitem.Part.Thumbnail,
+                              item = orderitem,
+                              IsInProject = orderitem.IsInProject,
+                          };
+
+            var result2 = (from orderitem in Globals.dbContext.OrderItems
+                           group orderitem by new
+                           {
+                               ID = orderitem.ID,
+                               QtyRequired = orderitem.QtyRequired,
+                               QtyNested = orderitem.OrderItemOperations.OrderByDescending(o => o.ID).FirstOrDefault().qtyDone, // lastordefault doesn't work with EF
+                               CategoryName = orderitem.Part.CategoryName,
+                               CategoryIcon = 0,
+                               FileName = orderitem.Part.FileName,
+                               Description = orderitem.Part.Description,
+                               IsStock = orderitem.Part.IsStock,
+                               Thickness = orderitem.Part.Thickness,
+                               OrderNumber = orderitem.Order.OrderNumber,
+                               StructuralCode = orderitem.Part.StructuralCode,
+                               //ProductName = orderitem.ProductName,
+                               Name = orderitem.Part.Operations.FirstOrDefault().Name,
+                               ScheduleName = orderitem.Order.ScheduleName,
+                               BatchName = orderitem.Order.BatchName,
+                               Notes = orderitem.Notes,
+                               IsComplete = orderitem.Order.IsComplete,
+                               IsBatch = orderitem.Order.IsBatch,
+                               PlantID = orderitem.Part.PlantID,
+                               Thumbnail = orderitem.Part.Thumbnail,
+                               item = orderitem,
+                               IsInProject = orderitem.IsInProject,
+                           }
+                           into grp
+                           select new
+                           {
+                               grp.Key.ID,
+                               grp.Key.QtyRequired,
+                               grp.Key.QtyNested,
+                               CategoryIcon = 0,
+                               grp.Key.FileName,
+                               grp.Key.Description,
+                               grp.Key.IsStock,
+                               grp.Key.Thickness,
+                               grp.Key.OrderNumber,
+                               grp.Key.StructuralCode,
+                               //ProductName = orderitem.ProductName,
+                               grp.Key.Name,
+                               grp.Key.ScheduleName,
+                               grp.Key.BatchName,
+                               grp.Key.Notes,
+                               grp.Key.IsComplete,
+                               grp.Key.IsBatch,
+                               grp.Key.PlantID,
+                               grp.Key.Thumbnail,
+                               grp.Key.item,
+                               grp.Key.IsInProject,
+                               QTY = grp.Sum(NestingDisplayItemWrapper => NestingDisplayItemWrapper.QtyRequired)
+                           });
+
+            //var result2 = (from NestingDisplayItemWrapper in result1
+            //               group NestingDisplayItemWrapper by new { NestingDisplayItemWrapper.FileName, NestingDisplayItemWrapper.QtyNested }
+            //                                           into grp
+            //               select new
+            //               {
+            //                   grp.Key.FileName,
+            //                   grp.Key.QtyNested,
+            //                   QTY = grp.Sum(NestingDisplayItemWrapper => NestingDisplayItemWrapper.QtyNested)
+            //               });
+
+            entityServerModeSource2.QueryableSource = result2;
 
             // load all symbols for laser parts that don't have any...
             List<Part> partsWithoutSymbols = new List<Part>();
             partsWithoutSymbols = Globals.dbContext.Parts.Where(p => p.Operations.FirstOrDefault().Name == "Laser")
                                                          .Where(p => p.Thumbnail == null).ToList();
-            foreach(Part p in partsWithoutSymbols)
+            foreach (Part p in partsWithoutSymbols)
             {
                 p.Thumbnail = radProjInterface.updateThumbnail(p.FileName);
             }
@@ -123,89 +190,86 @@ namespace RadanMaster
 
         private void gridViewNesting2_CustomUnboundColumnData(object sender, CustomColumnDataEventArgs e)
         {
-            //if (this.Text == "Nesting")
+            //if (e.Column.FieldName == "calcQtyDone")
             //{
-                if (e.Column.FieldName == "calcQtyDone")
-                {
-                    int origQtyNested = 0;
+            //    int origQtyNested = 0;
 
-                    if (RPrj == null)
-                        e.Value = "??";
-                    else
-                    {
-                        int totalNested = 0;
-                        DisplayItemWrapper itemWrapper = (DisplayItemWrapper)e.Row;
+            //    if (RPrj == null)
+            //        e.Value = "??";
+            //    else
+            //    {
+            //        int totalNested = 0;
+            //        NestingDisplayItemWrapper itemWrapper = (NestingDisplayItemWrapper)e.Row;
 
 
-                        OrderItem calcItem = (OrderItem)itemWrapper.item;
+            //        OrderItem calcItem = (OrderItem)itemWrapper.item;
 
-                        origQtyNested = calcItem.QtyNested;
+            //        origQtyNested = calcItem.QtyNested;
 
-                        if (calcItem.RadanIDNumber != 0)
-                        {
-                            int radanID = calcItem.RadanIDNumber;
+            //        if (calcItem.RadanIDNumber != 0)
+            //        {
+            //            int radanID = calcItem.RadanIDNumber;
 
-                            foreach (RadanPart radanPart in RPrj.Parts.Part)
-                            {
-                                if (radanPart.Bin == radanID.ToString())
-                                {
-                                    totalNested += radanPart.Made;
-                                }
-                            }
-                        }
+            //            foreach (RadanPart radanPart in RPrj.Parts.Part)
+            //            {
+            //                if (radanPart.Bin == radanID.ToString())
+            //                {
+            //                    totalNested += radanPart.Made;
+            //                }
+            //            }
+            //        }
 
-                        e.Value = calcItem.QtyNested += totalNested;
+            //        e.Value = calcItem.QtyNested += totalNested;
 
-                        // for some reason e.Value gets written to calcItem.QtyNested.
-                        //    because this event fires multiple times, the quantity nested gets incremented multiple times.
-                        //    This is not what we want so the following line is a work around.
-                        calcItem.QtyNested = origQtyNested;
+            //        // for some reason e.Value gets written to calcItem.QtyNested.
+            //        //    because this event fires multiple times, the quantity nested gets incremented multiple times.
+            //        //    This is not what we want so the following line is a work around.
+            //        calcItem.QtyNested = origQtyNested;
 
-                        if ((int)e.Value >= calcItem.QtyRequired)
-                            calcItem.IsComplete = true;
-                        else
-                            calcItem.IsComplete = false;
-                    }
-                }
+            //        if ((int)e.Value >= calcItem.QtyRequired)
+            //            calcItem.IsComplete = true;
+            //        else
+            //            calcItem.IsComplete = false;
+            //    }
+            //}
 
-                if (e.Column.FieldName == "calcRemaining")
-                {
-                    int origQtyNested = 0;
+            //if (e.Column.FieldName == "calcRemaining")
+            //{
+            //    int origQtyNested = 0;
 
-                    if (RPrj == null)
-                        e.Value = "??";
-                    else
-                    {
-                        int totalNested = 0;
-                        OrderItem calcItem = (OrderItem)e.Row;
-                        origQtyNested = calcItem.QtyNested;
+            //    if (RPrj == null)
+            //        e.Value = "??";
+            //    else
+            //    {
+            //        int totalNested = 0;
+            //        OrderItem calcItem = (OrderItem)e.Row;
+            //        origQtyNested = calcItem.QtyNested;
 
-                        if (calcItem.RadanIDNumber != 0)
-                        {
-                            int radanID = calcItem.RadanIDNumber;
+            //        if (calcItem.RadanIDNumber != 0)
+            //        {
+            //            int radanID = calcItem.RadanIDNumber;
 
-                            foreach (RadanPart radanPart in RPrj.Parts.Part)
-                            {
-                                if (radanPart.Bin == radanID.ToString())
-                                {
-                                    totalNested += radanPart.Made;
-                                }
-                            }
-                        }
+            //            foreach (RadanPart radanPart in RPrj.Parts.Part)
+            //            {
+            //                if (radanPart.Bin == radanID.ToString())
+            //                {
+            //                    totalNested += radanPart.Made;
+            //                }
+            //            }
+            //        }
 
-                        e.Value = calcItem.QtyRequired - (calcItem.QtyNested += totalNested);
+            //        e.Value = calcItem.QtyRequired - (calcItem.QtyNested += totalNested);
 
-                        // for some reason e.Value gets written to calcItem.QtyNested.
-                        //    because this event fires multiple times, the quantity nested gets incremented multiple times.
-                        //    This is not what we want so the following line is a work around.
-                        calcItem.QtyNested = origQtyNested;
+            //        // for some reason e.Value gets written to calcItem.QtyNested.
+            //        //    because this event fires multiple times, the quantity nested gets incremented multiple times.
+            //        //    This is not what we want so the following line is a work around.
+            //        calcItem.QtyNested = origQtyNested;
 
-                        //if ((int)e.Value >= calcItem.QtyRequired)
-                        //    calcItem.IsComplete = true;
-                        //else
-                        //    calcItem.IsComplete = false;
-                    }
-                }
+            //        //if ((int)e.Value >= calcItem.QtyRequired)
+            //        //    calcItem.IsComplete = true;
+            //        //else
+            //        //    calcItem.IsComplete = false;
+            //    }
             //}
         }
 
@@ -220,54 +284,54 @@ namespace RadanMaster
 
         private void gridControlNesting2_MouseMove(object sender, MouseEventArgs e)
         {
-            GridHitInfo info = gridViewNesting2.CalcHitInfo(e.Location);
-            GridViewInfo viewInfo = gridViewNesting2.GetViewInfo() as GridViewInfo;
-            GridCellInfo cellInfo = viewInfo.GetGridCellInfo(info);
+            //GridHitInfo info = gridViewNesting2.CalcHitInfo(e.Location);
+            //GridViewInfo viewInfo = gridViewNesting2.GetViewInfo() as GridViewInfo;
+            //GridCellInfo cellInfo = viewInfo.GetGridCellInfo(info);
 
-            if (cellInfo != null)
-            {
-                if (cellInfo.Column.Caption == "Name")
-                {
-                    int handle = cellInfo.RowHandle;
-                    object o = gridViewNesting2.GetRow(handle);
-                    DisplayItemWrapper temp = (DisplayItemWrapper)o;
-                    OrderItem item = (OrderItem)temp.item;
+            //if (cellInfo != null)
+            //{
+            //    if (cellInfo.Column.Caption == "Name")
+            //    {
+            //        int handle = cellInfo.RowHandle;
+            //        object o = gridViewNesting2.GetRow(handle);
+            //        DisplayItemWrapper temp = (DisplayItemWrapper)o;
+            //        OrderItem item = (OrderItem)temp.item;
 
-                    if (item != null)
-                    {
-                        int partIndex = item.PartID;
-                        Part prt = Globals.dbContext.Parts.FirstOrDefault(p => p.ID == partIndex);
-                        if (prt.Files.Count > 0)
-                        {
-                            int fileIndex = prt.Files.FirstOrDefault().FileId;
-                            ProductionMasterModel.File file = Globals.dbContext.Files.FirstOrDefault(f => f.FileId == fileIndex);
-                            Stream stream = new MemoryStream(file.Content);
-                            pdfViewerNesting2.LoadDocument(stream);
-                            pdfViewerNesting2.CurrentPageNumber = 1;
-                            pdfViewerNesting2.ZoomMode = PdfZoomMode.FitToVisible;
+            //        if (item != null)
+            //        {
+            //            int partIndex = item.PartID;
+            //            Part prt = Globals.dbContext.Parts.FirstOrDefault(p => p.ID == partIndex);
+            //            if (prt.Files.Count > 0)
+            //            {
+            //                int fileIndex = prt.Files.FirstOrDefault().FileId;
+            //                ProductionMasterModel.File file = Globals.dbContext.Files.FirstOrDefault(f => f.FileId == fileIndex);
+            //                Stream stream = new MemoryStream(file.Content);
+            //                pdfViewerNesting2.LoadDocument(stream);
+            //                pdfViewerNesting2.CurrentPageNumber = 1;
+            //                pdfViewerNesting2.ZoomMode = PdfZoomMode.FitToVisible;
 
-                            Point popupPoint = new Point(e.X + 5, e.Y + 5);
-                            if (popupPoint.Y + popupContainerControlNesting2.Height > gridControlNesting2.Height)
-                                popupPoint.Y = gridControlNesting2.Height - popupContainerControlNesting2.Height;
-                            popupContainerControlNesting2.Location = popupPoint;
-                            popupContainerControlNesting2.Show();
-                        }
-                        else
-                        {
-                            popupContainerControlNesting2.Hide();
-                        }
-                    }
-                }
-                else
-                {
-                    popupContainerControlNesting2.Hide();
-                }
+            //                Point popupPoint = new Point(e.X + 5, e.Y + 5);
+            //                if (popupPoint.Y + popupContainerControlNesting2.Height > gridControlNesting2.Height)
+            //                    popupPoint.Y = gridControlNesting2.Height - popupContainerControlNesting2.Height;
+            //                popupContainerControlNesting2.Location = popupPoint;
+            //                popupContainerControlNesting2.Show();
+            //            }
+            //            else
+            //            {
+            //                popupContainerControlNesting2.Hide();
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        popupContainerControlNesting2.Hide();
+            //    }
 
-            }
-            else
-            {
-                popupContainerControlNesting2.Hide();
-            }
+            //}
+            //else
+            //{
+            //    popupContainerControlNesting2.Hide();
+            //}
 
         }
 
@@ -337,13 +401,13 @@ namespace RadanMaster
                 Order order = Globals.dbContext.Orders.Where(ordr => ordr.ID == itemToEdit.OrderID).FirstOrDefault();
 
                 EditOrderitem editForm = new EditOrderitem(itemToEdit, currentUser);
-                string fileName="",description="",batchName = "";
+                string fileName = "", description = "", batchName = "";
                 if (itemToEdit.Part != null)
                 {
                     fileName = itemToEdit.Part.FileName;
                     description = itemToEdit.Part.Description;
                 }
-                if(order!=null)
+                if (order != null)
                     batchName = order.BatchName;
 
                 string Title = fileName + "(" + description + ")" + "--->" + batchName;
@@ -428,7 +492,7 @@ namespace RadanMaster
         void setupView(string ribbonTitle)
         {
             ViewColumnFilterInfo viewFilterInfo = new ViewColumnFilterInfo(gridViewNesting2.Columns["Name"],
-                new ColumnFilterInfo("[Name] = 'Laser'",""));
+                new ColumnFilterInfo("[Name] = 'Laser'", ""));
 
             if (ribbonTitle == "Nesting")
             {
@@ -481,7 +545,7 @@ namespace RadanMaster
                 foreach (int handle in selectedItemHandles)
                 {
                     DisplayItemWrapper wrapper = (DisplayItemWrapper)gridViewNesting2.GetRow(handle);
-                    selectedItems.Add((OrderItem) wrapper.item);
+                    selectedItems.Add((OrderItem)wrapper.item);
                 }
 
                 e.Menu.Items.Clear();
@@ -510,7 +574,7 @@ namespace RadanMaster
                 }
 
                 Globals.dbContext.SaveChanges();
-               
+
                 gridViewNesting2.RefreshData();
                 entityServerModeSource2.Reload();
             }
@@ -582,10 +646,10 @@ namespace RadanMaster
                 {
                     int selectedRowHandle = selectedRowHandles[i];
                     if (selectedRowHandle >= 0)
-                    
+
                     {
-                        
-                        DisplayItemWrapper dItem = (DisplayItemWrapper) gridViewNesting2.GetRow(selectedRowHandle);
+
+                        DisplayItemWrapper dItem = (DisplayItemWrapper)gridViewNesting2.GetRow(selectedRowHandle);
 
                         OrderItem orderItem = Globals.dbContext.OrderItems.Where(oi => oi.Part.FileName == dItem.FileName)
                                                                   .Where(oi => oi.Order.OrderNumber == dItem.OrderNumber)
@@ -629,7 +693,7 @@ namespace RadanMaster
                         radProjInterface.RetrieveSelectedRadanPartToMasterList(selectedItemList);
                         gridViewNesting2.Invalidate();
                         gridViewNesting2.RefreshData();
-                        
+
 
                     }
                     SplashScreenManager.HideImage();
@@ -677,6 +741,52 @@ namespace RadanMaster
             entityServerModeSource2.Reload();
 
             SplashScreenManager.HideImage();
+        }
+
+        private void gridViewNesting2_CustomDrawGroupRow(object sender, RowObjectCustomDrawEventArgs e)
+        {
+            GridGroupRowInfo row = e.Info as GridGroupRowInfo;
+
+            DrawGroupRow(e);
+        }
+
+        private void DrawGroupRow(RowObjectCustomDrawEventArgs e)
+        {
+        //    var info = e.Info as GridGroupRowInfo;
+        //    ImageList imageList1 = new ImageList();
+
+        //    if (!(info.Column.FieldName == "FileName"))
+        //    {
+        //        return;
+        //    }
+
+        //    int rowhandle = e.RowHandle;
+
+        //    var v = gridViewNesting2.GetRow(rowhandle);
+        //    DisplayItemWrapper displayItem = (DisplayItemWrapper)v;
+
+        //    using (var ms = new System.IO.MemoryStream(displayItem.Thumbnail))
+        //    {
+        //        using (var img1 = Image.FromStream(ms))
+        //        {
+        //            int bmSize = 32;
+        //            Bitmap result = new Bitmap(bmSize, bmSize);
+        //            using (Graphics g = Graphics.FromImage(result))
+        //            {
+        //                g.DrawImage(img1, 0, 0, bmSize, bmSize);
+        //            }
+
+        //            gridViewNesting2.GroupRowHeight = 75;
+        //            imageList1.Images.Add(result);
+        //        }
+                
+        //    }
+
+        //    if (imageList1.Images != null)
+        //    {
+        //        GroupRowPaintHelper.CustomDrawNameGroupRow(e, gridViewNesting2, gridControlNesting2.LookAndFeel, imageList1);
+        //        e.Handled = true;
+        //    }
         }
     }
 

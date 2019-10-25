@@ -170,7 +170,9 @@
     <Compile Include="DailySchedule\DailyScheduleAggregate.cs" />
     <Compile Include="DailySchedule\ExportLineItem.cs" />
     <Compile Include="DailySchedule\ProcessPDF.cs" />
+    <Compile Include="DisplayModels\NestingDisplayItem.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="Helpers\GroupRowPaintHelper.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
