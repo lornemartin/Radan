@@ -23,12 +23,14 @@ namespace RadProject
         public long FirstNestNumber { get; set; }
         public string RemnantUseFolder { get; set; }
         public string MatchMat { get; set; }
-        public RadanSchedule RadanSchedule { get; set; }
         public RadanSheets Sheets { get; set; }
         public RadanParts Parts { get; set; }
         public RadanProjectRemnantSheets RemnantSheets { get; set; }
+        private RadanSchedule RadanScheduleField;
         private List<Remnant> remnantsField;
         private List<RadanNest> nestsField;
+
+
 
         [System.Xml.Serialization.XmlArrayItemAttribute("Remnant", typeof(Remnant), IsNullable = false)]
         public List<Remnant> Remnants
@@ -53,6 +55,19 @@ namespace RadProject
             set
             {
                 this.nestsField = value;
+            }
+        }
+
+        [System.Xml.Serialization.XmlElementAttribute("RadanSchedule")]
+        public RadanSchedule RadanSchedule
+        {
+            get
+            {
+                return this.RadanScheduleField;
+            }
+            set
+            {
+                this.RadanScheduleField = value;
             }
         }
 
@@ -111,7 +126,20 @@ namespace RadProject
     public partial class RadanSchedule
     {
         public string parts { get; set; }
-        public JobDetails JobDetails { get; set; }
+        private JobDetails JobDetailsField;
+
+        [System.Xml.Serialization.XmlElementAttribute("JobDetails")]
+        public JobDetails JobDetails
+        {
+            get
+            {
+                return this.JobDetailsField;
+            }
+            set
+            {
+                this.JobDetailsField = value;
+            }
+        }
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
@@ -121,86 +149,1171 @@ namespace RadProject
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.radan.com/ns/project")]
     public partial class JobDetails
     {
-
-        public string units { get; set; }
-        public string jobName { get; set; }
-        public long nextNestNum { get; set; }
-        public string annotate { get; set; }
-        public string plot { get; set; }
-        public string graphics { get; set; }
-        public string doShaped { get; set; }
-        public string matchMat { get; set; }
-        public string useExtra { get; set; }
-        public int maxTime { get; set; }
-        public string progRed { get; set; }
-        public int progRedUtil { get; set; }
-        public int primaryDir { get; set; }
-        public int secondaryDir { get; set; }
-        public string nestInHoles { get; set; }
-        public string checkTooling { get; set; }
-        public string toolHints { get; set; }
-        public int stdToolId { get; set; }
-        public string restartResults { get; set; }
-        public int numNozzles { get; set; }
-        public int numNozzlesPerSheet { get; set; }
-        public string mCSpecificFiles { get; set; }
-        public string autoUpdate { get; set; }
-        public int aUNumNests { get; set; }
-        public int aUNumSheets { get; set; }
-        public int simplification { get; set; }
-        public int ignorePens { get; set; }
-        public string readMDBClearances { get; set; }
-        public double partGapX { get; set; }
-        public double partGapY { get; set; }
-        public double partGapXY { get; set; }
-        public double minDatumVert { get; set; }
-        public double minNondatumVert { get; set; }
-        public double optVert { get; set; }
-        public string clampStripFlag { get; set; }
-        public string clampZoneFlag { get; set; }
-        public double clampStripWidth { get; set; }
-        public double clampSizeParallel { get; set; }
-        public double clampSizePerpendicular { get; set; }
-        public double minUnclamped { get; set; }
-        public double optUnclamped { get; set; }
-        public double minClamped { get; set; }
-        public double sheetDrgBorder { get; set; }
-        public double pickingClusterBorder { get; set; }
-        public double pickingClusterGapXY { get; set; }
-        public double pickingClusterMaxArea { get; set; }
-        public int pickingClusterPen { get; set; }
-        public string includeToolingInShape { get; set; }
-        public string autoTool { get; set; }
-        public string sheetCut { get; set; }
-        public string runPreOrderMacro { get; set; }
-        public string preOrderMacroName { get; set; }
-        public string runPreAnnotateMacro { get; set; }
-        public string preAnnotateMacroName { get; set; }
-        public string autoOrder { get; set; }
-        public string autoOrderFile { get; set; }
-        public string runNestMacro { get; set; }
-        public string nestMacroName { get; set; }
-        public string autoCompile { get; set; }
-        public string lastJobUnloaded { get; set; }
-        public string useDefaultStrategy { get; set; }
-        public string strategy { get; set; }
-        public string strategySheetDwg { get; set; }
-        public string strategyMultisheet { get; set; }
-        public string nestFolder { get; set; }
-        public string useRemnants { get; set; }
-        public string remnantUseFolder { get; set; }
-        public int remnantPremium { get; set; }
-        public int remnantPriority { get; set; }
-        public string saveRemnants { get; set; }
-        public double remnantAreaWorthSaving { get; set; }
-        public string remnantSaveFolder { get; set; }
-        public string saveRectangularRemnantsOnly { get; set; }
-        public string alignRectanglesWithClampStrip { get; set; }
-        public string replaceOrigNest { get; set; }
-        public string useProjectParts { get; set; }
-        public string useProjectSheets { get; set; }
+        private string unitsField;
+        private string jobNameField;
+        private long nextNestNumField;
+        private string annotateField;
+        private string plotField;
+        private string graphicsField;
+        private string doShapedField;
+        private string matchMatField;
+        private string useExtraField;
+        private string batchedField;
+        private string maxTimeField;
+        private string maxTimeBatchedField;
+        private string progRedField;
+        private string progRedUtilField;
+        private string placementPrefField;
+        private string primaryDirField;
+        private string secondaryDirField;
+        private string utiliseSheetSpacesField;
+        private string nestInHolesField;
+        private string checkToolingField;
+        private string toolHintsField;
+        private string stdToolIdField;
+        private string restartResultsField;
+        private string numNozzlesField;
+        private string numNozzlesPerSheetField;
+        private string mCSpecificFilesField;
+        private string autoUpdateField;
+        private string aUNumNestsField;
+        private string aUNumSheetsField;
+        private string simplificationField;
+        private string ignorePensField;
+        private string readMDBClearancesField;
+        private string partGapXField;
+        private string partGapYField;
+        private string partGapXYField;
+        private string minDatumVertField;
+        private string minNondatumVertField;
+        private string optVertField;
+        private string clampStripFlagField;
+        private string clampZoneFlagField;
+        private string clampStripWidthField;
+        private string clampSizeParallelField;
+        private string clampSizePerpendicularField;
+        private string minUnclampedField;
+        private string optUnclampedField;
+        private string minClampedField;
+        private string sheetDrgBorderField;
+        private string pickingClusterBorderField;
+        private string pickingClusterGapXYField;
+        private string pickingClusterMaxAreaField;
+        private string pickingClusterPenField;
+        private string commonCutGapXYField;
+        private string commonCutGapAutoField;
+        private string includeToolingInShapeField;
+        private string autoToolField;
+        private string sheetCutField;
+        private string runPreOrderMacroField;
+        private string preOrderMacroNameField;
+        private string runPreAnnotateMacroField;
+        private string preAnnotateMacroNameField;
+        private string autoOrderField;
+        private string autoOrderFileField;
+        private string runNestMacroField;
+        private string nestMacroNameField;
+        private string autoCompileField;
+        private string lastJobUnloadedField;
+        private string useDefaultStrategyField;
+        private string strategyField;
+        private string strategySheetDwgField;
+        private string strategyMultisheetField;
+        private string nestFolderField;
+        private string useRemnantsField;
+        private string remnantUseFolderField;
+        private string remnantPremiumField;
+        private string remnantPriorityField;
+        private string saveRemnantsField;
+        private string remnantAreaWorthSavingField;
+        private string remnantSaveFolderField;
+        private string saveRectangularRemnantsOnlyField;
+        private string alignRectanglesWithClampStripField;
+        private string replaceOrigNestField;
+        private string useProjectPartsField;
+        private string useProjectSheetsField;
         private List<JobDetailsSheetSource> sheetSourceField;
 
+        /// <remarks/>
+        public string Units
+        {
+            get
+            {
+                return this.unitsField;
+            }
+            set
+            {
+                this.unitsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string JobName
+        {
+            get
+            {
+                return this.jobNameField;
+            }
+            set
+            {
+                this.jobNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public long NextNestNum
+        {
+            get
+            {
+                return this.nextNestNumField;
+            }
+            set
+            {
+                this.nextNestNumField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string Annotate
+        {
+            get
+            {
+                return this.annotateField;
+            }
+            set
+            {
+                this.annotateField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string Plot
+        {
+            get
+            {
+                return this.plotField;
+            }
+            set
+            {
+                this.plotField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string Graphics
+        {
+            get
+            {
+                return this.graphicsField;
+            }
+            set
+            {
+                this.graphicsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string DoShaped
+        {
+            get
+            {
+                return this.doShapedField;
+            }
+            set
+            {
+                this.doShapedField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MatchMat
+        {
+            get
+            {
+                return this.matchMatField;
+            }
+            set
+            {
+                this.matchMatField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string UseExtra
+        {
+            get
+            {
+                return this.useExtraField;
+            }
+            set
+            {
+                this.useExtraField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string Batched
+        {
+            get
+            {
+                return this.batchedField;
+            }
+            set
+            {
+                this.batchedField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MaxTime
+        {
+            get
+            {
+                return this.maxTimeField;
+            }
+            set
+            {
+                this.maxTimeField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MaxTimeBatched
+        {
+            get
+            {
+                return this.maxTimeBatchedField;
+            }
+            set
+            {
+                this.maxTimeBatchedField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ProgRed
+        {
+            get
+            {
+                return this.progRedField;
+            }
+            set
+            {
+                this.progRedField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ProgRedUtil
+        {
+            get
+            {
+                return this.progRedUtilField;
+            }
+            set
+            {
+                this.progRedUtilField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PlacementPref
+        {
+            get
+            {
+                return this.placementPrefField;
+            }
+            set
+            {
+                this.placementPrefField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PrimaryDir
+        {
+            get
+            {
+                return this.primaryDirField;
+            }
+            set
+            {
+                this.primaryDirField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string SecondaryDir
+        {
+            get
+            {
+                return this.secondaryDirField;
+            }
+            set
+            {
+                this.secondaryDirField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string UtiliseSheetSpaces
+        {
+            get
+            {
+                return this.utiliseSheetSpacesField;
+            }
+            set
+            {
+                this.utiliseSheetSpacesField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string NestInHoles
+        {
+            get
+            {
+                return this.nestInHolesField;
+            }
+            set
+            {
+                this.nestInHolesField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string CheckTooling
+        {
+            get
+            {
+                return this.checkToolingField;
+            }
+            set
+            {
+                this.checkToolingField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ToolHints
+        {
+            get
+            {
+                return this.toolHintsField;
+            }
+            set
+            {
+                this.toolHintsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string StdToolId
+        {
+            get
+            {
+                return this.stdToolIdField;
+            }
+            set
+            {
+                this.stdToolIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string RestartResults
+        {
+            get
+            {
+                return this.restartResultsField;
+            }
+            set
+            {
+                this.restartResultsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string NumNozzles
+        {
+            get
+            {
+                return this.numNozzlesField;
+            }
+            set
+            {
+                this.numNozzlesField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string NumNozzlesPerSheet
+        {
+            get
+            {
+                return this.numNozzlesPerSheetField;
+            }
+            set
+            {
+                this.numNozzlesPerSheetField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MCSpecificFiles
+        {
+            get
+            {
+                return this.mCSpecificFilesField;
+            }
+            set
+            {
+                this.mCSpecificFilesField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string AutoUpdate
+        {
+            get
+            {
+                return this.autoUpdateField;
+            }
+            set
+            {
+                this.autoUpdateField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string AUNumNests
+        {
+            get
+            {
+                return this.aUNumNestsField;
+            }
+            set
+            {
+                this.aUNumNestsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string AUNumSheets
+        {
+            get
+            {
+                return this.aUNumSheetsField;
+            }
+            set
+            {
+                this.aUNumSheetsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string Simplification
+        {
+            get
+            {
+                return this.simplificationField;
+            }
+            set
+            {
+                this.simplificationField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string IgnorePens
+        {
+            get
+            {
+                return this.ignorePensField;
+            }
+            set
+            {
+                this.ignorePensField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ReadMDBClearances
+        {
+            get
+            {
+                return this.readMDBClearancesField;
+            }
+            set
+            {
+                this.readMDBClearancesField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PartGapX
+        {
+            get
+            {
+                return this.partGapXField;
+            }
+            set
+            {
+                this.partGapXField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PartGapY
+        {
+            get
+            {
+                return this.partGapYField;
+            }
+            set
+            {
+                this.partGapYField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PartGapXY
+        {
+            get
+            {
+                return this.partGapXYField;
+            }
+            set
+            {
+                this.partGapXYField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MinDatumVert
+        {
+            get
+            {
+                return this.minDatumVertField;
+            }
+            set
+            {
+                this.minDatumVertField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MinNondatumVert
+        {
+            get
+            {
+                return this.minNondatumVertField;
+            }
+            set
+            {
+                this.minNondatumVertField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string OptVert
+        {
+            get
+            {
+                return this.optVertField;
+            }
+            set
+            {
+                this.optVertField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ClampStripFlag
+        {
+            get
+            {
+                return this.clampStripFlagField;
+            }
+            set
+            {
+                this.clampStripFlagField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ClampZoneFlag
+        {
+            get
+            {
+                return this.clampZoneFlagField;
+            }
+            set
+            {
+                this.clampZoneFlagField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ClampStripWidth
+        {
+            get
+            {
+                return this.clampStripWidthField;
+            }
+            set
+            {
+                this.clampStripWidthField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ClampSizeParallel
+        {
+            get
+            {
+                return this.clampSizeParallelField;
+            }
+            set
+            {
+                this.clampSizeParallelField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ClampSizePerpendicular
+        {
+            get
+            {
+                return this.clampSizePerpendicularField;
+            }
+            set
+            {
+                this.clampSizePerpendicularField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MinUnclamped
+        {
+            get
+            {
+                return this.minUnclampedField;
+            }
+            set
+            {
+                this.minUnclampedField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string OptUnclamped
+        {
+            get
+            {
+                return this.optUnclampedField;
+            }
+            set
+            {
+                this.optUnclampedField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string MinClamped
+        {
+            get
+            {
+                return this.minClampedField;
+            }
+            set
+            {
+                this.minClampedField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string SheetDrgBorder
+        {
+            get
+            {
+                return this.sheetDrgBorderField;
+            }
+            set
+            {
+                this.sheetDrgBorderField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PickingClusterBorder
+        {
+            get
+            {
+                return this.pickingClusterBorderField;
+            }
+            set
+            {
+                this.pickingClusterBorderField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PickingClusterGapXY
+        {
+            get
+            {
+                return this.pickingClusterGapXYField;
+            }
+            set
+            {
+                this.pickingClusterGapXYField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PickingClusterMaxArea
+        {
+            get
+            {
+                return this.pickingClusterMaxAreaField;
+            }
+            set
+            {
+                this.pickingClusterMaxAreaField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PickingClusterPen
+        {
+            get
+            {
+                return this.pickingClusterPenField;
+            }
+            set
+            {
+                this.pickingClusterPenField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string CommonCutGapXY
+        {
+            get
+            {
+                return this.commonCutGapXYField;
+            }
+            set
+            {
+                this.commonCutGapXYField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string CommonCutGapAuto
+        {
+            get
+            {
+                return this.commonCutGapAutoField;
+            }
+            set
+            {
+                this.commonCutGapAutoField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string IncludeToolingInShape
+        {
+            get
+            {
+                return this.includeToolingInShapeField;
+            }
+            set
+            {
+                this.includeToolingInShapeField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string AutoTool
+        {
+            get
+            {
+                return this.autoToolField;
+            }
+            set
+            {
+                this.autoToolField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string SheetCut
+        {
+            get
+            {
+                return this.sheetCutField;
+            }
+            set
+            {
+                this.sheetCutField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string RunPreOrderMacro
+        {
+            get
+            {
+                return this.runPreOrderMacroField;
+            }
+            set
+            {
+                this.runPreOrderMacroField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PreOrderMacroName
+        {
+            get
+            {
+                return this.preOrderMacroNameField;
+            }
+            set
+            {
+                this.preOrderMacroNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string RunPreAnnotateMacro
+        {
+            get
+            {
+                return this.runPreAnnotateMacroField;
+            }
+            set
+            {
+                this.runPreAnnotateMacroField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string PreAnnotateMacroName
+        {
+            get
+            {
+                return this.preAnnotateMacroNameField;
+            }
+            set
+            {
+                this.preAnnotateMacroNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string AutoOrder
+        {
+            get
+            {
+                return this.autoOrderField;
+            }
+            set
+            {
+                this.autoOrderField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string AutoOrderFile
+        {
+            get
+            {
+                return this.autoOrderFileField;
+            }
+            set
+            {
+                this.autoOrderFileField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string RunNestMacro
+        {
+            get
+            {
+                return this.runNestMacroField;
+            }
+            set
+            {
+                this.runNestMacroField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string NestMacroName
+        {
+            get
+            {
+                return this.nestMacroNameField;
+            }
+            set
+            {
+                this.nestMacroNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string AutoCompile
+        {
+            get
+            {
+                return this.autoCompileField;
+            }
+            set
+            {
+                this.autoCompileField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string LastJobUnloaded
+        {
+            get
+            {
+                return this.lastJobUnloadedField;
+            }
+            set
+            {
+                this.lastJobUnloadedField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string UseDefaultStrategy
+        {
+            get
+            {
+                return this.useDefaultStrategyField;
+            }
+            set
+            {
+                this.useDefaultStrategyField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string Strategy
+        {
+            get
+            {
+                return this.strategyField;
+            }
+            set
+            {
+                this.strategyField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string StrategySheetDwg
+        {
+            get
+            {
+                return this.strategySheetDwgField;
+            }
+            set
+            {
+                this.strategySheetDwgField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string StrategyMultisheet
+        {
+            get
+            {
+                return this.strategyMultisheetField;
+            }
+            set
+            {
+                this.strategyMultisheetField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string NestFolder
+        {
+            get
+            {
+                return this.nestFolderField;
+            }
+            set
+            {
+                this.nestFolderField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string UseRemnants
+        {
+            get
+            {
+                return this.useRemnantsField;
+            }
+            set
+            {
+                this.useRemnantsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string RemnantUseFolder
+        {
+            get
+            {
+                return this.remnantUseFolderField;
+            }
+            set
+            {
+                this.remnantUseFolderField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string RemnantPremium
+        {
+            get
+            {
+                return this.remnantPremiumField;
+            }
+            set
+            {
+                this.remnantPremiumField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string RemnantPriority
+        {
+            get
+            {
+                return this.remnantPriorityField;
+            }
+            set
+            {
+                this.remnantPriorityField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string SaveRemnants
+        {
+            get
+            {
+                return this.saveRemnantsField;
+            }
+            set
+            {
+                this.saveRemnantsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string RemnantAreaWorthSaving
+        {
+            get
+            {
+                return this.remnantAreaWorthSavingField;
+            }
+            set
+            {
+                this.remnantAreaWorthSavingField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string RemnantSaveFolder
+        {
+            get
+            {
+                return this.remnantSaveFolderField;
+            }
+            set
+            {
+                this.remnantSaveFolderField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string SaveRectangularRemnantsOnly
+        {
+            get
+            {
+                return this.saveRectangularRemnantsOnlyField;
+            }
+            set
+            {
+                this.saveRectangularRemnantsOnlyField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string AlignRectanglesWithClampStrip
+        {
+            get
+            {
+                return this.alignRectanglesWithClampStripField;
+            }
+            set
+            {
+                this.alignRectanglesWithClampStripField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string ReplaceOrigNest
+        {
+            get
+            {
+                return this.replaceOrigNestField;
+            }
+            set
+            {
+                this.replaceOrigNestField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string UseProjectParts
+        {
+            get
+            {
+                return this.useProjectPartsField;
+            }
+            set
+            {
+                this.useProjectPartsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string UseProjectSheets
+        {
+            get
+            {
+                return this.useProjectSheetsField;
+            }
+            set
+            {
+                this.useProjectSheetsField = value;
+            }
+        }
+
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("SheetSource")]
         public List<JobDetailsSheetSource> SheetSource
         {
@@ -213,6 +1326,7 @@ namespace RadProject
                 this.sheetSourceField = value;
             }
         }
+
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]

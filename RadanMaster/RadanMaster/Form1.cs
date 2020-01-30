@@ -809,10 +809,10 @@ namespace RadanMaster
 
                 rPrj.Nests = new List<RadanNest>();
                 rPrj.Parts.Part = new List<RadanPart>();
-                rPrj.RadanSchedule.JobDetails.nestFolder = uniqueNewPrjFolder.FullName + "\\" + "nests";
-                rPrj.RadanSchedule.JobDetails.remnantSaveFolder = uniqueNewPrjFolder.FullName + "\\" + "remnants";
+                rPrj.RadanSchedule.JobDetails.NestFolder = uniqueNewPrjFolder.FullName + "\\" + "nests";
+                rPrj.RadanSchedule.JobDetails.RemnantSaveFolder = uniqueNewPrjFolder.FullName + "\\" + "remnants";
                 rPrj.FirstNestNumber = maxNestNumber + 1;
-                rPrj.RadanSchedule.JobDetails.nextNestNum = rPrj.FirstNestNumber;
+                rPrj.RadanSchedule.JobDetails.NextNestNum = rPrj.FirstNestNumber;
 
                 // calculate the new number of sheets still available
                 foreach (RadanSheet sheet in rPrj.Sheets.Sheet)
