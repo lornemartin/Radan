@@ -774,14 +774,6 @@ namespace RadanMaster
                     }
                 }
 
-                // shouldn't be necessary to save this specifically, but job details are not serializing properly, so this is a work around...
-                long maxNestNumber = 0;
-                foreach (RadanNest radanNest in rPrj.Nests)
-                {
-                    if (long.Parse(radanNest.ID) > maxNestNumber)
-                        maxNestNumber = long.Parse(radanNest.ID);
-                }
-
                 FileInfo oldProjFile = new FileInfo(radanProjectName);
                 DirectoryInfo prjRootDir = oldProjFile.Directory.Parent;
 
@@ -811,7 +803,7 @@ namespace RadanMaster
                 rPrj.Parts.Part = new List<RadanPart>();
                 rPrj.RadanSchedule.JobDetails.NestFolder = uniqueNewPrjFolder.FullName + "\\" + "nests";
                 rPrj.RadanSchedule.JobDetails.RemnantSaveFolder = uniqueNewPrjFolder.FullName + "\\" + "remnants";
-                rPrj.FirstNestNumber = maxNestNumber + 1;
+                rPrj.FirstNestNumber = rPrj.RadanSchedule.JobDetails.NextNestNum;
                 rPrj.RadanSchedule.JobDetails.NextNestNum = rPrj.FirstNestNumber;
 
                 // calculate the new number of sheets still available
