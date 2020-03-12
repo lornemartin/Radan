@@ -26,7 +26,7 @@ namespace RadProject
         public RadanSheets Sheets { get; set; }
         public RadanParts Parts { get; set; }
         public RadanProjectRemnantSheets RemnantSheets { get; set; }
-        private RadanSchedule RadanScheduleField;
+        private RadanSchedule [] RadanScheduleField;
         private List<Remnant> remnantsField;
         private List<RadanNest> nestsField;
 
@@ -59,7 +59,7 @@ namespace RadProject
         }
 
         [System.Xml.Serialization.XmlElementAttribute("RadanSchedule")]
-        public RadanSchedule RadanSchedule
+        public RadanSchedule [] RadanSchedule
         {
             get
             {
@@ -126,10 +126,10 @@ namespace RadProject
     public partial class RadanSchedule
     {
         public string parts { get; set; }
-        private JobDetails JobDetailsField;
+        private JobDetails [] JobDetailsField;
 
         [System.Xml.Serialization.XmlElementAttribute("JobDetails")]
-        public JobDetails JobDetails
+        public JobDetails []JobDetails
         {
             get
             {
