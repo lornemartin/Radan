@@ -1,9 +1,9 @@
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Models\bin\Debug\netcoreapp3.1\ProductionMaster.Models.deps.json
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Models\bin\Debug\netcoreapp3.1\ProductionMaster.Models.dll
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Models\bin\Debug\netcoreapp3.1\ProductionMaster.Models.pdb
-C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Models\obj\Debug\netcoreapp3.1\ProductionMaster.Models.csproj.CoreCompileInputs.cache
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Models\obj\Debug\netcoreapp3.1\ProductionMaster.Models.AssemblyInfoInputs.cache
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Models\obj\Debug\netcoreapp3.1\ProductionMaster.Models.AssemblyInfo.cs
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Models\obj\Debug\netcoreapp3.1\ProductionMaster.Models.dll
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Models\obj\Debug\netcoreapp3.1\ProductionMaster.Models.pdb
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Models\obj\Debug\netcoreapp3.1\ProductionMaster.Models.csprojAssemblyReference.cache
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Models\obj\Debug\netcoreapp3.1\ProductionMaster.Models.csproj.CoreCompileInputs.cache
