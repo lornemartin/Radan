@@ -1,0 +1,14 @@
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\obj\Debug\netcoreapp3.1\ProductionMaster.DataAccess.csprojAssemblyReference.cache
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\obj\Debug\netcoreapp3.1\ProductionMaster.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\obj\Debug\netcoreapp3.1\ProductionMaster.DataAccess.AssemblyInfoInputs.cache
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\obj\Debug\netcoreapp3.1\ProductionMaster.DataAccess.AssemblyInfo.cs
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\bin\Debug\netcoreapp3.1\ProductionMaster.DataAccess.deps.json
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\bin\Debug\netcoreapp3.1\ProductionMaster.DataAccess.dll
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\bin\Debug\netcoreapp3.1\ProductionMaster.Models.dll
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\bin\Debug\netcoreapp3.1\ProductionMaster.Utility.dll
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\bin\Debug\netcoreapp3.1\ProductionMaster.Models.pdb
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\bin\Debug\netcoreapp3.1\ProductionMaster.Utility.pdb
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\obj\Debug\netcoreapp3.1\ProductionMaster.DataAccess.csproj.CopyComplete
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\bin\Debug\netcoreapp3.1\ProductionMaster.DataAccess.pdb
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\obj\Debug\netcoreapp3.1\ProductionMaster.DataAccess.dll
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.DataAccess\obj\Debug\netcoreapp3.1\ProductionMaster.DataAccess.pdb

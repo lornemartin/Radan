@@ -1,0 +1,9 @@
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\bin\Debug\netcoreapp3.1\ProductionMaster.Utility.deps.json
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\bin\Debug\netcoreapp3.1\ProductionMaster.Utility.dll
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\bin\Debug\netcoreapp3.1\ProductionMaster.Utility.pdb
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\obj\Debug\netcoreapp3.1\ProductionMaster.Utility.csprojAssemblyReference.cache
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\obj\Debug\netcoreapp3.1\ProductionMaster.Utility.csproj.CoreCompileInputs.cache
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\obj\Debug\netcoreapp3.1\ProductionMaster.Utility.AssemblyInfoInputs.cache
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\obj\Debug\netcoreapp3.1\ProductionMaster.Utility.AssemblyInfo.cs
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\obj\Debug\netcoreapp3.1\ProductionMaster.Utility.dll
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\obj\Debug\netcoreapp3.1\ProductionMaster.Utility.pdb
