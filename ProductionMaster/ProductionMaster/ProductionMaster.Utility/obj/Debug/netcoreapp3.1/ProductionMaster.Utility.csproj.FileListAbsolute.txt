@@ -6,3 +6,4 @@ C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMa
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\obj\Debug\netcoreapp3.1\ProductionMaster.Utility.dll
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\obj\Debug\netcoreapp3.1\ProductionMaster.Utility.pdb
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\obj\Debug\netcoreapp3.1\ProductionMaster.Utility.csproj.CoreCompileInputs.cache
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster.Utility\obj\Debug\netcoreapp3.1\ProductionMaster.Utility.csprojAssemblyReference.cache

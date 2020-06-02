@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using ProductionMaster.Models;
+using ProductionMaster.Utility;
 
 namespace ProductionMaster.Areas.Identity.Pages.Account
 {
@@ -63,6 +65,12 @@ namespace ProductionMaster.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            public string FirstName { get; set; }
+
+            [Required]
+            public string LastName { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -73,14 +81,59 @@ namespace ProductionMaster.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            string role = Request.Form["rdUserRole"].ToString();
+
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { 
+                    UserName = Input.Email, 
+                    Email = Input.Email,
+                    LastName = Input.LastName,
+                    FirstName = Input.FirstName
+                };
+
+                // if no role has been selected, we don't want to create the new user.
+                if(role=="")
+                {
+                    ModelState.AddModelError(string.Empty, "Please select a role for the new user.");
+                    return Page();
+                }
+
+                // only create roles the first time a user registers...
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                if(!await _roleManager.RoleExistsAsync(SD.AdminRole))
+                {
+                    _roleManager.CreateAsync(new IdentityRole(SD.AdminRole)).GetAwaiter().GetResult();
+                    _roleManager.CreateAsync(new IdentityRole(SD.SchedulerRole)).GetAwaiter().GetResult();
+                    _roleManager.CreateAsync(new IdentityRole(SD.SupervisorRole)).GetAwaiter().GetResult();
+                    _roleManager.CreateAsync(new IdentityRole(SD.MachineOperatorRole)).GetAwaiter().GetResult();
+                    _roleManager.CreateAsync(new IdentityRole(SD.NestingRole)).GetAwaiter().GetResult();
+                }
+
+                // if the user got added successfully, we need to assign a role to him
                 if (result.Succeeded)
                 {
+                    switch (role)
+                    {
+                        case SD.AdminRole:
+                            await _userManager.AddToRoleAsync(user, SD.AdminRole);
+                            break;
+                        case SD.SchedulerRole:
+                            await _userManager.AddToRoleAsync(user, SD.SchedulerRole);
+                            break;
+                        case SD.SupervisorRole:
+                            await _userManager.AddToRoleAsync(user, SD.SupervisorRole);
+                            break;
+                        case SD.MachineOperatorRole:
+                            await _userManager.AddToRoleAsync(user, SD.MachineOperatorRole);
+                            break;
+                        case SD.NestingRole:
+                            await _userManager.AddToRoleAsync(user, SD.NestingRole);
+                            break;
+                    }
+                    
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -91,8 +144,8 @@ namespace ProductionMaster.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
