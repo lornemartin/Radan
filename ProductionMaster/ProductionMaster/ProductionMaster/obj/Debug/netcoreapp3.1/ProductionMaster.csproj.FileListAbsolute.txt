@@ -460,3 +460,4 @@ C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMa
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster\obj\Debug\netcoreapp3.1\ProductionMaster.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\lorne\source\repos\Radan\ProductionMaster\ProductionMaster\ProductionMaster\obj\Debug\netcoreapp3.1\Razor\Pages\Admin\User\Index.cshtml.g.cs

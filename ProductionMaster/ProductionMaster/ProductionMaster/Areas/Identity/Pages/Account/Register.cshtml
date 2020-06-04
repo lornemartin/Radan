@@ -7,7 +7,7 @@
 
 <form method="post" autocomplete="off" asp-route-returnUrl="@Model.ReturnUrl">
     <div class="py-4 my-4">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        
         <div class="row form-group">
             <div class="col-8 offset-2">
                 <div class="card">
@@ -51,6 +51,7 @@
                             <button type="submit" class="btn btn-success" form-control">Register</button>
                         </div>
                         <hr />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     </div>
 
                 </div>
