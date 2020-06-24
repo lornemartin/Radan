@@ -143,7 +143,8 @@ namespace RadanMaster
             catch (Exception ex)
             {
                 progressPanel1.Hide();
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + ex.InnerException.Message);
+
             }
 
         }
