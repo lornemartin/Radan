@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using System.Linq.Expressions;
 
 namespace RadanInterface2
 {
@@ -43,7 +44,6 @@ namespace RadanInterface2
             {
                 return false;
             }
-
         }
 
         public Boolean IsActive()
@@ -798,6 +798,41 @@ namespace RadanInterface2
             }
 
             return thumbNailString.ToCharArray();
+        }
+
+        public bool AddPartToProject(int binNumber, string fileName, string material, int qtyRequired, double thickness)
+        {
+            // not tested yet.
+            try
+            {
+                //rApp.Application.Mac.prj_add_part(binNumber, 0, 0, 0, 0, false, 0, fileName,"", material, 0, false, qtyRequired, 0, false, 5, "", thickness, "in");
+                rApp.Application.Mac.PRJ_PART_BIN = binNumber;
+                rApp.Application.Mac.PRJ_PART_COMMON_CUT = 0;
+                rApp.Application.Mac.PRJ_PART_CUSTOM_COLOUR_BLUE = -1;
+                rApp.Application.Mac.PRJ_PART_CUSTOM_COLOUR_GREEN = -1;
+                rApp.Application.Mac.PRJ_PART_CUSTOM_COLOUR_RED = -1;
+                rApp.Application.Mac.PRJ_PART_EXCLUDE = false;
+                rApp.Application.Mac.PRJ_PART_EXTRA_ALLOWED = 0;
+                rApp.Application.Mac.PRJ_PART_FILENAME = fileName;
+                rApp.Application.Mac.PRJ_PART_KIT_FILENAME = "";
+                rApp.Application.Mac.PRJ_PART_MATERIAL = material;
+                rApp.Application.Mac.PRJ_PART_MAX_COMMON_CUT = 0;
+                rApp.Application.Mac.PRJ_PART_MIRROR = false;
+                rApp.Application.Mac.PRJ_PART_NUMBER_REQUIRED = qtyRequired;
+                rApp.Application.Mac.PRJ_PART_ORIENT = 0;
+                rApp.Application.Mac.PRJ_PART_PICKING_CLUSTER = false;
+                rApp.Application.Mac.PRJ_PART_PRIORITY = 5;
+                rApp.Application.Mac.PRJ_PART_STRATEGY = "";
+                rApp.Application.Mac.PRJ_PART_THICKNESS = thickness;
+                rApp.Application.Mac.PRJ_PART_THICK_UNITS = "in";
+
+                rApp.Application.Mac.prj_add_part();
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
         }
     }
 }

@@ -34,6 +34,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.XtraBars.Native;
 using VaultAccess;
 using System.Reflection;
+using DevExpress.Data.Mask;
 
 namespace RadanMaster
 {
@@ -48,6 +49,8 @@ namespace RadanMaster
         RadanInterface radInterface { get; set; }
         BindingList<DisplayItem> DisplayItems { get; set; }
         GroupAndFilterSettings groupAndFilterSettings { get; set; }
+
+        List<RadanID> radanIdList { get; set; }
 
         //private static readonly log4net.ILog logger =
         //log4net.LogManager.GetLogger(typeof(Program));
@@ -149,29 +152,50 @@ namespace RadanMaster
 
         }
 
-        public int CalculateRadanID(OrderItem orderItem)
+        public int CalculateRadanID(OrderItem orderItem, List<RadanID> radanIdList)
         {
             // loop through RadanID referene table, till we find an id in the range of 0 to 500 that is available
             for (int i = 1; i <= 500; i++)
             {
-                RadanID radanIDItem = (dbContext.RadanIDs.Where(r => r.RadanIDNumber == i).FirstOrDefault());
+                RadanID radanIDItem = (radanIdList.Where(r => r.RadanIDNumber == i).FirstOrDefault());
                 if (radanIDItem == null)
                 {
                     RadanID newRadanID = new RadanID();
                     newRadanID.OrderItem = orderItem;
                     newRadanID.OrderItemID = orderItem.ID;
                     newRadanID.RadanIDNumber = i;
-                    dbContext.RadanIDs.Add(newRadanID);
-                    dbContext.SaveChanges();
+                    radanIdList.Add(newRadanID);
+                    //dbContext.SaveChanges();
                     orderItem.RadanID = newRadanID;
                     orderItem.RadanIDNumber = i;
-                    dbContext.SaveChanges();
+                    //dbContext.SaveChanges();
                     return i;
                 }
             }
 
 
             return -1;
+            //// loop through RadanID referene table, till we find an id in the range of 0 to 500 that is available
+            //for (int i = 1; i <= 500; i++)
+            //{
+            //    RadanID radanIDItem = (dbContext.RadanIDs.Where(r => r.RadanIDNumber == i).FirstOrDefault());
+            //    if (radanIDItem == null)
+            //    {
+            //        RadanID newRadanID = new RadanID();
+            //        newRadanID.OrderItem = orderItem;
+            //        newRadanID.OrderItemID = orderItem.ID;
+            //        newRadanID.RadanIDNumber = i;
+            //        dbContext.RadanIDs.Add(newRadanID);
+            //        //dbContext.SaveChanges();
+            //        orderItem.RadanID = newRadanID;
+            //        orderItem.RadanIDNumber = i;
+            //        //dbContext.SaveChanges();
+            //        return i;
+            //    }
+            //}
+
+
+            //return -1;
         }
 
         private void importXmlFile(string fileName)
@@ -340,12 +364,12 @@ namespace RadanMaster
 
                                 MessageBox.Show(Path.GetFileName(symName) + " already exists in this radan projecs, only qty required will be updated.");
                                 oItem.IsInProject = true;
-                                dbContext.SaveChanges();
+                                //dbContext.SaveChanges();
                                 break;
                             }
                         }
                     }
-
+                    //dbContext.SaveChanges();
                     if (!matchFound)
                     {
                         //create new part in project
@@ -404,7 +428,8 @@ namespace RadanMaster
                         rPart.ThickUnits = "in";
                         rPart.Thickness = oItem.Part.Thickness;
                         rPart.Material = oItem.Part.Material;
-                        int radanID = CalculateRadanID(oItem);
+                         
+                        int radanID = CalculateRadanID(oItem,radanIdList);
                         if (radanID != -1) // check to make sure we dont' have more than the max 500 parts in the radan project
                             rPart.Bin = radanID.ToString();
                         else
@@ -413,11 +438,12 @@ namespace RadanMaster
                         //rPrj.SaveData(radanProjectName);
 
                         oItem.IsInProject = true;
-                        dbContext.SaveChanges();
+                        //dbContext.SaveChanges();
                     }
 
                 }
-                rPrj.SaveData(radanProjectName);
+                //dbContext.SaveChanges();
+                //rPrj.SaveData(radanProjectName);
                 return true;
             }
             catch (Exception ex)
@@ -1027,6 +1053,8 @@ namespace RadanMaster
         {
             if (radInterface.IsProjectReady())
             {
+                radanIdList = dbContext.RadanIDs.ToList();
+
                 string errMsg = "";
                 if (radInterface.getOpenProjectName(ref errMsg) == radanProjectName)
                 {
@@ -1036,6 +1064,7 @@ namespace RadanMaster
                     {
                         rPrj = new RadanProject();
                         rPrj = rPrj.LoadData(radanProjectName);
+                        List<OrderItem> orderItemList = dbContext.OrderItems.ToList();
 
                         for (int i = 0; i < gridViewItems.DataRowCount; i++)
                         {
@@ -1053,7 +1082,12 @@ namespace RadanMaster
                                 if (gridViewItems.GetRowCellValue(i, "Order.ScheduleName") != null)
                                     schedName = gridViewItems.GetRowCellValue(i, "Order.ScheduleName").ToString();
 
-                                OrderItem orderItem = dbContext.OrderItems.Where(oi => oi.Part.FileName == partName)
+                                //OrderItem orderItem = dbContext.OrderItems.Where(oi => oi.Part.FileName == partName)
+                                //                                          .Where(oi => oi.Order.OrderNumber == orderNumber)
+                                //                                          .Where(oi => oi.Order.BatchName == batchName)
+                                //                                          .Where(oi => oi.Order.ScheduleName == schedName).FirstOrDefault();
+
+                                OrderItem orderItem = orderItemList.Where(oi => oi.Part.FileName == partName)
                                                                           .Where(oi => oi.Order.OrderNumber == orderNumber)
                                                                           .Where(oi => oi.Order.BatchName == batchName)
                                                                           .Where(oi => oi.Order.ScheduleName == schedName).FirstOrDefault();
@@ -1065,7 +1099,11 @@ namespace RadanMaster
                                     }
                             }
                         }
+                        dbContext.RadanIDs.RemoveRange(dbContext.RadanIDs); // clear the old list
+                        dbContext.RadanIDs.AddRange(radanIdList);  // and fill with the new
 
+                        dbContext.SaveChanges();
+                        rPrj.SaveData(radanProjectName);
                     }
 
                     // need to open current project here...
