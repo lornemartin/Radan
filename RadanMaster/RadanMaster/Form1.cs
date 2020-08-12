@@ -51,6 +51,7 @@ namespace RadanMaster
         GroupAndFilterSettings groupAndFilterSettings { get; set; }
 
         List<RadanID> radanIdList { get; set; }
+        List<Part> projectPartsList { get; set; }
 
         //private static readonly log4net.ILog logger =
         //log4net.LogManager.GetLogger(typeof(Program));
@@ -544,10 +545,9 @@ namespace RadanMaster
                             item.IsInProject = false;
                         }
                     }
-
-                    dbContext.SaveChanges();
                     gridViewItems.RefreshData();
                 }
+                dbContext.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -584,7 +584,7 @@ namespace RadanMaster
                             item.RadanIDNumber = 0;
                            
                             RemoveSymFileFromProject(rPart.Symbol);
-                            dbContext.SaveChanges();        // save db before next iteration so RemoveSymFiles calculates properly
+                            //dbContext.SaveChanges();        // save db before next iteration so RemoveSymFiles calculates properly
                         }
 
                         else
@@ -640,7 +640,7 @@ namespace RadanMaster
                                 orderItem.RadanIDNumber = 0;
                                
                                 RemoveSymFileFromProject(rPart.Symbol);
-                                dbContext.SaveChanges();    // save db before next iteration so RemoveSymFiles calculates properly
+                                //dbContext.SaveChanges();    // save db before next iteration so RemoveSymFiles calculates properly
                             }
 
                         }
