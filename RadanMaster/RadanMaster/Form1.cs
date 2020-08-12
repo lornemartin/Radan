@@ -35,6 +35,7 @@ using DevExpress.XtraBars.Native;
 using VaultAccess;
 using System.Reflection;
 using DevExpress.Data.Mask;
+using System.Data.Entity.Migrations;
 
 namespace RadanMaster
 {
@@ -51,7 +52,6 @@ namespace RadanMaster
         GroupAndFilterSettings groupAndFilterSettings { get; set; }
 
         List<RadanID> radanIdList { get; set; }
-        List<Part> projectPartsList { get; set; }
 
         //private static readonly log4net.ILog logger =
         //log4net.LogManager.GetLogger(typeof(Program));
@@ -1082,11 +1082,6 @@ namespace RadanMaster
                                 if (gridViewItems.GetRowCellValue(i, "Order.ScheduleName") != null)
                                     schedName = gridViewItems.GetRowCellValue(i, "Order.ScheduleName").ToString();
 
-                                //OrderItem orderItem = dbContext.OrderItems.Where(oi => oi.Part.FileName == partName)
-                                //                                          .Where(oi => oi.Order.OrderNumber == orderNumber)
-                                //                                          .Where(oi => oi.Order.BatchName == batchName)
-                                //                                          .Where(oi => oi.Order.ScheduleName == schedName).FirstOrDefault();
-
                                 OrderItem orderItem = orderItemList.Where(oi => oi.Part.FileName == partName)
                                                                           .Where(oi => oi.Order.OrderNumber == orderNumber)
                                                                           .Where(oi => oi.Order.BatchName == batchName)
@@ -1099,8 +1094,8 @@ namespace RadanMaster
                                     }
                             }
                         }
-                        dbContext.RadanIDs.RemoveRange(dbContext.RadanIDs); // clear the old list
-                        dbContext.RadanIDs.AddRange(radanIdList);  // and fill with the new
+
+                        dbContext.RadanIDs.BulkUpdate(radanIdList);
 
                         dbContext.SaveChanges();
                         rPrj.SaveData(radanProjectName);
