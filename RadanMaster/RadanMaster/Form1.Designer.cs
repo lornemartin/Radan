@@ -32,6 +32,7 @@
             DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, null, true, true);
             this.colIsInProject = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControlItems = new DevExpress.XtraGrid.GridControl();
             this.orderItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -166,7 +167,7 @@
             this.repositoryItemPictureEdit1,
             this.repositoryItemSpinEdit1,
             this.repositoryItemMemoEdit1});
-            this.gridControlItems.Size = new System.Drawing.Size(1600, 591);
+            this.gridControlItems.Size = new System.Drawing.Size(1600, 571);
             this.gridControlItems.TabIndex = 0;
             this.gridControlItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewItems});
@@ -451,7 +452,8 @@
             this.barButtonItemConnectToRadan,
             this.barCheckItemShowAllCompletedOrders,
             this.barCheckItemShowCompletedOrdersFromLastDayOnly,
-            this.barEditNumOfDays});
+            this.barEditNumOfDays,
+            this.ribbonControl1.SearchEditItem});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl1.MaxItemId = 11;
             this.ribbonControl1.Name = "ribbonControl1";
@@ -466,7 +468,7 @@
             this.repositoryItemSpinEdit2,
             this.repositoryItemSpinEdit3,
             this.repositoryItemSpinEdit4});
-            this.ribbonControl1.Size = new System.Drawing.Size(1600, 143);
+            this.ribbonControl1.Size = new System.Drawing.Size(1600, 158);
             // 
             // skinRibbonGalleryBarItem1
             // 
@@ -941,14 +943,14 @@
             // 
             this.splitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerControl1.Horizontal = false;
-            this.splitContainerControl1.Location = new System.Drawing.Point(0, 143);
+            this.splitContainerControl1.Location = new System.Drawing.Point(0, 158);
             this.splitContainerControl1.Name = "splitContainerControl1";
             this.splitContainerControl1.Panel1.Controls.Add(this.progressPanel1);
             this.splitContainerControl1.Panel1.Controls.Add(this.gridControlItems);
             this.splitContainerControl1.Panel1.Text = "Panel1";
             this.splitContainerControl1.Panel2.Controls.Add(this.gridControlNests);
             this.splitContainerControl1.Panel2.Text = "Panel2";
-            this.splitContainerControl1.Size = new System.Drawing.Size(1600, 596);
+            this.splitContainerControl1.Size = new System.Drawing.Size(1600, 581);
             this.splitContainerControl1.SplitterPosition = 591;
             this.splitContainerControl1.TabIndex = 5;
             // 
@@ -956,12 +958,15 @@
             // 
             this.progressPanel1.Appearance.BackColor = System.Drawing.Color.Transparent;
             this.progressPanel1.Appearance.Options.UseBackColor = true;
-            this.progressPanel1.BarAnimationElementThickness = 2;
             this.progressPanel1.Location = new System.Drawing.Point(935, 105);
             this.progressPanel1.Name = "progressPanel1";
             this.progressPanel1.Size = new System.Drawing.Size(246, 66);
             this.progressPanel1.TabIndex = 1;
             this.progressPanel1.Text = "progressPanel1";
+            // 
+            // splashScreenManager1
+            // 
+            splashScreenManager1.ClosingDelay = 500;
             // 
             // Form1
             // 
@@ -971,7 +976,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainerControl1);
             this.Controls.Add(this.ribbonControl1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IconOptions.Icon = ((System.Drawing.Icon)(resources.GetObject("Form1.IconOptions.Icon")));
             this.Name = "Form1";
             this.Ribbon = this.ribbonControl1;
             this.Text = "RadanMaster";

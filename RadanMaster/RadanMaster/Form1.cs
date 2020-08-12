@@ -62,6 +62,8 @@ namespace RadanMaster
         {
             try
             {
+                SplashScreenManager.ShowForm(this, typeof(SplashScreen1), true, true, false);
+
                 InitializeComponent();
 
                 string version = AssemblyVersion;
@@ -143,12 +145,14 @@ namespace RadanMaster
                 // load collapsed/expanded state of gridview
                 helper = new RefreshHelper(gridViewItems, "ID");
                 helper.LoadViewInfo();
+
+                SplashScreenManager.HideImage();
             }
             catch (Exception ex)
             {
                 progressPanel1.Hide();
                 MessageBox.Show(ex.Message + ex.InnerException.Message);
-
+                SplashScreenManager.HideImage();
             }
 
         }
