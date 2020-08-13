@@ -595,8 +595,7 @@ namespace RadanInterface2
             try
             {
                 if (rApp.ActiveDocument.Type == Radraft.Interop.RadDocumentType.radDrawingDocument &&
-                    rApp.GUIState == Radraft.Interop.RadGUIState.radNest &&
-                    rApp.ActiveDocument.Dirty)
+                    rApp.GUIState == Radraft.Interop.RadGUIState.radNest)
                 {
                     rApp.ActiveDocument.Save();
                 }
@@ -660,6 +659,38 @@ namespace RadanInterface2
                     foreach (XmlNode subNode in node)
                     {
                         if (subNode.OuterXml.Contains("Thickness"))
+                        {
+                            string attr = subNode.Attributes["value"].Value;
+                            return attr;
+                        }
+                    }
+                }
+
+            }
+            return "Error, No Thickness Found.";
+        }
+
+        public string GetThicknessUnitsFromSym(string fileName)
+        {
+            XmlDocument doc = new XmlDocument();
+
+            if (System.IO.File.Exists(fileName))
+            {
+                doc.Load(fileName);
+            }
+            else
+            {
+                return "No Thickness Unit Found";
+            }
+
+            // cycle through each child node
+            foreach (XmlNode node in doc.DocumentElement.FirstChild)
+            {
+                if (node.InnerXml.Contains("Thickness units"))
+                {
+                    foreach (XmlNode subNode in node)
+                    {
+                        if (subNode.OuterXml.Contains("Thickness units"))
                         {
                             string attr = subNode.Attributes["value"].Value;
                             return attr;

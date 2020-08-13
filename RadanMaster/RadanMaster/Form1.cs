@@ -170,37 +170,14 @@ namespace RadanMaster
                     newRadanID.OrderItemID = orderItem.ID;
                     newRadanID.RadanIDNumber = i;
                     radanIdList.Add(newRadanID);
-                    //dbContext.SaveChanges();
                     orderItem.RadanID = newRadanID;
                     orderItem.RadanIDNumber = i;
-                    //dbContext.SaveChanges();
                     return i;
                 }
             }
 
-
             return -1;
-            //// loop through RadanID referene table, till we find an id in the range of 0 to 500 that is available
-            //for (int i = 1; i <= 500; i++)
-            //{
-            //    RadanID radanIDItem = (dbContext.RadanIDs.Where(r => r.RadanIDNumber == i).FirstOrDefault());
-            //    if (radanIDItem == null)
-            //    {
-            //        RadanID newRadanID = new RadanID();
-            //        newRadanID.OrderItem = orderItem;
-            //        newRadanID.OrderItemID = orderItem.ID;
-            //        newRadanID.RadanIDNumber = i;
-            //        dbContext.RadanIDs.Add(newRadanID);
-            //        //dbContext.SaveChanges();
-            //        orderItem.RadanID = newRadanID;
-            //        orderItem.RadanIDNumber = i;
-            //        //dbContext.SaveChanges();
-            //        return i;
-            //    }
-            //}
-
-
-            //return -1;
+            
         }
 
         private void importXmlFile(string fileName)
@@ -249,6 +226,9 @@ namespace RadanMaster
                                 newPart.Description = lineItem.ItemDescription;
                                 string modifiedThickness = lineItem.MaterialThickness.Substring(0, lineItem.MaterialThickness.LastIndexOf(" "));
                                 newPart.Thickness = double.Parse(modifiedThickness);
+                                // the following should work, but has not been tested yet.
+                                //if (lineItem.MaterialThickness.Contains("mm"))
+                                //    newPart.Thickness = newPart.Thickness / 25.4;
                                 newPart.Material = lineItem.Material;
                                 newPart.Thumbnail = thumbnailByteArray;
                                 newPart.HasBends = hasBends;
@@ -262,6 +242,9 @@ namespace RadanMaster
                                 newPart.Description = lineItem.ItemDescription;
                                 string modifiedThickness = lineItem.MaterialThickness.Substring(0, lineItem.MaterialThickness.LastIndexOf(" "));
                                 newPart.Thickness = double.Parse(modifiedThickness);
+                                // the following should work, but has not been tested yet
+                                //if (lineItem.MaterialThickness.Contains("mm"))
+                                //    newPart.Thickness = newPart.Thickness / 25.4;
                                 newPart.Material = lineItem.Material;
                                 newPart.Thumbnail = thumbnailByteArray;
                                 newPart.HasBends = hasBends;
@@ -365,16 +348,13 @@ namespace RadanMaster
                             {
                                 matchFound = true;
                                 rPart.Number = oItem.QtyRequired - oItem.QtyNested;  // item still exists in project, just need to update 
-                                //rPrj.SaveData(radanProjectName);
 
                                 MessageBox.Show(Path.GetFileName(symName) + " already exists in this radan projecs, only qty required will be updated.");
                                 oItem.IsInProject = true;
-                                //dbContext.SaveChanges();
                                 break;
                             }
                         }
                     }
-                    //dbContext.SaveChanges();
                     if (!matchFound)
                     {
                         //create new part in project
@@ -440,15 +420,12 @@ namespace RadanMaster
                         else
                             return false;   // 
                         rPrj.AddPart(rPart);
-                        //rPrj.SaveData(radanProjectName);
 
                         oItem.IsInProject = true;
                         //dbContext.SaveChanges();
                     }
 
                 }
-                //dbContext.SaveChanges();
-                //rPrj.SaveData(radanProjectName);
                 return true;
             }
             catch (Exception ex)
@@ -588,14 +565,12 @@ namespace RadanMaster
                             item.RadanIDNumber = 0;
                            
                             RemoveSymFileFromProject(rPart.Symbol);
-                            //dbContext.SaveChanges();        // save db before next iteration so RemoveSymFiles calculates properly
                         }
 
                         else
                         {
                             rPart.Number = rPart.Made;
                         }
-                        //rPrj.SaveData(radanProjectName);
                     }
                 }
 
@@ -644,7 +619,6 @@ namespace RadanMaster
                                 orderItem.RadanIDNumber = 0;
                                
                                 RemoveSymFileFromProject(rPart.Symbol);
-                                //dbContext.SaveChanges();    // save db before next iteration so RemoveSymFiles calculates properly
                             }
 
                         }
@@ -1113,6 +1087,8 @@ namespace RadanMaster
                     string path = barEditRadanProject.EditValue.ToString();
                     rPrj.SaveData(path);
 
+                    radInterface.SaveNest(ref errMessage);  // save open nest again so quantities start updating right away.
+                    
                     gridViewItems.RefreshData();
 
                     SplashScreenManager.HideImage();
@@ -1210,7 +1186,9 @@ namespace RadanMaster
                     string name = System.IO.Path.GetFileNameWithoutExtension(addItemFileName);
                     string description = radanInterface.GetDescriptionFromSym(addItemFileName);
                     string thicknessStr = radanInterface.GetThicknessFromSym(addItemFileName);
+                    string thicknessUnit = radanInterface.GetThicknessUnitsFromSym(addItemFileName);
                     double thickness = double.Parse(thicknessStr);
+                    if (thicknessUnit == "mm") thickness = thickness / 25.4;
                     string material = radanInterface.GetMaterialTypeFromSym(addItemFileName);
                     char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(addItemFileName);
                     byte[] thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
