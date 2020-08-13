@@ -36,6 +36,7 @@ using VaultAccess;
 using System.Reflection;
 using DevExpress.Data.Mask;
 using System.Data.Entity.Migrations;
+using DevExpress.Utils.Extensions;
 
 namespace RadanMaster
 {
@@ -180,6 +181,24 @@ namespace RadanMaster
             
         }
 
+        private double NormalizeThickness(double thickness)
+        {
+            double normalizedThickness = 0;
+            double tolerance = 0.007;
+
+            if (thickness > 0.312 - tolerance && thickness < 0.312 + tolerance)
+                normalizedThickness = 0.312;
+            if (thickness > 0.188 - tolerance && thickness < 0.188 + tolerance)
+                normalizedThickness = 0.188;
+            if (thickness > 0.125 - 0.010 && thickness < 0.125 + 0.015)
+                normalizedThickness = 0.125;
+            if (thickness > 0.075 - tolerance && thickness < 0.075 + tolerance)
+                normalizedThickness = 0.075;
+            if (thickness > 0.062 - tolerance && thickness < 0.062 + tolerance)
+                normalizedThickness = 0.062;
+
+            return normalizedThickness;
+        }
         private void importXmlFile(string fileName)
         {
             string plantID = AppSettings.AppSettings.Get("PlantID").ToString();
@@ -225,7 +244,7 @@ namespace RadanMaster
                                 newPart.FileName = lineItem.Number;
                                 newPart.Description = lineItem.ItemDescription;
                                 string modifiedThickness = lineItem.MaterialThickness.Substring(0, lineItem.MaterialThickness.LastIndexOf(" "));
-                                newPart.Thickness = double.Parse(modifiedThickness);
+                                newPart.Thickness = NormalizeThickness(double.Parse(modifiedThickness));
                                 // the following should work, but has not been tested yet.
                                 //if (lineItem.MaterialThickness.Contains("mm"))
                                 //    newPart.Thickness = newPart.Thickness / 25.4;
@@ -241,7 +260,7 @@ namespace RadanMaster
                                 // update properties if needed
                                 newPart.Description = lineItem.ItemDescription;
                                 string modifiedThickness = lineItem.MaterialThickness.Substring(0, lineItem.MaterialThickness.LastIndexOf(" "));
-                                newPart.Thickness = double.Parse(modifiedThickness);
+                                newPart.Thickness = NormalizeThickness(double.Parse(modifiedThickness));
                                 // the following should work, but has not been tested yet
                                 //if (lineItem.MaterialThickness.Contains("mm"))
                                 //    newPart.Thickness = newPart.Thickness / 25.4;
@@ -1189,6 +1208,7 @@ namespace RadanMaster
                     string thicknessUnit = radanInterface.GetThicknessUnitsFromSym(addItemFileName);
                     double thickness = double.Parse(thicknessStr);
                     if (thicknessUnit == "mm") thickness = thickness / 25.4;
+                    thickness = NormalizeThickness(thickness);
                     string material = radanInterface.GetMaterialTypeFromSym(addItemFileName);
                     char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(addItemFileName);
                     byte[] thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
