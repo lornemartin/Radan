@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RadanInterface2;
 using RadanMaster.Models;
 
 namespace RadanMaster.AddItemDialog
@@ -22,12 +23,30 @@ namespace RadanMaster.AddItemDialog
         public static bool checkForBends { get; set; }
         public static string notes { get; set; }
 
-        public AddItem(RadanMaster.DAL.RadanMasterContext ctx)
+        public AddItem(RadanMaster.DAL.RadanMasterContext ctx, string itemName)
         {
             InitializeComponent();
             List<RadanMaster.Models.Order> activeOrders = ctx.Orders.Where(o => o.IsComplete == false).ToList();
+            itemNameTxtBox.Text = itemName;
+
+            RadanInterface radanInterface = new RadanInterface();
+            char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(itemName);
+            if (thumbnailCharArray != null)
+            {
+                byte[] thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
+                Image x = (Bitmap)((new ImageConverter()).ConvertFrom(thumbnailByteArray));
+                pictureEditThumbnail.Image = x;
+            }
+            else
+            {
+                pictureEditThumbnail.Image = null;
+            }
+
+
             txtBoxQty.Text = qty;
             comboBoxOrderNum.Text = lastOrderNumber;
+
+
             foreach (Order o in activeOrders)
             {
                 if (o.OrderNumber != null && o.OrderNumber != "")
@@ -49,11 +68,11 @@ namespace RadanMaster.AddItemDialog
 
 
             comboBoxBatchName.Text = lastBatchName;
-            foreach(Order o in activeOrders)
+            foreach (Order o in activeOrders)
             {
                 if (o.BatchName != null && o.BatchName != "")
                 {
-                    if(!comboBoxBatchName.Items.Contains(o.BatchName))
+                    if (!comboBoxBatchName.Items.Contains(o.BatchName))
                         comboBoxBatchName.Items.Add(o.BatchName);
                 }
             }
@@ -109,7 +128,7 @@ namespace RadanMaster.AddItemDialog
 
         private void AddItem_Load(object sender, EventArgs e)
         {
-            
+
         }
     }
 }

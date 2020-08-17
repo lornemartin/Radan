@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, null, true, true);
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, null, true, true);
             this.colIsInProject = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControlItems = new DevExpress.XtraGrid.GridControl();
             this.orderItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -121,6 +122,7 @@
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
             this.displayItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewItems)).BeginInit();
@@ -146,6 +148,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.displayItemBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
+            // splashScreenManager1
+            // 
+            splashScreenManager1.ClosingDelay = 500;
+            // 
             // colIsInProject
             // 
             this.colIsInProject.Caption = "In Radan Project?";
@@ -158,8 +164,12 @@
             // 
             // gridControlItems
             // 
+            this.gridControlItems.AllowDrop = true;
             this.gridControlItems.DataSource = this.orderItemsBindingSource;
             this.gridControlItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            gridLevelNode1.RelationName = "Level1";
+            this.gridControlItems.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            gridLevelNode1});
             this.gridControlItems.Location = new System.Drawing.Point(0, 0);
             this.gridControlItems.MainView = this.gridViewItems;
             this.gridControlItems.Name = "gridControlItems";
@@ -171,6 +181,8 @@
             this.gridControlItems.TabIndex = 0;
             this.gridControlItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewItems});
+            this.gridControlItems.DragDrop += new System.Windows.Forms.DragEventHandler(this.gridControlItems_DragDrop);
+            this.gridControlItems.DragOver += new System.Windows.Forms.DragEventHandler(this.gridControlItems_DragOver);
             this.gridControlItems.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gridControlItems_MouseDoubleClick);
             // 
             // gridViewItems
@@ -427,6 +439,7 @@
             this.ribbonControl1.ExpandCollapseItem.Id = 0;
             this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbonControl1.ExpandCollapseItem,
+            this.ribbonControl1.SearchEditItem,
             this.skinRibbonGalleryBarItem1,
             this.barButtonItemAdd,
             this.barButtonItemImport,
@@ -452,8 +465,7 @@
             this.barButtonItemConnectToRadan,
             this.barCheckItemShowAllCompletedOrders,
             this.barCheckItemShowCompletedOrdersFromLastDayOnly,
-            this.barEditNumOfDays,
-            this.ribbonControl1.SearchEditItem});
+            this.barEditNumOfDays});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl1.MaxItemId = 11;
             this.ribbonControl1.Name = "ribbonControl1";
@@ -964,9 +976,13 @@
             this.progressPanel1.TabIndex = 1;
             this.progressPanel1.Text = "progressPanel1";
             // 
-            // splashScreenManager1
+            // entityCommand1
             // 
-            splashScreenManager1.ClosingDelay = 500;
+            this.entityCommand1.CommandTimeout = 0;
+            this.entityCommand1.CommandTree = null;
+            this.entityCommand1.Connection = null;
+            this.entityCommand1.EnablePlanCaching = true;
+            this.entityCommand1.Transaction = null;
             // 
             // Form1
             // 
@@ -1102,5 +1118,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit2;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit3;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit4;
+        private System.Data.Entity.Core.EntityClient.EntityCommand entityCommand1;
     }
 }

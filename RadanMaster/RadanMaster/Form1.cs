@@ -188,14 +188,16 @@ namespace RadanMaster
 
             if (thickness > 0.312 - tolerance && thickness < 0.312 + tolerance)
                 normalizedThickness = 0.312;
-            if (thickness > 0.188 - tolerance && thickness < 0.188 + tolerance)
+            else if (thickness > 0.188 - tolerance && thickness < 0.188 + tolerance)
                 normalizedThickness = 0.188;
-            if (thickness > 0.125 - 0.010 && thickness < 0.125 + 0.015)
+            else if (thickness > 0.125 - 0.010 && thickness < 0.125 + 0.015)
                 normalizedThickness = 0.125;
-            if (thickness > 0.075 - tolerance && thickness < 0.075 + tolerance)
+            else if (thickness > 0.075 - tolerance && thickness < 0.075 + tolerance)
                 normalizedThickness = 0.075;
-            if (thickness > 0.062 - tolerance && thickness < 0.062 + tolerance)
+            else if (thickness > 0.062 - tolerance && thickness < 0.062 + tolerance)
                 normalizedThickness = 0.062;
+            else
+                normalizedThickness = thickness;
 
             return normalizedThickness;
         }
@@ -1193,13 +1195,14 @@ namespace RadanMaster
             DialogResult result = openFileDialogAddItem.ShowDialog();
             if (result == DialogResult.OK) // Test result.
             {
-                AddItemDialog.AddItem addItemDialog = new AddItemDialog.AddItem(dbContext);
+                addItemFileName = (openFileDialogAddItem.FileName);
+                RadanInterface radanInterface = new RadanInterface();
+                AddItemDialog.AddItem addItemDialog = new AddItemDialog.AddItem(dbContext,addItemFileName);
                 DialogResult addItemResult = addItemDialog.ShowDialog();
 
                 if (addItemResult == DialogResult.OK)
                 {
-                    addItemFileName = (openFileDialogAddItem.FileName);
-                    RadanInterface radanInterface = new RadanInterface();
+                    
                     //radanInterface.Initialize();
 
                     string name = System.IO.Path.GetFileNameWithoutExtension(addItemFileName);
@@ -1732,6 +1735,147 @@ namespace RadanMaster
             }
 
         }
+
+        private void gridControlItems_DragDrop(object sender, DragEventArgs e)
+        {
+
+            string addItemFileName = "";
+            RadanInterface radanInterface = new RadanInterface();
+            Order newOrder = new Order();
+
+            string[] FileDrop = (e.Data.GetData(DataFormats.FileDrop) as string[]);
+
+            foreach (string fileDrop in FileDrop)
+            {
+                //Each "fileDrop" is a path to a file. Add it to your GridControl's data source  
+                //as required  
+                string s = fileDrop;
+
+                addItemFileName = fileDrop;
+
+                AddItemDialog.AddItem addItemDialog = new AddItemDialog.AddItem(dbContext, addItemFileName);
+                DialogResult addItemResult = addItemDialog.ShowDialog();
+                if (addItemResult == DialogResult.OK)
+                {
+
+                    string name = System.IO.Path.GetFileNameWithoutExtension(addItemFileName);
+                    string description = radanInterface.GetDescriptionFromSym(addItemFileName);
+                    string thicknessStr = radanInterface.GetThicknessFromSym(addItemFileName);
+                    string thicknessUnit = radanInterface.GetThicknessUnitsFromSym(addItemFileName);
+                    double thickness = double.Parse(thicknessStr);
+                    if (thicknessUnit == "mm") thickness = thickness / 25.4;
+                    thickness = NormalizeThickness(thickness);
+                    string material = radanInterface.GetMaterialTypeFromSym(addItemFileName);
+                    char[] thumbnailCharArray = radanInterface.GetThumbnailDataFromSym(addItemFileName);
+                    byte[] thumbnailByteArray = Convert.FromBase64CharArray(thumbnailCharArray, 0, thumbnailCharArray.Length);
+                    bool hasBends = false;
+                    if (AddItemDialog.AddItem.checkForBends)
+                        hasBends = radanInterface.HasBends(addItemFileName);
+
+
+                    Part newPart = dbContext.Parts.Where(p => p.FileName == name).FirstOrDefault();
+                    if (newPart == null)
+                    {
+                        newPart = new Part();
+                        newPart.FileName = name;
+                        newPart.Description = description;
+                        newPart.Thickness = thickness;
+                        newPart.Material = material;
+                        newPart.Thumbnail = thumbnailByteArray;
+                        newPart.HasBends = hasBends;
+
+                        dbContext.Parts.Add(newPart);
+                        dbContext.SaveChanges();
+                    }
+                    else
+                    {
+                        // update properties if needed
+                        newPart.Description = description;
+                        newPart.Thickness = thickness;
+                        newPart.Material = material;
+                        newPart.Thumbnail = thumbnailByteArray;
+                        newPart.HasBends = hasBends;
+                        dbContext.SaveChanges();
+                    }
+
+                    if (AddItemDialog.AddItem.lastOrderNumber != "")
+                    {
+                        newOrder = dbContext.Orders.Where(o => o.OrderNumber == AddItemDialog.AddItem.lastOrderNumber).FirstOrDefault();
+                    }
+                    if (AddItemDialog.AddItem.lastBatchName != "")
+                    {
+                        newOrder = dbContext.Orders.Where(o => o.BatchName == AddItemDialog.AddItem.lastBatchName).FirstOrDefault();
+                    }
+
+                    if (newOrder == null || newOrder.BatchName == null)
+                    {
+                        newOrder = new Order();
+                        newOrder.IsComplete = false;
+                        newOrder.DueDate = DateTime.Now;
+                        newOrder.EntryDate = DateTime.Now;
+                        newOrder.OrderItems = new List<OrderItem>();
+                        newOrder.OrderNumber = AddItemDialog.AddItem.lastOrderNumber.TrimEnd();
+                        newOrder.ScheduleName = AddItemDialog.AddItem.lastSchedName.TrimEnd();
+                        newOrder.BatchName = AddItemDialog.AddItem.lastBatchName.TrimEnd();
+                        if (newOrder.BatchName == null) newOrder.BatchName = "";
+                        newOrder.IsBatch = AddItemDialog.AddItem.isBatch;
+
+                        dbContext.Orders.Add(newOrder);
+                        dbContext.SaveChanges();
+
+                    }
+
+                    OrderItem newItem = dbContext.OrderItems.Where(oitem => oitem.Order.OrderNumber == AddItemDialog.AddItem.lastOrderNumber).Where(oitem => oitem.Part.FileName == name)
+                                                            .Where(oitem => oitem.Order.BatchName == AddItemDialog.AddItem.lastBatchName).FirstOrDefault();
+
+                    //OrderItem newItem = dbContext.OrderItems.Where(oitem => oitem.Order == newOrder).Where(oitem => oitem.Part.FileName == name).FirstOrDefault();
+                    if (newItem == null)
+                    {
+                        newItem = new OrderItem();
+                        newItem.IsComplete = false;
+                        newItem.Order = newOrder;
+                        newItem.Part = newPart;
+                        newItem.QtyRequired = int.Parse(AddItemDialog.AddItem.qty);
+                        newItem.QtyNested = 0;
+                        newItem.Notes = AddItemDialog.AddItem.notes;
+
+                        dbContext.OrderItems.Add(newItem);
+                        dbContext.SaveChanges();
+                    }
+                    else
+                    {
+                        MessageBox.Show("This Order Item has already been entered. It will not be entered again");
+                    }
+                }
+            }
+        }
+
+        private void gridControlItems_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop) == false)
+            {
+                e.Effect = DragDropEffects.None;
+            }
+            else
+            {
+                //Make sure the user is only dropping sym files 
+                string[] fileDrop = (e.Data.GetData(DataFormats.FileDrop) as string[]);
+
+                foreach (string file in fileDrop)
+                {
+                    if (file.EndsWith(".sym"))
+                        e.Effect = DragDropEffects.Copy;
+                    else
+                    {
+                        e.Effect = DragDropEffects.None;
+                        return;
+                    }
+                }
+
+                return;
+
+            }
+        }
         #endregion
 
         #region sorting and filtering
@@ -2252,6 +2396,7 @@ namespace RadanMaster
         }
         #endregion
 
+        
     }
 }
 
