@@ -502,11 +502,17 @@ namespace RadanMaster
                         {
                             MessageBox.Show(Path.GetFileName(radanPart.Symbol) + " cannot be synched back to RadanMaster, no matching record found.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+                        else
+                        {
+                            if (radanPart.Made >= radanPart.Number)
+                                masterItem.IsComplete = true;
+                        }
                     }
 
                     // check for completed orders....right now this only work one way, it won't uncheck completed orders that are no longer complete
                     bool orderComplete = true;
-                    List<OrderItem> orderItemsToSync = dbContext.OrderItems.ToList();   // this may cause performance problems eventually
+                    //List<OrderItem> orderItemsToSync = dbContext.OrderItems.ToList();               // this may cause performance problems eventually
+                    List<OrderItem> orderItemsToSync = dbContext.OrderItems.Where(oi => oi.Order.IsComplete == false).Where(oi => oi.IsInProject).ToList();
                     foreach (OrderItem syncItem in orderItemsToSync)
                     {
                         if (syncItem.Order.IsComplete != true)      // no need to check if order is already complete
