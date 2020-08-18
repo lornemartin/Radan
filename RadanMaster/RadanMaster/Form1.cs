@@ -248,14 +248,14 @@ namespace RadanMaster
                                 string modifiedThickness = lineItem.MaterialThickness.Substring(0, lineItem.MaterialThickness.LastIndexOf(" "));
                                 newPart.Thickness = NormalizeThickness(double.Parse(modifiedThickness));
                                 // the following should work, but has not been tested yet.
-                                //if (lineItem.MaterialThickness.Contains("mm"))
-                                //    newPart.Thickness = newPart.Thickness / 25.4;
+                                if (lineItem.MaterialThickness.Contains("mm"))
+                                  newPart.Thickness = newPart.Thickness / 25.4;
                                 newPart.Material = lineItem.Material;
                                 newPart.Thumbnail = thumbnailByteArray;
                                 newPart.HasBends = hasBends;
 
                                 dbContext.Parts.Add(newPart);
-                                dbContext.SaveChanges();
+                                //dbContext.SaveChanges();
                             }
                             else
                             {
@@ -269,7 +269,7 @@ namespace RadanMaster
                                 newPart.Material = lineItem.Material;
                                 newPart.Thumbnail = thumbnailByteArray;
                                 newPart.HasBends = hasBends;
-                                dbContext.SaveChanges();
+                                //dbContext.SaveChanges();
                             }
 
                             foreach (OrderData oData in lineItem.AssociatedOrders)
@@ -299,7 +299,7 @@ namespace RadanMaster
                                     searchOrder.EntryDate = DateTime.Now;
                                     searchOrder.IsBatch = isBatch;
                                     dbContext.Orders.Add(searchOrder);
-                                    dbContext.SaveChanges();
+                                    //dbContext.SaveChanges();
                                 }
 
                                 OrderItem searchOrderItem = new OrderItem();
@@ -320,13 +320,13 @@ namespace RadanMaster
                                     searchOrderItem.IsComplete = false;
 
                                     dbContext.OrderItems.Add(searchOrderItem);
-                                    dbContext.SaveChanges();
+                                    //dbContext.SaveChanges();
 
                                 }
                                 else       // adjust existing order item with new quantities if it already exists
                                 {
                                     searchOrderItem.QtyRequired += oData.OrderQty * oData.UnitQty;
-                                    dbContext.SaveChanges();
+                                    //dbContext.SaveChanges();
                                 }
                             }
                         }
