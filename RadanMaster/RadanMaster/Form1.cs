@@ -57,8 +57,6 @@ namespace RadanMaster
         //private static readonly log4net.ILog logger =
         //log4net.LogManager.GetLogger(typeof(Program));
 
-        // git test line
-
         RefreshHelper helper;
 
         public Form1()
