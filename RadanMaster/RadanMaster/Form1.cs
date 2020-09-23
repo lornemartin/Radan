@@ -2148,7 +2148,49 @@ namespace RadanMaster
 
                     OrderItem item = (OrderItem)childRow;
                     numTotal++;
-                    if (item.IsComplete) numComplete++;
+                    // the line below doesn't work when parent item is collapsed
+                    //if (item.IsComplete) numComplete++;
+
+                    // alternate code to calculate out parts nested in current project to see whether item is complete or not.
+                    //  had trouble that all items showed complete if parent item was collapsed.
+
+                    int origQtyNested = 0;
+                    int qtyNested = 0;
+
+                    if (rPrj == null)
+                        qtyNested = -1;
+                    else
+                    {
+                        int totalNested = 0;
+                        OrderItem calcItem = item;
+                        origQtyNested = calcItem.QtyNested;
+
+                        if (calcItem.RadanIDNumber != 0)
+                        {
+                            int radanID = calcItem.RadanIDNumber;
+
+                            foreach (RadanPart radanPart in rPrj.Parts.Part)
+                            {
+                                if (radanPart.Bin == radanID.ToString())
+                                {
+                                    totalNested += radanPart.Made;
+                                }
+                            }
+                        }
+
+                        qtyNested = calcItem.QtyNested += totalNested;
+
+                        // for some reason e.Value gets written to calcItem.QtyNested.
+                        //    because this event fires multiple times, the quantity nested gets incremented multiple times.
+                        //    This is not what we want so the following line is a work around.
+                        calcItem.QtyNested = origQtyNested;
+
+                        if (qtyNested >= calcItem.QtyRequired)
+                            calcItem.IsComplete = true;
+                        else
+                            calcItem.IsComplete = false;
+                    }
+                    if ((qtyNested >= item.QtyRequired)  || (item.QtyNested >= item.QtyRequired)) numComplete++;
                 }
 
                 double percentageDone = 0.0;
