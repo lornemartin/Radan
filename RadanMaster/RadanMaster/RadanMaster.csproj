@@ -43,7 +43,7 @@
     </Reference>
     <Reference Include="Autodesk.Connectivity.WebServices.WCF, Version=24.2.27.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Vault Professional 2019\Explorer\Autodesk.Connectivity.WebServices.WCF.dll</HintPath>
+      <HintPath>..\..\..\Vault Interface Projects\Vault 2020 SDK Binaries\Autodesk.Connectivity.WebServices.WCF.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.BonusSkins.v20.1" />
     <Reference Include="DevExpress.Data.v20.1, Version=20.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
