@@ -1100,7 +1100,10 @@ namespace RadanMaster
                             }
                         }
 
-                        dbContext.RadanIDs.BulkUpdate(radanIdList);
+                        foreach (RadanID rID in radanIdList)
+                        {
+                            dbContext.RadanIDs.AddOrUpdate(rID);
+                        }
 
                         dbContext.SaveChanges();
                         rPrj.SaveData(radanProjectName);
