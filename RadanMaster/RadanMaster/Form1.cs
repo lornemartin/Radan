@@ -1676,7 +1676,8 @@ namespace RadanMaster
                         string vaultServer = (string)AppSettings.AppSettings.Get("VaultServer");
                         string vaultName = (string)AppSettings.AppSettings.Get("VaultName");
 
-                        if (!va.Login(vaultUserName, vaultPassword, vaultServer, vaultName))
+                        string loginResult = va.LoginWithResults(vaultUserName, vaultPassword, vaultServer, vaultName);
+                        if (loginResult!="")
                         {
                             SplashScreenManager.HideImage();
                             MessageBox.Show("Error logging into Vault.");
