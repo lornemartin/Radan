@@ -1680,7 +1680,7 @@ namespace RadanMaster
                         if (loginResult!="")
                         {
                             SplashScreenManager.HideImage();
-                            MessageBox.Show("Error logging into Vault.");
+                            MessageBox.Show(loginResult);
                             return;
                         }
 
