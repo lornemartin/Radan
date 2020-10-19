@@ -37,9 +37,9 @@
     <ApplicationIcon>radanmaster_OWs_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autodesk.Connectivity.Extensibility.Framework, Version=24.0.0.0, Culture=neutral, PublicKeyToken=aa20f34aedd220e1, processorArchitecture=MSIL">
+    <Reference Include="Autodesk.Connectivity.Extensibility.Framework, Version=26.0.0.0, Culture=neutral, PublicKeyToken=215b0879a7566597, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Vault Professional 2019\Explorer\Autodesk.Connectivity.Extensibility.Framework.dll</HintPath>
+      <HintPath>..\..\..\Vault Interface Projects\Vault 2020 SDK Binaries\Autodesk.Connectivity.Extensibility.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Autodesk.Connectivity.WebServices">
       <HintPath>..\..\..\Vault Interface Projects\Vault 2020 SDK Binaries\Autodesk.Connectivity.WebServices.dll</HintPath>
