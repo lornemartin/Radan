@@ -43,7 +43,6 @@ namespace RadanMaster
     public partial class Form1 : RibbonForm
     {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         RadanMaster.DAL.RadanMasterContext dbContext { get; set; }
         string radanProjectName { get; set; }
         RadanProject rPrj { get; set; }
